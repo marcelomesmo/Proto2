@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5014502471963287111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3276513514605089039}
+  - component: {fileID: 8546929940581069133}
+  m_Layer: 0
+  m_Name: ProjectilePoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3276513514605089039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014502471963287111}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8546929940581069133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014502471963287111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dfbcdb6eb240f4396a8d15b56ceafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePools:
+  - projectilePrefab: {fileID: 5975751646184246127, guid: 3c1b06d140cc35a4d90993300575a3dd, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
+  - projectilePrefab: {fileID: 5975751646184246127, guid: f8e1b25fc78f6124fa2d954485eafe2a, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
+  - projectilePrefab: {fileID: 5975751646184246127, guid: cb63374a4ac8ac645b562f8176437d51, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
+  - projectilePrefab: {fileID: 5975751646184246127, guid: eec6e9d3dd7b8bd45bfe1f3333361bbf, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100

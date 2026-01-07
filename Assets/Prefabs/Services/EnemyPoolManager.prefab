@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6234572235023172272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8348243807343720094}
+  - component: {fileID: 8097181172246228889}
+  m_Layer: 0
+  m_Name: EnemyPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8348243807343720094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234572235023172272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8097181172246228889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234572235023172272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdedd8d7042f9d4a8ce50161d15fa1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPools:
+  - enemyPrefab: {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: 065e00df4ab16f046aa30a2e46cba8a3, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: c01b270962dabd248966c83612151609, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: 89f6fda154ca95e46a4247369fb1e45b, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: bcd327eaa9d5d0e40aa8e9ba26c47f5e, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: a8166eac4207a6f42bd20fe17b71695a, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: c0c0ea330c37ea94888cc5d5fb1af954, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 50
+  - enemyPrefab: {fileID: 3739661297116585736, guid: 7e42d930cbee8ad46b03c5a6b140e7a9, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 4
+    maxSize: 10
+  - enemyPrefab: {fileID: 3739661297116585736, guid: 33c6a5690820c1a41ae0c19c8002985c, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 4
+    maxSize: 10

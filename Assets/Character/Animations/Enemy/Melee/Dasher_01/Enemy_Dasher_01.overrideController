@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Enemy_Dasher_01
+  m_Controller: {fileID: 9100000, guid: ed1bbb2dccb7a424a9969f916919f446, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 8151a21a86e8443db8efcec43314dece, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce3fda72866ca7545a5fd8553b52e0fd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6d1eca749f9f840299a309e3fd0302af, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a25c07239b9ff3347964b082ae1a9f67, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a16c2646085174726a41a2900d723bdd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 40f7c019e5bf8e7468138eba1ff12a87, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6fbd3b4272fc84993b8317d782d39f77, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7e4a363abf3fbf84e95db373da4ff787, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 53cef5a888e0e4548908fb7ca88e1b75, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 12c3f2a8d458a3f46bb1d466d60b2b07, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a64c100b26dc90f45abef8e01401db4e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b7fd803b5496c184d85dd742f3bc94c2, type: 2}

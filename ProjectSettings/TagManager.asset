@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - TutorialRequirement
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Background
+  - Environment
+  - Player
+  - Enemy
+  - Player Projectile
+  - Enemy Projectile
+  - Interactable
+  - OneWayPlatform
+  - Ground
+  - Loot
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 3912157219
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Env
+    uniqueID: 2378722151
+    locked: 0
+  - name: Collectibles
+    uniqueID: 1155916923
+    locked: 0
+  - name: Enemies
+    uniqueID: 2386103911
+    locked: 0
+  - name: Player
+    uniqueID: 2218954755
+    locked: 0
+  - name: VFX
+    uniqueID: 3951305293
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  - Light Layer 1
+  - Light Layer 2
+  - Light Layer 3
+  - Light Layer 4
+  - Light Layer 5
+  - Light Layer 6
+  - Light Layer 7

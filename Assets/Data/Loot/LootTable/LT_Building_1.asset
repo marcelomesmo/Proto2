@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e1aeb8ae55562489b6f7280f80bf9c, type: 3}
+  m_Name: LT_Building_1
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Collectables.LootTableSO
+  entries:
+  - resource: {fileID: 11400000, guid: 814565219b570c0428cbe6fc79fa5315, type: 2}
+    dropChance: 1
+    minAmount: 7
+    maxAmount: 7

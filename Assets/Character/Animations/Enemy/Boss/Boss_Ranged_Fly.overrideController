@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Boss_Ranged_Fly
+  m_Controller: {fileID: 9100000, guid: ed1bbb2dccb7a424a9969f916919f446, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 8151a21a86e8443db8efcec43314dece, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bb2c3a59220bd2049ab49f2629b26cb3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6d1eca749f9f840299a309e3fd0302af, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eb51074e7e91e2540b7e468090e8e276, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a16c2646085174726a41a2900d723bdd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5584d73f89ae82e459bd615f8d40f025, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6fbd3b4272fc84993b8317d782d39f77, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2fefd9796c24d344386c135ba97f4183, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 53cef5a888e0e4548908fb7ca88e1b75, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 17ee5eb84697dc0419d84f42fb529626, type: 2}

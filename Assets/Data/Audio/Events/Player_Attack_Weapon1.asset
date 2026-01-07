@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a4217af8b6c5442b439d7cc11f2bff, type: 3}
+  m_Name: Player_Attack_Weapon1
+  m_EditorClassIdentifier: Assembly-CSharp::Audio.Data.AudioEvent
+  clipSet: {fileID: 11400000, guid: 4eff2434208951b49b2254442540a8d3, type: 2}
+  bus: 1
+  mixerGroup: {fileID: -2909880930133155711, guid: df0060f060e4dd04cb1e39f988e070e4, type: 2}
+  volume: 1
+  volumeRandomness: 0.05
+  pitch: 1
+  pitchRandomness: 0.05
+  spatialBlend: 0.7
+  minDistance: 1
+  maxDistance: 12
+  priority: 128

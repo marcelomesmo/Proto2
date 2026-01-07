@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5333926350963498901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5179730797569792802}
+  - component: {fileID: 7557850150347317461}
+  m_Layer: 0
+  m_Name: VFXPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5179730797569792802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333926350963498901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7557850150347317461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333926350963498901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14c9a250c0729041b03b2390e1191b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxPools:
+  - vfxPrefab: {fileID: 2322094872818906980, guid: af0702f03a67062449459f7e27961c22, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 10
+    maxSize: 10
+  - vfxPrefab: {fileID: 2322094872818906980, guid: 6c2145c9d68a2074599a2049cdbafffe, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 10
+    maxSize: 10
+  - vfxPrefab: {fileID: 6258257006809320353, guid: 0a017db6d0b59984499437af5f470d74, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 10
+    maxSize: 10
+  - vfxPrefab: {fileID: 767776283547506129, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 4776489433992499268, guid: 9cb17a9ad07e92b4db1e6c29a3488f64, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 4776489433992499268, guid: 26c3fa3493ffbce4a9cba6b55f879823, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 4776489433992499268, guid: d0e174b0a6586fb499d76ae3b09f741f, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100

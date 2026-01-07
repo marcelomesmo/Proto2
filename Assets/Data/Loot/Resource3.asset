@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1c63705054481498c93e8a4d0fbcf4, type: 3}
+  m_Name: Resource3
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Collectables.ResourceSO
+  displayName: Orb
+  icon: {fileID: 2214683806062304926, guid: f260a7e415ce81843b1f0efeb29e5cf5, type: 3}
+  contribution: 1
+  worldPrefab: {fileID: 7884921020276421983, guid: 54b7d12b29bf2ba4a954eee6de18dd3b, type: 3}
