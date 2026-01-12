@@ -39,38 +39,12 @@ namespace Enemy
             ReturnToPool();
         }
         
+        // TODO: Remove this, is done by EntityController now.
         #region Pool
         private IObjectPool<EnemyController> _objectPool;
         private bool _isReleased;
         public void AssignToPool(IObjectPool<EnemyController> objectPool) => _objectPool = objectPool;
         private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
-        #endregion
-    
-        #region Pool lifecycle helpers
-        
-        // Called by pool on Get (actionOnGet)
-        public void OnSpawn()
-        {
-            _isReleased = false;
-            
-            if(!Stats)
-                throw new System.Exception("[BaseEnemyController] Stats not set!");
-
-            InitializeAllSubsystems();
-            
-            // Rebind ONLY here
-            Animator.Rebind();
-            Animator.Update(0f);
-        }
-
-        // Called by pool on Release (actionOnRelease)
-        public void OnDespawn()
-        {
-            DeinitializeAllSubsystems();
-            
-            Tags.ClearTags();
-        }
-
         #endregion
     }
 }

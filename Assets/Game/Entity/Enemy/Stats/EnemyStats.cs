@@ -17,7 +17,8 @@ namespace Enemy
     {
         [Header("Enemy Only")] 
         [Header("AI")] 
-        public float thinkingTime = 0.3f;
+        public float thinkingTime = 1.5f;
+        public float globalCooldown = 0.5f;
         
         [Header("Base Movement")]
         public EnemyMovementType movementType = EnemyMovementType.Ground;
@@ -30,17 +31,6 @@ namespace Enemy
 
         [Header("Flying Settings")]
         public float flyHoverHeight = 1f;
-
-        [Header("Combat")]
-        public float attackRange = 1.5f;
-        public float attackCooldown = 1f;
-
-        [Header("Melee Combat")]
-        public int contactDamage = 10;
-        
-        [Header("Ranged Combat")]
-        public bool isRanged = false;
-        public GameObject projectilePrefab;
         
         [Header("Targeting")]
         public float aggroRadius = 8f;

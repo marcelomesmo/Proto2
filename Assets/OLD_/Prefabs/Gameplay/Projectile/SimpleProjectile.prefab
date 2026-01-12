@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24dd7ef7783ad049a7b864c8e8f2b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementBehavior: {fileID: 0}
-  impactBehavior: {fileID: 0}
-  impactVFXPrefab: {fileID: 0}
+  movementBehavior: {fileID: 11400000, guid: aadf7c4cdafe03b4ab8dc18b3d42e1e9, type: 2}
+  impactBehavior: {fileID: 11400000, guid: 60f21682d4f27764e936dcfe01003751, type: 2}
+  attackProperties: {fileID: 11400000, guid: 225709d00b413894eac570a6f1ea0ec0, type: 2}
+  trailVFXPrefab: {fileID: 0}
 --- !u!212 &7787481460175388734
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -70,6 +72,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -91,9 +95,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2076012541
   m_SortingLayer: 4
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0c06f5612d1a15144a2ec41b34548e14, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,7 +109,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &-1011089068208285878
 CircleCollider2D:

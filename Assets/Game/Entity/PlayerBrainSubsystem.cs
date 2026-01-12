@@ -32,7 +32,7 @@ namespace Entity
         //public WeaponManager primaryWeapon;
         //public WeaponManager secondaryWeapon;
         public AimState aimState = AimState.Right;
-        private GameObject _reloadBar;
+        //private GameObject _reloadBar;
         
         // Local References
         private CustomPlayerMovement _movement;
@@ -57,7 +57,7 @@ namespace Entity
 
         protected override void OnInitialize()
         {
-            _reloadBar = transform.Find("ReloadBar").gameObject;
+            //_reloadBar = transform.Find("ReloadBar").gameObject;
             
             _movement = GetComponent<CustomPlayerMovement>();
             

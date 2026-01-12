@@ -152,5 +152,7 @@ namespace Core.Gameplay.Entity.Subsystem
             Controller.Tags.RemoveTag(Controller.Stats.invulnerableTag); // Force loss of invulnerability
             Controller.Tags.AddTag(Controller.Stats.spawnFinishedTag);
         }
+
+        public bool IsDead => _currentHealth <= 0;
     }
 }

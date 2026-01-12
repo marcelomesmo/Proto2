@@ -88,24 +88,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Menu",
-                    "type": "Button",
-                    "id": "660e2b4b-b11a-4b85-9d42-2beada90fd4a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Debug",
-                    "type": "Button",
-                    "id": "032d32a0-090c-485e-9759-c821644b7a79",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "OneWayDrop",
                     "type": "Button",
                     "id": "9a3e04af-e8b0-4f39-a1c3-74acccb0c50b",
@@ -503,39 +485,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bf91b079-c2a3-41a7-ab9e-6e5fbc7e9f4b",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ab1194d0-a370-48e0-b510-68e72eba2707",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e0585ee0-9cfd-4ae3-be65-4241da7d05bb",
-                    "path": "<Keyboard>/backquote",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Debug",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b26d6fa6-717c-4a6a-84a6-2293c882b5d9",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -656,6 +605,15 @@
                     "name": "Menu",
                     "type": "Button",
                     "id": "64617cc9-deda-4cb0-9127-c4265cafe0cc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Debug",
+                    "type": "Button",
+                    "id": "30dff8f4-8404-466b-9efe-d2cd84a9a028",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1100,6 +1058,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "102a112e-f5f2-440c-8298-ba49b081a609",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

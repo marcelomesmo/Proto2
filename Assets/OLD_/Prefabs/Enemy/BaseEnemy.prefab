@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1257579424666480648
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6734138646560754729}
-  m_Layer: 9
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6734138646560754729
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257579424666480648}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6544301082855044667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5922544795455909715
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,8 +153,9 @@ GameObject:
   - component: {fileID: 6544301082855044667}
   - component: {fileID: 6845709839229864008}
   - component: {fileID: 4062084625563094719}
+  - component: {fileID: 2337759474063031186}
+  - component: {fileID: 2002944268447024776}
   - component: {fileID: 7503143644824298272}
-  - component: {fileID: 6747870899135791451}
   - component: {fileID: 9120771782841873269}
   - component: {fileID: 2277350501971118597}
   - component: {fileID: 8859473706828602196}
@@ -214,7 +184,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8700085850219623302}
-  - {fileID: 6734138646560754729}
   - {fileID: 6407676346085711544}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -245,9 +214,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyAiBrainSubsystem
   controlEnabled: 0
+  attackLoadout: {fileID: 0}
   losBlockMask:
     serializedVersion: 2
     m_Bits: 24576
+--- !u!114 &2337759474063031186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6124087282748428075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac5fa14f5f7c5d40bde57c4805c63c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityAttackSubsystem
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  attackLoadout: {fileID: 0}
+--- !u!114 &2002944268447024776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6124087282748428075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8aef9e79c38ae47a54bc531eed0939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Attack.EntityAttackLoadout
+  attacks:
+  - {fileID: 11400000, guid: 7de24d4c82af13b4c8cfe512d55299a7, type: 2}
+  - {fileID: 11400000, guid: 447652a9d5e0f084c99a652f86d33451, type: 2}
 --- !u!114 &7503143644824298272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,22 +263,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnHealthChanged: {fileID: 0}
   deathAudio: {fileID: 11400000, guid: 11c7a50319160e946a7f52448e815c84, type: 2}
---- !u!114 &6747870899135791451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6124087282748428075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2548aaf6d6aa4e64d9b266e0360fa866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  attacks: {fileID: 11400000, guid: 7de24d4c82af13b4c8cfe512d55299a7, type: 2}
 --- !u!114 &9120771782841873269
 MonoBehaviour:
   m_ObjectHideFlags: 0

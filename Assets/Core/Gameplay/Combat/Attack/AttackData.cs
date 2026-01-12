@@ -7,22 +7,15 @@ namespace Core.Gameplay.Combat.Attack
     public class AttackData : ScriptableObject
     {
         public int damage;
+        public float range;
+        public float cooldown;
         public HitType hitType;
-        public GameObject hitVFX;
         
-        // FUTURE IMPROVEMENTS
-        /*
-            Create a damage info payload:
+        public GameObject hitVFX;
 
-            public struct DamageInfo
-            {
-                public int amount;
-                public Vector2 hitPoint;
-                public Vector2 direction;
-                public DamageType type;
-                public bool isCritical;
-                public GameObject source;
-            }
-        */
+        public bool isRanged;
+        public GameObject projectilePrefab;
+        public ProjectileDirectionMode directionMode;
+        public float fixedAngle;
     }
 }

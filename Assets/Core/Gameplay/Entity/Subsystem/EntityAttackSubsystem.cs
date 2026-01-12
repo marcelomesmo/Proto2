@@ -1,7 +1,225 @@
+using System.Collections.Generic;
+using Core.Enum;
+using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Projectile;
+using Core.Gameplay.Entity.Attack;
+using Core.Gameplay.Entity.Stats;
+using Core.Services.Manager;
+using UnityEngine;
+
 namespace Core.Gameplay.Entity.Subsystem
 {
-    public abstract class EntityAttackSubsystem : BaseSubsystem
+    [RequireComponent(typeof(EntityAttackLoadout))]
+    public class EntityAttackSubsystem : BaseSubsystem
     {
-        public virtual void OnAttackHit() { }
+        [Header("Attack Settings")]
+        [SerializeField] private LayerMask hitLayers;
+        
+        private readonly Dictionary<AttackData, AttackInstance> _attacks = new();
+        
+        // Helpers
+        private BaseEntityStats _stats;
+        private EntityController _controller;
+        private EntityAttackLoadout _attackLoadout;
+        private DamageSource _damageSource;
+        private AttackInstance _currentAttack;
+        
+        private int _facingDirection = 1;
+        private Vector2 _boxSize = new(3f, 0.5f);
+        
+        protected override void OnInitialize()
+        {
+            if (Controller.Stats)
+                _stats = Controller.Stats;
+            else
+                Debug.LogError("[EntityAttackSubsystem] requires Stats!");
+            
+            if (Controller)
+                _controller = Controller;
+            else
+                Debug.LogError("[EntityAttackSubsystem] requires Controller!");
+            
+            _attackLoadout = GetComponent<EntityAttackLoadout>();
+            
+            _attacks.Clear();
+            
+            // Initialize attack reference dictionary.
+            foreach (var attack in _attackLoadout.Attacks)
+            {
+                if (_attacks.ContainsKey(attack))
+                {
+                    Debug.LogWarning(
+                        $"[EntityAttackSubsystem] Duplicate Attack reference {attack.name} on {_controller.name}",
+                        this);
+                    continue;
+                }
+
+                _attacks.Add(attack, new AttackInstance(attack));
+            }
+
+            //attackLoadout?.OnLoadoutChanged += OnAttackLoadoutChanged();
+            
+            // Initialize damage source.
+            _damageSource = new DamageSource(
+                faction: _stats.faction,
+                controller: _controller,
+                sourcePosition: transform.position
+            );
+        }
+
+        protected override void OnUpdate()
+        {
+            OnTick(Time.deltaTime);
+        }
+        
+        private void OnTick(float deltaTime)
+        {
+            // Tick all attack instances (that are currently running).
+            foreach (var attack in _attacks.Values)
+                attack.Tick(deltaTime);
+        }
+        
+        public bool TryExecute(AttackData attack, AttackContext context)
+        {
+            if (attack == null)
+                return false;
+            
+            if (!_attacks.TryGetValue(attack, out var instance))
+                return false;
+
+            if (!instance.IsReady)
+                return false;
+
+            if (!IsTargetInRange(attack, context))
+                return false;
+
+            ExecuteAttack(instance, context);
+            instance.Consume();
+
+            return true;
+        }
+        
+        private void ExecuteAttack(AttackInstance attack, AttackContext context)
+        {
+            _currentAttack = attack;
+            
+            if (Controller.Animator)
+                Controller.Animator.SetTrigger("attack");
+
+            if (attack.Data.isRanged)
+                ShootProjectile(attack.Data, context);
+            else
+                PrepareMelee(context);
+        }
+        
+        private void ShootProjectile(AttackData data, AttackContext context)
+        {
+            float angle;
+            
+            switch (data.directionMode)
+            {
+                case ProjectileDirectionMode.UseAttackDirection:
+                    angle = Mathf.Atan2(context.Direction.y, context.Direction.x) * Mathf.Rad2Deg;
+                    break;
+
+                case ProjectileDirectionMode.FixedAngle:
+                    angle = data.fixedAngle;
+                    break;
+
+                case ProjectileDirectionMode.HorizontalFacing:
+                default:
+                    angle = context.Direction.x < 0 ? 180f : 0f;
+                    break;
+            }
+
+            var projectile = ProjectilePoolManager.Instance.Spawn(data.projectilePrefab);
+            projectile.transform.position = transform.position;
+            
+            projectile.Configure(CreateProjectileContext(data), _damageSource);
+            projectile.Launch(angle);
+        }
+
+        private ProjectileContext CreateProjectileContext(AttackData data)
+        {
+            return new ProjectileContext(
+                faction: _stats.faction,
+                range: data.range,
+                bonusPierce: 0,
+                damageMultiplier: 1f
+            );
+        }
+
+        private void PrepareMelee(AttackContext context)
+        {
+            Vector2 direction = context.Direction;
+
+            if (direction.sqrMagnitude < 0.001f)
+                direction = Vector2.right; // safe fallback
+
+            _facingDirection = direction.x < 0 ? -1 : 1;
+        }
+        
+        // Called via animation event
+        public void OnAttackHit()
+        {
+            if (_currentAttack == null)
+                return;
+
+            ApplyMeleeHit(_currentAttack.Data);
+            _currentAttack = null;
+        }
+        
+        private void ApplyMeleeHit(AttackData data)
+        {
+            Bounds bounds = GetEntityBounds();
+
+            float halfWidth = bounds.extents.x;
+            float boxHalf = data.range * 0.5f;
+
+            Vector2 origin = bounds.center;
+            Vector2 center = origin + new Vector2((halfWidth + boxHalf) * _facingDirection, 0f);
+
+            _boxSize.x = data.range;
+
+            var hits = Physics2D.OverlapBoxAll(center, _boxSize, 0f, hitLayers);
+
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent(out EntityHealth health) && !health.IsDead)
+                {
+                    var payload = new DamagePayload(
+                        data,
+                        Vector2.zero,
+                        _damageSource
+                    );
+
+                    health.TakeDamage(payload);
+                }
+            }
+        }
+        
+        private Bounds GetEntityBounds()
+        {
+            if (TryGetComponent(out Collider2D col))
+                return col.bounds;
+
+            if (TryGetComponent(out SpriteRenderer sr))
+                return sr.bounds;
+
+            return new Bounds(transform.position, Vector3.one);
+        }
+        
+        private bool IsTargetInRange(AttackData data, AttackContext context)
+        {
+            if (context.Target == null)
+                return true; // Directional or blind attack
+            
+            float distance = Vector2.Distance(
+                transform.position,
+                context.Target.transform.position
+            );
+
+            return distance <= data.range;
+        }
     }
 }
