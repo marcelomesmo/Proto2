@@ -21,18 +21,16 @@ MonoBehaviour:
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
   stunnedTag: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}
   deadTag: {fileID: 11400000, guid: 09ef483b3fe07814b9e192d23f2e4d0c, type: 2}
+  thinkingTime: 1.5
+  globalCooldown: 0.5
   movementType: 0
   preferredDistance: 2
   dashSpeedMultiplier: 2
   dashDelay: 0.5
   dashCooldown: 3
   flyHoverHeight: 1
-  attackRange: 3
-  attackCooldown: 2
-  contactDamage: 5
-  isRanged: 0
-  projectilePrefab: {fileID: 5975751646184246127, guid: 3c1b06d140cc35a4d90993300575a3dd, type: 3}
   aggroRadius: 8
+  aggroTolerance: 10
   entityMask:
     serializedVersion: 2
     m_Bits: 256

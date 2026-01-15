@@ -12,7 +12,7 @@ namespace Core.Services
         [SerializeField] private AudioManager audioManagerPrefab;
         [SerializeField] private VFXPoolManager vfxPoolPrefab;
         [SerializeField] private ProjectilePoolManager projectilePoolPrefab;
-        [SerializeField] private EnemyPoolManager enemyPoolPrefab;
+        [SerializeField] private EntityPoolManager entityPoolPrefab;
         
         [Header("Game Input Actions")]
         [SerializeField] private InputActionAsset inputActions;
@@ -48,7 +48,7 @@ namespace Core.Services
             RegisterService(audioManagerPrefab);
             RegisterService(vfxPoolPrefab);
             RegisterService(projectilePoolPrefab);
-            RegisterService(enemyPoolPrefab);
+            RegisterService(entityPoolPrefab);
 
             // Let all Awake() calls settle
             yield return null;

@@ -10,15 +10,11 @@ namespace Core.Gameplay.Entity.Stats
         [Header("Definition")]
         public Faction faction;
     
-        [Header("Health")]
+        [Header("Stats")]
         public int maxHealth = 100;
     
         [Header("Movement")]
         public float moveSpeed = 2f;
-    
-        [Header("Jump Settings")]
-        public float jumpHeight = 3f;
-        public float jumpCooldown = 2f;
     
         [Header("Tags")]
         public GameplayTag invulnerableTag;

@@ -17,6 +17,12 @@ namespace Core.Gameplay.Entity.Subsystem
         
         public void Initialize(EntityController controller)
         {
+            Debug.Assert(controller != null,
+                $"[{GetType().Name}] Initialize called with null controller.");
+
+            Debug.Assert(controller.Stats != null,
+                $"[{controller.name}] Stats missing during subsystem init.");
+            
             if (_initialized) return;
             _initialized = true;
             _isActive = true;

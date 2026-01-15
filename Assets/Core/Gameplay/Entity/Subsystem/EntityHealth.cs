@@ -21,6 +21,7 @@ namespace Core.Gameplay.Entity.Subsystem
         public event Action<int, int> HealthChanged;
         public event Action<DamagePayload> DamageTaken;
         
+        // TODO: This shouldn't be here, but in VFX manager
         [Header("Audio")]
         [SerializeField] private AudioEvent deathAudio;
         
@@ -56,7 +57,7 @@ namespace Core.Gameplay.Entity.Subsystem
             
             // Initialize Health in HUD
             if (Faction == Faction.Player)
-                OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
+                OnHealthChanged?.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
             else
                 HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
         }

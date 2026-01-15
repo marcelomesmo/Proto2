@@ -1,5 +1,6 @@
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Tags;
+using Core.Services.Manager;
 using Entity;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -33,18 +34,10 @@ namespace Enemy
             if (!IsDead)
                 return;
             
-            if (_isReleased)
+            if (IsReleased)
                 return;
 
-            ReturnToPool();
+            EntityPoolManager.Instance.Despawn(this);
         }
-        
-        // TODO: Remove this, is done by EntityController now.
-        #region Pool
-        private IObjectPool<EnemyController> _objectPool;
-        private bool _isReleased;
-        public void AssignToPool(IObjectPool<EnemyController> objectPool) => _objectPool = objectPool;
-        private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
-        #endregion
     }
 }

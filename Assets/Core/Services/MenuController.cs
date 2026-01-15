@@ -6,10 +6,12 @@ namespace Core.Services
     {
         [Header("Panels")]
         [SerializeField] private GameObject mainPanel;
+        [SerializeField] private GameObject roosterPanel;
         [SerializeField] private GameObject optionsPanel;
 
         private void Awake()
         {
+            // Later: check save slots here
             ShowMain();
         }
 
@@ -17,7 +19,14 @@ namespace Core.Services
 
         public void OnStartGame()
         {
-            // Later: check save slots here
+            // TODO: Might remove this later and just open the rooster straight ahead.
+            
+            mainPanel.SetActive(false);
+            roosterPanel.SetActive(true);
+        }
+
+        public void OnPlayGame()
+        {
             SceneLoader.LoadLevel("Level_01");
         }
 

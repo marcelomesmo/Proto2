@@ -9,7 +9,7 @@ namespace Core.Services
         
         public void OnGameEnded()
         {
-            ServiceLocator.Get<EnemyPoolManager>().ReleaseAll();
+            ServiceLocator.Get<EntityPoolManager>().ReleaseAll();
             ServiceLocator.Get<ProjectilePoolManager>().ReleaseAll();
             ServiceLocator.Get<VFXPoolManager>().ReleaseAll();
             ServiceLocator.Get<AudioManager>().ReleaseAll();

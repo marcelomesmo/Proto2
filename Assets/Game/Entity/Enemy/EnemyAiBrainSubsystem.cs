@@ -216,7 +216,7 @@ namespace Enemy
             if (_jumpDelayTimer > 0f || _jumpCooldownTimer > 0f) return;
 
             _jumpDelayTimer = 0.2f; // pre-jump delay
-            _jumpCooldownTimer = _stats.jumpCooldown;
+            _jumpCooldownTimer = _stats.thinkingTime;
 
             _movement.MoveTo(TargetPosition);
         }

@@ -1,5 +1,4 @@
 using Core.Gameplay.Entity.Subsystem;
-using Entity;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Movement
@@ -8,7 +7,7 @@ namespace Core.Gameplay.Entity.Movement
     {
         public override void MoveTo(Vector2 target)
         {
-            if(!CanRbMove) return;
+            /*if(!CanRbMove) return;
         
             Vector2 direction = (target - (Vector2)transform.position).normalized;
             float jumpVelocityY = Mathf.Sqrt(2f * Controller.Stats.jumpHeight * Mathf.Abs(Physics2D.gravity.y));
@@ -18,7 +17,7 @@ namespace Core.Gameplay.Entity.Movement
             
             // Play jump animation
             if (Controller.Animator)
-                Controller.Animator.SetTrigger("jump");
+                Controller.Animator.SetTrigger("jump");*/
         }
     }
 }

@@ -46,8 +46,8 @@ namespace Core.Gameplay.Entity.Spawner
 
             int maxSlots = 0;
             foreach (var spawnWave in spawnData.spawnList)
-                if (spawnWave.enemyPrefabs.Count >= maxSlots)
-                    maxSlots = spawnWave.enemyPrefabs.Count;
+                if (spawnWave.prefabs.Count >= maxSlots)
+                    maxSlots = spawnWave.prefabs.Count;
 
             //int maxSlots = spawnData.maxSimultaneousEnemies;
             _spawnSlots = new float[maxSlots];
@@ -128,7 +128,7 @@ namespace Core.Gameplay.Entity.Spawner
         private void UpdateWaveSpawn()
         {
             var wave = spawnData.spawnList[_spawnedWaves];
-            int totalEnemies = wave.enemyPrefabs.Count;
+            int totalEnemies = wave.prefabs.Count;
 
             if (_spawnedElements >= totalEnemies)
             {
@@ -144,7 +144,7 @@ namespace Core.Gameplay.Entity.Spawner
                 _spawnTimer = 0f;
 
                 SpawnEnemy(
-                    wave.enemyPrefabs[_spawnedElements],
+                    wave.prefabs[_spawnedElements],
                     totalEnemies,
                     _spawnedElements
                 );
@@ -192,18 +192,28 @@ namespace Core.Gameplay.Entity.Spawner
             enemyObject.transform.position = end;
         }*/
         
-        private void SpawnEnemy(GameObject prefab, int waveSize, int spawnIndex)
+        private void SpawnEnemy(EntityController prefab, int waveSize, int spawnIndex)
         {
-            EntityController enemy = EnemyPoolManager.Instance.Spawn(prefab);
-            if (!enemy)
-                return;
-
             float offset = GetSpawnOffset(waveSize, spawnIndex);
 
             Vector2 pos = transform.position;
             pos.x += offset;
-
-            enemy.transform.position = pos;
+            
+            // TODO: New Spawn.
+            
+            /*
+             var context = new SpawnContext(
+                stats: definition.baseStats,
+                attackLoadout: definition.initialAttackLoadout,
+                owner: gameObject,
+                level: 1,
+                powerMultiplier: 1f
+            );
+            
+            EntityController enemy = EntityPoolManager.Instance.Spawn(prefab, pos, Quaternion.identity, );
+            if (!enemy)
+                return;
+            */
         }
         
         private float GetSpawnOffset(int waveSize, int spawnIndex)

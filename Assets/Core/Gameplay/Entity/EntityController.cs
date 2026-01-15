@@ -1,7 +1,8 @@
+using Core.Gameplay.Entity.Attack;
+using Core.Gameplay.Entity.Spawner;
 using Core.Gameplay.Entity.Stats;
 using Core.Gameplay.Entity.Subsystem;
 using Core.Gameplay.Entity.Tags;
-using Enemy;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,9 +12,14 @@ namespace Core.Gameplay.Entity
     {
         public TagSystem Tags;
         protected BaseSubsystem[] Subsystems;
-        public Animator Animator;
-        public BaseEntityStats Stats;
+        public Animator Animator { get; private set; }
+        public BaseEntityStats Stats { get; private set; }
+        
+        private bool _isConfigured;
+        private bool _isSpawned;
 
+        protected SpawnContext SpawnContext { get; private set; }
+        
         protected virtual void Awake()
         {
             Tags = new TagSystem();
@@ -21,6 +27,35 @@ namespace Core.Gameplay.Entity
             Subsystems = GetComponents<BaseSubsystem>();
 
             Animator = GetComponentInChildren<Animator>();  // VisualRoot child
+        }
+        
+        public void Configure(in SpawnContext context)
+        {
+            Debug.Assert(!_isConfigured,
+                $"[{name}] Configure called more than once.");
+
+            Debug.Assert(context.AttackLoadout != null,
+                $"[{name}] SpawnContext.AttackLoadoutDefinition is null.");
+
+            Debug.Assert(context.Stats != null,
+                $"[{name}] SpawnContext.StatsInstance is null.");
+
+            // 1. Stats
+            SpawnContext = context;
+            Stats = Instantiate(context.Stats);
+
+            // 2. Apply scaling / progression
+            ApplySpawnScaling(context);
+
+            // 3. Attack loadout
+            if (TryGetComponent(out EntityAttackLoadout loadout))
+                loadout.InitializeFromDefinition(context.AttackLoadout);
+            
+            _isConfigured = true;
+        }
+        protected virtual void ApplySpawnScaling(in SpawnContext context)
+        {
+            // Intentionally empty
         }
         
         public void InitializeAllSubsystems()
@@ -54,18 +89,31 @@ namespace Core.Gameplay.Entity
         public abstract void NotifyDeathAnimationFinished();
 
         #region Tag Checks
+        
         public bool IsStunned => Tags.HasTag(Stats.stunnedTag);
         //public bool IsFrozen => ;
         //public bool IsEnraged => ;
         public bool IsDead => Tags.HasTag(Stats.deadTag);
         public bool IsInvulnerable => Tags.HasTag(Stats.invulnerableTag);
+       
         #endregion
         
         #region Pool
+        
         private IObjectPool<EntityController> _objectPool;
-        private bool _isReleased;
+        public bool IsReleased { get; private set; }
         public void AssignToPool(IObjectPool<EntityController> objectPool) => _objectPool = objectPool;
-        private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
+
+        protected void ReturnToPool()
+        {
+            Debug.Assert(!IsReleased,
+                $"[{name}] Attempted to release entity twice.");
+            
+            IsReleased = true;
+            _objectPool.Release(this);
+        }
+        public bool TryGetAssignedPool(out IObjectPool<EntityController> pool) { pool = _objectPool; return pool != null; }
+        
         #endregion
     
         #region Pool lifecycle helpers
@@ -73,7 +121,13 @@ namespace Core.Gameplay.Entity
         // Called by pool on Get (actionOnGet)
         public void OnSpawn()
         {
-            _isReleased = false;
+            Debug.Assert(_isConfigured,
+                $"[{name}] OnSpawn called before Configure.");
+
+            Debug.Assert(!_isSpawned,
+                $"[{name}] OnSpawn called more than once.");
+            
+            IsReleased = false;
             
             if(!Stats)
                 throw new System.Exception("[EntityController] Stats not set!");
@@ -83,14 +137,21 @@ namespace Core.Gameplay.Entity
             // Rebind ONLY here
             Animator.Rebind();
             Animator.Update(0f);
+            
+            _isSpawned = true;
         }
 
         // Called by pool on Release (actionOnRelease)
         public void OnDespawn()
         {
+            Debug.Assert(_isSpawned,
+                $"[{name}] OnDespawn called without OnSpawn.");
+            
             DeinitializeAllSubsystems();
             
             Tags.ClearTags();
+            
+            _isSpawned = false;
         }
 
         #endregion

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Attack;
 using UnityEngine;
@@ -9,17 +10,29 @@ namespace Core.Gameplay.Entity.Attack
         [SerializeField]
         private List<AttackData> attacks = new();
 
-        //public Action OnLoadoutChanged();
+        public event Action OnLoadoutChanged;
 
         public IReadOnlyList<AttackData> Attacks => attacks;
+        
+        public void InitializeFromDefinition(AttackLoadoutDefinition definition)
+        {
+            attacks.Clear();
 
+            if (!definition)
+                return;
+
+            attacks.AddRange(definition.Attacks);
+            
+            OnLoadoutChanged?.Invoke();
+        }
+        
         public bool AddAttack(AttackData attack)
         {
             if (attack == null || attacks.Contains(attack))
                 return false;
 
             attacks.Add(attack);
-            //OnLoadoutChanged?.Invoke();
+            OnLoadoutChanged?.Invoke();
             return true;
         }
 
@@ -28,7 +41,7 @@ namespace Core.Gameplay.Entity.Attack
             if (attack == null)
                 return false;
 
-            //OnLoadoutChanged?.Invoke();
+            OnLoadoutChanged?.Invoke();
             return attacks.Remove(attack);
         }
 

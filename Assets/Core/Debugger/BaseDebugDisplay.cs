@@ -1,4 +1,5 @@
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,10 @@ namespace Core.Debugger
         [Tooltip("Start with Debug visible?")]
         [SerializeField] private bool showDebug = false;
 
+        [Header("Debug display elements")]
+        public TMP_Text debugTextElement_1;
+        //public TMP_Text debugTextElement_2;
+        
         public void Awake()
         {
             _ToggleDebugCanvas(showDebug);
@@ -41,6 +46,8 @@ namespace Core.Debugger
                 return;
 
             DrawFPSDebug();
+            
+            //DrawSecondaryDebug();
         }
 
         private void DrawFPSDebug()
@@ -49,6 +56,9 @@ namespace Core.Debugger
 
             // Example: Display the current frame rate
             sb.Append("FPS: ").Append((1.0f / Time.deltaTime).ToString("F2"));
+            
+            // Display the debug text in the top left corner of the screen
+            debugTextElement_1.text = sb.ToString();
         }
     }
 }

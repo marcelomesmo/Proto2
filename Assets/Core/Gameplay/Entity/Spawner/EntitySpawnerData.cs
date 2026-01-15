@@ -9,7 +9,7 @@ namespace Core.Gameplay.Entity.Spawner
         [System.Serializable]
         public class EntityList
         {
-            public List<GameObject> enemyPrefabs;
+            public List<EntityController> prefabs;
         }
         
         public float spawnDelay = 2f;
