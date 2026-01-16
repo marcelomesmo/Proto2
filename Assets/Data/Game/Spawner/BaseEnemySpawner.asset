@@ -13,21 +13,7 @@ MonoBehaviour:
   m_Name: BaseEnemySpawner
   m_EditorClassIdentifier: 
   spawnDelay: 0.1
-  spawnRadius: 5
-  spawnList:
-  - enemyPrefabs:
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-  - enemyPrefabs:
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-  - enemyPrefabs:
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
-    - {fileID: 6124087282748428075, guid: b5b9ff7f3bbbb9147ab29df477736580, type: 3}
+  minSpawnRadius: 3
+  slotSpacing: 1.5
+  spawnList: []
   waveDelay: 3

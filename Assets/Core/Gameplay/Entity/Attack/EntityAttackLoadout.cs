@@ -7,7 +7,6 @@ namespace Core.Gameplay.Entity.Attack
 {
     public class EntityAttackLoadout : MonoBehaviour
     {
-        [SerializeField]
         private List<AttackData> attacks = new();
 
         public event Action OnLoadoutChanged;

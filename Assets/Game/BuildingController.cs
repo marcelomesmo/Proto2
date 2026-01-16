@@ -2,6 +2,7 @@ using Core.Enum;
 using Core.EventChannels;
 using Core.Gameplay.Entity.Spawner;
 using Core.Gameplay.Loot;
+using Core.Gameplay.Spawner;
 using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -106,8 +107,8 @@ public class BuildingController : MonoBehaviour, IInteractable
                 FinishExtracting();
             
             // update enemy spawn for node
-            if(!spawner.IsSpawning)
-                spawner.StartSpawning();
+            if (!spawner.IsSpawning) return; // todo
+                //spawner.StartSpawning();
         }
 
         if (_buildingState == BuildingState.Finished)

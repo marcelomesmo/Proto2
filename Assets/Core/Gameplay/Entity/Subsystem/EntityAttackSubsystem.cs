@@ -43,6 +43,8 @@ namespace Core.Gameplay.Entity.Subsystem
             
             _attacks.Clear();
             
+            //attackLoadout?.OnLoadoutChanged += OnAttackLoadoutChanged();
+            
             // Initialize attack reference dictionary.
             foreach (var attack in _attackLoadout.Attacks)
             {
@@ -56,8 +58,6 @@ namespace Core.Gameplay.Entity.Subsystem
 
                 _attacks.Add(attack, new AttackInstance(attack));
             }
-
-            //attackLoadout?.OnLoadoutChanged += OnAttackLoadoutChanged();
             
             // Initialize damage source.
             _damageSource = new DamageSource(

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Gameplay.Entity;
-using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Spawner;
 using Core.Services.Manager;
 using UnityEngine;
@@ -64,5 +63,25 @@ namespace Game.Entity.Player
             //ServiceLocator.Get<GameController>().OnGameEnded();
             //SceneLoader.LoadMenu();
         }
+        
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            if (spawnPoints == null || spawnPoints.Length <= 0)
+                return;
+
+            Gizmos.color = new Color(0.5f, 0.8f, 0.5f, 0.75f);
+
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                Gizmos.DrawWireSphere(spawnPoints[i].position, 0.2f);
+                
+                UnityEditor.Handles.Label(
+                    spawnPoints[i].position + Vector3.up * 0.25f,
+                    $"Char {i + 1}"
+                );
+            }
+        }     
+#endif
     }
 }

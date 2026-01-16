@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDelay: 0.25
   minSpawnRadius: 0
-  slotSpacing: 1
+  slotSpacing: 0.15
   spawnList:
-  - prefabs: []
-  - prefabs: []
+  - entities:
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+  - entities:
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
   waveDelay: 30
