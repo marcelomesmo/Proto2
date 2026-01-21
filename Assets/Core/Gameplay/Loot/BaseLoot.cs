@@ -1,3 +1,4 @@
+using System;
 using Core.EventChannels;
 using Core.Interfaces;
 using UnityEngine;
@@ -5,66 +6,65 @@ using UnityEngine;
 namespace Core.Gameplay.Loot
 {
     /*
-        This class should:
-        - Detect player collision
-        - Notify inventory / resource system
-        - Destroy or return to pool
+        data + reward + pooling + animation
     */
     [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(LootController))]
     public sealed class BaseLoot : MonoBehaviour, ICollectable
     {
-        [Header("Resource Data")]
+        [Header("Data")]
         public LootSO lootData;
    
         [Header("References")]
         [SerializeField] private Animator animator;
-        [SerializeField] private LootMagnetReceiver magnet;
-        [SerializeField] private Collider2D pickupCollider;
-        public LootBounceController Bouncer;
-    
+        
+        private LootController _lootController;
+        private Collider2D _collider;
         private bool _collected;
         
         [Header("Broadcast")]
-        [SerializeField]
-        private IntEventChannelSO OnResourceCollected;
+        [SerializeField] private IntEventChannelSO OnLootCollected;
 
         private void Awake()
         {
+            _lootController = GetComponent<LootController>();
+            _collider = GetComponent<Collider2D>();
+
+            _collider.isTrigger = true;
+            
             // Only auto-assign if not manually set
             if (!animator)
                 animator = GetComponentInChildren<Animator>();
-            if (!magnet)
-                magnet = GetComponent<LootMagnetReceiver>();
-            if (!pickupCollider)
-                pickupCollider = GetComponentInChildren<Collider2D>();
-            if (!Bouncer)
-                Bouncer = GetComponent<LootBounceController>();
-            
-            pickupCollider.isTrigger = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnEnable()
+        {
+            _collected = false;
+            _collider.enabled = true;
+
+            _lootController.Initialize(lootData);
+            
+            _lootController.MagnetArrived += HandleMagnetArrived;
+        }
+
+        private void OnDisable()
+        {
+            _lootController.MagnetArrived -= HandleMagnetArrived;
+        }
+
+        private void HandleMagnetArrived() => Collect();
+
+        public void Collect()
         {
             if (_collected)
                 return;
             
-            if (!other.CompareTag("Player"))
-                return;
-
-            Collect(other.gameObject);
-        }
-
-        public void Collect(GameObject collector)
-        {
             _collected = true;
+            _collider.enabled = false;
             
-            pickupCollider.enabled = false;
-            magnet.DisablePhysics();
-            Bouncer.enabled = false;
-            
-            animator.SetTrigger("Interact");
+            animator?.SetTrigger("Interact");
         
-            OnResourceCollected.RaiseEvent(lootData.contribution);
+            OnLootCollected?.RaiseEvent(lootData.contribution);
         }
 
         public void FinishCollect()

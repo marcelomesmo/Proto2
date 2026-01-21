@@ -21,3 +21,9 @@ MonoBehaviour:
   deadTag: {fileID: 11400000, guid: 09ef483b3fe07814b9e192d23f2e4d0c, type: 2}
   attackPower: 10
   defense: 10
+  speedMult: 1
+  thinkingTime: 1.5
+  globalCooldown: 0.5
+  targetEntityLayer:
+    serializedVersion: 2
+    m_Bits: 512

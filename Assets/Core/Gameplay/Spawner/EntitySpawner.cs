@@ -1,9 +1,9 @@
-using Core.Gameplay.Entity;
 using Core.Interfaces;
 using Core.Services.Manager;
 using Core.Util;
 using Game.Entity.Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Core.Gameplay.Spawner
 {
@@ -23,7 +23,8 @@ namespace Core.Gameplay.Spawner
         [SerializeField] private float triggerRadius = 5f;
         
         [Header("Refresh Settings")]
-        [SerializeField] private float refreshDelay = 0f;
+        [Tooltip("Time for the spawner to be available again (restart) after current set of waves is completed. 0 = no refresh.")]
+        [SerializeField] private float restartDelay = 0f;
         
         // --------------------------------------------------
         // Internal State
@@ -48,7 +49,8 @@ namespace Core.Gameplay.Spawner
         private float _waveCooldownTimer;
         
         // Spawn slots
-        protected float[] SpawnSlots;
+        protected Vector2[] SpawnSlots;
+        protected int[] SlotOrder;   // helper to shuffle slot spawn order
         
         // Proximity specific
         private bool _proximityTriggered;
@@ -83,7 +85,12 @@ namespace Core.Gameplay.Spawner
         
         private void Update()
         {
-            // TODO: Add debug here to skip to next wave?
+#if UNITY_EDITOR
+            if (Keyboard.current.nKey.wasPressedThisFrame)
+            {
+                ForceNextWave();
+            }
+#endif
             
             switch (_state)
             {
@@ -161,12 +168,13 @@ namespace Core.Gameplay.Spawner
         {
             ResetWaveState();
             BuildSpawnSlots();
+            BuildSlotOrder();
             _state = SpawnerState.Spawning;
         }
 
         private void OnAllWavesCompleted()
         {
-            if (refreshDelay > 0f)
+            if (restartDelay > 0f)
             {
                 _refreshTimer = new CooldownTimer();
                 _refreshTimer.Reset();
@@ -240,10 +248,9 @@ namespace Core.Gameplay.Spawner
         
         private void SpawnEntity(CharacterDefinition character, int waveSize, int spawnIndex)
         {
-            float offsetX = GetSpawnSlotOffset(waveSize, spawnIndex);
+            Vector2 offset = GetSpawnSlotOffset(spawnIndex);
 
-            Vector2 position = transform.position;
-            position.x += offsetX;
+            Vector2 position = (Vector2)transform.position + offset;
 
             var context = _contextProvider.CreateContext(
                 character,
@@ -252,23 +259,29 @@ namespace Core.Gameplay.Spawner
                 spawnIndex
             );
 
-            EntityController entity =
-                EntityPoolManager.Instance.Spawn(
-                    character.prefab,
-                    position,
-                    Quaternion.identity,
-                    context
-                );
+            EntityPoolManager.Instance.Spawn(
+                character.prefab,
+                position,
+                Quaternion.identity,
+                context
+            );
 
             // Intentionally no post-spawn logic yet
         }
         
-        protected float GetSpawnSlotOffset(int waveSize, int spawnIndex)
+        /*
+            Can adapt based on spawn pattern:
+            - Horizontal spawners → (x, 0)
+            - Lane spawners → (0, y)
+            - Radial spawners → (cosθ, sinθ) * radius
+            etc
+         */
+        protected Vector2 GetSpawnSlotOffset(int spawnIndex)
         {
             if (SpawnSlots == null || SpawnSlots.Length == 0)
-                return 0f;
+                return Vector2.zero;
 
-            int slotIndex = spawnIndex % SpawnSlots.Length;
+            int slotIndex = SlotOrder[spawnIndex % SlotOrder.Length];
             return SpawnSlots[slotIndex];
         }
         
@@ -286,6 +299,17 @@ namespace Core.Gameplay.Spawner
 
             if (other.CompareTag("Player"))
                 _proximityTriggered = true;
+        }
+
+        protected abstract void BuildSlotOrder();
+        
+        public void ForceNextWave()
+        {
+            if (_state != SpawnerState.Spawning)
+                return;
+
+            _waveFinished = true;
+            _waveCooldownTimer = spawnData.waveDelay;
         }
         
         // --------------------------------------------------

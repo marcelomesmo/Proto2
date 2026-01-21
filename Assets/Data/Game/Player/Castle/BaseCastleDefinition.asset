@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ced39807d17ba4da325e0925fdffa5, type: 3}
+  m_Name: BaseCastleDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CastleDefinition
+  prefab: {fileID: 7188541295746480836, guid: 2ee359b66d683b54a8d637e3bde4e7de, type: 3}
+  baseStats: {fileID: 11400000, guid: 49de67bca5a3c084091199acf39d9d46, type: 2}

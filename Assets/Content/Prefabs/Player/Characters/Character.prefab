@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5728551666962706166}
   - component: {fileID: 929215472986499729}
   - component: {fileID: 9107604326191101921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VisualRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,8 +137,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6671357473012307644}
   - component: {fileID: 6721178800405115181}
-  - component: {fileID: 5874101979333631687}
-  m_Layer: 0
+  - component: {fileID: 8168552207847454894}
+  - component: {fileID: 6070344385986196557}
+  - component: {fileID: 70676279472141131}
+  - component: {fileID: 463953744200539111}
+  m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709ee11994a2f44658e5fc9887c45081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.CharacterController
---- !u!114 &5874101979333631687
+--- !u!114 &8168552207847454894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,5 +188,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7e55df32642354daebb6566449d86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityHealth
-  OnHealthChanged: {fileID: 0}
-  deathAudio: {fileID: 0}
+--- !u!114 &6070344385986196557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8aef9e79c38ae47a54bc531eed0939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Attack.EntityAttackLoadout
+--- !u!114 &70676279472141131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac5fa14f5f7c5d40bde57c4805c63c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityAttackSubsystem
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &463953744200539111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7be5bd636afce448126ee69b131431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.PlayerCharacterBrainSubsystem
+  controlEnabled: 0

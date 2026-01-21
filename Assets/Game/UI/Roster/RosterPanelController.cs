@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Entity.Player;
+using Game.Entity.Player.Meta;
 using UnityEngine;
 
 namespace Game.UI.Roster

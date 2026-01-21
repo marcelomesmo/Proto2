@@ -111,7 +111,7 @@ namespace Core.Gameplay.Entity.Subsystem
             Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
             
             switch (direction.x)
-            {
+            { 
                 case > 0.01f when !FacingRight:
                     Sr.flipX = false;
                     FacingRight = true;

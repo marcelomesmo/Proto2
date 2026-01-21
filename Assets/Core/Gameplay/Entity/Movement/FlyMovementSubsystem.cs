@@ -1,10 +1,11 @@
 using Core.Gameplay.Entity.Subsystem;
 using Enemy;
-using Entity;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Movement
 {
+    
+    // DEPRECATED
     public class FlyMovementSubsystem : EntityMovement
     {
         private EnemyStats _stats;
@@ -26,7 +27,7 @@ namespace Core.Gameplay.Entity.Movement
             if (!CanRbMove)  // Important to check if rb.simulated is true before moving.
                 return;
 
-            Vector2 targetPos = new Vector2(target.x, target.y + _stats.flyHoverHeight);
+            Vector2 targetPos = new Vector2(target.x, target.y); //+ _stats.flyHoverHeight); todo
        
             Vector2 direction = (targetPos - (Vector2)transform.position).normalized;
 

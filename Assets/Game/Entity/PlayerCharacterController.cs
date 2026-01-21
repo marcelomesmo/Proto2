@@ -1,5 +1,5 @@
 ﻿using Core.Gameplay.Entity;
-using Core.Gameplay.Entity.Spawner;
+using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Tags;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace Game.Entity
 {
     public class PlayerCharacterController : EntityController
     {
-        protected override void HandleTagAdded(GameplayTag tag)
+        /*protected override void HandleTagAdded(GameplayTag tag)
         {
             if (tag == Stats.deadTag)
                 HandleDeath();
@@ -16,7 +16,7 @@ namespace Game.Entity
         private void HandleDeath()
         {
             Tags.ClearTemporaryTags();
-        }
+        }*/
 
         public override void NotifyDeathAnimationFinished()
         {
@@ -31,10 +31,7 @@ namespace Game.Entity
 
         protected override void ApplySpawnScaling(in SpawnContext context)
         {
-            // Example: scale HP, attack, etc.
-            Stats.maxHealth = Mathf.RoundToInt(
-                Stats.maxHealth * context.PowerMultiplier
-            );
+            // Example: scale attack, speed, etc.
             
             // Future:
             // - level-based curves

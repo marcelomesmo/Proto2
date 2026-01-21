@@ -79,9 +79,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 1155916923
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: -2076012541
+  m_SortingLayer: 4
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7293598183456022363, guid: b3fc5d65083a50c4b9f81f9b43a1ffd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,9 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3312430241185425610}
   - component: {fileID: 2040420345007629619}
-  - component: {fileID: 7313965292723278426}
-  - component: {fileID: 1442165148982859720}
-  - component: {fileID: 8898523386218346457}
+  - component: {fileID: 4725913821479684840}
   - component: {fileID: 6788647674606632268}
   - component: {fileID: 4493313510252129081}
   m_Layer: 15
@@ -164,7 +162,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1628003009989661345}
-  - {fileID: 9042960954958063049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2040420345007629619
@@ -179,13 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd67cdeaa2d153448a8a9aee13b6cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseCollectable
-  resourceData: {fileID: 11400000, guid: 814565219b570c0428cbe6fc79fa5315, type: 2}
+  lootData: {fileID: 0}
   animator: {fileID: 7946111649320346434}
-  magnet: {fileID: 1442165148982859720}
-  pickupCollider: {fileID: 454305319161579605}
-  Bouncer: {fileID: 7313965292723278426}
-  OnResourceCollected: {fileID: 11400000, guid: b855c2007bc193c41aabc2bea4ca7b0c, type: 2}
---- !u!114 &7313965292723278426
+  OnLootCollected: {fileID: 0}
+--- !u!114 &4725913821479684840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,40 +190,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffeb6d114e58d354782579e7a9abadfb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LootBounceController
-  horizontalForce: 2
-  verticalForce: 6
-  bounceImpulse: 2.5
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 24576
---- !u!114 &1442165148982859720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4913984500458969083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ccc3c6214535c84ea78c270ca483930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Loot.LootMagnetReceiver
-  magnetDelay: 0.25
-  maxSpeed: 8
---- !u!114 &8898523386218346457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4913984500458969083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79b3d042c4a257f46a74ba6607b55504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LootPickupDelay
-  pickupDelay: 0.3
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Loot.LootController
 --- !u!58 &6788647674606632268
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -281,7 +242,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -293,71 +254,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &5092663234548931006
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9042960954958063049}
-  - component: {fileID: 454305319161579605}
-  m_Layer: 12
-  m_Name: InteractableCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9042960954958063049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5092663234548931006}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3312430241185425610}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &454305319161579605
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5092663234548931006}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 1

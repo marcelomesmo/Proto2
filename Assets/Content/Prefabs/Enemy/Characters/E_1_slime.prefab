@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -534619075015666269, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
+      propertyPath: verticalForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -534619075015666269, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
+      propertyPath: horizontalForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1883647002482592412, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318268104879652713, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
       propertyPath: m_Name
-      value: EnemyCharacter
+      value: E_1_slime
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

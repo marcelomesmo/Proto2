@@ -11,9 +11,10 @@ namespace Core.Services
             if (IsPaused) return;
             
             IsPaused = true;
-            Time.timeScale = 0f;
             
+            ServiceLocator.Get<GameController>().PauseGame();
             InputMapController.DisableGameplay();
+            
             //Cursor.visible = true;
             //Cursor.lockState = CursorLockMode.None;
         }
@@ -23,9 +24,10 @@ namespace Core.Services
             if (!IsPaused) return;
             
             IsPaused = false;
-            Time.timeScale = 1f;
             
+            ServiceLocator.Get<GameController>().ResumeGame();
             InputMapController.EnableGameplay();
+            
             // Only for games that hide cursor during gameplay.
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;

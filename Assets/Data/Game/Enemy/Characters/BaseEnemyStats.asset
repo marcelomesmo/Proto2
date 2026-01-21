@@ -13,24 +13,18 @@ MonoBehaviour:
   m_Name: BaseEnemyStats
   m_EditorClassIdentifier: 
   faction: 2
-  maxHealth: 100
+  maxHealth: 20
   moveSpeed: 1
-  jumpHeight: 3
-  jumpCooldown: 2
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
   stunnedTag: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}
   deadTag: {fileID: 11400000, guid: 09ef483b3fe07814b9e192d23f2e4d0c, type: 2}
   thinkingTime: 1.5
   globalCooldown: 0.5
-  movementType: 0
+  movementType: 1
   preferredDistance: 2
-  dashSpeedMultiplier: 2
-  dashDelay: 0.5
-  dashCooldown: 3
-  flyHoverHeight: 1
-  aggroRadius: 8
-  aggroTolerance: 10
-  entityMask:
+  aggroRadius: 25
+  aggroTolerance: 25
+  targetEntityLayer:
     serializedVersion: 2
     m_Bits: 256

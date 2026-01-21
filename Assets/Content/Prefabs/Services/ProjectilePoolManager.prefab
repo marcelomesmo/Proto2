@@ -45,15 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePools:
-  - projectilePrefab: {fileID: 5975751646184246127, guid: 3c1b06d140cc35a4d90993300575a3dd, type: 3}
-    collectionCheck: 1
-    defaultCapacity: 20
-    maxSize: 100
   - projectilePrefab: {fileID: 5975751646184246127, guid: f8e1b25fc78f6124fa2d954485eafe2a, type: 3}
-    collectionCheck: 1
-    defaultCapacity: 20
-    maxSize: 100
-  - projectilePrefab: {fileID: 5975751646184246127, guid: cb63374a4ac8ac645b562f8176437d51, type: 3}
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100

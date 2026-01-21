@@ -2,7 +2,7 @@ using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity.Stats;
 using UnityEngine;
 
-namespace Core.Gameplay.Entity.Spawner
+namespace Core.Gameplay.Entity.Spawn
 {
     public readonly struct SpawnContext
     {

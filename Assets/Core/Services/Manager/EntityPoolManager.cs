@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Gameplay.Entity;
-using Core.Gameplay.Entity.Spawner;
+using Core.Gameplay.Entity.Spawn;
 using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -129,7 +129,7 @@ namespace Core.Services.Manager
             if (entity.IsReleased)
                 return;
 
-            entity.OnDespawn();
+            //entity.OnDespawn();   was being called twice.
 
             if (entity.TryGetAssignedPool(out var pool))
                 pool.Release(entity);

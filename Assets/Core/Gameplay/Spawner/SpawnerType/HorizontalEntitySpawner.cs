@@ -4,32 +4,42 @@ namespace Core.Gameplay.Spawner.SpawnerType
 {
     public class HorizontalEntitySpawner : EntitySpawner
     {
+        [Header("Horizontal Spawner Settings")]
+        [SerializeField] private float slotSpacing = 0.15f;
+        
         protected override void BuildSpawnSlots()
         {
             // Deterministic slots, alternating left/right
             // Example:  +2, -2, +4, -4, +6, -6 ...
 
+            // Max slots based on max count of entities in any wave
             int maxSlots = 0;
             foreach (var spawnWave in spawnData.spawnList)
                 if (spawnWave.entities.Count >= maxSlots)
                     maxSlots = spawnWave.entities.Count;
 
-            //int maxSlots = spawnData.maxSimultaneousEnemies;
-            SpawnSlots = new float[maxSlots];
-
-            float step = spawnData.slotSpacing;
+            SpawnSlots = new Vector2[maxSlots];
 
             for (int i = 0; i < maxSlots; i++)
             {
                 int ring = (i / 2) + 1;
                 float dir = (i % 2 == 0) ? 1f : -1f;
                 
-                float offset =
-                    spawnData.minSpawnRadius +
-                    (ring * spawnData.slotSpacing);
+                float xOffset = spawnData.minSpawnRadius + (ring * slotSpacing);
                 
-                SpawnSlots[i] = dir * offset;
+                SpawnSlots[i] = new Vector2(dir * xOffset, 0f);
             }
+        }
+        
+        protected override void BuildSlotOrder()
+        {
+            int count = SpawnSlots.Length;
+            SlotOrder = new int[count];
+
+            for (int i = 0; i < count; i++)
+                SlotOrder[i] = i;
+
+            // no shuffle
         }
      
 #if UNITY_EDITOR
@@ -74,7 +84,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
                 float dir = (i % 2 == 0) ? 1f : -1f;
                 float offset =
                     spawnData.minSpawnRadius +
-                    (ring * spawnData.slotSpacing);
+                    (ring * slotSpacing);
 
                 slots[i] = transform.position + Vector3.right * (dir * offset);
             }
@@ -101,8 +111,8 @@ namespace Core.Gameplay.Spawner.SpawnerType
             Vector3[] positions = new Vector3[count];
             for (int i = 0; i < count; i++)
             {
-                float offset = GetSpawnSlotOffset(count, i);
-                positions[i] = transform.position + Vector3.right * offset;
+                Vector2 offset = GetSpawnSlotOffset(i);
+                positions[i] = (Vector2)transform.position + Vector3.right * offset;
             }
 
             return positions;

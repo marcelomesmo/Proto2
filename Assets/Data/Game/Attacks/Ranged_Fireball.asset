@@ -18,6 +18,6 @@ MonoBehaviour:
   hitType: 2
   hitVFX: {fileID: 4776489433992499268, guid: d0e174b0a6586fb499d76ae3b09f741f, type: 3}
   isRanged: 1
-  projectilePrefab: {fileID: 5975751646184246127, guid: eec6e9d3dd7b8bd45bfe1f3333361bbf, type: 3}
+  projectilePrefab: {fileID: 5975751646184246127, guid: f8e1b25fc78f6124fa2d954485eafe2a, type: 3}
   directionMode: 1
   fixedAngle: 0

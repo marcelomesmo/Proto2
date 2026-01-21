@@ -6,25 +6,41 @@ namespace Core.Gameplay.Spawner.SpawnerType
     {
         [Header("Lane Spawner Settings")]
         [SerializeField, Min(1)] private int maxLaneSlots = 5;
+        [SerializeField] private float slotSpacing = 0.15f;
         
         protected override void BuildSpawnSlots()
         {
             // Vertical deterministic slots centered on spawner
             // Example (Y offsets): +1, -1, +2, -2, +3, -3 ...
 
-            SpawnSlots = new float[maxLaneSlots];
+            SpawnSlots = new Vector2[maxLaneSlots];
             
-            float spacing = spawnData.slotSpacing;
             float half = (maxLaneSlots - 1) * 0.5f;
             
             for (int i = 0; i < maxLaneSlots; i++)
             {
-                float offset = (i - half) * spacing;
+                float yOffset = (i - half) * slotSpacing;
 
-                SpawnSlots[i] = offset;
+                SpawnSlots[i] = new Vector2(0f, yOffset);   // builds yOffset vector, other implements can be radial, sin/cos, etc
             }
         }
 
+        protected override void BuildSlotOrder()
+        {
+            int count = SpawnSlots.Length;
+            SlotOrder = new int[count];
+
+            for (int i = 0; i < count; i++)
+                SlotOrder[i] = i;
+
+            // Fisher–Yates shuffle
+            for (int i = count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (SlotOrder[i], SlotOrder[j]) = (SlotOrder[j], SlotOrder[i]);
+            }
+        }
+        
 #if UNITY_EDITOR
         protected override Vector3[] GetPreviewSpawnPositions()
         {
@@ -45,8 +61,8 @@ namespace Core.Gameplay.Spawner.SpawnerType
             Vector3[] positions = new Vector3[count];
             for (int i = 0; i < count; i++)
             {
-                float offset = GetSpawnSlotOffset(count, i);
-                positions[i] = transform.position + Vector3.up * offset;
+                Vector2 offset = GetSpawnSlotOffset(i);
+                positions[i] = (Vector2)transform.position + Vector3.up * offset;
             }
 
             return positions;
@@ -59,7 +75,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
             
             Vector3[] slots = new Vector3[maxLaneSlots];
 
-            float spacing = spawnData.slotSpacing;
+            float spacing = slotSpacing;
             float half = (maxLaneSlots - 1) * 0.5f;
             
             for (int i = 0; i < maxLaneSlots; i++)

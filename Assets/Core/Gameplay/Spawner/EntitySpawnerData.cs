@@ -15,7 +15,6 @@ namespace Core.Gameplay.Spawner
         
         public float spawnDelay = 2f;
         public float minSpawnRadius = 3f;
-        public float slotSpacing = 1.5f;
 
         public List<SpawnWave> spawnList = new();
         public float waveDelay = 5f;

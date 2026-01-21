@@ -1,5 +1,5 @@
 using Core.Gameplay.Entity.Attack;
-using Core.Gameplay.Entity.Spawner;
+using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Stats;
 using Core.Gameplay.Entity.Subsystem;
 using Core.Gameplay.Entity.Tags;
@@ -34,9 +34,6 @@ namespace Core.Gameplay.Entity
             Debug.Assert(!_isConfigured,
                 $"[{name}] Configure called more than once.");
 
-            Debug.Assert(context.AttackLoadout != null,
-                $"[{name}] SpawnContext.AttackLoadoutDefinition is null.");
-
             Debug.Assert(context.Stats != null,
                 $"[{name}] SpawnContext.StatsInstance is null.");
 
@@ -48,7 +45,7 @@ namespace Core.Gameplay.Entity
             ApplySpawnScaling(context);
 
             // 3. Attack loadout
-            if (TryGetComponent(out EntityAttackLoadout loadout))
+            if (context.AttackLoadout != null && TryGetComponent(out EntityAttackLoadout loadout))
                 loadout.InitializeFromDefinition(context.AttackLoadout);
             
             _isConfigured = true;
@@ -151,7 +148,15 @@ namespace Core.Gameplay.Entity
             
             Tags.ClearTags();
             
+            ResetState();
+        }
+        
+        private void ResetState()
+        {
+            _isConfigured = false;
             _isSpawned = false;
+            SpawnContext = default;
+            Stats = null;
         }
 
         #endregion

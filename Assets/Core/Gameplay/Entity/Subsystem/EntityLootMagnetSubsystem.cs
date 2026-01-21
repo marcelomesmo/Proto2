@@ -7,8 +7,8 @@ namespace Core.Gameplay.Entity.Subsystem
     public class EntityLootMagnetSubsystem : BaseSubsystem
     {
         [Header("Settings")]
-        [SerializeField] float magnetRadius = 3f;       // TODO: Move this to PlayerStats when expanding to allow for upgrades.
-        [SerializeField] float magnetStrength = 12f;
+        [SerializeField] float magnetRadius = 3f;               // TODO: Move this to Stats when expanding to allow for upgrades.
+        [SerializeField] float magnetSpeedMultiplier = 1f;      // TODO: Move this to Stats when expanding to allow for upgrades.
         [SerializeField] LayerMask lootMask;
         
         private readonly Collider2D[] _lootBuffer = new Collider2D[16];
@@ -26,7 +26,7 @@ namespace Core.Gameplay.Entity.Subsystem
             {
                 if (_lootBuffer[i].TryGetComponent(out IMagnetizableLoot loot))
                 {
-                    loot.ApplyMagnet(transform.position, magnetStrength);
+                    loot.TryBeginMagnet(transform, magnetSpeedMultiplier);
                 }
             }
         }

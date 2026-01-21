@@ -1,4 +1,4 @@
-using Core.Gameplay.Entity.Spawner;
+using Core.Gameplay.Entity.Spawn;
 using Game.Entity.Player;
 using UnityEngine;
 

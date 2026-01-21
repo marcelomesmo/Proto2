@@ -53,6 +53,8 @@ namespace Core.Services
             // Let all Awake() calls settle
             yield return null;
             
+            ServiceLocator.Get<GameController>().Initialize();
+            
             // Transition to menu (async-ready)
             SceneLoader.LoadMenu();
         }

@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPools:
+  - prefab: {fileID: 7188541295746480836, guid: 2ee359b66d683b54a8d637e3bde4e7de, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 1
+    maxSize: 1
   - prefab: {fileID: 1331891463641475742, guid: f9071dba3c9922d4b82c2471b3273b61, type: 3}
     collectionCheck: 0
     defaultCapacity: 5

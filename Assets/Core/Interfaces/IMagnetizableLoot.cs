@@ -4,6 +4,6 @@ namespace Core.Interfaces
 {
     public interface IMagnetizableLoot
     {
-        void ApplyMagnet(Vector2 sourcePosition, float strength);
+        void TryBeginMagnet(Transform target, float speedMultiplier);
     }
 }

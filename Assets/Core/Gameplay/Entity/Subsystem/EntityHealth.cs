@@ -16,14 +16,14 @@ namespace Core.Gameplay.Entity.Subsystem
         private int _currentHealth;
         public int GetCurrentHealth() => _currentHealth;
         
-        [Header("Broadcast (Player only)")]
-        [SerializeField] protected IntIntEventChannelSO OnHealthChanged;
+        //[Header("Broadcast (Player only)")]
+        //[SerializeField] protected IntIntEventChannelSO OnHealthChanged;
         public event Action<int, int> HealthChanged;
         public event Action<DamagePayload> DamageTaken;
         
         // TODO: This shouldn't be here, but in VFX manager
-        [Header("Audio")]
-        [SerializeField] private AudioEvent deathAudio;
+        //[Header("Audio")]
+        //[SerializeField] private AudioEvent deathAudio;
         
         protected override void OnInitialize()
         {
@@ -56,9 +56,9 @@ namespace Core.Gameplay.Entity.Subsystem
             _currentHealth = Controller.Stats.maxHealth;
             
             // Initialize Health in HUD
-            if (Faction == Faction.Player)
-                OnHealthChanged?.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
-            else
+            //if (Faction == Faction.Player)
+            //    OnHealthChanged?.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
+            //else
                 HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
         }
 
@@ -94,8 +94,8 @@ namespace Core.Gameplay.Entity.Subsystem
             _currentHealth = Mathf.Clamp(_currentHealth - payload.hitData.damage, 0, Controller.Stats.maxHealth);
             //Controller.Animator.SetTrigger("hurt");
 
-            if (Faction == Faction.Player)
-                OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
+            //if (Faction == Faction.Player)
+            //    OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
             
             HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
             DamageTaken?.Invoke(payload);
@@ -126,15 +126,15 @@ namespace Core.Gameplay.Entity.Subsystem
 
         private void Die()
         {
-            Controller.Tags.AddTag(Controller.Stats.deadTag);
+            Controller.Tags.AddTag(Controller.Stats.deadTag);   // todo: vfx subsystem on death tag added play audio?
             Controller.Animator.SetBool("isDead", true);
             Controller.Animator.ResetTrigger("attack");
             Controller.Animator.ResetTrigger("jump");
             Controller.Animator.ResetTrigger("dash");
             Controller.Animator.ResetTrigger("spawned");
             
-            if(deathAudio)
-                EntityAudio.Play(deathAudio);
+            //if(deathAudio)
+            //    EntityAudio.Play(deathAudio);
         }
         
         // ---------------------------

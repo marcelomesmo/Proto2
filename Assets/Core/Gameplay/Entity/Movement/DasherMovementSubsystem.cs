@@ -1,10 +1,10 @@
 using Core.Gameplay.Entity.Subsystem;
 using Enemy;
-using Entity;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Movement
 {
+    // DEPRECATED
     public class DasherMovementSubsystem : EntityMovement
     {
         private EnemyStats _stats;
@@ -24,7 +24,7 @@ namespace Core.Gameplay.Entity.Movement
             if(!CanRbMove) return;
             
             var direction = (target - (Vector2)transform.position).normalized;
-            Rb.linearVelocity = direction * (Controller.Stats.moveSpeed * _stats.dashSpeedMultiplier);
+            Rb.linearVelocity = direction * (Controller.Stats.moveSpeed);//* _stats.dashSpeedMultiplier); todo
             
             CheckDirectionChange(direction);
             
