@@ -3,6 +3,7 @@ using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Tags;
 using Core.Services;
 using Core.Services.Manager;
+using Game.Services.Meta;
 using UnityEngine;
 
 namespace Game.Entity.Enemy
@@ -25,10 +26,11 @@ namespace Game.Entity.Enemy
             // - Informs a boss phase system
             // - Coordinates multiple entities
             
-            ServiceLocator
+            var gameStats = ServiceLocator
                 .Get<GameController>()
-                .MatchStats
-                .RegisterEnemyKilled();
+                .MatchStats as GameMatchStats;
+
+            gameStats?.RegisterEnemyKilled();
             
             Tags.ClearTemporaryTags();
         }

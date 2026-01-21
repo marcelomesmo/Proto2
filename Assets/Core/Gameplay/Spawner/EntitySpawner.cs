@@ -1,3 +1,4 @@
+using System;
 using Core.Interfaces;
 using Core.Services.Manager;
 using Core.Util;
@@ -54,6 +55,9 @@ namespace Core.Gameplay.Spawner
         
         // Proximity specific
         private bool _proximityTriggered;
+        
+        public event Action OnWaveCompletedSignal;
+        public event Action OnAllWavesCompletedSignal;
         
         // --------------------------------------------------
         // Unity Lifecycle
@@ -184,6 +188,8 @@ namespace Core.Gameplay.Spawner
             {
                 _state = SpawnerState.Waiting;
             }
+            
+            OnAllWavesCompletedSignal?.Invoke();
         }
 
         private void ResetSpawnerInternal()
@@ -240,6 +246,8 @@ namespace Core.Gameplay.Spawner
             _waveFinished = false;
             _spawnedElementsInWave = 0;
             _currentWaveIndex++;
+
+            OnWaveCompletedSignal?.Invoke();
         }
 
         // --------------------------------------------------

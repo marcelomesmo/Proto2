@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using UnityEngine;
@@ -9,31 +10,84 @@ namespace Core.Services
         [Header("Game Speed")]
         [SerializeField] private float[] speedSteps = { 1f, 2f, 4f };
         
+        [Header("Match Stats")]
+        [SerializeField] private MatchStatsProvider matchStatsProvider;
+        
         private int _currentSpeedIndex;
         private bool _isPaused;
+        
         public float CurrentGameSpeed => speedSteps[_currentSpeedIndex];
         public bool IsPaused => _isPaused;
-      
-        // -----------------------------
-        // Match
-        // -----------------------------
         
         public MatchStats MatchStats { get; private set; }
-
+        public MatchRuntime MatchRuntime { get; private set; }
+      
+        // --------------------------------------------------
+        // Initialization
+        // --------------------------------------------------
+        
         // Called explicitly by GameBootstrapper
         public void Initialize()
         {
-            MatchStats = new MatchStats();
+            MatchRuntime = new MatchRuntime();
+
+            MatchStats = matchStatsProvider != null
+                ? matchStatsProvider.CreateStats()
+                : new NullMatchStats();
             
             SetGameSpeed(1f);
+        }
+        
+        // --------------------------------------------------
+        // Match Lifecycle
+        // --------------------------------------------------
+        
+        #region Game Flow
+        
+        public void StartMatch()
+        {
             _isPaused = false;
+            MatchRuntime.BeginMatch();
+            MatchStats.OnMatchStart();
+        }
+        
+        private void EndMatch()
+        {
+            MatchRuntime.EndMatch();
+            MatchStats.OnMatchEnd();
         }
         
         private void Update()
         {
-            // Match time automatically respects pause & game speed
-            MatchStats?.Tick(Time.deltaTime);
+            if (_isPaused)
+                return;
+            
+            // Update Game Controller
+
+            if (MatchRuntime == null)
+                return;
+            
+            /*
+             * Above or:
+                 bool CanTickMatch =>
+                 MatchRuntime != null &&
+                 !_isPaused &&
+                 MatchRuntime.IsRunning;
+             */
+
+            MatchRuntime.Tick(Time.deltaTime);
+            
+            MatchStats.OnMatchTimeUpdated(MatchRuntime.ElapsedTime);
         }
+        
+        private bool CanTickMatch =>
+            !_isPaused && MatchRuntime.IsRunning;
+        
+        #endregion
+        
+        // --------------------------------------------------
+        // Game Speed
+        // --------------------------------------------------
         
         #region Game Speed
 
@@ -73,6 +127,10 @@ namespace Core.Services
 
         #endregion
         
+        // --------------------------------------------------
+        // Pause Control
+        // --------------------------------------------------
+        
         #region Pause Control
 
         public void PauseGame()
@@ -95,12 +153,11 @@ namespace Core.Services
         
         #endregion
         
-        #region Game End Flow
+        // --------------------------------------------------
+        // Game End Flow
+        // --------------------------------------------------
         
-        public void StartMatch()
-        {
-            MatchStats?.StartMatch();
-        }
+        #region End of Match Flow
         
         public void OnGameDefeat()
         {
@@ -108,6 +165,7 @@ namespace Core.Services
             
             EndMatch();
             
+            Cleanup();
             SceneLoader.LoadMenu();
         }
         
@@ -117,22 +175,22 @@ namespace Core.Services
             
             EndMatch();
             
+            Cleanup();
             SceneLoader.LoadMenu();
         }
         
-        private void EndMatch()
+        private void Cleanup()
         {
-            MatchStats?.StopMatch();
-
             SetGameSpeed(1f);
             _isPaused = false;
-            
-            ServiceLocator.Get<EntityPoolManager>().ReleaseAll();
-            ServiceLocator.Get<ProjectilePoolManager>().ReleaseAll();
-            ServiceLocator.Get<VFXPoolManager>().ReleaseAll();
-            ServiceLocator.Get<AudioManager>().ReleaseAll();
+
+            ServiceLocator.Get<EntityPoolManager>()?.ReleaseAll();
+            ServiceLocator.Get<ProjectilePoolManager>()?.ReleaseAll();
+            ServiceLocator.Get<VFXPoolManager>()?.ReleaseAll();
+            ServiceLocator.Get<AudioManager>()?.ReleaseAll();
         }
         
         #endregion
+        
     }
 }

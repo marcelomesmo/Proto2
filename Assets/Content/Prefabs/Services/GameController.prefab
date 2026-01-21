@@ -93,6 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2cf87079469d34c8a138aa934ae2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Services.GameController
+  speedSteps:
+  - 1
+  - 2
+  - 4
+  matchStatsProvider: {fileID: 11400000, guid: 7d8a4d60e0a1eb94180ef770ff63475d, type: 2}
 --- !u!114 &8855580589477464073
 MonoBehaviour:
   m_ObjectHideFlags: 0

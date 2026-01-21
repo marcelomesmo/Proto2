@@ -1,5 +1,6 @@
 using Core.EventChannels;
 using Core.Services;
+using Game.Services.Meta;
 using TMPro;
 using UnityEngine;
 
@@ -26,16 +27,16 @@ namespace Game.UI
         {
             lootGoldEventChannel.OnEventRaised += UpdateGoldDisplay;
             //healthEventChannel.OnEventRaised += UpdateHealthDisplay;
+
+            var gameController = ServiceLocator
+                .Get<GameController>();
+
+            if (gameController.MatchStats is not GameMatchStats gameStats) return;
             
-            ServiceLocator
-                .Get<GameController>()
-                .MatchStats
+            gameStats
                 .OnEnemiesKilledChanged += UpdateKillCounter;
-            
-            ServiceLocator
-                .Get<GameController>()
-                .MatchStats
-                .OnMatchTimeUpdated += UpdateMatchClock;
+            gameStats
+                .OnMatchTimeChanged += UpdateMatchClock;
         }
 
         private void OnDisable()
@@ -43,15 +44,15 @@ namespace Game.UI
             lootGoldEventChannel.OnEventRaised -= UpdateGoldDisplay;
             //healthEventChannel.OnEventRaised -= UpdateHealthDisplay;
             
-            ServiceLocator
-                .Get<GameController>()
-                .MatchStats
-                .OnEnemiesKilledChanged -= UpdateKillCounter;
+            var gameController = ServiceLocator
+                .Get<GameController>();
+
+            if (gameController.MatchStats is not GameMatchStats gameStats) return;
             
-            ServiceLocator
-                .Get<GameController>()
-                .MatchStats
-                .OnMatchTimeUpdated -= UpdateMatchClock;
+            gameStats
+                .OnEnemiesKilledChanged -= UpdateKillCounter;
+            gameStats
+                .OnMatchTimeChanged -= UpdateMatchClock;
         }
         /* End of Boilerplate */
         
