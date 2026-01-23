@@ -1,0 +1,518 @@
+fileFormatVersion: 2
+guid: 04c4117206c706642ac3b5f1767d5d8d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 299014
+  packageName: Animated 2D Evolution Undead Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/UndeadPack1/SpriteSheet/Skeleton/skeleton3/move_495x408.png
+  uploadId: 712527
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 150
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: move_495x408_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1224
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9e2f07312f1f9444ba3e903c3b5bc28
+      internalID: 1019884384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_1
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 1224
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70843f7d4b8cbe34caa36935a33f47d7
+      internalID: -2100919559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_2
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1224
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27205959d635a774c865c77fcc141139
+      internalID: -2036181945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_3
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 1224
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c360e58f1ea724c85245db27fa0feb
+      internalID: -87679656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 816
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92a1988e1b9448e48921b68e7ec446b9
+      internalID: 741753403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 816
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14344bb190320594981115a33ea1580e
+      internalID: -508234438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_6
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 816
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 414246a3467e7d24f93ede782d079aea
+      internalID: -2117799135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_7
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 816
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d71241a3f470dd429021d0d375fd9a2
+      internalID: -507432950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 408
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31e8e5f2681ea0f46bd80ec48eb51fd5
+      internalID: -1616838425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_9
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 408
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f72a3c9373981d4dac2a73098220157
+      internalID: -564466004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_10
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 408
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b04579112185e34eac28f9df096f8ce
+      internalID: -925792099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_11
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 408
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9136f188ab4d63948bece0bb9628dc6d
+      internalID: -1001460442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a9b07ded209ebd47a2f2668eb462e18
+      internalID: 443894657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_13
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 0
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0369254ab44cb614f9cebd371da505d7
+      internalID: -65388367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_14
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 0
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65861f6ae05bcc347a95def462af8010
+      internalID: 352124653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_495x408_15
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 0
+        width: 495
+        height: 408
+      alignment: 9
+      pivot: {x: 0.5526072, y: 0.03679283}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84dc3708b2c6e1947abf1258b5b6e725
+      internalID: 441262555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      move_495x408_0: 1019884384
+      move_495x408_1: -2100919559
+      move_495x408_10: -925792099
+      move_495x408_11: -1001460442
+      move_495x408_12: 443894657
+      move_495x408_13: -65388367
+      move_495x408_14: 352124653
+      move_495x408_15: 441262555
+      move_495x408_2: -2036181945
+      move_495x408_3: -87679656
+      move_495x408_4: 741753403
+      move_495x408_5: -508234438
+      move_495x408_6: -2117799135
+      move_495x408_7: -507432950
+      move_495x408_8: -1616838425
+      move_495x408_9: -564466004
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

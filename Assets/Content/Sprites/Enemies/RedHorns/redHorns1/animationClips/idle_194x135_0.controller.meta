@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2a7f47f7b83f5c540b44de04da357697
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 299014
+  packageName: Animated 2D Evolution Undead Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/UndeadPack1/SpriteSheet/RedHorns/redHorns1/animationClips/idle_194x135_0.controller
+  uploadId: 712527

@@ -12,21 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836253d2d400ff54f932f39985e8ae4a, type: 3}
   m_Name: Spawner_TEST
   m_EditorClassIdentifier: 
-  spawnDelay: 0.5
+  spawnDelay: 1
   minSpawnRadius: 0
   spawnList:
   - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
   - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
+    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
   - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-  waveDelay: 10
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+  - entities:
+    - {fileID: 11400000, guid: 7a37043c7979f4447bd48441f2898969, type: 2}
+  waveDelay: 15

@@ -221,5 +221,7 @@ namespace Core.Gameplay.Entity.Subsystem
 
             return distance <= data.range;
         }
+
+        public bool CanExecute(AttackData data) => _attacks.ContainsKey(data);
     }
 }

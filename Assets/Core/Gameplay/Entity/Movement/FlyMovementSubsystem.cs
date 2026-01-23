@@ -1,5 +1,5 @@
 using Core.Gameplay.Entity.Subsystem;
-using Enemy;
+using Game.Entity.Enemy.Stats;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Movement

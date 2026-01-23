@@ -65,3 +65,15 @@ MonoBehaviour:
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100
+  - prefab: {fileID: 5052942017189829625, guid: 03465744f0c20264282c3ce813c713e8, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
+  - prefab: {fileID: 5052942017189829625, guid: a5d9dfb7d11bdc5468dfd4da9ad76a24, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
+  - prefab: {fileID: 5052942017189829625, guid: 516f2ce9a39a76c41a3fdccf13943b09, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100

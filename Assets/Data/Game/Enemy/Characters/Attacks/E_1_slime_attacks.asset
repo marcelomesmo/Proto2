@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
   - {fileID: 11400000, guid: 7de24d4c82af13b4c8cfe512d55299a7, type: 2}
-  - {fileID: 11400000, guid: 225709d00b413894eac570a6f1ea0ec0, type: 2}

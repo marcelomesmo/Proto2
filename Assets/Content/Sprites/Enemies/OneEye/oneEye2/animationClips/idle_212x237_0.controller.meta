@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c446e82dabd0a7149ae0b59d7b76292f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 299014
+  packageName: Animated 2D Evolution Undead Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/UndeadPack1/SpriteSheet/OneEye/oneEye2/animationClips/idle_212x237_0.controller
+  uploadId: 712527

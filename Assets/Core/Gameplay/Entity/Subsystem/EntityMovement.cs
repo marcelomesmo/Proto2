@@ -94,12 +94,12 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             switch (direction.x)
             {
-                case > 0.01f when !FacingRight:
+                case < -0.01f when !FacingRight:
                     Sr.flipX = false;
                     FacingRight = true;
                     OnDirectionChange?.Invoke();
                     break;
-                case < -0.01f when FacingRight:
+                case > 0.01f when FacingRight:
                     Sr.flipX = true;
                     FacingRight = false;
                     OnDirectionChange?.Invoke();
@@ -109,20 +109,8 @@ namespace Core.Gameplay.Entity.Subsystem
         public void CheckDirectionChange(EntityController target)
         {
             Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
-            
-            switch (direction.x)
-            { 
-                case > 0.01f when !FacingRight:
-                    Sr.flipX = false;
-                    FacingRight = true;
-                    OnDirectionChange?.Invoke();
-                    break;
-                case < -0.01f when FacingRight:
-                    Sr.flipX = true;
-                    FacingRight = false;
-                    OnDirectionChange?.Invoke();
-                    break;
-            }
+
+            CheckDirectionChange(direction);
         }
         #endregion
     }

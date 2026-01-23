@@ -57,12 +57,24 @@ namespace Core.Gameplay.Spawner.SpawnerType
                 count = Mathf.Min(count, previewSpawnCount);
 
             BuildSpawnSlots();
+            
+            // DO NOT call BuildSlotOrder() for preview if you don't want the shuffled positions to be displayed.
+            // Use a deterministic order instead
+            /*Vector3[] positions = new Vector3[count];
+            for (int i = 0; i < count; i++)
+            {
+                int slotIndex = i % SpawnSlots.Length;
+                Vector2 offset = SpawnSlots[slotIndex];
+                positions[i] = (Vector2)transform.position + offset;
+            }*/
 
+            BuildSlotOrder();
+            
             Vector3[] positions = new Vector3[count];
             for (int i = 0; i < count; i++)
             {
                 Vector2 offset = GetSpawnSlotOffset(i);
-                positions[i] = (Vector2)transform.position + Vector3.up * offset;
+                positions[i] = (Vector2)transform.position + offset;
             }
 
             return positions;

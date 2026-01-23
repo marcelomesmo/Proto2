@@ -288,6 +288,10 @@ namespace Core.Gameplay.Spawner
         {
             if (SpawnSlots == null || SpawnSlots.Length == 0)
                 return Vector2.zero;
+            
+            // defensive guard
+            if (SlotOrder == null || SlotOrder.Length == 0)
+                return SpawnSlots[spawnIndex % SpawnSlots.Length];
 
             int slotIndex = SlotOrder[spawnIndex % SlotOrder.Length];
             return SpawnSlots[slotIndex];
