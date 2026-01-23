@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 {
-    [CreateAssetMenu(fileName = "HomingMovement", menuName = "Projectile/Movement/Homing")]
+    [CreateAssetMenu(fileName = "HomingMovement", menuName = "Combat/Projectile/Movement/Homing")]
     public class HomingMovement : ProjectileMovement
     {
         public Transform target;      // Target to home in on

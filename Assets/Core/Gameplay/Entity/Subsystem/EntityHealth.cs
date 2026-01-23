@@ -1,7 +1,6 @@
 using System;
-using Core.Audio.Data;
+using System.Collections.Generic;
 using Core.Enum;
-using Core.EventChannels;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
@@ -20,10 +19,6 @@ namespace Core.Gameplay.Entity.Subsystem
         //[SerializeField] protected IntIntEventChannelSO OnHealthChanged;
         public event Action<int, int> HealthChanged;
         public event Action<DamagePayload> DamageTaken;
-        
-        // TODO: This shouldn't be here, but in VFX manager
-        //[Header("Audio")]
-        //[SerializeField] private AudioEvent deathAudio;
         
         protected override void OnInitialize()
         {
@@ -68,30 +63,15 @@ namespace Core.Gameplay.Entity.Subsystem
             else Controller.Tags.RemoveTag(Controller.Stats.invulnerableTag);
         }
         
-        // FUTURE IMPROVEMENTS
-        /*
-            Create a damage info payload:
-            
-            public struct DamageInfo
-            {
-                public int amount;
-                public Vector2 hitPoint;
-                public Vector2 direction;
-                public DamageType type;
-                public bool isCritical;
-                public GameObject source;
-            }
-
-            public void TakeDamage(DamageInfo info) { ... }
-            
-         */
-        
         public void TakeDamage(DamagePayload payload)
         {
             // Extra defensive check — in case someone calls TakeDamage directly:
             if (!CanBeDamaged()) return;
             
             _currentHealth = Mathf.Clamp(_currentHealth - payload.hitData.damage, 0, Controller.Stats.maxHealth);
+            
+            ApplyAttackEffects(payload.effects, payload.source);
+            
             //Controller.Animator.SetTrigger("hurt");
 
             //if (Faction == Faction.Player)
@@ -103,7 +83,12 @@ namespace Core.Gameplay.Entity.Subsystem
             if (_currentHealth <= 0)
                 Die();
         }
-        
+
+        public void ApplyAttackEffects(IReadOnlyList<AttackEffectData> effects, DamageSource source)
+        {
+            //Debug.Log("[EntityHealth] AttackEffects applied.");
+        }
+
         public void Heal(int healing)
         {
             //_currentHealth = Mathf.Clamp(_currentHealth + healing, 0, Controller.Stats.maxHealth);

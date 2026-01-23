@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 {
-    [CreateAssetMenu(fileName = "FixedRangeArcMovement", menuName = "Projectile/Movement/Fixed Range Arc")]
+    [CreateAssetMenu(fileName = "FixedRangeArcMovement", menuName = "Combat/Projectile/Movement/Fixed Range Arc")]
     public class FixedRangeArcMovement : ProjectileMovement
     {
         // This projectile is defined by a Launch Angle, Speed and Final destination.

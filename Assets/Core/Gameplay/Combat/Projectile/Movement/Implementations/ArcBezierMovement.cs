@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 {
-    [CreateAssetMenu(fileName = "ArcBezierMovement", menuName = "Projectile/Movement/Arc Bezier")]
+    [CreateAssetMenu(fileName = "ArcBezierMovement", menuName = "Combat/Projectile/Movement/Arc Bezier")]
     public class ArcBezierMovement : ProjectileMovement
     {
         public float travelTime = 0.5f;   // <- This will now be ALWAYS the same

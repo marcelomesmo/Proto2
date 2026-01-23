@@ -5,7 +5,7 @@ using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Subsystem;
 using Core.Gameplay.Entity.Tags;
-using Enemy;
+using Game.Entity.Enemy.Stats;
 using UnityEngine;
 
 namespace Game.Entity.Enemy.Subsystem
@@ -13,7 +13,7 @@ namespace Game.Entity.Enemy.Subsystem
     [RequireComponent(typeof(EntityMovement))]
     [RequireComponent(typeof(EntityAttackSubsystem))]
     [RequireComponent(typeof(EntityAttackLoadout))]
-    public class EnemyAiBrainSubsystem : EntityBrainSubsystem
+    public sealed class EnemyAiBrainSubsystem : EntityBrainSubsystem
     {
         [Header("Line of Sight")]
         [SerializeField] private LayerMask losBlockMask;  // walls, ground, obstacles
@@ -105,54 +105,32 @@ namespace Game.Entity.Enemy.Subsystem
                 return; // <--- THIS blocks attack/move before spawn finished!
             }
             
-            bool hasAttackInRange = HasAnyValidAttackInRange();
+            // Mental model:
+            // a. Can I attack right now from where I am?
+            // b. If not, is there a ready attack I could reach by moving?
+            // c. Otherwise, no ready attacks at all -> idle / hold / wait for cooldowns
+            
+            float distance =
+                Vector2.Distance(transform.position, CurrentTarget.transform.position);
             
             // --- ATTACK INTENT ---
+            // 1. Attack immediately if possible
             if (Time.time >= _nextActionTime)
             {
-                float distance =
-                    Vector2.Distance(transform.position, CurrentTarget.transform.position);
-
-                foreach (var attack in _attackLoadout.Attacks) // Or later: foreach (var attack in GetCandidateAttacks(CurrentTarget))
-                {
-                    // High-level AI intent check only
-                    if (!IsAttackAppropriate(attack, distance))
-                        continue;
-
-                    // Ensure facing is correct before attack
-                    _movement.CheckDirectionChange(CurrentTarget);  // Change sprite direction if needed.
-                    // Later on we might want to introduce attack wind-up time, i.e. lock direction on attack start.
-                
-                    Vector2 direction = 
-                        (CurrentTarget.transform.position - transform.position).normalized;
-                    
-                    bool attackExecuted = _attackSubsystem.TryExecute(
-                        attack,
-                        new AttackContext
-                        {
-                            Target = CurrentTarget,
-                            Direction = direction
-                        }
-                    );
-
-                    if (attackExecuted)
-                    {
-                        _movement.Stop();
-                        _nextActionTime = Time.time + _stats.globalCooldown;
-                        return; // Attack consumed → no movement this frame
-                    }
-                }
+                if (TryExecuteAnyReadyAttack(distance))
+                    return;
             }
             
-            // --- MOVEMENT ---
-            if (hasAttackInRange)
+            // --- MOVEMENT INTENT ---
+            // 2. Move if there exists a READY attack we could reach
+            if (HasReadyAttackOutOfRange(distance))
             {
-                // We are in range but waiting for cooldown → HOLD POSITION
-                _movement.Stop();
+                _movement.MoveTo(TargetPosition);
                 return;
             }
             
-            HandleMovement();
+            // 3. Otherwise, wait (we are in range, but all attacks are on cooldown)
+            _movement.Stop();
         }
         
         private void OnDamageTaken(DamagePayload payload)
@@ -166,15 +144,6 @@ namespace Game.Entity.Enemy.Subsystem
         
         private void HandleMovement()
         {
-            var shouldMove =
-                    Vector2.Distance(transform.position, TargetPosition) > _stats.preferredDistance;
-
-            if (!shouldMove)
-            {
-                _movement.Stop();
-                return;
-            }
-
             _movement.MoveTo(TargetPosition);
         }
         
@@ -183,25 +152,52 @@ namespace Game.Entity.Enemy.Subsystem
         
         #region Attack Selection
         
-        private bool HasAnyValidAttackInRange()
+        private bool TryExecuteAnyReadyAttack(float distance)
         {
-            float distance =
-                Vector2.Distance(transform.position, CurrentTarget.transform.position);
-
             foreach (var attack in _attackLoadout.Attacks)
             {
-                if (IsAttackAppropriate(attack, distance))
+                // Attack isn't in range, skip.
+                if (distance > attack.range)
+                    continue;
+
+                // Attack is on cooldown, skip.
+                if (!_attackSubsystem.CanExecute(attack))
+                    continue;
+                
+                // Ensure facing is correct before attack
+                _movement.CheckDirectionChange(CurrentTarget);
+
+                bool executed = _attackSubsystem.TryExecute(
+                    attack,
+                    new AttackContext
+                    {
+                        Target = CurrentTarget,
+                        Direction = (CurrentTarget.transform.position - transform.position).normalized
+                    });
+
+                if (executed)
+                {
+                    _movement.Stop();
+                    _nextActionTime = Time.time + _stats.globalCooldown;
                     return true;
+                }
             }
 
             return false;
         }
         
-        private bool IsAttackAppropriate(AttackData attack, float distance)
+        private bool HasReadyAttackOutOfRange(float distance)
         {
-            // High-level AI intent check ONLY
-            // Exact range validation happens inside AttackSubsystem
-            return distance <= attack.range;
+            foreach (var attack in _attackLoadout.Attacks)
+            {
+                if (!_attackSubsystem.CanExecute(attack))
+                    continue;
+
+                if (distance > attack.range)
+                    return true;
+            }
+
+            return false;
         }
         
         #endregion
@@ -325,7 +321,7 @@ namespace Game.Entity.Enemy.Subsystem
         
                 
 #if UNITY_EDITOR
-        protected virtual void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             if (!_stats)
                 return;

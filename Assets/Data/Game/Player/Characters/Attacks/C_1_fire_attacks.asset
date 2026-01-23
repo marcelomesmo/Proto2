@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: C_1_fire_attacks
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
-  - {fileID: 11400000, guid: 447652a9d5e0f084c99a652f86d33451, type: 2}
+  - {fileID: 11400000, guid: cfd9e19ac2500d046ae967a4c03d77f4, type: 2}

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Core.Enum;
+using Core.Gameplay.Combat.AreaEffect;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Stats;
+using Core.Interfaces;
 using Core.Services.Manager;
 using UnityEngine;
 
@@ -43,28 +45,10 @@ namespace Core.Gameplay.Entity.Subsystem
             
             _attacks.Clear();
             
-            //attackLoadout?.OnLoadoutChanged += OnAttackLoadoutChanged();
-            
-            // Initialize attack reference dictionary.
-            foreach (var attack in _attackLoadout.Attacks)
-            {
-                if (_attacks.ContainsKey(attack))
-                {
-                    Debug.LogWarning(
-                        $"[EntityAttackSubsystem] Duplicate Attack reference {attack.name} on {_controller.name}",
-                        this);
-                    continue;
-                }
+            _attackLoadout.OnLoadoutChanged += RebuildAttackInstances;
+            RebuildAttackInstances();
 
-                _attacks.Add(attack, new AttackInstance(attack));
-            }
-            
-            // Initialize damage source.
-            _damageSource = new DamageSource(
-                faction: _stats.faction,
-                controller: _controller,
-                sourcePosition: transform.position
-            );
+            CreateDamageSource();
         }
 
         protected override void OnUpdate()
@@ -106,11 +90,24 @@ namespace Core.Gameplay.Entity.Subsystem
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("attack");
 
-            if (attack.Data.isRanged)
-                ShootProjectile(attack.Data, context);
-            else
-                PrepareMelee(context);
+            switch (attack.Data.executionMode)
+            {
+                case AttackExecutionMode.Projectile:
+                    ShootProjectile(attack.Data, context);
+                    break;
+
+                case AttackExecutionMode.AreaEffect:
+                    SpawnAreaEffect(attack.Data, context);
+                    break;
+
+                case AttackExecutionMode.Melee:
+                default:
+                    PrepareMelee(context);
+                    break;
+            }
         }
+        
+        #region AttackExecutionMode : Projectile
         
         private void ShootProjectile(AttackData data, AttackContext context)
         {
@@ -138,16 +135,41 @@ namespace Core.Gameplay.Entity.Subsystem
             projectile.Configure(CreateProjectileContext(data), _damageSource);
             projectile.Launch(angle);
         }
-
-        private ProjectileContext CreateProjectileContext(AttackData data)
+        
+        #endregion
+        
+        #region Area
+        
+        private void SpawnAreaEffect(AttackData data, AttackContext context)
         {
-            return new ProjectileContext(
-                faction: _stats.faction,
-                range: data.range,
-                bonusPierce: 0,
-                damageMultiplier: 1f
+            if (!data.areaEffectData)
+            {
+                Debug.LogWarning($"Attack {data.name} has no AreaEffectData");
+                return;
+            }
+
+            // todo: add pooling here in the future: AreaEffectPoolManager.Instance.Spawn(data.areaEffectPrefab)
+            var go = new GameObject($"AreaEffect_{data.name}");
+            go.transform.position = context.Target
+                ? context.Target.transform.position
+                : transform.position;
+
+            var instance = go.AddComponent<AreaEffectInstance>();
+            // todo: also don't have the vfx for the effect instantianted as we dont instantiate a prefab
+
+            var payload = new DamagePayload(
+                hitData: data,
+                effects: data.Effects,
+                hitPoint: go.transform.position,
+                source: CreateDamageSource()
             );
+
+            instance.Initialize(data.areaEffectData, payload);
         }
+        
+        #endregion
+        
+        #region AttackExecutionMode : Melee
 
         private void PrepareMelee(AttackContext context)
         {
@@ -185,17 +207,42 @@ namespace Core.Gameplay.Entity.Subsystem
 
             foreach (var hit in hits)
             {
-                if (hit.TryGetComponent(out EntityHealth health) && !health.IsDead)
+                if (hit.TryGetComponent<IDamageable>(out var damageable))
                 {
                     var payload = new DamagePayload(
-                        data,
-                        Vector2.zero,
-                        _damageSource
+                        hitData: data,
+                        effects: data.Effects,
+                        hitPoint: Vector2.zero,
+                        source: CreateDamageSource()
                     );
-
-                    health.TakeDamage(payload);
+                    
+                    if (damageable.CanBeDamaged())
+                        damageable.TakeDamage(payload);
                 }
             }
+        }
+        
+        #endregion
+        
+        #region Util
+        
+        private ProjectileContext CreateProjectileContext(AttackData data)
+        {
+            return new ProjectileContext(
+                faction: _stats.faction,
+                range: data.range,
+                bonusPierce: 0,
+                damageMultiplier: 1f
+            );
+        }
+        
+        private DamageSource CreateDamageSource()
+        {
+            return new DamageSource(
+                _stats.faction,
+                _controller,
+                transform.position
+            );
         }
         
         private Bounds GetEntityBounds()
@@ -223,5 +270,28 @@ namespace Core.Gameplay.Entity.Subsystem
         }
 
         public bool CanExecute(AttackData data) => _attacks.ContainsKey(data);
+        
+        #endregion
+        
+        #region Attack Loadout
+
+        private void RebuildAttackInstances()
+        {
+            // Initialize attack reference dictionary.
+            foreach (var attack in _attackLoadout.Attacks)
+            {
+                if (_attacks.ContainsKey(attack))
+                {
+                    Debug.LogWarning(
+                        $"[EntityAttackSubsystem] Duplicate Attack reference {attack.name} on {_controller.name}",
+                        this);
+                    continue;
+                }
+
+                _attacks.Add(attack, new AttackInstance(attack));
+            }
+        }
+        
+        #endregion
     }
 }

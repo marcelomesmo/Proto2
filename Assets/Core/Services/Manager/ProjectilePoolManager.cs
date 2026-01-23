@@ -24,8 +24,8 @@ namespace Core.Services.Manager
         public List<ProjectilePool> projectilePools;
 
         // Manage all available pools, located by projectile type (gameObject)
-        private readonly Dictionary<GameObject, IObjectPool<BaseProjectile>> _allPools = new();
-        private Dictionary<GameObject, HashSet<BaseProjectile>> _activeObjects = new();
+        private readonly Dictionary<GameObject, IObjectPool<ProjectileInstance>> _allPools = new();
+        private Dictionary<GameObject, HashSet<ProjectileInstance>> _activeObjects = new();
 
         private int _activeObjectCount; // Custom counter for active objects
     
@@ -48,7 +48,7 @@ namespace Core.Services.Manager
             foreach (var pool in projectilePools)
             {
                 var prefab = pool.projectilePrefab;
-                var prefabController = prefab.GetComponent<BaseProjectile>();
+                var prefabController = prefab.GetComponent<ProjectileInstance>();
             
                 if (prefabController == null)
                 {
@@ -56,15 +56,15 @@ namespace Core.Services.Manager
                     continue;
                 }
                 
-                _activeObjects.Add(prefab, new HashSet<BaseProjectile>());
+                _activeObjects.Add(prefab, new HashSet<ProjectileInstance>());
 
-                IObjectPool<BaseProjectile> objectPool = null;  // IMPORTANT: create pool variable first so createFunc can reference it
+                IObjectPool<ProjectileInstance> objectPool = null;  // IMPORTANT: create pool variable first so createFunc can reference it
             
-                objectPool = new ObjectPool<BaseProjectile>(
+                objectPool = new ObjectPool<ProjectileInstance>(
                     createFunc: () =>
                     {
                         var objGO = Instantiate(prefab, transform);
-                        var obj = objGO.GetComponent<BaseProjectile>();
+                        var obj = objGO.GetComponent<ProjectileInstance>();
                     
                         obj.AssignToPool(objectPool);    // ← gives projectile its pool reference
                         obj.gameObject.SetActive(false);
@@ -97,7 +97,7 @@ namespace Core.Services.Manager
         }
     
         // Called by WeaponManager to spawn new Projectiles.
-        public BaseProjectile Spawn(GameObject prefab)
+        public ProjectileInstance Spawn(GameObject prefab)
         {
             if (!_allPools.TryGetValue(prefab, out var pool))
             {
@@ -113,10 +113,10 @@ namespace Core.Services.Manager
             foreach (var kvp in _activeObjects)
             {
                 GameObject prefab = kvp.Key;
-                IObjectPool<BaseProjectile> pool = _allPools[prefab];
+                IObjectPool<ProjectileInstance> pool = _allPools[prefab];
 
                 // Copy to avoid modifying collection while iterating
-                var snapshot = ListPool<BaseProjectile>.Get();
+                var snapshot = ListPool<ProjectileInstance>.Get();
                 snapshot.AddRange(kvp.Value);
 
                 foreach (var obj in snapshot)
@@ -125,7 +125,7 @@ namespace Core.Services.Manager
                 }
 
                 kvp.Value.Clear();
-                ListPool<BaseProjectile>.Release(snapshot);
+                ListPool<ProjectileInstance>.Release(snapshot);
             }
         }
     

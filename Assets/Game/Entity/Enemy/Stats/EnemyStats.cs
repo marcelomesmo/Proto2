@@ -2,7 +2,7 @@ using Core.Enum;
 using Core.Gameplay.Entity.Stats;
 using UnityEngine;
 
-namespace Enemy
+namespace Game.Entity.Enemy.Stats
 {
     public enum EnemyMovementType
     {
@@ -23,7 +23,7 @@ namespace Enemy
         
         [Header("Base Movement")]
         public EnemyMovementType movementType = EnemyMovementType.Ground;
-        public float preferredDistance = 1f;
+        //public float preferredDistance = 1f;
         
         [Header("Targeting")]
         public float aggroRadius = 8f;

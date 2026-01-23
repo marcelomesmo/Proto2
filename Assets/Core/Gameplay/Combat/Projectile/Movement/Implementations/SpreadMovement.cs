@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 {
-    [CreateAssetMenu(fileName = "SpreadMovement", menuName = "Projectile/Movement/Spread")]
+    [CreateAssetMenu(fileName = "SpreadMovement", menuName = "Combat/Projectile/Movement/Spread")]
     public class SpreadMovement : ProjectileMovement
     {
         public float sideOffset = 0.5f;

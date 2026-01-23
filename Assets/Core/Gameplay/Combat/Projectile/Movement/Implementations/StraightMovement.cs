@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 {
-    [CreateAssetMenu(fileName = "StraightMovement", menuName = "Projectile/Movement/Straight")]
+    [CreateAssetMenu(fileName = "StraightMovement", menuName = "Combat/Projectile/Movement/Straight")]
     public class StraightMovement : ProjectileMovement
     {
         private void OnEnable()

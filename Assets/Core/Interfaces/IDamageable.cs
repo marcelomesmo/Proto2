@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 
@@ -8,5 +9,6 @@ namespace Core.Interfaces
         Faction Faction { get; }
         bool CanBeDamaged();
         void TakeDamage(DamagePayload context);
+        void ApplyAttackEffects(IReadOnlyList<AttackEffectData> effects, DamageSource source);
     }
 }
