@@ -90,7 +90,7 @@ namespace Core.Gameplay.Entity.Subsystem
         #endregion
         
         #region Utils
-        protected void CheckDirectionChange(Vector2 direction)
+        public void CheckDirectionChange(Vector2 direction)
         {
             switch (direction.x)
             {
@@ -105,12 +105,6 @@ namespace Core.Gameplay.Entity.Subsystem
                     OnDirectionChange?.Invoke();
                     break;
             }
-        }
-        public void CheckDirectionChange(EntityController target)
-        {
-            Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
-
-            CheckDirectionChange(direction);
         }
         #endregion
     }

@@ -24,12 +24,10 @@ namespace Core.Gameplay.Combat.AreaEffect
             _payload = payload;
 
             _remainingTime = data.duration;
-            _tickTimer = 0f;
+            _tickTimer = Mathf.Max(0.01f, data.tickInterval);
             
             if (_data.vfxPrefab)
             {
-                Debug.Log("Spawning vfx");
-                
                 _vfxInstance = Instantiate(
                     _data.vfxPrefab,
                     transform.position,

@@ -5,7 +5,7 @@ using Core.Gameplay.Entity.Tags;
 using Core.Services;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Player
 {
     /*
      * Entity responsible for:
@@ -24,6 +24,24 @@ namespace Game.Entity
             // todo: remove this from here and add it to a entry-level sequencer later.
             if(tag == Stats.spawnFinishedTag)
                 ServiceLocator.Get<GameController>().StartMatch();
+
+            if (tag == Stats.burnTag)
+            {
+                // do something? vfx
+                //Debug.Log("[PlayerCastleController] Player is burning.");
+            }
+            
+            if (tag == Stats.stunTag)
+            {
+                // do something? vfx
+                //Debug.Log("[PlayerCastleController] Player is stunned.");
+            }
+            
+            if (tag == Stats.slowTag)
+            {
+                // do something? vfx
+                //Debug.Log("[PlayerCastleController] Player is slowed.");
+            }
             
             if (tag == Stats.deadTag)
                 HandleDeath();

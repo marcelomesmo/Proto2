@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
+  m_Name: Ranged_ChainLightning
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  executionMode: 1
+  damage: 2
+  range: 9
+  cooldown: 5
+  hitType: 5
+  hitVFX: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
+  projectilePrefab: {fileID: 5975751646184246127, guid: 45d07bbbb199a1d4f82340842c2122a1, type: 3}
+  directionMode: 1
+  fixedAngle: 0
+  areaEffectData: {fileID: 0}
+  chainData: {fileID: 11400000, guid: 7eb153517332bca4cbfd2ffa36637358, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 6011d24b8e585f84c8091534a4d4be78, type: 2}

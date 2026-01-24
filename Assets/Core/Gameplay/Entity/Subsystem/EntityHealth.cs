@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.ChainAttack;
+using Core.Gameplay.Combat.StatusEffect;
+using Core.Gameplay.Combat.StatusEffect.Implementations;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
 using UnityEngine;
@@ -68,25 +71,83 @@ namespace Core.Gameplay.Entity.Subsystem
             // Extra defensive check — in case someone calls TakeDamage directly:
             if (!CanBeDamaged()) return;
             
-            _currentHealth = Mathf.Clamp(_currentHealth - payload.hitData.damage, 0, Controller.Stats.maxHealth);
+            // 1. Apply damage
+            int damage =
+                payload.damageOverride?.damage          // Status effect damage
+                ?? payload.hitData.damage;              // Direct damage
             
+            _currentHealth = Mathf.Clamp(
+                _currentHealth - damage,
+                0,
+                Controller.Stats.maxHealth
+            );
+            
+            // 2. Apply status effects
             ApplyAttackEffects(payload.effects, payload.source);
             
+            // 3. Play animation
             //Controller.Animator.SetTrigger("hurt");
 
-            //if (Faction == Faction.Player)
-            //    OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
-            
+            // 4. Raise events
+            //if (Faction == Faction.Player) OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
             HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
             DamageTaken?.Invoke(payload);
             
+            // 5. Resolve Chain Attacks: this coupling is intentional (for now).
+            if (payload.hitData != null &&
+                payload.hitData.chainData != null &&
+                payload.chainDepth == 0)
+            {
+                ChainAttackResolver.ResolveChain(
+                    payload.hitData,
+                    payload,
+                    this
+                );
+            }
+            
+            // 6. Finally, check status.
             if (_currentHealth <= 0)
                 Die();
         }
 
         public void ApplyAttackEffects(IReadOnlyList<AttackEffectData> effects, DamageSource source)
         {
-            //Debug.Log("[EntityHealth] AttackEffects applied.");
+            if (effects == null || effects.Count == 0)
+                return;
+
+            if (!TryGetComponent(out EntityStatusEffectSubsystem entityStatusEffectSubsystem))
+                return;
+            
+            foreach (var effect in effects)
+            {
+                StatusEffectInstance instance = effect.effectType switch
+                {
+                    StatusEffectType.Burn =>
+                        new BurnEffectInstance(
+                            Controller, 
+                            effect, 
+                            source,
+                            Controller.Stats.burnTag),
+
+                    StatusEffectType.Stun =>
+                        new StunEffectInstance(
+                            Controller,
+                            effect,
+                            Controller.Stats.stunTag),
+
+                    StatusEffectType.Slow =>
+                        new SlowEffectInstance(
+                            Controller,
+                            effect,
+                            Controller.Stats.slowTag),
+
+                    _ => null
+                };
+
+                if (instance == null) return;
+                
+                entityStatusEffectSubsystem.AddEffect(instance);
+            }
         }
 
         public void Heal(int healing)

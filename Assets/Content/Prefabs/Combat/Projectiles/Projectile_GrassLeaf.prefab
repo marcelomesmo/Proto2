@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementBehavior: {fileID: 11400000, guid: d25c64bb75de8864a88f668efed49687, type: 2}
   impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
-  attackProperties: {fileID: 11400000, guid: 447652a9d5e0f084c99a652f86d33451, type: 2}
+  attackProperties: {fileID: 11400000, guid: fd99ac6ec3add4b47a9ae12b5c48b299, type: 2}
   lifetimePolicy: 0
   trailVFXPrefab: {fileID: 0}
 --- !u!212 &7787481460175388734
@@ -102,7 +102,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1633424848, guid: 87fe8d4cebc1fe54088d2e4c1a8c3119, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_Size: {x: 0.19, y: 0.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!58 &-1011089068208285878
 CircleCollider2D:
@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878814061148674, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878814061148674, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
       propertyPath: m_LocalPosition.y

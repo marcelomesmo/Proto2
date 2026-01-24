@@ -15,4 +15,5 @@ MonoBehaviour:
   effectType: 1
   duration: 5
   value: 0.5
-  tickInterval: 0
+  tickInterval: 1
+  vfxPrefab: {fileID: 1545806602296978, guid: 666fa40e636e15244901fdc325d30793, type: 3}

@@ -87,7 +87,9 @@ namespace Core.Gameplay.Entity
 
         #region Tag Checks
         
-        public bool IsStunned => Tags.HasTag(Stats.stunnedTag);
+        public bool IsStunned => Tags.HasTag(Stats.stunTag);
+        public bool IsSlowed => Tags.HasTag(Stats.slowTag);
+        public bool IsBurning => Tags.HasTag(Stats.burnTag);
         //public bool IsFrozen => ;
         //public bool IsEnraged => ;
         public bool IsDead => Tags.HasTag(Stats.deadTag);

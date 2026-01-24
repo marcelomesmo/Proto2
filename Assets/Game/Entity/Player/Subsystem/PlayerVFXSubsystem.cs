@@ -7,7 +7,7 @@ using Core.Services.Manager;
 using Core.VFX;
 using UnityEngine;
 
-namespace Entity.Effects
+namespace Game.Entity.Player.Subsystem
 {
     public class PlayerVFXSubsystem : BaseSubsystem
     {

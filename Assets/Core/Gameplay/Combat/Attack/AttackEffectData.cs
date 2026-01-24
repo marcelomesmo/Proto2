@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
 {
-    public enum AttackEffectType
+    public enum StatusEffectType
     {
         Stun,
         Slow,
@@ -14,15 +14,15 @@ namespace Core.Gameplay.Combat.Attack
     public class AttackEffectData : ScriptableObject
     {
         [Header("Effect")]
-        public AttackEffectType effectType;
+        public StatusEffectType effectType;
 
         [Header("Timing")]
-        public float duration;
+        public float duration = 1f;
 
         [Header("Magnitude")]
         public float value; // slow %, damage per tick, etc.
 
         [Header("Ticking (optional)")]
-        public float tickInterval; // 0 = instant / non-ticking
+        public float tickInterval = 1f; // 1 = 1 sec ticks, 0 = instant / non-ticking
     }
 }

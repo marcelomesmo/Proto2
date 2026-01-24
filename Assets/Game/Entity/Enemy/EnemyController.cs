@@ -14,6 +14,24 @@ namespace Game.Entity.Enemy
         {
             if (tag == Stats.deadTag)
                 OnDeath();
+            
+            if (tag == Stats.burnTag)
+            {
+                // do something? vfx
+                //Debug.Log("[EnemyController] is burning.");
+            }
+            
+            if (tag == Stats.stunTag)
+            {
+                // do something? vfx
+                //Debug.Log("[EnemyController] is stunned.");
+            }
+            
+            if (tag == Stats.slowTag)
+            {
+                // do something? vfx
+                //Debug.Log("[EnemyController] is slowed.");
+            }
         }
 
         private void OnDeath()

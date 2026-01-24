@@ -1,9 +1,8 @@
 ﻿using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
-using Core.Gameplay.Entity.Tags;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Player
 {
     public class PlayerCharacterController : EntityController
     {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Debuff_Stun
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackEffectData
   effectType: 0
-  duration: 2
+  duration: 0.5
   value: 1
   tickInterval: 0
+  vfxPrefab: {fileID: 1545806602296978, guid: 9133fc0db617fb940a6e357c18ef7a6b, type: 3}

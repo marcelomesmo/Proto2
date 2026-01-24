@@ -19,7 +19,10 @@ namespace Core.Gameplay.Entity.Stats
         [Header("Tags")]
         public GameplayTag invulnerableTag;
         public GameplayTag spawnFinishedTag;
-        public GameplayTag stunnedTag;
         public GameplayTag deadTag;
+        
+        public GameplayTag stunTag;
+        public GameplayTag slowTag;
+        public GameplayTag burnTag;
     }
 }

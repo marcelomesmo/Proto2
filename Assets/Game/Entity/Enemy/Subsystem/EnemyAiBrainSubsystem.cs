@@ -165,14 +165,16 @@ namespace Game.Entity.Enemy.Subsystem
                     continue;
                 
                 // Ensure facing is correct before attack
-                _movement.CheckDirectionChange(CurrentTarget);
+                Vector2 attackDir =
+                    (CurrentTarget.transform.position - transform.position).normalized;
+                _movement.CheckDirectionChange(attackDir);
 
                 bool executed = _attackSubsystem.TryExecute(
                     attack,
                     new AttackContext
                     {
                         Target = CurrentTarget,
-                        Direction = (CurrentTarget.transform.position - transform.position).normalized
+                        Direction = attackDir
                     });
 
                 if (executed)

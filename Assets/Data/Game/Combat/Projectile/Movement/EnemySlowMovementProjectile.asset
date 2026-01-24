@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   physicsMode: 0
   speed: 2
-  sideOffset: 0.5
+  sideOffset: 0.05

@@ -1,5 +1,4 @@
 using Core.Gameplay.Entity.Subsystem;
-using Entity;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.AnimationRelay

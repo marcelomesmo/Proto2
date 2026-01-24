@@ -9,7 +9,5 @@ AnimatorOverrideController:
   m_Name: C_1_fire
   m_Controller: {fileID: 9100000, guid: 2ae99002dea3af6418787205cc3c3a10, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 8961ea489b253324588a5a5bf7b46bfe, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 8961ea489b253324588a5a5bf7b46bfe, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: eab98c7476079c04eb0fccd6b3a0499a, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: abc97c9dcf94dbf43b50bea1de6c99f5, type: 2}

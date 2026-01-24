@@ -191,6 +191,8 @@ namespace Core.Gameplay.Entity.Subsystem
             _currentAttack = null;
         }
         
+        private readonly List<Collider2D> _meleeHits = new();
+        
         private void ApplyMeleeHit(AttackData data)
         {
             Bounds bounds = GetEntityBounds();
@@ -203,22 +205,41 @@ namespace Core.Gameplay.Entity.Subsystem
 
             _boxSize.x = data.range;
 
-            var hits = Physics2D.OverlapBoxAll(center, _boxSize, 0f, hitLayers);
-
-            foreach (var hit in hits)
+            _meleeHits.Clear();
+            
+            var filter = new ContactFilter2D
             {
-                if (hit.TryGetComponent<IDamageable>(out var damageable))
-                {
-                    var payload = new DamagePayload(
-                        hitData: data,
-                        effects: data.Effects,
-                        hitPoint: Vector2.zero,
-                        source: CreateDamageSource()
-                    );
-                    
-                    if (damageable.CanBeDamaged())
-                        damageable.TakeDamage(payload);
-                }
+                useTriggers = true,
+                layerMask = hitLayers
+            };
+
+            Physics2D.OverlapBox(
+                center,
+                _boxSize,
+                0f,
+                filter,
+                _meleeHits
+            );
+
+            foreach (var hit in _meleeHits)
+            {
+                if (!hit)
+                    continue;
+                
+                if (!hit.TryGetComponent<IDamageable>(out var damageable))
+                    continue;
+                
+                if (!damageable.CanBeDamaged())
+                    continue;
+                
+                var payload = new DamagePayload(
+                    hitData: data,
+                    effects: data.Effects,
+                    hitPoint: Vector2.zero,
+                    source: CreateDamageSource()
+                );
+                
+                damageable.TakeDamage(payload);
             }
         }
         
@@ -277,6 +298,8 @@ namespace Core.Gameplay.Entity.Subsystem
 
         private void RebuildAttackInstances()
         {
+            _attacks.Clear();
+            
             // Initialize attack reference dictionary.
             foreach (var attack in _attackLoadout.Attacks)
             {

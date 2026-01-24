@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.AreaEffect;
+using Core.Gameplay.Combat.ChainAttack;
 using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
@@ -17,7 +18,7 @@ namespace Core.Gameplay.Combat.Attack
         public float cooldown;
         public HitType hitType;
         
-        public GameObject hitVFX;   // hit vfx overload? todo: hit vfx by hittype?
+        public GameObject hitVFX;
 
         [Header("Ranged - Settings")]
         public GameObject projectilePrefab;
@@ -26,6 +27,9 @@ namespace Core.Gameplay.Combat.Attack
         
         [Header("Area Effect - Settings")]
         public AreaEffectData areaEffectData;
+        
+        [Header("Chain Attack - Additional Settings")]
+        public ChainAttackData chainData;
         
         [Header("Side Effects (Buffs/Debuffs)")]
         [SerializeField] private List<AttackEffectData> effects = new();

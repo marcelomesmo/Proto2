@@ -17,8 +17,8 @@ namespace Core.Gameplay.Combat.Projectile
         public AttackData attackProperties;
         [SerializeField] private ProjectileLifetimePolicy lifetimePolicy = ProjectileLifetimePolicy.DespawnOnLastHit;
         
-        [Header("VFX")]
-        [SerializeField] protected TrailRenderer trailVFXPrefab;
+        //[Header("VFX")]
+        //[SerializeField] protected TrailRenderer trailVFXPrefab;
     
         private Faction _ownerFaction;
         public Faction GetOwnerFaction() => _ownerFaction;
@@ -273,8 +273,8 @@ namespace Core.Gameplay.Combat.Projectile
             _hasLaunched = false; // Reset launch state
         
             // Re-enable emission
-            if(trailVFXPrefab)
-                trailVFXPrefab.emitting = true;
+            //if(trailVFXPrefab)
+            //    trailVFXPrefab.emitting = true;
         }
 
         // Called by pool on Release (actionOnRelease)
@@ -293,13 +293,13 @@ namespace Core.Gameplay.Combat.Projectile
             _initializedThisLife = false;
             _hasLaunched = false;
 
-            if (trailVFXPrefab)
+            /*if (trailVFXPrefab)
             {
                 // Stop emission so no new vertices are added
                 trailVFXPrefab.emitting = false;
                 // Clear existing trail data
                 trailVFXPrefab.Clear();
-            }
+            }*/
 
             _remainingHits = 0;
         }

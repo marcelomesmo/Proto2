@@ -122,7 +122,7 @@ namespace Core.Services
             Time.timeScale = speed;
             Time.fixedDeltaTime = 0.02f * speed;
 
-            Debug.Log($"[GameController] Game speed set to {speed}x");
+            //Debug.Log($"[GameController] Game speed set to {speed}x");
         }
 
         #endregion
