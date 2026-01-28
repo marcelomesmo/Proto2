@@ -52,7 +52,6 @@ MonoBehaviour:
   impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
   attackProperties: {fileID: 11400000, guid: 225709d00b413894eac570a6f1ea0ec0, type: 2}
   lifetimePolicy: 0
-  trailVFXPrefab: {fileID: 0}
 --- !u!212 &7787481460175388734
 SpriteRenderer:
   serializedVersion: 2
@@ -147,7 +146,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!50 &7145970045367409275
 Rigidbody2D:
   serializedVersion: 5

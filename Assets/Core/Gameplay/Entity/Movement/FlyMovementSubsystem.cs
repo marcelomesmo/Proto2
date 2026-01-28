@@ -32,8 +32,6 @@ namespace Core.Gameplay.Entity.Movement
             Vector2 direction = (targetPos - (Vector2)transform.position).normalized;
 
             Rb.linearVelocity = direction * Controller.Stats.moveSpeed;
-
-            CheckDirectionChange(direction);
         
             // Animation triggers
             if (!Controller.Animator)

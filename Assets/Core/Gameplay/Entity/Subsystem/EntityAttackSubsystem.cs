@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.AreaEffect;
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Stats;
 using Core.Interfaces;
+using Core.Services;
 using Core.Services.Manager;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Core.Gameplay.Entity.Subsystem
 {
@@ -26,8 +30,9 @@ namespace Core.Gameplay.Entity.Subsystem
         private DamageSource _damageSource;
         private AttackInstance _currentAttack;
         
-        private int _facingDirection = 1;
         private Vector2 _boxSize = new(3f, 0.5f);
+
+        public event Action<AttackInstance> OnAttackExecuted;
         
         protected override void OnInitialize()
         {
@@ -90,6 +95,8 @@ namespace Core.Gameplay.Entity.Subsystem
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("attack");
 
+            OnAttackExecuted?.Invoke(attack);
+
             switch (attack.Data.executionMode)
             {
                 case AttackExecutionMode.Projectile:
@@ -101,18 +108,24 @@ namespace Core.Gameplay.Entity.Subsystem
                     break;
 
                 case AttackExecutionMode.Melee:
+                    // Called via animation event
                 default:
-                    PrepareMelee(context);
                     break;
             }
         }
-        
+
         #region AttackExecutionMode : Projectile
         
         private void ShootProjectile(AttackData data, AttackContext context)
         {
+            if (context.Direction.sqrMagnitude < 0.0001f)
+            {
+                Debug.LogWarning(
+                    $"[EntityAttackSubsystem] Invalid projectile direction on {Controller.name}",
+                    this);
+            }
+
             float angle;
-            
             switch (data.directionMode)
             {
                 case ProjectileDirectionMode.UseAttackDirection:
@@ -157,34 +170,37 @@ namespace Core.Gameplay.Entity.Subsystem
             var instance = go.AddComponent<AreaEffectInstance>();
             // todo: also don't have the vfx for the effect instantianted as we dont instantiate a prefab
 
+            var modifiers = ListPool<DamageModifier>.Get();
+            
+            ServiceLocator
+                .Get<GameController>()?
+                .UpgradeManager
+                .CollectDamageModifiers(
+                    ModifierScope.Area,
+                    modifiers);
+            
             var payload = new DamagePayload(
                 hitData: data,
+                baseDamage: data.damage,
+                modifiers: modifiers,
                 effects: data.Effects,
                 hitPoint: go.transform.position,
                 source: CreateDamageSource()
             );
 
             instance.Initialize(data.areaEffectData, payload);
+            
+            ListPool<DamageModifier>.Release(modifiers);
         }
         
         #endregion
         
         #region AttackExecutionMode : Melee
-
-        private void PrepareMelee(AttackContext context)
-        {
-            Vector2 direction = context.Direction;
-
-            if (direction.sqrMagnitude < 0.001f)
-                direction = Vector2.right; // safe fallback
-
-            _facingDirection = direction.x < 0 ? -1 : 1;
-        }
         
         // Called via animation event
         public void OnAttackHit()
         {
-            if (_currentAttack == null)
+            if (_currentAttack == null || _currentAttack.Data.executionMode != AttackExecutionMode.Melee)
                 return;
 
             ApplyMeleeHit(_currentAttack.Data);
@@ -200,8 +216,10 @@ namespace Core.Gameplay.Entity.Subsystem
             float halfWidth = bounds.extents.x;
             float boxHalf = data.range * 0.5f;
 
+            int facingDirection = Controller.GetComponent<EntityPresentationSubsystem>().CurrentFacing == FacingDirection.Right ? 1 : -1;
+            
             Vector2 origin = bounds.center;
-            Vector2 center = origin + new Vector2((halfWidth + boxHalf) * _facingDirection, 0f);
+            Vector2 center = origin + new Vector2((halfWidth + boxHalf) * facingDirection, 0f);
 
             _boxSize.x = data.range;
 
@@ -232,12 +250,25 @@ namespace Core.Gameplay.Entity.Subsystem
                 if (!damageable.CanBeDamaged())
                     continue;
                 
+                var modifiers = ListPool<DamageModifier>.Get();
+
+                ServiceLocator
+                    .Get<GameController>()?
+                    .UpgradeManager
+                    .CollectDamageModifiers(
+                        ModifierScope.Melee,
+                        modifiers);
+                
                 var payload = new DamagePayload(
                     hitData: data,
+                    baseDamage: data.damage,
+                    modifiers: null,
                     effects: data.Effects,
                     hitPoint: Vector2.zero,
                     source: CreateDamageSource()
                 );
+                
+                ListPool<DamageModifier>.Release(modifiers);
                 
                 damageable.TakeDamage(payload);
             }

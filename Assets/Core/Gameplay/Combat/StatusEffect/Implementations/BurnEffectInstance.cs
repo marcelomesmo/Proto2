@@ -1,8 +1,12 @@
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
+using Core.Services;
+using Core.Services.Meta;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Core.Gameplay.Combat.StatusEffect.Implementations
 {
@@ -53,13 +57,25 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
             if (!_target.TryGetComponent<IDamageable>(out var damageable))
                 return;
             
+            var modifiers = ListPool<DamageModifier>.Get();
+            
+            ServiceLocator
+                .Get<GameController>()?
+                .UpgradeManager
+                .CollectDamageModifiers(
+                    ModifierScope.Effect,
+                    modifiers);
+            
             var payload = DamagePayload.CreateEffectDamage(
                 damage: Mathf.RoundToInt(_data.value),
                 source: _source,
-                hitPoint: _target.transform.position
+                hitPoint: _target.transform.position,
+                modifiers: modifiers
             );
 
             damageable.TakeDamage(payload);
+            
+            ListPool<DamageModifier>.Release(modifiers);
         }
     }
 }

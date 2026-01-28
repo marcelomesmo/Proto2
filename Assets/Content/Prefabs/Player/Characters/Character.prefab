@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2358792129828448379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231529135064814292}
+  m_Layer: 8
+  m_Name: AttackCastAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1231529135064814292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358792129828448379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.625, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6665647436433535004}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8376916696023272812
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6665647436433535004}
   - component: {fileID: 5728551666962706166}
+  - component: {fileID: 5961728994900322357}
   - component: {fileID: 929215472986499729}
   - component: {fileID: 9107604326191101921}
   m_Layer: 8
@@ -31,7 +63,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1231529135064814292}
   m_Father: {fileID: 6671357473012307644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5728551666962706166
@@ -46,6 +79,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510d8639e80b0b24c991abc759077ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.AnimationRelay.EntityAnimationEventRelay
+--- !u!114 &5961728994900322357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376916696023272812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04dc11f76304f94e8ace5259b2cb6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Util.YSortRenderer
+  sortingOffset: 0
+  precision: 100
 --- !u!212 &929215472986499729
 SpriteRenderer:
   serializedVersion: 2
@@ -95,12 +142,12 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7368435781440860235, guid: 7a60411d92182cb479754c18a123c25f, type: 3}
+  m_Sprite: {fileID: -1003431903, guid: 02af970915de1244eb78dff58207aedf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.125, y: 2.125}
+  m_Size: {x: 3.12, y: 2.91}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,10 +184,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6671357473012307644}
   - component: {fileID: 6721178800405115181}
+  - component: {fileID: 8585825104527647320}
   - component: {fileID: 8168552207847454894}
   - component: {fileID: 6070344385986196557}
   - component: {fileID: 70676279472141131}
   - component: {fileID: 463953744200539111}
+  - component: {fileID: 1993484094314852380}
   m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
@@ -176,6 +225,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709ee11994a2f44658e5fc9887c45081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.CharacterController
+--- !u!114 &8585825104527647320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d9b58565c64b242a16b09656b13d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityPresentationSubsystem
+  spriteRenderer: {fileID: 929215472986499729}
+  mirroredAnchors:
+  - {fileID: 1231529135064814292}
 --- !u!114 &8168552207847454894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,3 +292,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.PlayerCharacterBrainSubsystem
   controlEnabled: 0
+--- !u!114 &1993484094314852380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6b8aee3f55b7245a7b73ea22970bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityVFXSubsystem
+  damagePopupAnchor: {fileID: 0}
+  hitAnchor: {fileID: 0}
+  deathAnchor: {fileID: 0}
+  movementAnchor: {fileID: 0}
+  statusEffectHeadAnchor: {fileID: 0}
+  statusEffectDamageAnchor: {fileID: 0}
+  attackCastAnchor: {fileID: 6665647436433535004}
+  damagePopupPrefab: {fileID: 0}
+  deathVfxPrefab: {fileID: 0}
+  dustVfxPrefab: {fileID: 0}
+  hitFlash: {fileID: 0}
+  cameraShakeEvent: {fileID: 0}

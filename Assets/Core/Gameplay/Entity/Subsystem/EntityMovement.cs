@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
@@ -7,11 +6,6 @@ namespace Core.Gameplay.Entity.Subsystem
     {
         protected Rigidbody2D Rb;
         protected Collider2D Col;
-        protected SpriteRenderer Sr;
-
-        protected bool FacingRight = true;
-
-        public Action OnDirectionChange;
         public Bounds Bounds => Col.bounds;
         
         // Is the entity currently sitting on a surface?
@@ -23,7 +17,6 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             Rb = GetComponent<Rigidbody2D>();
             Col = GetComponent<Collider2D>();
-            Sr = GetComponentInChildren<SpriteRenderer>();
         }
 
         protected override void OnInitialize()
@@ -50,6 +43,7 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         
         #region Movement API
+        
         public abstract void MoveTo(Vector2 target);
 
         public virtual void Jump() { }
@@ -87,25 +81,7 @@ namespace Core.Gameplay.Entity.Subsystem
         public virtual void OnFootstep(){ }
 
         protected bool CanRbMove => Rb.simulated;
-        #endregion
         
-        #region Utils
-        public void CheckDirectionChange(Vector2 direction)
-        {
-            switch (direction.x)
-            {
-                case < -0.01f when !FacingRight:
-                    Sr.flipX = false;
-                    FacingRight = true;
-                    OnDirectionChange?.Invoke();
-                    break;
-                case > 0.01f when FacingRight:
-                    Sr.flipX = true;
-                    FacingRight = false;
-                    OnDirectionChange?.Invoke();
-                    break;
-            }
-        }
         #endregion
     }
 }

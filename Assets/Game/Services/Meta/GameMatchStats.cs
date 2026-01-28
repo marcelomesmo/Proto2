@@ -1,6 +1,5 @@
 using System;
 using Core.Services.Meta;
-using UnityEngine;
 
 namespace Game.Services.Meta
 {

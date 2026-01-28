@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &40693388047833487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6649618486926925547}
+  m_Layer: 0
+  m_Name: AttackCastAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6649618486926925547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40693388047833487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.625, y: 0.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3613274592269315532}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3358614982315986403
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883647002482592412}
   - component: {fileID: 6233273725218709411}
+  - component: {fileID: 5135210077923241150}
   - component: {fileID: 4145091734734741502}
   - component: {fileID: 3643968624095442825}
   - component: {fileID: -1255696515498329439}
@@ -180,6 +212,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4ed8a65b2dcc944bebcdf191e8da53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyController
+--- !u!114 &5135210077923241150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318268104879652713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d9b58565c64b242a16b09656b13d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityPresentationSubsystem
+  spriteRenderer: {fileID: 1652535058485867197}
+  mirroredAnchors:
+  - {fileID: 6649618486926925547}
 --- !u!114 &4145091734734741502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,10 +355,12 @@ MonoBehaviour:
   movementAnchor: {fileID: 0}
   statusEffectHeadAnchor: {fileID: 9144669803801046407}
   statusEffectDamageAnchor: {fileID: 372954542989038702}
+  attackCastAnchor: {fileID: 6649618486926925547}
   damagePopupPrefab: {fileID: 767776283547506129, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 4872712992798295579}
+  cameraShakeEvent: {fileID: 0}
 --- !u!50 &9099651732994251457
 Rigidbody2D:
   serializedVersion: 5
@@ -442,6 +491,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5041045145550233722}
+  - {fileID: 6649618486926925547}
   m_Father: {fileID: 1883647002482592412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5298966567075158459
@@ -541,7 +591,7 @@ SpriteRenderer:
   m_Size: {x: 2.125, y: 2.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6291624689811713602
 Animator:

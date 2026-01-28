@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: 9002a820ab3dae244a4b73d9d2f2347e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - loadout: {instanceID: 0}
+  - progress: {instanceID: 0}
+  - contentRoot: {instanceID: 0}
+  - buttonPrefab: {instanceID: 0}
+  - tooltip: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

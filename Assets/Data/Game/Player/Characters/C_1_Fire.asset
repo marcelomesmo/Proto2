@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: C_1_Fire
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
   characterId: c_1_fire
-  portrait: {fileID: 4489984281543791755, guid: acae771b5935a074e8769b38b4316e05, type: 3}
+  portrait: {fileID: 1387579516, guid: 87adeb21e60d4ad4dabd7d61a8fe4623, type: 3}
   prefab: {fileID: 1331891463641475742, guid: f9071dba3c9922d4b82c2471b3273b61, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}
   baseStats: {fileID: 11400000, guid: 52668c3e5d43e0446b016367ef3c32fc, type: 2}

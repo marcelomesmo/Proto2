@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1683890277816069670}
   - component: {fileID: 7188541295746480836}
+  - component: {fileID: 7097295053664507991}
   - component: {fileID: 4205366850493956923}
   - component: {fileID: 3568800338821975642}
   - component: {fileID: 5629737502117312240}
@@ -54,6 +55,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ce7d1c230e0a946b2c100bcb24762f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.PlayerCastleController
+--- !u!114 &7097295053664507991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921365048271783160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d9b58565c64b242a16b09656b13d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityPresentationSubsystem
+  spriteRenderer: {fileID: 4041917865614434615}
+  mirroredAnchors: []
 --- !u!114 &4205366850493956923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,10 +146,12 @@ MonoBehaviour:
   movementAnchor: {fileID: 0}
   statusEffectHeadAnchor: {fileID: 8461843516710524155}
   statusEffectDamageAnchor: {fileID: 6950481680333085818}
+  attackCastAnchor: {fileID: 0}
   damagePopupPrefab: {fileID: 0}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 8365653023187925199}
+  cameraShakeEvent: {fileID: 0}
 --- !u!70 &-7966908845983944858
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -201,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 3297713657148575768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.125, z: 0}
+  m_LocalPosition: {x: 0, y: 2.1100001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,7 +569,7 @@ Transform:
   m_GameObject: {fileID: 7686262335804278071}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.625, z: 0}
+  m_LocalPosition: {x: 0, y: 2.6100001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -637,11 +654,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2076012541
+  m_SortingLayer: 4
+  m_SortingOrder: -10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

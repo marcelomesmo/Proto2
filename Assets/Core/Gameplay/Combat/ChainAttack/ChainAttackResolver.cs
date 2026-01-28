@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Core.Gameplay.Combat.Attack;
 using Core.Interfaces;
 using Core.Services;
-using Core.Util;
 using UnityEngine;
 
 namespace Core.Gameplay.Combat.ChainAttack
@@ -103,6 +102,8 @@ namespace Core.Gameplay.Combat.ChainAttack
             
             return new DamagePayload(
                 hitData: previous.hitData,
+                baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
+                modifiers: previous.modifiers,
                 effects: attackData.chainData.applyEffectsOnEveryBounce     // we can either apply effects on every bounce or not
                     ? previous.effects
                     : null,

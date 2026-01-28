@@ -19,6 +19,7 @@ namespace Core.Gameplay.Combat.Attack
         public HitType hitType;
         
         public GameObject hitVFX;
+        public GameObject castVFX;
 
         [Header("Ranged - Settings")]
         public GameObject projectilePrefab;

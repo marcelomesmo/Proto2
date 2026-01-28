@@ -98,6 +98,7 @@ MonoBehaviour:
   - 2
   - 4
   matchStatsProvider: {fileID: 11400000, guid: 7d8a4d60e0a1eb94180ef770ff63475d, type: 2}
+  testUpgradeDefinition: {fileID: 11400000, guid: 8411aff3eb3cb9f42b0bbd2c0a8cf1fe, type: 2}
 --- !u!114 &8855580589477464073
 MonoBehaviour:
   m_ObjectHideFlags: 0

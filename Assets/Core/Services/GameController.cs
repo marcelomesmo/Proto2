@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
 using Core.Services.Manager;
 using Core.Services.Meta;
+using Core.Upgrades;
 using UnityEngine;
 
 namespace Core.Services
@@ -21,6 +21,7 @@ namespace Core.Services
         
         public MatchStats MatchStats { get; private set; }
         public MatchRuntime MatchRuntime { get; private set; }
+        public UpgradeManager UpgradeManager { get; private set; }
       
         // --------------------------------------------------
         // Initialization
@@ -34,6 +35,8 @@ namespace Core.Services
             MatchStats = matchStatsProvider != null
                 ? matchStatsProvider.CreateStats()
                 : new NullMatchStats();
+
+            UpgradeManager = new UpgradeManager();
             
             SetGameSpeed(1f);
         }
@@ -44,17 +47,25 @@ namespace Core.Services
         
         #region Game Flow
         
+        // TEMP: test upgrade
+        public UpgradeDefinition testUpgradeDefinition;
+        
         public void StartMatch()
         {
             _isPaused = false;
             MatchRuntime.BeginMatch();
             MatchStats.OnMatchStart();
+            UpgradeManager.OnMatchStart();
+            
+            // TEMP: test upgrade
+            UpgradeManager.AddUpgrade(testUpgradeDefinition);
         }
         
         private void EndMatch()
         {
             MatchRuntime.EndMatch();
             MatchStats.OnMatchEnd();
+            UpgradeManager.OnMatchEnd();
         }
         
         private void Update()

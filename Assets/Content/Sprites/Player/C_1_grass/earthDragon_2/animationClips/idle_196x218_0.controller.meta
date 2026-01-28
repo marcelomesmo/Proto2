@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f4a794a2bf28154db61ee9d3150e1c6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301521
+  packageName: Animated 2d Evolution Dragon Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/EvolutionDragon1/SpriteSheet/EarthDragon/earthDragon_2/animationClips/idle_196x218_0.controller
+  uploadId: 712517

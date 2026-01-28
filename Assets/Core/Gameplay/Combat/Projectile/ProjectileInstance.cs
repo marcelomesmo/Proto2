@@ -1,8 +1,10 @@
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile.Impact;
 using Core.Gameplay.Combat.Projectile.Movement;
 using Core.Interfaces;
+using Core.Services;
 using Enum;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -44,12 +46,14 @@ namespace Core.Gameplay.Combat.Projectile
         private Collider2D col;
         private SpriteRenderer sr;
         private DamageSource _damageSource;
+        private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
         
         public void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<Collider2D>();
             sr = GetComponentInChildren<SpriteRenderer>();
+            visuals = GetComponents<IPoolableVisual>();
         }
 
         public void Configure(ProjectileContext context, DamageSource source)
@@ -146,21 +150,6 @@ namespace Core.Gameplay.Combat.Projectile
             // issues with pools—defer to FixedUpdate first tick which will call Initialize.
         }
     
-        public void Launch(AimState aimState)
-        {
-            // Direction vector
-            float angleDeg = aimState switch
-            {
-                AimState.Right => 0f, // right
-                AimState.TopRight => 30f,
-                AimState.TopLeft => 150f,
-                AimState.Left => 180f, // left
-                _ => 0f
-            };
-
-            Launch(angleDeg);
-        }
-    
         private void OnTriggerEnter2D(Collider2D other)
         {
             // Prevent processing if already released (e.g. multiple collisions in one frame)
@@ -176,8 +165,19 @@ namespace Core.Gameplay.Combat.Projectile
             // Get the point on the enemy collider closest to the projectile
             Vector2 hitPoint = other.ClosestPoint(transform.position);
             
+            var modifiers = ListPool<DamageModifier>.Get();
+
+            ServiceLocator
+                .Get<GameController>()?
+                .UpgradeManager
+                .CollectDamageModifiers(
+                    ModifierScope.Projectile,
+                    modifiers);
+            
             var payload = new DamagePayload(
-                hitData: attackProperties, // TODO: In case of damage multipliers, should apply before this.
+                hitData: attackProperties,
+                baseDamage: attackProperties.damage,
+                modifiers: modifiers,
                 effects: attackProperties.Effects,
                 hitPoint: hitPoint,
                 source: _damageSource
@@ -185,6 +185,8 @@ namespace Core.Gameplay.Combat.Projectile
             
             // Trigger OnImpact results
             impactBehavior?.OnImpact(this, other, payload);
+            
+            ListPool<DamageModifier>.Release(modifiers);
             
             _remainingHits--;
         
@@ -273,8 +275,8 @@ namespace Core.Gameplay.Combat.Projectile
             _hasLaunched = false; // Reset launch state
         
             // Re-enable emission
-            //if(trailVFXPrefab)
-            //    trailVFXPrefab.emitting = true;
+            foreach (var visual in visuals)
+                visual?.OnSpawn();
         }
 
         // Called by pool on Release (actionOnRelease)
@@ -293,13 +295,9 @@ namespace Core.Gameplay.Combat.Projectile
             _initializedThisLife = false;
             _hasLaunched = false;
 
-            /*if (trailVFXPrefab)
-            {
-                // Stop emission so no new vertices are added
-                trailVFXPrefab.emitting = false;
-                // Clear existing trail data
-                trailVFXPrefab.Clear();
-            }*/
+            // disable emission
+            foreach (var visual in visuals)
+                visual?.OnDespawn();
 
             _remainingHits = 0;
         }

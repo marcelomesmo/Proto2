@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Area_Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   executionMode: 2
-  damage: 3
+  damage: 30
   range: 4
   cooldown: 10
   hitType: 2
   hitVFX: {fileID: 4776489433992499268, guid: d0e174b0a6586fb499d76ae3b09f741f, type: 3}
+  castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
   areaEffectData: {fileID: 11400000, guid: 571be1933087a0f45baaa1a0746936db, type: 2}
+  chainData: {fileID: 0}
   effects: []

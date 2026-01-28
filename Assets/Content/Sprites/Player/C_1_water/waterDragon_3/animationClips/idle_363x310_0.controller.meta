@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2c817e65b0608574cb52d8a552c8e664
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301521
+  packageName: Animated 2d Evolution Dragon Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/EvolutionDragon1/SpriteSheet/WaterDragon/waterDragon_3/animationClips/idle_363x310_0.controller
+  uploadId: 712517

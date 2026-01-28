@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 80fcd98fe5076e042919e1b5dba6a525
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301521
+  packageName: Animated 2d Evolution Dragon Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/EvolutionDragon1/SpriteSheet/WindDragon/windDragon_1/animationClips/idle_143x167_0.controller
+  uploadId: 712517

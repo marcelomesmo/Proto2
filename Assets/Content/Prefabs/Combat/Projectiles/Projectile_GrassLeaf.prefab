@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7897146268878423869}
   - component: {fileID: 4004897515784548844}
+  - component: {fileID: 2186800230418304916}
   - component: {fileID: 7787481460175388734}
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
@@ -52,7 +53,27 @@ MonoBehaviour:
   impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
   attackProperties: {fileID: 11400000, guid: fd99ac6ec3add4b47a9ae12b5c48b299, type: 2}
   lifetimePolicy: 0
-  trailVFXPrefab: {fileID: 0}
+--- !u!114 &2186800230418304916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975751646184246127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b785d37cd9ca34845ad06cc04ec570b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.ProjectileVFXController
+  playOnSpawn:
+  - {fileID: 2120970957815526472}
+  - {fileID: 2094405412736376932}
+  - {fileID: 2121177821112289722}
+  stopAndClearOnDespawn:
+  - {fileID: 2120970957815526472}
+  - {fileID: 2094405412736376932}
+  - {fileID: 2121177821112289722}
+  stopOnlyOnDespawn: []
 --- !u!212 &7787481460175388734
 SpriteRenderer:
   serializedVersion: 2
@@ -185,7 +206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1049895169098164, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
       propertyPath: m_Name
-      value: Projectile 2
+      value: vfxP_poison
       objectReference: {fileID: 0}
     - target: {fileID: 4878814061148674, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,39 +248,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 199232569275054402, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 199232569275054402, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -343662003
-      objectReference: {fileID: 0}
-    - target: {fileID: 199232569275054402, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199944310965992408, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 199944310965992408, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -343662003
-      objectReference: {fileID: 0}
-    - target: {fileID: 199944310965992408, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199948439753437100, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
+--- !u!198 &2094405412736376932 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198019438013897556, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
+  m_PrefabInstance: {fileID: 2283134801550408496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2120970957815526472 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198264865024757624, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
+  m_PrefabInstance: {fileID: 2283134801550408496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2121177821112289722 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198366174129140362, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}
+  m_PrefabInstance: {fileID: 2283134801550408496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2287272532961935666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4878814061148674, guid: 9b2ad6251043bdf498f7d207e054fce5, type: 3}

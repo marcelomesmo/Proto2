@@ -21,7 +21,7 @@ namespace Core.Gameplay.Entity.Subsystem
         //[Header("Broadcast (Player only)")]
         //[SerializeField] protected IntIntEventChannelSO OnHealthChanged;
         public event Action<int, int> HealthChanged;
-        public event Action<DamagePayload> DamageTaken;
+        public event Action<DamagePayload> OnDamageTaken;
         
         protected override void OnInitialize()
         {
@@ -72,9 +72,7 @@ namespace Core.Gameplay.Entity.Subsystem
             if (!CanBeDamaged()) return;
             
             // 1. Apply damage
-            int damage =
-                payload.damageOverride?.damage          // Status effect damage
-                ?? payload.hitData.damage;              // Direct damage
+            int damage = payload.ResolveDamage();
             
             _currentHealth = Mathf.Clamp(
                 _currentHealth - damage,
@@ -91,7 +89,7 @@ namespace Core.Gameplay.Entity.Subsystem
             // 4. Raise events
             //if (Faction == Faction.Player) OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
             HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
-            DamageTaken?.Invoke(payload);
+            OnDamageTaken?.Invoke(payload);
             
             // 5. Resolve Chain Attacks: this coupling is intentional (for now).
             if (payload.hitData != null &&

@@ -26,8 +26,6 @@ namespace Core.Gameplay.Entity.Movement
             var direction = (target - (Vector2)transform.position).normalized;
             Rb.linearVelocity = direction * (Controller.Stats.moveSpeed);//* _stats.dashSpeedMultiplier); todo
             
-            CheckDirectionChange(direction);
-            
             // Play dash animation
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("dash");

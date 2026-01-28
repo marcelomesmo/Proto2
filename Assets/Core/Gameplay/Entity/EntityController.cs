@@ -92,7 +92,19 @@ namespace Core.Gameplay.Entity
         public bool IsBurning => Tags.HasTag(Stats.burnTag);
         //public bool IsFrozen => ;
         //public bool IsEnraged => ;
-        public bool IsDead => Tags.HasTag(Stats.deadTag);
+        // Resilient, accessor must be defensive since it's queried from other entities. Correct approach for pooled entities.
+        public bool IsDead
+        {
+            get
+            {
+                if (this == null) return true;
+                if (!gameObject) return true;
+                if (Stats == null) return true;
+                if (Tags == null) return true;
+
+                return Tags.HasTag(Stats.deadTag);
+            }
+        }
         public bool IsInvulnerable => Tags.HasTag(Stats.invulnerableTag);
        
         #endregion

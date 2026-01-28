@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c34d349302d97204eba4a7ef41e3345d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301521
+  packageName: Animated 2d Evolution Dragon Pack 1
+  packageVersion: 1.0.1
+  assetPath: Assets/BlackBirdTeam/EvolutionDragon1/SpriteSheet/FireDragon/fireDragon_1/animationClips/hurt.anim
+  uploadId: 712517

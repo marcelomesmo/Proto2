@@ -55,6 +55,8 @@ namespace Core.Services.Manager
                     },
                     actionOnRelease: obj =>
                     {
+                        if (!obj) return; // <--- CRITICAL GUARD
+                        
                         obj.SetActive(false);
                         
                         _activeObjectCount--;
@@ -78,10 +80,16 @@ namespace Core.Services.Manager
 
         public void Release(GameObject prefab, GameObject instance)
         {
-            if (_allPools.TryGetValue(prefab, out var pool))
-            {
-                pool.Release(instance);
-            }
+            if (!_allPools.TryGetValue(prefab, out var pool))
+                return;
+
+            if (!_activeObjects.TryGetValue(prefab, out var activeSet))
+                return;
+
+            if (!activeSet.Contains(instance))
+                return; // already released
+
+            pool.Release(instance);
         }
     
         public void ReleaseAll()
@@ -97,6 +105,7 @@ namespace Core.Services.Manager
 
                 foreach (var obj in snapshot)
                 {
+                    if (!obj) continue; // <--- guard
                     pool.Release(obj);
                 }
 

@@ -6,11 +6,13 @@ using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Subsystem;
 using Core.Gameplay.Entity.Tags;
 using Game.Entity.Enemy.Stats;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace Game.Entity.Enemy.Subsystem
 {
     [RequireComponent(typeof(EntityMovement))]
+    [RequireComponent(typeof(EntityPresentationSubsystem))]
     [RequireComponent(typeof(EntityAttackSubsystem))]
     [RequireComponent(typeof(EntityAttackLoadout))]
     public sealed class EnemyAiBrainSubsystem : EntityBrainSubsystem
@@ -22,6 +24,7 @@ namespace Game.Entity.Enemy.Subsystem
         private EntityMovement _movement;
         private EntityAttackSubsystem _attackSubsystem;
         private EntityAttackLoadout _attackLoadout;
+        private EntityPresentationSubsystem _presentationSubsystem;
         
         private EnemyStats _stats;
         
@@ -33,7 +36,12 @@ namespace Game.Entity.Enemy.Subsystem
             _attackLoadout = GetComponent<EntityAttackLoadout>();
             _movement = GetComponent<EntityMovement>();
             _attackSubsystem = GetComponent<EntityAttackSubsystem>();
+            _presentationSubsystem = GetComponent<EntityPresentationSubsystem>();
             _health = Controller.GetComponent<EntityHealth>();
+            
+            // Adjust to the ideal position for facing direction - when sprite is drawn to the left - given spawn position (P ------- E).
+            if (Controller.Stats.faction == Faction.Enemy) // ALWAYS TRUE HERE
+                _presentationSubsystem.SetFacing(FacingDirection.Left, force: true);
             
             if (Controller.Stats is EnemyStats enemyStats)
                 _stats = enemyStats;
@@ -47,7 +55,7 @@ namespace Game.Entity.Enemy.Subsystem
                 useTriggers = true
             };
             
-            _health.DamageTaken += OnDamageTaken;
+            _health.OnDamageTaken += OnDamageTaken;
         }
         
         protected override void OnDeinitialize()
@@ -57,7 +65,7 @@ namespace Game.Entity.Enemy.Subsystem
 
             ClearTarget();
             
-            _health.DamageTaken -= OnDamageTaken;
+            _health.OnDamageTaken -= OnDamageTaken;
             _health = null;
         }
 
@@ -125,6 +133,8 @@ namespace Game.Entity.Enemy.Subsystem
             // 2. Move if there exists a READY attack we could reach
             if (HasReadyAttackOutOfRange(distance))
             {
+                FaceCurrentTarget();
+                
                 _movement.MoveTo(TargetPosition);
                 return;
             }
@@ -167,7 +177,8 @@ namespace Game.Entity.Enemy.Subsystem
                 // Ensure facing is correct before attack
                 Vector2 attackDir =
                     (CurrentTarget.transform.position - transform.position).normalized;
-                _movement.CheckDirectionChange(attackDir);
+
+                FaceCurrentTarget();
 
                 bool executed = _attackSubsystem.TryExecute(
                     attack,
@@ -296,7 +307,7 @@ namespace Game.Entity.Enemy.Subsystem
         
         private void ValidateCurrentTarget()
         {
-            if (CurrentTarget == null || CurrentTarget.IsDead)
+            if (CurrentTarget == null || !CurrentTarget.gameObject || CurrentTarget.IsDead)
             {
                 ClearTarget();
                 return;
@@ -311,13 +322,26 @@ namespace Game.Entity.Enemy.Subsystem
                 ClearTarget(); // Clearing target because out of range.
         }
         
-        private bool HasTarget => CurrentTarget && !CurrentTarget.IsDead;
+        private bool HasTarget =>
+            CurrentTarget != null &&
+            CurrentTarget.gameObject != null &&
+            !CurrentTarget.IsDead;
         private Vector2 TargetPosition =>
             HasTarget 
                 ? new Vector2(
                     CurrentTarget.transform.position.x + _positionOffset, 
                     CurrentTarget.transform.position.y) 
                 : Vector2.zero;
+
+        private void FaceCurrentTarget()
+        {
+            if (!HasTarget)
+                return;
+            
+            _presentationSubsystem.FaceDirection(
+                (CurrentTarget.transform.position - transform.position).normalized
+            );
+        }
 
         #endregion
         

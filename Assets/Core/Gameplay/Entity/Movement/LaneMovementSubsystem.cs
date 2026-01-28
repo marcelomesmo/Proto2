@@ -44,7 +44,7 @@ namespace Core.Gameplay.Entity.Movement
             // Hard-lock Y to lane to avoid drift
             Rb.position = new Vector2(Rb.position.x, _laneY);
 
-            CheckDirectionChange(target);
+            Vector2 toTarget = (target - Rb.position).normalized;
 
             if (!Controller.Animator)
                 return;

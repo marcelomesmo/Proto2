@@ -12,10 +12,12 @@ namespace Game.Entity.Player.Subsystem
 {
     [RequireComponent(typeof(EntityAttackSubsystem))]
     [RequireComponent(typeof(EntityAttackLoadout))]
+    [RequireComponent(typeof(EntityPresentationSubsystem))]
     public class PlayerCharacterBrainSubsystem : EntityBrainSubsystem
     {
         private EntityAttackSubsystem _attackSubsystem;
         private EntityAttackLoadout _attackLoadout;
+        private EntityPresentationSubsystem _presentationSubsystem;
         
         private CharacterStats _stats;
         
@@ -26,6 +28,11 @@ namespace Game.Entity.Player.Subsystem
         {
             _attackLoadout = GetComponent<EntityAttackLoadout>();
             _attackSubsystem = GetComponent<EntityAttackSubsystem>();
+            _presentationSubsystem = GetComponent<EntityPresentationSubsystem>();
+            
+            // Adjust to the ideal position for facing direction - when sprite is drawn to the left - given spawn position (P ------- E).
+            if (Controller.Stats.faction == Faction.Player) // ALWAYS TRUE HERE
+                _presentationSubsystem.SetFacing(FacingDirection.Right, force: true);
             
             if (Controller.Stats is CharacterStats characterStats)
                 _stats = characterStats;
@@ -108,15 +115,18 @@ namespace Game.Entity.Player.Subsystem
                 if (!IsAttackAppropriate(attack, distance))
                     continue;
                         
-                Vector2 direction = 
+                Vector2 attackDir = 
                     (CurrentTarget.transform.position - transform.position).normalized;
+                
+                if(HasTarget)
+                    _presentationSubsystem.FaceDirection(attackDir);
                 
                 if (_attackSubsystem.TryExecute(
                     attack,
                     new AttackContext
                     {
                         Target = CurrentTarget,
-                        Direction = direction
+                        Direction = attackDir
                     }))
                 {
                     _nextActionTime = Time.time + _stats.globalCooldown;
@@ -208,6 +218,12 @@ namespace Game.Entity.Player.Subsystem
                 return;
             
             CurrentTarget = target;
+            
+            Vector2 attackDir = 
+                (CurrentTarget.transform.position - transform.position).normalized;
+            
+            if (HasTarget)
+                _presentationSubsystem.FaceDirection(attackDir);
         }
         
         private void ClearTarget()

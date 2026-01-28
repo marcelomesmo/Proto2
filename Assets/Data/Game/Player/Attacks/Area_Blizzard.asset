@@ -18,9 +18,11 @@ MonoBehaviour:
   cooldown: 10
   hitType: 3
   hitVFX: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  castVFX: {fileID: 1883419434696116, guid: 0b0d69410ca2f1045b821e4b992ce9a2, type: 3}
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
   areaEffectData: {fileID: 11400000, guid: 51ed55a6c7ed64a41861b9b32fae06bd, type: 2}
+  chainData: {fileID: 0}
   effects:
   - {fileID: 11400000, guid: 3fcbf3634e0d5ec4c8b077dac133967c, type: 2}
