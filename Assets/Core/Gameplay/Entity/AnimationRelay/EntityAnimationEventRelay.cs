@@ -38,7 +38,7 @@ namespace Core.Gameplay.Entity.AnimationRelay
         
         public void OnAttackFrameFinished()
         {
-            _attackSubsystem?.OnAttackHit();
+            _attackSubsystem?.AttackResolveFrame();
         }
 
         public void PlayFootstep()

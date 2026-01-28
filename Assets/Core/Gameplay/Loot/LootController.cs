@@ -139,6 +139,9 @@ namespace Core.Gameplay.Loot
             {
                 _state = State.Collected;
                 MagnetArrived?.Invoke();
+                
+                // todo: replace with pool later?
+                Destroy(gameObject);
             });
         }
     }

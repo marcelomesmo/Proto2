@@ -10,6 +10,11 @@ namespace Core.Gameplay.Entity.Subsystem
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Transform[] mirroredAnchors; // cast point, weapon, etc.
         
+        [Header("Anchors")]
+        [SerializeField] private Transform castAnchor;
+
+        public Transform CastAnchor => castAnchor;
+        
         public FacingDirection CurrentFacing { get; private set; }
         public event Action<FacingDirection> OnFacingChanged;
         

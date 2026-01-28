@@ -227,6 +227,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1652535058485867197}
   mirroredAnchors:
   - {fileID: 6649618486926925547}
+  castAnchor: {fileID: 6649618486926925547}
 --- !u!114 &4145091734734741502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +424,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.25, y: 1}
   m_Direction: 0
 --- !u!1 &4817101738604796895
 GameObject:

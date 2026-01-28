@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7897146268878423869}
   - component: {fileID: 4004897515784548844}
+  - component: {fileID: 7584578272276083235}
   - component: {fileID: 7787481460175388734}
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
-  - component: {fileID: 7584578272276083235}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Projectile_Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,9 +50,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementBehavior: {fileID: 11400000, guid: aadf7c4cdafe03b4ab8dc18b3d42e1e9, type: 2}
-  impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
-  attackProperties: {fileID: 11400000, guid: 225709d00b413894eac570a6f1ea0ec0, type: 2}
+  impactBehavior: {fileID: 11400000, guid: d591a32577cec6c42bcb17c3c5164604, type: 2}
+  attackProperties: {fileID: 11400000, guid: 51b0f66cbeabe8f43bfbe0cd5529418f, type: 2}
   lifetimePolicy: 0
+--- !u!114 &7584578272276083235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975751646184246127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b785d37cd9ca34845ad06cc04ec570b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.ProjectileVFXController
+  playOnSpawn:
+  - {fileID: 3781629971766167114}
+  - {fileID: 3780932347076838584}
+  - {fileID: 3781507054042942470}
+  stopAndClearOnDespawn:
+  - {fileID: 3781629971766167114}
+  - {fileID: 3780932347076838584}
+  - {fileID: 3781507054042942470}
+  stopOnlyOnDespawn: []
 --- !u!212 &7787481460175388734
 SpriteRenderer:
   serializedVersion: 2
@@ -175,27 +196,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &7584578272276083235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5975751646184246127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b785d37cd9ca34845ad06cc04ec570b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.ProjectileVFXController
-  playOnSpawn:
-  - {fileID: 3781629971766167114}
-  - {fileID: 3780932347076838584}
-  - {fileID: 3781507054042942470}
-  stopAndClearOnDespawn:
-  - {fileID: 3781629971766167114}
-  - {fileID: 3780932347076838584}
-  - {fileID: 3781507054042942470}
-  stopOnlyOnDespawn: []
 --- !u!1001 &3943525371508280226
 PrefabInstance:
   m_ObjectHideFlags: 0

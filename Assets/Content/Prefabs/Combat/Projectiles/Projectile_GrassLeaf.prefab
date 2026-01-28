@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7787481460175388734}
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Projectile_GrassLeaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,8 +119,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -2076012541
-  m_SortingLayer: 4
+  m_SortingLayerID: -343662003
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}

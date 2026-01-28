@@ -240,6 +240,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 929215472986499729}
   mirroredAnchors:
   - {fileID: 1231529135064814292}
+  castAnchor: {fileID: 1231529135064814292}
 --- !u!114 &8168552207847454894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +311,7 @@ MonoBehaviour:
   movementAnchor: {fileID: 0}
   statusEffectHeadAnchor: {fileID: 0}
   statusEffectDamageAnchor: {fileID: 0}
-  attackCastAnchor: {fileID: 6665647436433535004}
+  attackCastAnchor: {fileID: 1231529135064814292}
   damagePopupPrefab: {fileID: 0}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}

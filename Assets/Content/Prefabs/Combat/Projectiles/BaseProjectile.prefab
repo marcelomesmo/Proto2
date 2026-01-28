@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7897146268878423869}
   - component: {fileID: 4004897515784548844}
+  - component: {fileID: 8361222878212356173}
   - component: {fileID: 7787481460175388734}
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
-  m_Layer: 10
-  m_Name: SimpleProjectile
+  m_Layer: 0
+  m_Name: BaseProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,11 +48,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24dd7ef7783ad049a7b864c8e8f2b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementBehavior: {fileID: 11400000, guid: d25c64bb75de8864a88f668efed49687, type: 2}
-  impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
-  attackProperties: {fileID: 11400000, guid: 447652a9d5e0f084c99a652f86d33451, type: 2}
+  movementBehavior: {fileID: 0}
+  impactBehavior: {fileID: 0}
+  attackProperties: {fileID: 0}
   lifetimePolicy: 0
-  trailVFXPrefab: {fileID: 0}
+--- !u!114 &8361222878212356173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975751646184246127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b785d37cd9ca34845ad06cc04ec570b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.ProjectileVFXController
+  playOnSpawn: []
+  stopAndClearOnDespawn: []
+  stopOnlyOnDespawn: []
 --- !u!212 &7787481460175388734
 SpriteRenderer:
   serializedVersion: 2
@@ -101,7 +116,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5846594439046431464, guid: 424d3d7802922904daa6586b26933231, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,7 +124,7 @@ SpriteRenderer:
   m_Size: {x: 0.19, y: 0.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!58 &-1011089068208285878
 CircleCollider2D:

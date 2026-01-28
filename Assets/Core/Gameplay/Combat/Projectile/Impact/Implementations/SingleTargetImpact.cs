@@ -12,10 +12,8 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
             Collider2D other,
             DamagePayload payload)
         {
+            // Sanity check, but this is already handled in ProjectileInstance.
             if (!other.TryGetComponent<IDamageable>(out var damageable))
-                return;
-
-            if (damageable.Faction == projectileInstance.GetOwnerFaction())
                 return;
 
             if (!damageable.CanBeDamaged())

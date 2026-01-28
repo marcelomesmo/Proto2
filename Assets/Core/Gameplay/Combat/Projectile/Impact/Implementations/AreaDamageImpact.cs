@@ -11,8 +11,11 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
         [Header("Area Settings")]
         [SerializeField] private float radius = 5f;
         [SerializeField] private LayerMask affectedLayers;
+        [SerializeField] protected int targetSplashLimit = 5;
         
         private readonly List<Collider2D> _results = new();
+
+        private int _entitiesHit = 0;
 
         public override void OnImpact(
             ProjectileInstance projectileInstance, 
@@ -20,21 +23,22 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
             DamagePayload payload)
         {
             _results.Clear();
+
+            _entitiesHit = 0;
             
-            var filter = new ContactFilter2D
-            {
-                useTriggers = true,
-                layerMask = affectedLayers
-            };
+            var filter = payload.source.targetFilter;
             
             Physics2D.OverlapCircle(
                 projectileInstance.transform.position,
                 radius,
-                filter,
+                filter.ToContactFilter(),
                 _results);
             
             foreach (var hit in _results)
             {
+                if (!filter.CanHit(hit))
+                    continue;
+                
                 if (!hit.TryGetComponent<IDamageable>(out var damageable))
                     continue;
 
@@ -45,6 +49,11 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
                     continue;
 
                 damageable.TakeDamage(payload);
+                
+                // Reached maximum splash hits
+                _entitiesHit++;
+                if (_entitiesHit >= targetSplashLimit)
+                    break;
             }
         }
     }

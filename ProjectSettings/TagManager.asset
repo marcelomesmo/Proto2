@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TutorialRequirement
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Environment
   - Player
   - Enemy
-  - Player Projectile
-  - Enemy Projectile
+  - 
+  - 
   - Interactable
   - OneWayPlatform
   - Ground

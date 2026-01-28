@@ -45,18 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxPools:
-  - vfxPrefab: {fileID: 2322094872818906980, guid: af0702f03a67062449459f7e27961c22, type: 3}
-    collectionCheck: 0
-    defaultCapacity: 10
-    maxSize: 10
-  - vfxPrefab: {fileID: 2322094872818906980, guid: 6c2145c9d68a2074599a2049cdbafffe, type: 3}
-    collectionCheck: 0
-    defaultCapacity: 10
-    maxSize: 10
-  - vfxPrefab: {fileID: 6258257006809320353, guid: 0a017db6d0b59984499437af5f470d74, type: 3}
-    collectionCheck: 0
-    defaultCapacity: 10
-    maxSize: 10
   - vfxPrefab: {fileID: 767776283547506129, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
     collectionCheck: 0
     defaultCapacity: 20
@@ -66,10 +54,6 @@ MonoBehaviour:
     defaultCapacity: 20
     maxSize: 100
   - vfxPrefab: {fileID: 4776489433992499268, guid: 26c3fa3493ffbce4a9cba6b55f879823, type: 3}
-    collectionCheck: 0
-    defaultCapacity: 20
-    maxSize: 100
-  - vfxPrefab: {fileID: 4776489433992499268, guid: d0e174b0a6586fb499d76ae3b09f741f, type: 3}
     collectionCheck: 0
     defaultCapacity: 20
     maxSize: 100
@@ -89,7 +73,43 @@ MonoBehaviour:
     collectionCheck: 0
     defaultCapacity: 20
     maxSize: 100
+  - vfxPrefab: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1242051555635342, guid: 8b78bf871862d08409f84a0bac02efdd, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
   - vfxPrefab: {fileID: 1554156215293492, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1762171864188014, guid: 4ab48a9a03327fb4ca76018592f4626d, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1883419434696116, guid: 0b0d69410ca2f1045b821e4b992ce9a2, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - vfxPrefab: {fileID: 1757226974508410, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
     collectionCheck: 0
     defaultCapacity: 20
     maxSize: 100

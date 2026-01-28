@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Resource1Controller
+  m_Name: Loot_GoldController
   m_Controller: {fileID: 9100000, guid: e4e6a026330905243b09f8c6942114cd, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: ce2d284f168782145999158d04ab8ea6, type: 2}

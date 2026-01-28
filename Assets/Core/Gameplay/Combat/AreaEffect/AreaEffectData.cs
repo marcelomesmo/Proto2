@@ -14,15 +14,21 @@ namespace Core.Gameplay.Combat.AreaEffect
     {
         [Header("Shape")]
         public AreaShape shape;
-        public float radius;        // Used by Circle
+        public float circleRadius;        // Used by Circle
         public Vector2 boxSize;     // Used by Box
-
+        public float coneAngle = 45f;   // degrees
+        public float coneRadius = 4f;
+        
         [Header("Timing")]
         public float duration;
         public float tickInterval = 1f;
 
         [Header("Targeting")]
         public LayerMask hitLayers;
+        
+        [Header("Spawn")]
+        public AreaSpawnMode spawnMode;
+        public float forwardOffset; // distance in front of caster
         
         [Header("Visuals")]
         public GameObject vfxPrefab;

@@ -27,10 +27,12 @@ namespace Core.Gameplay.Entity.Subsystem
         private BaseEntityStats _stats;
         private EntityController _controller;
         private EntityAttackLoadout _attackLoadout;
-        private DamageSource _damageSource;
         private AttackInstance _currentAttack;
+        private AttackContext _pendingContext;
+        private EntityPresentationSubsystem _presentation;
         
         private Vector2 _boxSize = new(3f, 0.5f);
+        private AttackTargetFilter _targetFilter;
 
         public event Action<AttackInstance> OnAttackExecuted;
         
@@ -46,6 +48,8 @@ namespace Core.Gameplay.Entity.Subsystem
             else
                 Debug.LogError("[EntityAttackSubsystem] requires Controller!");
             
+            _presentation = Controller.GetComponent<EntityPresentationSubsystem>();
+            
             _attackLoadout = GetComponent<EntityAttackLoadout>();
             
             _attacks.Clear();
@@ -53,12 +57,20 @@ namespace Core.Gameplay.Entity.Subsystem
             _attackLoadout.OnLoadoutChanged += RebuildAttackInstances;
             RebuildAttackInstances();
 
-            CreateDamageSource();
+            BuildTargetFilter();
         }
 
         protected override void OnUpdate()
         {
             OnTick(Time.deltaTime);
+            
+            if (_waitingForResolve)             // TEMP (see below HandleAttackResolveTimeout)
+            {
+                _resolveTimer -= Time.deltaTime;
+
+                if (_resolveTimer <= 0f)
+                    HandleAttackResolveTimeout();
+            }
         }
         
         private void OnTick(float deltaTime)
@@ -91,27 +103,66 @@ namespace Core.Gameplay.Entity.Subsystem
         private void ExecuteAttack(AttackInstance attack, AttackContext context)
         {
             _currentAttack = attack;
+            _pendingContext = context;
+            
+            _waitingForResolve = true;              // TEMP (see below HandleAttackResolveTimeout)
+            _resolveTimer = attackResolveTimeout;   // TEMP (see below HandleAttackResolveTimeout)
             
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("attack");
 
             OnAttackExecuted?.Invoke(attack);
+        }
 
-            switch (attack.Data.executionMode)
+        // Called via animation event
+        public void AttackResolveFrame()
+        {
+            if (_currentAttack == null)
+                return;
+
+            switch (_currentAttack.Data.executionMode)
             {
+                case AttackExecutionMode.Melee:
+                    ApplyMeleeHit(_currentAttack.Data);
+                    break;
+
                 case AttackExecutionMode.Projectile:
-                    ShootProjectile(attack.Data, context);
+                    ShootProjectile(_currentAttack.Data, _pendingContext);
                     break;
 
                 case AttackExecutionMode.AreaEffect:
-                    SpawnAreaEffect(attack.Data, context);
-                    break;
-
-                case AttackExecutionMode.Melee:
-                    // Called via animation event
-                default:
+                    SpawnAreaEffect(_currentAttack.Data, _pendingContext);
                     break;
             }
+
+            _currentAttack = null;
+            _pendingContext = default; // or null if it's a class
+            
+            _waitingForResolve = false;             // TEMP (see below HandleAttackResolveTimeout)
+        }
+
+        //
+        // ATTACK RESOLVE TIMEOUT HANDLING
+        //
+        // Temporarily used for testing. Later should be a serializedfield tuned per project.
+        private float attackResolveTimeout = 1.0f; // seconds (tune per project)
+
+        private float _resolveTimer;
+        private bool _waitingForResolve;
+        
+        private void HandleAttackResolveTimeout()
+        {
+#if UNITY_EDITOR
+            Debug.LogError(
+                $"[Attack] Attack '{_currentAttack.Data.name}' on '{name}' never resolved.\n" +
+                $"Did you forget the OnAttackHit animation event?",
+                this);
+#endif
+
+            // Fail safe: cancel the attack so the entity doesn't soft-lock
+            _currentAttack = null;
+            _pendingContext = default;
+            _waitingForResolve = false;
         }
 
         #region AttackExecutionMode : Projectile
@@ -125,6 +176,7 @@ namespace Core.Gameplay.Entity.Subsystem
                     this);
             }
 
+            // Find the correct angle.
             float angle;
             switch (data.directionMode)
             {
@@ -143,15 +195,32 @@ namespace Core.Gameplay.Entity.Subsystem
             }
 
             var projectile = ProjectilePoolManager.Instance.Spawn(data.projectilePrefab);
-            projectile.transform.position = transform.position;
             
-            projectile.Configure(CreateProjectileContext(data), _damageSource);
+            // Spawn at CastAnchor when available.
+            var spawnTransform =
+                _presentation && _presentation.CastAnchor
+                    ? _presentation.CastAnchor
+                    : transform;
+
+            projectile.transform.SetPositionAndRotation(
+                spawnTransform.position,
+                spawnTransform.rotation
+            );
+            
+            var damageSource = new DamageSource(
+                _stats.faction,
+                _controller,
+                transform.position,
+                _targetFilter
+            );
+            
+            projectile.Configure(CreateProjectileContext(data), damageSource);
             projectile.Launch(angle);
         }
         
         #endregion
         
-        #region Area
+        #region AttackExecutionMode : AreaEffect
         
         private void SpawnAreaEffect(AttackData data, AttackContext context)
         {
@@ -160,15 +229,27 @@ namespace Core.Gameplay.Entity.Subsystem
                 Debug.LogWarning($"Attack {data.name} has no AreaEffectData");
                 return;
             }
+            
+            // 1. Define Spawn position
+            var spawnTransform = ResolveAreaSpawnTransform(data.areaEffectData);
+            var spawnPosition = ResolveAreaSpawnPosition(data.areaEffectData, context);
 
             // todo: add pooling here in the future: AreaEffectPoolManager.Instance.Spawn(data.areaEffectPrefab)
             var go = new GameObject($"AreaEffect_{data.name}");
-            go.transform.position = context.Target
-                ? context.Target.transform.position
-                : transform.position;
+            
+            // 2. Define Follow mode and apply position
+            if (data.areaEffectData.followOwner)
+            {
+                go.transform.SetParent(spawnTransform, worldPositionStays: false);
+                go.transform.localPosition =
+                    spawnTransform.InverseTransformPoint(spawnPosition);
+            }
+            else
+            {
+                go.transform.position = spawnPosition;
+            }
 
             var instance = go.AddComponent<AreaEffectInstance>();
-            // todo: also don't have the vfx for the effect instantianted as we dont instantiate a prefab
 
             var modifiers = ListPool<DamageModifier>.Get();
             
@@ -179,13 +260,20 @@ namespace Core.Gameplay.Entity.Subsystem
                     ModifierScope.Area,
                     modifiers);
             
+            var damageSource = new DamageSource(
+                _stats.faction,
+                _controller,
+                transform.position,     // go.transform.position?
+                _targetFilter
+            );
+            
             var payload = new DamagePayload(
                 hitData: data,
                 baseDamage: data.damage,
                 modifiers: modifiers,
                 effects: data.Effects,
                 hitPoint: go.transform.position,
-                source: CreateDamageSource()
+                source: damageSource
             );
 
             instance.Initialize(data.areaEffectData, payload);
@@ -193,19 +281,48 @@ namespace Core.Gameplay.Entity.Subsystem
             ListPool<DamageModifier>.Release(modifiers);
         }
         
+        private Transform ResolveAreaSpawnTransform(AreaEffectData data)
+        {
+            if (_presentation && _presentation.CastAnchor)
+                return _presentation.CastAnchor;
+
+            return transform;
+        }
+        
+        private Vector3 ResolveAreaSpawnPosition(
+            AreaEffectData data,
+            AttackContext context)
+        {
+            var origin = ResolveAreaSpawnTransform(data);
+
+            switch (data.spawnMode)
+            {
+                case AreaSpawnMode.WorldPosition:
+                    return context.Target
+                        ? context.Target.transform.position
+                        : origin.position;
+
+                case AreaSpawnMode.AtCaster:
+                    return origin.position;
+
+                case AreaSpawnMode.InFrontOfCaster:
+                {
+                    var facing =
+                        _presentation.CurrentFacing == FacingDirection.Right
+                            ? Vector2.right
+                            : Vector2.left;
+
+                    return origin.position + (Vector3)(facing * data.forwardOffset);
+                }
+
+                default:
+                    return origin.position;
+            }
+        }
+        
         #endregion
         
         #region AttackExecutionMode : Melee
-        
-        // Called via animation event
-        public void OnAttackHit()
-        {
-            if (_currentAttack == null || _currentAttack.Data.executionMode != AttackExecutionMode.Melee)
-                return;
-
-            ApplyMeleeHit(_currentAttack.Data);
-            _currentAttack = null;
-        }
         
         private readonly List<Collider2D> _meleeHits = new();
         
@@ -224,12 +341,8 @@ namespace Core.Gameplay.Entity.Subsystem
             _boxSize.x = data.range;
 
             _meleeHits.Clear();
-            
-            var filter = new ContactFilter2D
-            {
-                useTriggers = true,
-                layerMask = hitLayers
-            };
+
+            var filter = _targetFilter.ToContactFilter();
 
             Physics2D.OverlapBox(
                 center,
@@ -242,6 +355,9 @@ namespace Core.Gameplay.Entity.Subsystem
             foreach (var hit in _meleeHits)
             {
                 if (!hit)
+                    continue;
+                
+                if (!_targetFilter.CanHit(hit))
                     continue;
                 
                 if (!hit.TryGetComponent<IDamageable>(out var damageable))
@@ -259,13 +375,20 @@ namespace Core.Gameplay.Entity.Subsystem
                         ModifierScope.Melee,
                         modifiers);
                 
+                var damageSource = new DamageSource(
+                    _stats.faction,
+                    _controller,
+                    transform.position,
+                    _targetFilter
+                );
+                
                 var payload = new DamagePayload(
                     hitData: data,
                     baseDamage: data.damage,
                     modifiers: null,
                     effects: data.Effects,
                     hitPoint: Vector2.zero,
-                    source: CreateDamageSource()
+                    source: damageSource
                 );
                 
                 ListPool<DamageModifier>.Release(modifiers);
@@ -285,15 +408,6 @@ namespace Core.Gameplay.Entity.Subsystem
                 range: data.range,
                 bonusPierce: 0,
                 damageMultiplier: 1f
-            );
-        }
-        
-        private DamageSource CreateDamageSource()
-        {
-            return new DamageSource(
-                _stats.faction,
-                _controller,
-                transform.position
             );
         }
         
@@ -322,6 +436,21 @@ namespace Core.Gameplay.Entity.Subsystem
         }
 
         public bool CanExecute(AttackData data) => _attacks.ContainsKey(data);
+
+        private void BuildTargetFilter()
+        {
+            _targetFilter = new AttackTargetFilter
+            {
+                layerMask = hitLayers,
+                allowTriggers = true
+            };
+        }
+        
+        public void RebuildTargetFilter(LayerMask newMask, bool allowTriggers)
+        {
+            _targetFilter.layerMask = newMask;
+            _targetFilter.allowTriggers = allowTriggers;
+        }
         
         #endregion
         

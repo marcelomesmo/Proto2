@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
   - component: {fileID: 6827512903232630958}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Projectile_ChainLighting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,8 +98,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -2076012541
-  m_SortingLayer: 4
+  m_SortingLayerID: -343662003
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
@@ -147,7 +147,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!50 &7145970045367409275
 Rigidbody2D:
   serializedVersion: 5

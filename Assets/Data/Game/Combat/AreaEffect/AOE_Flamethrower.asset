@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4706f7c1ad77cf249a7e87aa8d9326ef, type: 3}
   m_Name: AOE_Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectData
-  shape: 0
-  radius: 2
+  shape: 2
+  circleRadius: 0
   boxSize: {x: 0, y: 0}
+  coneAngle: 45
+  coneRadius: 3
   duration: 5
   tickInterval: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
+  spawnMode: 2
+  forwardOffset: 0
   vfxPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
   followOwner: 1

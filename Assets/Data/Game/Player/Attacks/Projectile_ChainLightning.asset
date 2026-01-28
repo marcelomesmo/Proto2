@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
-  m_Name: Ranged_ChainLightning
+  m_Name: Projectile_ChainLightning
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   executionMode: 1
   damage: 2

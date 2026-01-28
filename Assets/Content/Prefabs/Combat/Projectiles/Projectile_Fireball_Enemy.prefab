@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7897146268878423869}
   - component: {fileID: 4004897515784548844}
+  - component: {fileID: 2314252996127414720}
   - component: {fileID: 7787481460175388734}
   - component: {fileID: -1011089068208285878}
   - component: {fileID: 7145970045367409275}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Projectile_Fireball_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +53,27 @@ MonoBehaviour:
   impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
   attackProperties: {fileID: 11400000, guid: 225709d00b413894eac570a6f1ea0ec0, type: 2}
   lifetimePolicy: 0
+--- !u!114 &2314252996127414720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975751646184246127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b785d37cd9ca34845ad06cc04ec570b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.ProjectileVFXController
+  playOnSpawn:
+  - {fileID: 3781629971766167114}
+  - {fileID: 3780932347076838584}
+  - {fileID: 3781507054042942470}
+  stopAndClearOnDespawn:
+  - {fileID: 3781629971766167114}
+  - {fileID: 3780932347076838584}
+  - {fileID: 3781507054042942470}
+  stopOnlyOnDespawn: []
 --- !u!212 &7787481460175388734
 SpriteRenderer:
   serializedVersion: 2
@@ -97,9 +119,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1908863385
-  m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingLayerID: -343662003
+  m_SortingLayer: 5
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.539758, g: 0.98742133, b: 0.27635372, a: 1}
@@ -235,6 +257,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
+--- !u!198 &3780932347076838584 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198904408555212570, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
+  m_PrefabInstance: {fileID: 3943525371508280226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3781507054042942470 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198347292852406180, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
+  m_PrefabInstance: {fileID: 3943525371508280226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3781629971766167114 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198504742122032616, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
+  m_PrefabInstance: {fileID: 3943525371508280226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3942223678169764752 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4399021083629618, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}

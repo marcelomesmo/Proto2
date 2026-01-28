@@ -58,6 +58,15 @@ namespace Core.Gameplay.Combat.Projectile
 
         public void Configure(ProjectileContext context, DamageSource source)
         {
+            if (source == null || source.targetFilter == null)
+            {
+                Debug.LogError(
+                    $"[ProjectileInstance] Projectile '{name}' configured without a valid DamageSource/TargetFilter",
+                    this);
+                enabled = false;
+                return;
+            }
+            
             _ownerFaction = context.faction;
             _damageSource = source;
             
@@ -153,9 +162,14 @@ namespace Core.Gameplay.Combat.Projectile
         private void OnTriggerEnter2D(Collider2D other)
         {
             // Prevent processing if already released (e.g. multiple collisions in one frame)
-            if (_isReleased) return;
+            if (_isReleased)
+                return;
 
             if (_remainingHits <= 0)
+                return;
+            
+            var filter = _damageSource.targetFilter;
+            if (!filter.CanHit(other))
                 return;
 
             // Ignore Damageables that can't be hit.
@@ -183,7 +197,8 @@ namespace Core.Gameplay.Combat.Projectile
                 source: _damageSource
             );
             
-            // Trigger OnImpact results
+            // Handle Damage done
+            // Trigger OnImpact results.
             impactBehavior?.OnImpact(this, other, payload);
             
             ListPool<DamageModifier>.Release(modifiers);

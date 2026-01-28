@@ -1,4 +1,5 @@
 using Core.Enum;
+using Core.Gameplay.Combat.Attack;
 
 namespace Core.Gameplay.Combat.Projectile
 {

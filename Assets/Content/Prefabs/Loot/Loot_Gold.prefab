@@ -61,9 +61,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: m_Size.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: m_Size.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6097994484925693291, guid: 37a55a4b6b4671e4f839a2de177c9bcc, type: 3}
+      objectReference: {fileID: -8008818501793099674, guid: ea188837054ffb748882a529d0075542, type: 3}
+    - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4913984500458969083, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Name
       value: Loot_Gold

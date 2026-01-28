@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f91c9f7b115554488fcc04c825b967, type: 3}
   m_Name: AoE_ExplosionImpact
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.Impact.AreaDamageImpact
-  damage: 4
-  targetLimit: 5
+  targetPierceLimit: 1
   radius: 5
   affectedLayers:
     serializedVersion: 2
     m_Bits: 768
+  targetSplashLimit: 5

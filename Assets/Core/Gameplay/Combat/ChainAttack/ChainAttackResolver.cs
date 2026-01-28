@@ -29,7 +29,8 @@ namespace Core.Gameplay.Combat.ChainAttack
                 var nextTarget = FindNextTarget(
                     currentTarget,
                     hitTargets,     // exclude previous targets
-                    chain.chainRange);
+                    chain.chainRange,
+                    initialPayload.source.targetFilter);
 
                 if (nextTarget == null)
                     break;
@@ -58,7 +59,8 @@ namespace Core.Gameplay.Combat.ChainAttack
         private static IDamageable FindNextTarget(
             IDamageable from,
             HashSet<IDamageable> excluded,
-            float range)
+            float range,
+            AttackTargetFilter filter)
         {
             var origin = ((Component)from).transform.position;
             
@@ -67,13 +69,16 @@ namespace Core.Gameplay.Combat.ChainAttack
             Physics2D.OverlapCircle(
                 origin,
                 range,
-                new ContactFilter2D { useTriggers = true },
+                filter.ToContactFilter(),
                 _chainHits
             );
 
             foreach (var hit in _chainHits)
             {
                 if (!hit)
+                    continue;
+
+                if (!filter.CanHit(hit))
                     continue;
                 
                 if (!hit.TryGetComponent<IDamageable>(out var damageable))
