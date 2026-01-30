@@ -92,16 +92,13 @@ namespace Game.Entity.Player.Subsystem
             if (stage.attackLoadoutOverride &&
                 Controller.TryGetComponent(out EntityAttackLoadout loadout))
             {
-                Debug.Log(Controller.name + " is changing loadout.");
                 loadout.InitializeFromDefinition(stage.attackLoadoutOverride);
             }
             
             // 2. Presentation changes
             if (Controller.TryGetComponent(out EntityPresentationSubsystem presentation))
             {
-                Debug.Log(Controller.name + " is changing sprite.");
                 presentation.ApplySpriteOverride(stage.spriteOverride);
-                Debug.Log(Controller.name + " is changing animator.");
                 presentation.ApplyAnimatorOverride(stage.animatorOverride);
             }
         }

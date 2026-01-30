@@ -82,7 +82,6 @@ namespace Core.Gameplay.Entity.Subsystem
             // Conserve animator state
             var snapshot = CaptureAnimatorState(Controller.Animator);
 
-            Debug.Log("Changing animator for " + Controller.name);
             Controller.Animator.runtimeAnimatorController = animatorOverride;
 
             Controller.Animator.Rebind();

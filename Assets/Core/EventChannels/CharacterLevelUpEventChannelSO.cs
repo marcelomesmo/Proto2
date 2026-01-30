@@ -15,4 +15,3 @@ namespace Core.EventChannels
         }
     }
 }
-
