@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityPresentationSubsystem
   spriteRenderer: {fileID: 4041917865614434615}
   mirroredAnchors: []
+  castAnchor: {fileID: 0}
 --- !u!114 &4205366850493956923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0}
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.5, y: 3}
   m_Direction: 0
 --- !u!1 &3297713657148575768
 GameObject:

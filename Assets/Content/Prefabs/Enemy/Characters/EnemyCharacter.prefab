@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4ed8a65b2dcc944bebcdf191e8da53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyController
+  xpEvent: {fileID: 11400000, guid: 34dee621569dc9245bb7b3733fe93611, type: 2}
 --- !u!114 &5135210077923241150
 MonoBehaviour:
   m_ObjectHideFlags: 0

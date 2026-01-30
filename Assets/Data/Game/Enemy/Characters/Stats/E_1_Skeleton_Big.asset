@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148f1d66fc517c74986b61c3ca277228, type: 3}
   m_Name: E_1_Skeleton_Big
   m_EditorClassIdentifier: 
+  characterId: E_1_Skeleton_Big
   faction: 2
   maxHealth: 100
   moveSpeed: 0.5
@@ -29,3 +30,4 @@ MonoBehaviour:
   targetEntityLayer:
     serializedVersion: 2
     m_Bits: 256
+  xpReward: 1

@@ -1,8 +1,10 @@
+using Core.EventChannels;
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Tags;
 using Core.Services;
 using Core.Services.Manager;
+using Game.Entity.Enemy.Stats;
 using Game.Services.Meta;
 using UnityEngine;
 
@@ -10,6 +12,9 @@ namespace Game.Entity.Enemy
 {
     public class EnemyController : EntityController
     {
+        [Header("Broadcast")]
+        [SerializeField] private IntEventChannelSO xpEvent;
+        
         protected override void HandleTagAdded(GameplayTag tag)
         {
             if (tag == Stats.deadTag)
@@ -43,7 +48,11 @@ namespace Game.Entity.Enemy
             // - Signals an encounter controller
             // - Informs a boss phase system
             // - Coordinates multiple entities
-            
+
+            var stats = Stats as EnemyStats;
+            if (stats)
+                xpEvent.RaiseEvent(stats.xpReward);
+
             var gameStats = ServiceLocator
                 .Get<GameController>()
                 .MatchStats as GameMatchStats;

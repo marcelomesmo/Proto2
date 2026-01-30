@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148f1d66fc517c74986b61c3ca277228, type: 3}
   m_Name: E_1_OneEye_Wizard
   m_EditorClassIdentifier: 
+  characterId: E_1_OneEye_Wizard
   faction: 2
-  maxHealth: 15
+  maxHealth: 7
   moveSpeed: 0.65
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
@@ -29,3 +30,4 @@ MonoBehaviour:
   targetEntityLayer:
     serializedVersion: 2
     m_Bits: 256
+  xpReward: 1

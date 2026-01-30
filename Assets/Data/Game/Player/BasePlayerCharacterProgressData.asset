@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BasePlayerCharacterProgressData
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.PlayerCharacterProgressData
   unlockedCharacterIds:
-  - c_1_fire
-  - c_1_grass
-  - c_1_water
+  - C_1_Fire
+  - C_1_Grass
+  - C_1_Water

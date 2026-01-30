@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922163bbd89ded84a975a25050ef7381, type: 3}
-  m_Name: C_1_fire_attacks
+  m_Name: C_1_fire_attacks 2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
   - {fileID: 11400000, guid: cfd9e19ac2500d046ae967a4c03d77f4, type: 2}

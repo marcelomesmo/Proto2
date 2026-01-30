@@ -10,13 +10,13 @@ namespace Game.Entity.Player.Meta
 
         public bool IsUnlocked(CharacterDefinition character)
         {
-            return unlockedCharacterIds.Contains(character.characterId);
+            return unlockedCharacterIds.Contains(character.baseStats.characterId);
         }
 
         public void Unlock(CharacterDefinition character)
         {
-            if (!unlockedCharacterIds.Contains(character.characterId))
-                unlockedCharacterIds.Add(character.characterId);
+            if (!unlockedCharacterIds.Contains(character.baseStats.characterId))
+                unlockedCharacterIds.Add(character.baseStats.characterId);
         }
     }
 }

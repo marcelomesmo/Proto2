@@ -189,7 +189,9 @@ GameObject:
   - component: {fileID: 6070344385986196557}
   - component: {fileID: 70676279472141131}
   - component: {fileID: 463953744200539111}
-  - component: {fileID: 1993484094314852380}
+  - component: {fileID: 3451244491078341314}
+  - component: {fileID: -1624747154161217880}
+  - component: {fileID: 7095099258240474993}
   m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
@@ -293,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.PlayerCharacterBrainSubsystem
   controlEnabled: 0
---- !u!114 &1993484094314852380
+--- !u!114 &3451244491078341314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,9 +304,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 9178040979343377514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6b8aee3f55b7245a7b73ea22970bdf, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe2caf2a7a60384b9b43e0d607736ce, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityVFXSubsystem
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.CharacterLevelSubsystem
+  levelUpData: {fileID: 0}
+  levelChangedEvent: {fileID: 11400000, guid: f65a8eabb12a62d428d45e134c4e5861, type: 2}
+  levelUpEvent: {fileID: 11400000, guid: 8f0b8dfb2960bfc4183269906b9f649e, type: 2}
+  xpEvent: {fileID: 11400000, guid: 34dee621569dc9245bb7b3733fe93611, type: 2}
+--- !u!114 &-1624747154161217880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343046760898ec94ea9ba15772021b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.CharacterEvolutionSubsystem
+  evolutionData: {fileID: 0}
+  stageChangedEvent: {fileID: 11400000, guid: b86f9a85a1e99734e949de94a9cfc7ba, type: 2}
+  stageUpEvent: {fileID: 11400000, guid: 473df635b2513dc41ba0008b23887f3c, type: 2}
+--- !u!114 &7095099258240474993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28254341f5db3bb48acae1ba83ef5035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.CharacterVFXSubsystem
   damagePopupAnchor: {fileID: 0}
   hitAnchor: {fileID: 0}
   deathAnchor: {fileID: 0}
@@ -317,3 +350,7 @@ MonoBehaviour:
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 0}
   cameraShakeEvent: {fileID: 0}
+  levelUpVfxPrefab: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f, type: 3}
+  evolutionVfxPrefab: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
+  levelUpEvent: {fileID: 11400000, guid: 8f0b8dfb2960bfc4183269906b9f649e, type: 2}
+  stageUpEvent: {fileID: 11400000, guid: 473df635b2513dc41ba0008b23887f3c, type: 2}

@@ -221,7 +221,7 @@ namespace Core.Gameplay.Entity.Subsystem
         #region Spawn VFX Handling
         
         // Stateless VFX spawn (do not require runtime data, are fully defined by the prefab): Hit sparks, dust, death explosion, spawn effect.
-        private GameObject Spawn(GameObject prefab, Transform anchor, bool isAttached = false)
+        protected GameObject Spawn(GameObject prefab, Transform anchor, bool isAttached = false)
         {
             if (!prefab)
                 return null;
