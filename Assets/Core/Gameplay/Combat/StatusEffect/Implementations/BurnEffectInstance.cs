@@ -14,7 +14,7 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
     {
         private readonly EntityController _target;
         private readonly AttackEffectData _data;
-        private readonly DamageSource _source;
+        private readonly DamageSource _damageSource;
         private float _tickTimer;
         
         private readonly GameplayTag _burnTag;
@@ -22,12 +22,12 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
         public BurnEffectInstance(
             EntityController target,
             AttackEffectData data,
-            DamageSource source,
+            DamageSource damageSource,
             GameplayTag burnTag)
         {
             _target = target;
             _data = data;
-            _source = source;
+            _damageSource = damageSource;
 
             _burnTag = burnTag;
             
@@ -57,6 +57,7 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
             if (!_target.TryGetComponent<IDamageable>(out var damageable))
                 return;
             
+            // Locate modifiers
             var modifiers = ListPool<DamageModifier>.Get();
             
             ServiceLocator
@@ -66,9 +67,17 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
                     ModifierScope.Effect,
                     modifiers);
             
+            int attackPower = 0;
+
+            if (_damageSource.sourceEntity &&
+                _damageSource.sourceEntity.Stats is Game.Entity.Player.Stats.CharacterStats stats)
+            {
+                attackPower = Mathf.RoundToInt(stats.attackPower);
+            }
+            
             var payload = DamagePayload.CreateEffectDamage(
                 damage: Mathf.RoundToInt(_data.value),
-                source: _source,
+                source: _damageSource,
                 hitPoint: _target.transform.position,
                 modifiers: modifiers
             );

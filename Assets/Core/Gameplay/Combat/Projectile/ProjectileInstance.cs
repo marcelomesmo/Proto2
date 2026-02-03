@@ -179,6 +179,7 @@ namespace Core.Gameplay.Combat.Projectile
             // Get the point on the enemy collider closest to the projectile
             Vector2 hitPoint = other.ClosestPoint(transform.position);
             
+            // Locate modifiers
             var modifiers = ListPool<DamageModifier>.Get();
 
             ServiceLocator
@@ -188,9 +189,21 @@ namespace Core.Gameplay.Combat.Projectile
                     ModifierScope.Projectile,
                     modifiers);
             
+            // Locate Player stats
+            int attackPower = 0;
+
+            if (_damageSource.sourceEntity &&
+                _damageSource.sourceEntity.TryGetComponent(
+                    out Game.Entity.Player.Subsystem.CharacterLevelSubsystem level))
+            {
+                var stats = _damageSource.sourceEntity.Stats as Game.Entity.Player.Stats.CharacterStats;
+                if (stats != null)
+                    attackPower = Mathf.RoundToInt(stats.attackPower);
+            }
+            
             var payload = new DamagePayload(
                 hitData: attackProperties,
-                baseDamage: attackProperties.damage,
+                baseDamage: attackProperties.damage + attackPower,
                 modifiers: modifiers,
                 effects: attackProperties.Effects,
                 hitPoint: hitPoint,

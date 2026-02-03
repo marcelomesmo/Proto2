@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
   m_Name: Area_Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: flamaeeethoror
+  icon: {fileID: 4023135878370671054, guid: b3fc5d65083a50c4b9f81f9b43a1ffd6, type: 3}
+  description: dalsin attack
   executionMode: 2
   damage: 3
   range: 4

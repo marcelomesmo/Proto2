@@ -146,8 +146,8 @@ namespace Game.Entity.Enemy.Subsystem
         private void OnDamageTaken(DamagePayload payload)
         {
             //Debug.Log("[EnemyAIBrainSubsystem] Enemy has taken damage from " + payload.source.controller);
-            if (payload.source.controller != null)
-                SetTarget(payload.source.controller);
+            if (payload.source.sourceEntity != null)
+                SetTarget(payload.source.sourceEntity);
         }
         
         #region Movement

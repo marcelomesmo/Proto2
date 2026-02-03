@@ -8,21 +8,24 @@ namespace Core.Gameplay.Combat.Attack
     {
         // Who caused it
         public readonly Faction faction;
-        public readonly EntityController controller;
+        public readonly EntityController sourceEntity;
+        
         // World position where the attack originated.
         // Not updated after execution.
         public readonly Vector2 sourcePosition;
-        //public readonly Vector2 impactPosition; to add later.
+        
+        // Optional targeting rules (chain, AoE, friendly fire, etc.)
         public readonly AttackTargetFilter targetFilter;
+        //public readonly Vector2 impactPosition; to add later.
         
         public DamageSource(
             Faction faction,
-            EntityController controller,
+            EntityController sourceEntity,
             Vector2 sourcePosition,
             AttackTargetFilter targetFilter)
         {
             this.faction = faction;
-            this.controller = controller;
+            this.sourceEntity = sourceEntity;
             this.sourcePosition = sourcePosition;
             this.targetFilter = targetFilter;
         }

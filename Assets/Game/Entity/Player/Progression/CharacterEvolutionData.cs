@@ -19,6 +19,7 @@ namespace Game.Entity.Player.Progression
             public int requiredLevel;
 
             [Header("Presentation")]
+            public Sprite portraitOverride;
             public Sprite spriteOverride;
             public RuntimeAnimatorController animatorOverride;
 

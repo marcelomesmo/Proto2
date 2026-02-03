@@ -8,7 +8,7 @@ namespace Game.Entity.Player
     [CreateAssetMenu(fileName = "Character Definition", menuName = "Game/New Character Definition")]
     public class CharacterDefinition : ScriptableObject
     {
-        public Sprite portrait;
+        public Sprite rosterScreenPortrait;
         public EntityController prefab;
 
         public AttackLoadoutDefinition initialAttackLoadout;   // ← definition, not runtime

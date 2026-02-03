@@ -21,6 +21,7 @@ namespace Game.Entity.Player.Subsystem
         private int _currentStage;
 
         public int Stage => _currentStage;
+        public CharacterEvolutionData EvolutionData => evolutionData;
 
         protected override void OnInitialize()
         {

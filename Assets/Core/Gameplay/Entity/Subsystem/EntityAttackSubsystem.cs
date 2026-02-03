@@ -22,6 +22,7 @@ namespace Core.Gameplay.Entity.Subsystem
         [SerializeField] private LayerMask hitLayers;
         
         private readonly Dictionary<AttackData, AttackInstance> _attacks = new();
+        public IReadOnlyDictionary<AttackData, AttackInstance> Attacks => _attacks;
         
         // Helpers
         private BaseEntityStats _stats;
@@ -267,9 +268,11 @@ namespace Core.Gameplay.Entity.Subsystem
                 _targetFilter
             );
             
+            var attackPower = GetAttackPowerBonus();
+            
             var payload = new DamagePayload(
                 hitData: data,
-                baseDamage: data.damage,
+                baseDamage: data.damage + attackPower,
                 modifiers: modifiers,
                 effects: data.Effects,
                 hitPoint: go.transform.position,
@@ -382,6 +385,8 @@ namespace Core.Gameplay.Entity.Subsystem
                     _targetFilter
                 );
                 
+                var attackPower = GetAttackPowerBonus();
+                
                 var payload = new DamagePayload(
                     hitData: data,
                     baseDamage: data.damage,
@@ -450,6 +455,19 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             _targetFilter.layerMask = newMask;
             _targetFilter.allowTriggers = allowTriggers;
+        }
+        
+        private int GetAttackPowerBonus()
+        {
+            if (Controller.Stats is Game.Entity.Player.Stats.CharacterStats stats)
+                return Mathf.RoundToInt(stats.attackPower);
+            
+            // Simple for now, but later we can do:
+            //  stats.attackPower + _temporaryAttackBuff, or
+            //  stats.attackPower * (IsEnraged ? 2 : 1); or
+            //  stats.attackPower * stats.attackPowerMultiplier; etc.
+
+            return 0;
         }
         
         #endregion

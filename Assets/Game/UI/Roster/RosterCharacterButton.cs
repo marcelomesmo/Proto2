@@ -60,7 +60,7 @@ namespace Game.UI.Roster
             }
             
             characterName.text = _character.name;
-            characterImage.sprite = _character.portrait;
+            characterImage.sprite = _character.rosterScreenPortrait;
 
             characterImage.material = isSelected ? normalMaterial : grayscaleMaterial;
             

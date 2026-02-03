@@ -9,6 +9,11 @@ namespace Core.Gameplay.Combat.Attack
     [CreateAssetMenu(fileName = "Attack Data", menuName = "Combat/Attack Data")]
     public class AttackData : ScriptableObject
     {
+        [Header("Presentation")]
+        public string displayName;
+        public Sprite icon;
+        public string description;
+        
         [Header("Execution")]
         public AttackExecutionMode executionMode = AttackExecutionMode.Melee;
         

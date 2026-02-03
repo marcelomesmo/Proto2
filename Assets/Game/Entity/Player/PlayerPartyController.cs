@@ -3,6 +3,7 @@ using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
 using Core.Services;
 using Core.Services.Manager;
+using Game.UI.CharacterHUD;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -15,6 +16,8 @@ namespace Game.Entity.Player
         [SerializeField] private PlayerLoadoutData loadout;
         [SerializeField] private Transform[] spawnPoints;
         
+        [SerializeField] private CharacterHUDController characterHUD;
+        
         private EntityController _castle;
         private PlayerCastleController _castleController;
         private readonly List<EntityController> _activeEntities = new();
@@ -26,6 +29,7 @@ namespace Game.Entity.Player
         {
             SpawnCastle();
             SpawnParty();
+            InitializeHUD();
         }
 
         private void SpawnCastle()
@@ -86,6 +90,17 @@ namespace Game.Entity.Player
             );
 
             _activeEntities.Add(entity);
+        }
+        
+        private void InitializeHUD()
+        {
+            if (!characterHUD)
+            {
+                Debug.LogWarning("[PlayerPartyController] No CharacterHUDController assigned.");
+                return;
+            }
+
+            characterHUD.Initialize(_activeEntities);
         }
 
         public void OnDefeat()
