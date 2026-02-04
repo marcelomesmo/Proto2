@@ -11,6 +11,7 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
         [Header("Area Settings")]
         [SerializeField] private float radius = 5f;
         [SerializeField] private LayerMask affectedLayers;
+        [Tooltip("In AoE defines multihit.")]
         [SerializeField] protected int targetSplashLimit = 5;
         
         private readonly List<Collider2D> _results = new();

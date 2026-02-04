@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
-  m_Name: Projectile_GrassLeaf
+  m_Name: Projectile_WaterSplash
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
-  displayName: Grass Leaf
-  icon: {fileID: 4121880872312635667, guid: 1346f8be3088620449e4bf49172220a0, type: 3}
-  description: aeeae ggrass leaf
+  displayName: Water Splash
+  icon: {fileID: 3776312371561069292, guid: c8b2e63db5423354d8cee47b29c0d1f8, type: 3}
+  description: splash effect
   executionMode: 1
-  damage: 5
-  range: 8
+  damage: 7
+  range: 6
   cooldown: 3
-  hitType: 1
-  hitVFX: {fileID: 1186752452136346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
-  castVFX: {fileID: 1554156215293492, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
-  projectilePrefab: {fileID: 5975751646184246127, guid: 0bc12ededd5c9294fa63c827ecb3f01b, type: 3}
+  hitType: 3
+  hitVFX: {fileID: 1687118924408352, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
+  castVFX: {fileID: 1883419434696116, guid: 0b0d69410ca2f1045b821e4b992ce9a2, type: 3}
+  projectilePrefab: {fileID: 5975751646184246127, guid: 91f1ad5b8a1ef2344b8af5e5cb6e67f2, type: 3}
   directionMode: 1
   fixedAngle: 0
   areaEffectData: {fileID: 0}

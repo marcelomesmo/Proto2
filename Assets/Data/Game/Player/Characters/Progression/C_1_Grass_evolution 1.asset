@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56b9a040cbeff14bb328c0712ad1721, type: 3}
+  m_Name: C_1_Grass_evolution 1
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Progression.CharacterEvolutionData
+  stages:
+  - stage: 0
+    requiredLevel: 0
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: -1684165034, guid: 4346e3489e642134da43d1281306008b, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 9299c6d01e89dde478d797406cd84311, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 7729e0b4d5924214798ebf0e3c28799f, type: 2}
+  - stage: 1
+    requiredLevel: 3
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: -1106886602, guid: e74dde0734cb2784ab3805021f5748ed, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 74218a578a391f644a001648de1a2907, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: ab16a0b8658627c448211ee8c6e04b73, type: 2}
+  - stage: 2
+    requiredLevel: 7
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: 1521481277, guid: 2dfcf31e428a7eb4ca964bbb1f738499, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 11685ee7c8c62184fa265e20547d96cd, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: af1594a3d04c723499e1023790b25bf1, type: 2}

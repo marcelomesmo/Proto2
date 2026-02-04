@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
+  m_Name: Projectile_WaterJet
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: Water Jet
+  icon: {fileID: 3138868963988263443, guid: ad453914ba4db954a821d9fea0dc8ac2, type: 3}
+  description: ray
+  executionMode: 2
+  damage: 2
+  range: 8
+  cooldown: 5
+  hitType: 3
+  hitVFX: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  castVFX: {fileID: 1883419434696116, guid: 0b0d69410ca2f1045b821e4b992ce9a2, type: 3}
+  projectilePrefab: {fileID: 0}
+  directionMode: 1
+  fixedAngle: 0
+  areaEffectData: {fileID: 11400000, guid: 76adf67f4eff41342b7d40353d67ce75, type: 2}
+  chainData: {fileID: 0}
+  effects: []

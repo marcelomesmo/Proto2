@@ -61,6 +61,14 @@ namespace Core.Gameplay.Entity.Subsystem
             BuildTargetFilter();
         }
 
+        protected override void OnDeinitialize()
+        {
+            // Q: is it better to do this here or let HandleAttackResolveTimeout resolve?
+            _currentAttack = null;
+            _pendingContext = default;
+            _waitingForResolve = false;
+        }
+
         protected override void OnUpdate()
         {
             OnTick(Time.deltaTime);
@@ -153,6 +161,9 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private void HandleAttackResolveTimeout()
         {
+            if (Controller.IsDead)
+                return;
+            
 #if UNITY_EDITOR
             Debug.LogError(
                 $"[Attack] Attack '{_currentAttack.Data.name}' on '{name}' never resolved.\n" +
@@ -389,7 +400,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 
                 var payload = new DamagePayload(
                     hitData: data,
-                    baseDamage: data.damage,
+                    baseDamage: data.damage + attackPower,
                     modifiers: null,
                     effects: data.Effects,
                     hitPoint: Vector2.zero,

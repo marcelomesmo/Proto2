@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922163bbd89ded84a975a25050ef7381, type: 3}
-  m_Name: C_1_water_attacks
+  m_Name: C_1_grass_attacks 1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
-  - {fileID: 11400000, guid: 8a0774b11ce16574ca474bec2bb1d62d, type: 2}
+  - {fileID: 11400000, guid: fd99ac6ec3add4b47a9ae12b5c48b299, type: 2}
