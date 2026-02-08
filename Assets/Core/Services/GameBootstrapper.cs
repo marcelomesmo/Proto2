@@ -1,5 +1,6 @@
 using System.Collections;
 using Core.Services.Manager;
+using Core.Services.Save;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ namespace Core.Services
         [SerializeField] private VFXPoolManager vfxPoolPrefab;
         [SerializeField] private ProjectilePoolManager projectilePoolPrefab;
         [SerializeField] private EntityPoolManager entityPoolPrefab;
+        [SerializeField] private MonoBehaviour saveManagerPrefab;
         
         [Header("Game Input Actions")]
         [SerializeField] private InputActionAsset inputActions;
@@ -50,10 +52,18 @@ namespace Core.Services
             RegisterService(projectilePoolPrefab);
             RegisterService(entityPoolPrefab);
 
+            RegisterSaveManager();
+
             // Let all Awake() calls settle
             yield return null;
             
             ServiceLocator.Get<GameController>().Initialize();
+            ServiceLocator.Get<ISaveManager>().Initialize();    // loud crash if missing
+            /*var save = ServiceLocator.Get<ISaveManager>();
+            if (save == null)
+                Debug.LogError("[Bootstrap] No SaveManager registered.");
+            else
+                save.Initialize();*/
             
             // Transition to menu (async-ready)
             SceneLoader.LoadMenu();
@@ -70,6 +80,25 @@ namespace Core.Services
             T instance = Instantiate(prefab);
             DontDestroyOnLoad(instance.gameObject);
             ServiceLocator.Register(instance);
+        }
+        
+        private void RegisterSaveManager()
+        {
+            if (!saveManagerPrefab)
+                return;
+
+            var instance = Instantiate(saveManagerPrefab);
+            if (instance is not ISaveManager saveManager)
+            {
+                Debug.LogError(
+                    "[Bootstrap] SaveManager must implement ISaveManager");
+
+                Destroy(instance.gameObject);
+                return;
+            }
+            
+            DontDestroyOnLoad(instance.gameObject);
+            ServiceLocator.Register(saveManager);
         }
     }
 }

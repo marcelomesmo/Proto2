@@ -21,8 +21,18 @@ namespace Core.Services
 
             if (_services.ContainsKey(type))
                 throw new Exception($"Service already registered: {type}");
-
+            
             _services[type] = service;
+
+            // Also register interfaces?
+            
+            // Auto-bind interfaces:
+            foreach (var iface in type.GetInterfaces())
+            {
+                if (!_services.ContainsKey(iface))
+                    _services[iface] = service;
+            }
+
         }
 
         public static T Get<T>() where T : class

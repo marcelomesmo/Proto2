@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
   m_Name: Ranged_Spit
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: 
+  icon: {fileID: 0}
+  description: 
   executionMode: 1
-  damage: 5
+  damage: 100
   range: 7
   cooldown: 4
   hitType: 4

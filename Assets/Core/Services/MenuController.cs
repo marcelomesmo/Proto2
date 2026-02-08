@@ -8,6 +8,7 @@ namespace Core.Services
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private GameObject roosterPanel;
         [SerializeField] private GameObject optionsPanel;
+        [SerializeField] private GameObject walletPanel;
 
         private void Awake()
         {
@@ -23,6 +24,7 @@ namespace Core.Services
             
             mainPanel.SetActive(false);
             roosterPanel.SetActive(true);
+            walletPanel.SetActive(true);
         }
 
         public void OnPlayGame()

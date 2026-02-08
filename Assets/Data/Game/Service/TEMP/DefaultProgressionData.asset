@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f318cb0298cfb647a7c0255c79155f5, type: 3}
-  m_Name: BasePlayerCharacterProgressData
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.PlayerCharacterProgressData
-  unlockedCharacterIds:
+  m_Script: {fileID: 11500000, guid: 0109a85a6b359e14eb991efc0e9bfad6, type: 3}
+  m_Name: DefaultProgressionData
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Save.InitialProgressionData
+  startingUnlockedCharacters:
   - C_1_Fire
   - C_1_Grass
   - C_1_Water
+  startingGold: 0

@@ -1,4 +1,3 @@
-using System;
 using Core.EventChannels;
 using Core.Interfaces;
 using UnityEngine;
@@ -10,61 +9,56 @@ namespace Core.Gameplay.Loot
     */
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(LootController))]
-    public sealed class BaseLoot : MonoBehaviour, ICollectable
+    public class BaseLoot : MonoBehaviour, ICollectable
     {
         [Header("Data")]
         public LootSO lootData;
    
         [Header("References")]
-        [SerializeField] private Animator animator;
+        [SerializeField] protected Animator Animator;
         
-        private LootController _lootController;
-        private Collider2D _collider;
-        private bool _collected;
-        
-        [Header("Broadcast")]
-        [SerializeField] private IntEventChannelSO OnLootCollected;
+        protected LootController LootController;
+        protected Collider2D Collider;
+        protected bool Collected;
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            _lootController = GetComponent<LootController>();
-            _collider = GetComponent<Collider2D>();
+            LootController = GetComponent<LootController>();
+            Collider = GetComponent<Collider2D>();
 
-            _collider.isTrigger = true;
+            Collider.isTrigger = true;
             
             // Only auto-assign if not manually set
-            if (!animator)
-                animator = GetComponentInChildren<Animator>();
+            if (!Animator)
+                Animator = GetComponentInChildren<Animator>();
         }
 
         private void OnEnable()
         {
-            _collected = false;
-            _collider.enabled = true;
+            Collected = false;
+            Collider.enabled = true;
 
-            _lootController.Initialize(lootData);
+            LootController.Initialize(lootData);
             
-            _lootController.MagnetArrived += HandleMagnetArrived;
+            LootController.MagnetArrived += HandleMagnetArrived;
         }
 
         private void OnDisable()
         {
-            _lootController.MagnetArrived -= HandleMagnetArrived;
+            LootController.MagnetArrived -= HandleMagnetArrived;
         }
 
         private void HandleMagnetArrived() => Collect();
 
-        public void Collect()
+        public virtual void Collect()
         {
-            if (_collected)
+            if (Collected)
                 return;
             
-            _collected = true;
-            _collider.enabled = false;
+            Collected = true;
+            Collider.enabled = false;
             
-            animator?.SetTrigger("Interact");
-        
-            OnLootCollected?.RaiseEvent(lootData.contribution);
+            Animator?.SetTrigger("Interact");
         }
 
         public void FinishCollect()

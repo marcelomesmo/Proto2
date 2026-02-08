@@ -1,5 +1,6 @@
 using Core.Services.Manager;
 using Core.Services.Meta;
+using Core.Services.Save;
 using Core.Upgrades;
 using UnityEngine;
 
@@ -66,6 +67,7 @@ namespace Core.Services
             MatchRuntime.EndMatch();
             MatchStats.OnMatchEnd();
             UpgradeManager.OnMatchEnd();
+            ServiceLocator.Get<ISaveManager>().OnMatchEnd();
         }
         
         private void Update()
@@ -203,5 +205,14 @@ namespace Core.Services
         
         #endregion
         
+        // --------------------------------------------------
+        // Game Save
+        // --------------------------------------------------
+        
+        #region Game Save
+        
+        
+        
+        #endregion
     }
 }

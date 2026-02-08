@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 8b99f339b37699242b3c4d504c6f23ec, type: 3}
   description: shots fireball lol
   executionMode: 1
-  damage: 2
+  damage: 1
   range: 8
   cooldown: 2
   hitType: 2

@@ -593,8 +593,8 @@ Transform:
   m_GameObject: {fileID: 185506365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: 0}
-  m_LocalScale: {x: 20, y: 1.53, z: 1}
+  m_LocalPosition: {x: 0, y: -0.65, z: 0}
+  m_LocalScale: {x: 25.599998, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1680770559}
@@ -644,19 +644,19 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -382810077
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1806582292, guid: add1913904d9f0e45a00216e18db19e8, type: 3}
+  m_Sprite: {fileID: -4987337320017983735, guid: ae4465ce8907c64469c363edd08f1ba7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!1001 &201886381
 PrefabInstance:
@@ -893,7 +893,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344643883
 MonoBehaviour:
@@ -1156,6 +1156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491460098}
   - component: {fileID: 491460097}
+  - component: {fileID: 491460099}
   m_Layer: 0
   m_Name: GameBinders
   m_TagString: Untagged
@@ -1191,6 +1192,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &491460099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491460096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1faa08d0aee14b544af91820a528bef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Binders.LootMatchStatsBinder
+  lootCollectedChannel: {fileID: 11400000, guid: b66e4e1b3ccb8fe459015fc6a1aefb70, type: 2}
 --- !u!1 &501953841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3522,11 +3536,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1305514030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1865570626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4473,8 +4487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2f515c6503bed4bac6eb34189a176e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.HUDController
+  lootCollectedEventChannel: {fileID: 11400000, guid: b66e4e1b3ccb8fe459015fc6a1aefb70, type: 2}
   lootGoldText: {fileID: 1945731794}
-  lootGoldEventChannel: {fileID: 11400000, guid: b855c2007bc193c41aabc2bea4ca7b0c, type: 2}
   killText: {fileID: 859631231}
   matchTimer: {fileID: 1892064912}
 --- !u!1 &2136450980
@@ -4642,7 +4656,7 @@ PrefabInstance:
       objectReference: {fileID: 344643883}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.4375
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalPosition.y

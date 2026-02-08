@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterId: E_1_OneEye_Wizard
   faction: 2
-  maxHealth: 7
+  maxHealth: 9
   moveSpeed: 0.65
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}

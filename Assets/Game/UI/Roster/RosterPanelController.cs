@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Game.Entity.Player;
-using Game.Entity.Player.Meta;
 using UnityEngine;
 
 namespace Game.UI.Roster
@@ -16,7 +15,6 @@ namespace Game.UI.Roster
         [Header("Data")]
         [SerializeField] private List<CharacterDefinition> allCharacters;
         [SerializeField] private PlayerLoadoutData loadout;
-        [SerializeField] private PlayerCharacterProgressData progress;
 
         [Header("UI")]
         [SerializeField] private Transform contentRoot;
@@ -37,7 +35,7 @@ namespace Game.UI.Roster
             foreach (var character in allCharacters)
             {
                 var btn = Instantiate(buttonPrefab, contentRoot);
-                btn.Initialize(character, loadout, progress, this);
+                btn.Initialize(character, loadout, this);
                 _buttons.Add(btn);
             }
         }

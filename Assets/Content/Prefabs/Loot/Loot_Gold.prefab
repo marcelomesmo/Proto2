@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot_Gold
       objectReference: {fileID: 0}
+    - target: {fileID: 5444410402418630256, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: lootData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3fe7ae5ccc06c2c4885c7111d084844e, type: 2}
+    - target: {fileID: 5444410402418630256, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: OnGameLootCollected
+      value: 
+      objectReference: {fileID: 11400000, guid: b66e4e1b3ccb8fe459015fc6a1aefb70, type: 2}
     - target: {fileID: 7313965292723278426, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: bounceImpulse
       value: 4

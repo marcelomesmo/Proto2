@@ -9,23 +9,23 @@ namespace Game.Services.Binders
     {
         [SerializeField] private EntitySpawner spawner;
 
-        private GameMatchStats _stats;
+        private GameMatchStats _matchStats;
 
         private void Awake()
         {
             var gameController = ServiceLocator.Get<GameController>();
-            _stats = gameController.MatchStats as GameMatchStats;
+            _matchStats = gameController.MatchStats as GameMatchStats;
 
-            if (_stats == null || spawner == null)
+            if (_matchStats == null || spawner == null)
                 return;
 
-            spawner.OnWaveCompletedSignal += _stats.RegisterWaveCleared;
+            spawner.OnWaveCompletedSignal += _matchStats.RegisterWaveCleared;
         }
 
         private void OnDestroy()
         {
-            if (spawner != null && _stats != null)
-                spawner.OnWaveCompletedSignal -= _stats.RegisterWaveCleared;
+            if (spawner != null && _matchStats != null)
+                spawner.OnWaveCompletedSignal -= _matchStats.RegisterWaveCleared;
         }
     }
 }

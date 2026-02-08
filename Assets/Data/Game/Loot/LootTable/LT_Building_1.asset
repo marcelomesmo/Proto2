@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LT_Building_1
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Collectables.LootTableSO
   entries:
-  - loot: {fileID: 11400000, guid: 814565219b570c0428cbe6fc79fa5315, type: 2}
+  - loot: {fileID: 11400000, guid: 3fe7ae5ccc06c2c4885c7111d084844e, type: 2}
     dropChance: 1
     minAmount: 4
     maxAmount: 7

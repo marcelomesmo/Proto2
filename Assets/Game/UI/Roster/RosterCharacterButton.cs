@@ -1,5 +1,7 @@
+using Core.Services;
+using Core.Services.Save;
 using Game.Entity.Player;
-using Game.Entity.Player.Meta;
+using Game.Services.Save;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,21 +26,25 @@ namespace Game.UI.Roster
         
         private CharacterDefinition _character;
         private PlayerLoadoutData _loadout;
-        private PlayerCharacterProgressData _progress;
         private RosterPanelController _panel;
+        private GameSaveManager _saveManager;
 
         public void Initialize(
             CharacterDefinition character,
             PlayerLoadoutData loadout,
-            PlayerCharacterProgressData progress,
             RosterPanelController panel
         )
         {
             _character = character;
             _loadout = loadout;
-            _progress = progress;
             _panel = panel;
-
+            _saveManager = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
+            if (_saveManager == null)
+            {
+                Debug.LogError("[RosterCharacterButton] No SaveManager registered.");
+                return;
+            }
+            
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnClicked);
 
@@ -47,7 +53,7 @@ namespace Game.UI.Roster
 
         public void Refresh()
         {
-            bool isUnlocked = _progress.IsUnlocked(_character);
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(_character.baseStats.characterId);
             bool isSelected = _loadout.Contains(_character);
             
             if (!isUnlocked)
@@ -72,7 +78,8 @@ namespace Game.UI.Roster
         
         private void OnClicked()
         {
-            if (!_progress.IsUnlocked(_character))
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(_character.baseStats.characterId);
+            if (!isUnlocked)
                 return;
             
             if (_loadout.Contains(_character))

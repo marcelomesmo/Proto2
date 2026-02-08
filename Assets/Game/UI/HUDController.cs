@@ -1,5 +1,7 @@
 using Core.EventChannels;
 using Core.Services;
+using Game.Enum;
+using Game.EventChannels;
 using Game.Services.Meta;
 using TMPro;
 using UnityEngine;
@@ -8,9 +10,11 @@ namespace Game.UI
 {
     public class HUDController : MonoBehaviour
     {
-        [Header("Wallet")]
+        [Header("Loot Collected Channel")]
+        [SerializeField] private LootCollectedEventChannelSO lootCollectedEventChannel;
+        
+        [Header("Loot - Gold")]
         [SerializeField] private TextMeshProUGUI lootGoldText;
-        [SerializeField] private IntEventChannelSO lootGoldEventChannel;
         private int _totalGold = 0;
         
         [Header("Stats")]
@@ -25,7 +29,7 @@ namespace Game.UI
         /* Boilerplate for Event Channel */
         private void OnEnable()
         {
-            lootGoldEventChannel.OnEventRaised += UpdateGoldDisplay;
+            lootCollectedEventChannel.OnEventRaised += HandleLootCollected;
             //healthEventChannel.OnEventRaised += UpdateHealthDisplay;
 
             var gameController = ServiceLocator
@@ -41,7 +45,7 @@ namespace Game.UI
 
         private void OnDisable()
         {
-            lootGoldEventChannel.OnEventRaised -= UpdateGoldDisplay;
+            lootCollectedEventChannel.OnEventRaised -= HandleLootCollected;
             //healthEventChannel.OnEventRaised -= UpdateHealthDisplay;
             
             var gameController = ServiceLocator
@@ -56,9 +60,28 @@ namespace Game.UI
         }
         /* End of Boilerplate */
         
-        private void UpdateGoldDisplay(int contributionValue)
+        private void HandleLootCollected(LootCollectedPayload payload)
         {
-            _totalGold += contributionValue;
+            // payload.lootType tells you what was collected
+            // payload.amount tells you how much
+        
+            switch (payload.lootType)
+            {
+                case LootType.Gold:
+                    UpdateGoldDisplay(payload.amount);
+                    break;
+                
+                case LootType.Unknown:
+                    Debug.LogWarning("[HUDController] Received loot of type: " + payload.lootType + ". Was expecting different?");
+                    break;
+                
+                // etc.
+            }
+        }
+
+        private void UpdateGoldDisplay(int amount)
+        {
+            _totalGold += amount;
             lootGoldText.text = $"{_totalGold}";
         }
     
