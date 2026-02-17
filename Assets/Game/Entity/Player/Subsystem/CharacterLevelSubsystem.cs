@@ -2,6 +2,8 @@ using System;
 using Core.EventChannels;
 using Core.EventChannels.Payloads;
 using Core.Gameplay.Entity.Subsystem;
+using Core.Services;
+using Core.Services.Meta;
 using Game.Entity.Player.Progression;
 using Game.Entity.Player.Stats;
 using UnityEngine;
@@ -22,9 +24,13 @@ namespace Game.Entity.Player.Subsystem
 
         private int _currentXp;
         private int _currentLevel;
+        
+        // Rounder for float & bonuses.
+        private float _xpRemainder;
 
         private CharacterStats _stats;
         private EntityPresentationSubsystem _presentation;
+        private UpgradeManager _upgradeManager;
 
         public int Level => _currentLevel;
         public int XP => _currentXp;
@@ -45,6 +51,9 @@ namespace Game.Entity.Player.Subsystem
             
             _presentation = Controller.GetComponent<EntityPresentationSubsystem>();
 
+            _upgradeManager =
+                ServiceLocator.Get<UpgradeManager>();
+            
             _currentXp = 0;
             _currentLevel = 0;
 
@@ -75,8 +84,23 @@ namespace Game.Entity.Player.Subsystem
             if (amount <= 0 || _currentLevel >= levelUpData.MaxLevel)
                 return;
 
-            _currentXp += amount;
+            // 1. Get experience multiplier from Upgrades.
+            float multiplier =
+                _upgradeManager != null
+                    ? _upgradeManager.GetExperienceMultiplier()
+                    : 1f;
+            
+            float modified =
+                amount * multiplier + _xpRemainder;
+            
+            int finalAmount = Mathf.FloorToInt(modified);
+            
+            _xpRemainder = modified - finalAmount;
+            
+            // 2. Add the modified Exp to the current Exp.
+            _currentXp += finalAmount;
 
+            // 3. Try leveling
             TryLevelUp();
             
             levelChangedEvent?.RaiseEvent(

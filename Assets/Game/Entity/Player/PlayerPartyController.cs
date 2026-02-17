@@ -114,7 +114,16 @@ namespace Game.Entity.Player
             foreach (var entity in _activeEntities)
                 EntityPoolManager.Instance.Despawn(entity);
 
+            // Clear Entity references
             _activeEntities.Clear();
+            
+            // Clear Castle references
+            if (_castleController != null)
+            {
+                _castleController.CastleDestroyed -= OnDefeat;
+                _castleController = null;
+            }
+            _castle = null;
             
             // End of Level -> Defeat
             ServiceLocator.Get<GameController>().OnGameDefeat();

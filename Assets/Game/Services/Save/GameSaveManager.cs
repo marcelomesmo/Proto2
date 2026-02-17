@@ -56,6 +56,13 @@ namespace Game.Services.Save
                 storage);
 
             _save.Load();
+            
+            // DEBUG: Log what was loaded
+            Debug.Log($"[SaveManager] Loaded save. Gold: {Profile.gold}, Unlocked characters: {Profile.unlockedCharacters.Count}");
+            foreach (var charId in Profile.unlockedCharacters)
+            {
+                Debug.Log($"[SaveManager] - Character ID: '{charId}'");
+            }
         }
 
         public void Save() => _save.Save();
@@ -120,9 +127,12 @@ namespace Game.Services.Save
 
         public void UnlockCharacter(string id)
         {
-            if (Profile.unlockedCharacters.Add(id))
-                OnCharacterUnlocked?.Invoke(id);
-            Save(); // todo: wrap this above
+            if (Profile.unlockedCharacters.Contains(id)) 
+                return;
+            
+            Profile.unlockedCharacters.Add(id);
+            OnCharacterUnlocked?.Invoke(id);
+            Save();
         }
 
         // ------------------------------------
@@ -136,9 +146,12 @@ namespace Game.Services.Save
 
         public void UnlockUpgrade(string id)
         {
-            if (Profile.unlockedUpgrades.Add(id))
-                OnUpgradeUnlocked?.Invoke(id);
-            Save(); // todo: wrap this above
+            if (Profile.unlockedUpgrades.Contains(id)) 
+                return;
+            
+            Profile.unlockedUpgrades.Add(id);
+            OnUpgradeUnlocked?.Invoke(id);
+            Save();
         }
 
         // ------------------------------------

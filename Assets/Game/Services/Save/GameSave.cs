@@ -16,8 +16,8 @@ namespace Game.Services.Save
         public int gold;
 
         // Unlocks
-        public HashSet<string> unlockedCharacters = new();
-        public HashSet<string> unlockedUpgrades = new();
+        public List<string> unlockedCharacters = new();
+        public List<string> unlockedUpgrades = new();
 
         // Stats
         public int totalMatches;

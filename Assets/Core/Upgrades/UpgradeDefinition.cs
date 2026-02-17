@@ -1,13 +1,27 @@
 using System.Collections.Generic;
-using Core.Gameplay.Combat.Modifiers;
+using Core.Upgrades.Effects;
 using UnityEngine;
 
 namespace Core.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Upgrade Definition")]
-    public class UpgradeDefinition : ScriptableObject
+    public abstract class UpgradeDefinition : ScriptableObject
     {
-        [Header("Damage Modifiers")]
-        public List<DamageModifier> damageModifiers = new();
+        [Header("Identity")]
+        public string upgradeId;
+        public string displayName;
+        public string description;
+        public Sprite icon;
+        
+        [Header("Progression")]
+        public int maxLevel = 5;
+        
+        // Abstract methods that Game layer implements
+        public abstract int GetCostForLevel(int level);
+        public abstract string GetEffectDescriptionForLevel(int level);
+        
+        [Header("Effects")]
+        [SerializeField]
+        private List<UpgradeEffect> effects = new();
+        public IReadOnlyList<UpgradeEffect> Effects => effects;
     }
 }
