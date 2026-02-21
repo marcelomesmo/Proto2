@@ -1,0 +1,127 @@
+using System.Collections.Generic;
+using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Modifiers;
+using Core.Gameplay.Entity.Subsystem;
+using Core.Services;
+using Game.Entity.Player.Subsystem;
+using UnityEngine;
+using UnityEngine.Pool;
+
+namespace Core.Gameplay.Combat
+{
+    public static class DamagePayloadFactory
+    {
+        public static DamagePayload Create(
+            AttackData attackData,
+            int baseDamage,
+            ModifierScope scope,
+            DamageSource source,
+            Vector2 hitPoint)
+        {
+            if (attackData == null)
+                return default;
+
+            // -----------------------------
+            // 1. Collect Damage Modifiers
+            // -----------------------------
+
+            var modifiers = source.sourceEntity
+                ? source.sourceEntity
+                    .GetComponent<EntityModifierSubsystem>()?
+                    .DamageModifiers
+                : null;
+
+            // -----------------------------
+            // 2. Merge Attack Effects
+            // -----------------------------
+
+            var effects = ListPool<AttackEffectData>.Get();
+
+            // Base attack effects
+            if (attackData.Effects != null)
+                effects.AddRange(attackData.Effects);
+
+            // Upgrade-provided effects
+            var attackSubsystem =
+                source.sourceEntity?
+                    .GetComponent<EntityAttackSubsystem>();
+
+            if (attackSubsystem != null)
+            {
+                var combined =
+                    attackSubsystem.GetCombinedEffects(attackData);
+
+                if (combined != null)
+                {
+                    effects.Clear();
+                    effects.AddRange(combined);
+                }
+            }
+
+            // -----------------------------
+            // 3. Build Payload
+            // -----------------------------
+
+            var payload = new DamagePayload(
+                hitData: attackData,
+                baseDamage: baseDamage,
+                modifiers: modifiers,
+                effects: effects,
+                hitPoint: hitPoint,
+                source: source
+            );
+
+            return payload;
+        }
+        
+        // --------------------------------
+        // Chain Payload
+        // --------------------------------
+
+        public static DamagePayload CreateChain(
+            DamagePayload previous,
+            AttackData attackData,
+            float multiplier,
+            bool applyEffectsEveryBounce)
+        {
+            if (previous.hitData == null)
+                return default;
+
+            IReadOnlyList<AttackEffectData> effects =
+                applyEffectsEveryBounce
+                    ? previous.effects
+                    : null;
+
+            return new DamagePayload(
+                hitData: previous.hitData,
+                baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
+                modifiers: previous.modifiers,
+                effects: effects,
+                hitPoint: previous.hitPoint,
+                source: previous.source,
+                chainDepth: previous.chainDepth + 1
+            );
+        }
+
+        // --------------------------------
+        // Effect Damage (DOT, Auras, etc.)
+        // --------------------------------
+
+        public static DamagePayload CreateEffectDamage(
+            int damage,
+            DamageSource source,
+            Vector2 hitPoint,
+            List<DamageModifier> modifiers)
+        {
+            return new DamagePayload(
+                hitData: null,
+                baseDamage: damage,
+                modifiers: modifiers,
+                effects: null,
+                hitPoint: hitPoint,
+                source: source,
+                chainDepth: 0
+            );
+        }
+    }
+}

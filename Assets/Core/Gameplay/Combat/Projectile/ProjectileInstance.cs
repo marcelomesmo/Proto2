@@ -4,8 +4,6 @@ using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile.Impact;
 using Core.Gameplay.Combat.Projectile.Movement;
 using Core.Interfaces;
-using Core.Services;
-using Enum;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -179,16 +177,6 @@ namespace Core.Gameplay.Combat.Projectile
             // Get the point on the enemy collider closest to the projectile
             Vector2 hitPoint = other.ClosestPoint(transform.position);
             
-            // Locate modifiers
-            var modifiers = ListPool<DamageModifier>.Get();
-
-            ServiceLocator
-                .Get<GameController>()?
-                .UpgradeManager
-                .CollectDamageModifiers(
-                    ModifierScope.Projectile,
-                    modifiers);
-            
             // Locate Player stats
             int attackPower = 0;
 
@@ -201,20 +189,17 @@ namespace Core.Gameplay.Combat.Projectile
                     attackPower = Mathf.RoundToInt(stats.attackPower);
             }
             
-            var payload = new DamagePayload(
-                hitData: attackProperties,
+            var payload = DamagePayloadFactory.Create(
+                attackData: attackProperties,
                 baseDamage: attackProperties.damage + attackPower,
-                modifiers: modifiers,
-                effects: attackProperties.Effects,
-                hitPoint: hitPoint,
-                source: _damageSource
+                scope: ModifierScope.Projectile,
+                source: _damageSource,
+                hitPoint: hitPoint
             );
             
             // Handle Damage done
             // Trigger OnImpact results.
             impactBehavior?.OnImpact(this, other, payload);
-            
-            ListPool<DamageModifier>.Release(modifiers);
             
             _remainingHits--;
         

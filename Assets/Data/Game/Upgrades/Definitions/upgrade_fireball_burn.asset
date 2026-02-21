@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
+  m_Name: upgrade_fireball_burn
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
+  upgradeId: fireball_burn
+  displayName: Fireball add burn
+  description: Fireball now apply a Burn effect.
+  icon: {fileID: 8638710384840876012, guid: b3fc5d65083a50c4b9f81f9b43a1ffd6, type: 3}
+  maxLevel: 1
+  levelCosts: 64000000
+  levelDescriptions:
+  - 'Fireball: Burn deals 10 damage.'
+  effects:
+  - {fileID: 11400000, guid: 92f47557e02d9d242ae96cad945a1e7d, type: 2}

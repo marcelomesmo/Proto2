@@ -29,11 +29,11 @@ namespace Game.Entity.Player.Subsystem
         private float _xpRemainder;
 
         private CharacterStats _stats;
-        private EntityPresentationSubsystem _presentation;
-        private UpgradeManager _upgradeManager;
 
         public int Level => _currentLevel;
         public int XP => _currentXp;
+
+        private float _multiplier;
 
         public event Action<int> OnLevelUp;
 
@@ -49,10 +49,9 @@ namespace Game.Entity.Player.Subsystem
                 return;
             }
             
-            _presentation = Controller.GetComponent<EntityPresentationSubsystem>();
-
-            _upgradeManager =
-                ServiceLocator.Get<UpgradeManager>();
+            _multiplier = Controller
+                .GetComponent<EntityModifierSubsystem>()?
+                .GetXpMultiplier() ?? 1f;
             
             _currentXp = 0;
             _currentLevel = 0;
@@ -62,8 +61,6 @@ namespace Game.Entity.Player.Subsystem
 
         protected override void OnDeinitialize()
         {
-            _presentation = null;
-            
             xpEvent.OnEventRaised -= HandleXpAwarded;
         }
         
@@ -84,14 +81,9 @@ namespace Game.Entity.Player.Subsystem
             if (amount <= 0 || _currentLevel >= levelUpData.MaxLevel)
                 return;
 
-            // 1. Get experience multiplier from Upgrades.
-            float multiplier =
-                _upgradeManager != null
-                    ? _upgradeManager.GetExperienceMultiplier()
-                    : 1f;
-            
+            // 1. Apply multiplier
             float modified =
-                amount * multiplier + _xpRemainder;
+                amount * _multiplier + _xpRemainder;
             
             int finalAmount = Mathf.FloorToInt(modified);
             

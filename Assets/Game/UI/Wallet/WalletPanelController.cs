@@ -11,28 +11,40 @@ namespace Game.UI.Wallet
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI goldText;
         
+        private GameSaveManager _save;
+        
         private void Awake()
         {
-            Build();
-        }
+            _save = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
 
-        public void Refresh()
-        {
-            Build();
-        }
-        
-        private void Build()
-        {
-            Clear();
-            
-            var saveManager = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
-            if (saveManager == null)
+            if (_save == null)
             {
-                Debug.LogError("[RosterCharacterButton] No SaveManager registered.");
+                Debug.LogError("[WalletPanelController] No SaveManager registered.");
+                enabled = false;
                 return;
             }
             
-            goldText.text = saveManager.Profile.gold.ToString();
+            Refresh();
+            
+            _save.OnGoldChanged += HandleGoldChanged;
+        }
+        
+        private void OnDestroy()
+        {
+            if (_save == null)
+                return;
+
+            _save.OnGoldChanged -= HandleGoldChanged;
+        }
+        
+        private void HandleGoldChanged(int gold)
+        {
+            Refresh();
+        }
+        
+        private void Refresh()
+        {
+            goldText.text = _save.Gold.ToString();
         }
 
         private void Clear()

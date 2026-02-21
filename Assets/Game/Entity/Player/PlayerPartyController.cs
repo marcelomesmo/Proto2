@@ -3,6 +3,8 @@ using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
 using Core.Services;
 using Core.Services.Manager;
+using Core.Services.Meta;
+using Core.Upgrades;
 using Game.UI.CharacterHUD;
 using UnityEngine;
 
@@ -29,6 +31,7 @@ namespace Game.Entity.Player
         {
             SpawnCastle();
             SpawnParty();
+            ApplyUpgrades();
             InitializeHUD();
         }
 
@@ -91,6 +94,42 @@ namespace Game.Entity.Player
 
             _activeEntities.Add(entity);
         }
+        
+        #region Upgrades Initialize
+        
+        private void ApplyUpgrades()
+        {
+            var upgradeManager =
+                ServiceLocator.Get<GameController>()?.UpgradeManager;
+
+            if (upgradeManager == null)
+                return;
+
+            foreach (var entity in _activeEntities)
+            {
+                if (!entity)
+                    continue;
+
+                ApplyUpgradesToEntity(entity, upgradeManager);
+            }
+        }
+        
+        private void ApplyUpgradesToEntity(
+            EntityController entity,
+            UpgradeManager manager)
+        {
+            foreach (var upgrade in manager.ActiveUpgrades)
+            {
+                var context = new UpgradeContext(entity);
+
+                foreach (var effect in upgrade.Effects)
+                {
+                    effect.Apply(context);
+                }
+            }
+        }
+        
+        #endregion
         
         private void InitializeHUD()
         {

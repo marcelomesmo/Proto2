@@ -14,6 +14,7 @@ namespace Core.Gameplay.Combat.Modifiers
         Melee,
         Projectile,
         Area,
+        Chain,
         Effect
     }
     

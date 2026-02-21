@@ -10,14 +10,14 @@ namespace Game.Services.Save
     [Serializable]
     public sealed class GameSave
     {
-        public int version = 1;
+        public int version = 2;
 
         // Currency
         public int gold;
 
         // Unlocks
         public List<string> unlockedCharacters = new();
-        public List<string> unlockedUpgrades = new();
+        public List<UpgradeProgress> upgrades = new();
 
         // Stats
         public int totalMatches;
@@ -27,5 +27,13 @@ namespace Game.Services.Save
         {
             gold = 0;
         }
+    }
+    
+    [Serializable]
+    public sealed class UpgradeProgress
+    {
+        public string id;
+        public bool unlocked;
+        public int level;
     }
 }

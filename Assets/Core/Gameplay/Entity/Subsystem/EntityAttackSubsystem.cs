@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Enum;
+using Core.Gameplay.Combat;
 using Core.Gameplay.Combat.AreaEffect;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Modifiers;
@@ -23,6 +24,8 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private readonly Dictionary<AttackData, AttackInstance> _attacks = new();
         public IReadOnlyDictionary<AttackData, AttackInstance> Attacks => _attacks;
+        
+        private readonly Dictionary<AttackData, List<AttackEffectData>> _runtimeAttackEffects = new();
         
         // Helpers
         private BaseEntityStats _stats;
@@ -67,6 +70,8 @@ namespace Core.Gameplay.Entity.Subsystem
             _currentAttack = null;
             _pendingContext = default;
             _waitingForResolve = false;
+            
+            _runtimeAttackEffects.Clear();
         }
 
         protected override void OnUpdate()
@@ -262,15 +267,6 @@ namespace Core.Gameplay.Entity.Subsystem
             }
 
             var instance = go.AddComponent<AreaEffectInstance>();
-
-            var modifiers = ListPool<DamageModifier>.Get();
-            
-            ServiceLocator
-                .Get<GameController>()?
-                .UpgradeManager
-                .CollectDamageModifiers(
-                    ModifierScope.Area,
-                    modifiers);
             
             var damageSource = new DamageSource(
                 _stats.faction,
@@ -281,18 +277,15 @@ namespace Core.Gameplay.Entity.Subsystem
             
             var attackPower = GetAttackPowerBonus();
             
-            var payload = new DamagePayload(
-                hitData: data,
+            var payload = DamagePayloadFactory.Create(
+                attackData: data,
                 baseDamage: data.damage + attackPower,
-                modifiers: modifiers,
-                effects: data.Effects,
-                hitPoint: go.transform.position,
-                source: damageSource
+                scope: ModifierScope.Area,
+                source: damageSource,
+                hitPoint: go.transform.position
             );
 
             instance.Initialize(data.areaEffectData, payload);
-            
-            ListPool<DamageModifier>.Release(modifiers);
         }
         
         private Transform ResolveAreaSpawnTransform(AreaEffectData data)
@@ -380,15 +373,6 @@ namespace Core.Gameplay.Entity.Subsystem
                 if (!damageable.CanBeDamaged())
                     continue;
                 
-                var modifiers = ListPool<DamageModifier>.Get();
-
-                ServiceLocator
-                    .Get<GameController>()?
-                    .UpgradeManager
-                    .CollectDamageModifiers(
-                        ModifierScope.Melee,
-                        modifiers);
-                
                 var damageSource = new DamageSource(
                     _stats.faction,
                     _controller,
@@ -398,16 +382,13 @@ namespace Core.Gameplay.Entity.Subsystem
                 
                 var attackPower = GetAttackPowerBonus();
                 
-                var payload = new DamagePayload(
-                    hitData: data,
+                var payload = DamagePayloadFactory.Create(
+                    attackData: data,
                     baseDamage: data.damage + attackPower,
-                    modifiers: null,
-                    effects: data.Effects,
-                    hitPoint: Vector2.zero,
-                    source: damageSource
+                    scope: ModifierScope.Melee,
+                    source: damageSource,
+                    hitPoint: Vector2.zero
                 );
-                
-                ListPool<DamageModifier>.Release(modifiers);
                 
                 damageable.TakeDamage(payload);
             }
@@ -479,6 +460,57 @@ namespace Core.Gameplay.Entity.Subsystem
             //  stats.attackPower * stats.attackPowerMultiplier; etc.
 
             return 0;
+        }
+        
+        // -------------------------------------
+// Runtime Attack Effects (Upgrades)
+// -------------------------------------
+
+        public void RegisterRuntimeEffect(
+            AttackData attack,
+            AttackEffectData effect)
+        {
+            if (attack == null || effect == null)
+                return;
+
+            if (!_runtimeAttackEffects.TryGetValue(attack, out var list))
+            {
+                list = new List<AttackEffectData>();
+                _runtimeAttackEffects.Add(attack, list);
+            }
+
+            if (!list.Contains(effect))
+                list.Add(effect);
+        }
+
+        public void UnregisterRuntimeEffect(
+            AttackData attack,
+            AttackEffectData effect)
+        {
+            if (attack == null || effect == null)
+                return;
+
+            if (!_runtimeAttackEffects.TryGetValue(attack, out var list))
+                return;
+
+            list.Remove(effect);
+
+            if (list.Count == 0)
+                _runtimeAttackEffects.Remove(attack);
+        }
+
+        public IReadOnlyList<AttackEffectData> GetCombinedEffects(AttackData attack)
+        {
+            if (!_runtimeAttackEffects.TryGetValue(attack, out var extra))
+                return attack.Effects;
+
+            var combined = new List<AttackEffectData>(
+                attack.Effects.Count + extra.Count);
+
+            combined.AddRange(attack.Effects);
+            combined.AddRange(extra);
+
+            return combined;
         }
         
         #endregion

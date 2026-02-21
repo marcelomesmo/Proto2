@@ -57,34 +57,14 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
             if (!_target.TryGetComponent<IDamageable>(out var damageable))
                 return;
             
-            // Locate modifiers
-            var modifiers = ListPool<DamageModifier>.Get();
-            
-            ServiceLocator
-                .Get<GameController>()?
-                .UpgradeManager
-                .CollectDamageModifiers(
-                    ModifierScope.Effect,
-                    modifiers);
-            
-            int attackPower = 0;
-
-            if (_damageSource.sourceEntity &&
-                _damageSource.sourceEntity.Stats is Game.Entity.Player.Stats.CharacterStats stats)
-            {
-                attackPower = Mathf.RoundToInt(stats.attackPower);
-            }
-            
-            var payload = DamagePayload.CreateEffectDamage(
+            var payload = DamagePayloadFactory.CreateEffectDamage(
                 damage: Mathf.RoundToInt(_data.value),
                 source: _damageSource,
                 hitPoint: _target.transform.position,
-                modifiers: modifiers
+                modifiers: null
             );
 
             damageable.TakeDamage(payload);
-            
-            ListPool<DamageModifier>.Release(modifiers);
         }
     }
 }

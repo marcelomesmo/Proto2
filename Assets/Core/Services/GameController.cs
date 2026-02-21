@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Services.Save;
 using Core.Upgrades;
+using Core.Upgrades.Database;
 using UnityEngine;
 
 namespace Core.Services
@@ -48,18 +50,13 @@ namespace Core.Services
         
         #region Game Flow
         
-        // TEMP: test upgrade
-        public UpgradeDefinition testUpgradeDefinition;
-        
         public void StartMatch()
         {
             _isPaused = false;
             MatchRuntime.BeginMatch();
             MatchStats.OnMatchStart();
             UpgradeManager.OnMatchStart();
-            
-            // TEMP: test upgrade
-            UpgradeManager.AddUpgrade(testUpgradeDefinition);
+            LoadRuntimeUpgrades();
         }
         
         private void EndMatch()
@@ -212,6 +209,47 @@ namespace Core.Services
         #region Game Save
         
         
+        
+        #endregion
+        
+        // --------------------------------------------------
+        // Game Load
+        // --------------------------------------------------
+        
+        #region Game Load
+        
+        private void LoadRuntimeUpgrades()
+        {
+            var save =
+                ServiceLocator.Get<ISaveManager>() as Game.Services.Save.GameSaveManager;
+
+            if (save == null)
+                return;
+
+            if (!ServiceLocator.TryGet<UpgradeDatabase>(out var db) || db == null)
+            {
+                Debug.LogError("[GameController] UpgradeDatabase service not registered.");
+                return;
+            }
+
+            var definitions = new List<UpgradeDefinition>();
+
+            // Only purchased upgrades apply to match.
+            foreach (var p in save.Profile.upgrades)
+            {
+                if (!p.unlocked)
+                    continue;
+
+                // Only apply upgrades that actually have purchased levels.
+                if (p.level <= 0)
+                    continue;
+                
+                if (db.TryGet(p.id, out var def))
+                    definitions.Add(def);
+            }
+
+            UpgradeManager.LoadUpgrades(definitions);
+        }
         
         #endregion
     }

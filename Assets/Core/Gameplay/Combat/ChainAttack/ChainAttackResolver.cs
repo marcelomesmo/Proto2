@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Combat.Modifiers;
 using Core.Interfaces;
 using Core.Services;
 using UnityEngine;
@@ -105,16 +106,11 @@ namespace Core.Gameplay.Combat.ChainAttack
                 attackData.chainData.damageMultiplierPerBounce,     // multiply damage
                 bounceIndex);
             
-            return new DamagePayload(
-                hitData: previous.hitData,
-                baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
-                modifiers: previous.modifiers,
-                effects: attackData.chainData.applyEffectsOnEveryBounce     // we can either apply effects on every bounce or not
-                    ? previous.effects
-                    : null,
-                hitPoint: previous.hitPoint,
-                source: previous.source,
-                chainDepth: previous.chainDepth + 1
+            return DamagePayloadFactory.CreateChain(
+                previous,
+                attackData,
+                multiplier,
+                attackData.chainData.applyEffectsOnEveryBounce
             );
         }
         

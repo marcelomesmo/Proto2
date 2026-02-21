@@ -2,6 +2,8 @@ using System;
 using Core.Services;
 using Core.Services.Save;
 using Core.Services.Save.Storage;
+using Core.Upgrades;
+using Core.Upgrades.Database;
 using Game.Services.Meta;
 using UnityEngine;
 
@@ -19,6 +21,7 @@ namespace Game.Services.Save
         [SerializeField] private InitialProgressionData defaults;
         
         private SaveSerializer<GameSave> _save;
+        private IUpgradeDatabase _upgradeDatabase;
 
         public GameSave Profile => _save.Data;
 
@@ -26,12 +29,20 @@ namespace Game.Services.Save
         public event Action<int> OnGoldChanged;
         public event Action<string> OnCharacterUnlocked;
         public event Action<string> OnUpgradeUnlocked;
+        public event Action<string, int> OnUpgradeLevelChanged;
 
         // ------------------------------------
 
         public void Initialize()
         {
             Load();
+            
+            _upgradeDatabase = ServiceLocator.Get<IUpgradeDatabase>();
+            if (_upgradeDatabase == null)
+            {
+                Debug.LogError("[GameSaveManager] UpgradeDatabase service not registered.");
+                return;
+            }
             
             // todo; deprecate
             if (Profile.unlockedCharacters.Count == 0 &&
@@ -58,17 +69,20 @@ namespace Game.Services.Save
             _save.Load();
             
             // DEBUG: Log what was loaded
-            Debug.Log($"[SaveManager] Loaded save. Gold: {Profile.gold}, Unlocked characters: {Profile.unlockedCharacters.Count}");
+            /*Debug.Log($"[SaveManager] Loaded save. Gold: {Profile.gold}, Unlocked characters: {Profile.unlockedCharacters.Count}");
             foreach (var charId in Profile.unlockedCharacters)
             {
                 Debug.Log($"[SaveManager] - Character ID: '{charId}'");
-            }
+            }*/
         }
 
         public void Save() => _save.Save();
         public void Reset() => _save.Reset();
         
-        // todo; deprecate
+        // ------------------------------------
+        // Defaults
+        // ------------------------------------
+
         private void ApplyDefaults()
         {
             if (!defaults)
@@ -79,6 +93,7 @@ namespace Game.Services.Save
 
             Profile.gold = defaults.startingGold;
 
+            // todo; deprecate
             foreach (var id in defaults.startingUnlockedCharacters)
             {
                 Profile.unlockedCharacters.Add(id);
@@ -102,6 +117,7 @@ namespace Game.Services.Save
 
             Profile.gold += amount;
             Save();
+            
             OnGoldChanged?.Invoke(Profile.gold);
         }
 
@@ -112,6 +128,7 @@ namespace Game.Services.Save
 
             Profile.gold -= amount;
             Save();
+            
             OnGoldChanged?.Invoke(Profile.gold);
             return true;
         }
@@ -131,27 +148,102 @@ namespace Game.Services.Save
                 return;
             
             Profile.unlockedCharacters.Add(id);
-            OnCharacterUnlocked?.Invoke(id);
             Save();
+            
+            OnCharacterUnlocked?.Invoke(id);
         }
 
         // ------------------------------------
         // Upgrades
         // ------------------------------------
 
-        public bool HasUpgrade(string id)
+        private UpgradeProgress GetOrCreateUpgrade(string id)
         {
-            return Profile.unlockedUpgrades.Contains(id);
+            foreach (var u in Profile.upgrades)
+            {
+                if (u.id == id)
+                    return u;
+            }
+
+            var progress = new UpgradeProgress
+            {
+                id = id,
+                unlocked = false,
+                level = 0
+            };
+
+            Profile.upgrades.Add(progress);
+            return progress;
         }
 
+        public bool IsUpgradeUnlocked(string id) =>
+            GetOrCreateUpgrade(id).unlocked;
+
+        public int GetUpgradeLevel(string id) =>
+            GetOrCreateUpgrade(id).level;
+        
+        public bool CanPurchaseUpgrade(string id)
+        {
+            var p = GetOrCreateUpgrade(id);
+
+            if (!p.unlocked)
+                return false;
+
+            if (!_upgradeDatabase.TryGet(id, out var def))
+                return false;
+
+            return p.level < def.maxLevel;
+        }
+        
+        public int GetNextUpgradeCost(string id)
+        {
+            var p = GetOrCreateUpgrade(id);
+
+            if (_upgradeDatabase == null)
+                return int.MaxValue;
+            
+            if (!_upgradeDatabase.TryGet(id, out var def))
+                return int.MaxValue;
+
+            int nextLevel = p.level + 1;
+            
+            return def.GetCostForLevel(nextLevel);
+        }
+        
+        public bool TryPurchaseUpgrade(string id)
+        {
+            if (!CanPurchaseUpgrade(id))
+                return false;
+            
+            var p = GetOrCreateUpgrade(id);
+
+            if (!_upgradeDatabase.TryGet(id, out var def))
+                return false;
+            
+            int cost = def.GetCostForLevel(p.level + 1);
+            
+            if (!SpendGold(cost))
+                return false;
+            
+            p.level++;
+            Save();
+
+            OnUpgradeLevelChanged?.Invoke(id, p.level);
+
+            return true;
+        }
+        
         public void UnlockUpgrade(string id)
         {
-            if (Profile.unlockedUpgrades.Contains(id)) 
+            var p = GetOrCreateUpgrade(id);
+            
+            if (p.unlocked)
                 return;
             
-            Profile.unlockedUpgrades.Add(id);
-            OnUpgradeUnlocked?.Invoke(id);
+            p.unlocked = true;
             Save();
+
+            OnUpgradeUnlocked?.Invoke(id);
         }
 
         // ------------------------------------

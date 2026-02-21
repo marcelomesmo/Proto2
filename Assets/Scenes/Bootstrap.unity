@@ -198,6 +198,7 @@ MonoBehaviour:
   projectilePoolPrefab: {fileID: 8546929940581069133, guid: 46520878291936c40833de2d0776cf18, type: 3}
   entityPoolPrefab: {fileID: 8097181172246228889, guid: dc598c4f40620f3429609c4ec76a48d0, type: 3}
   saveManagerPrefab: {fileID: 1241793126905456413, guid: feea5b2578fbc614592ef752ce3d35c4, type: 3}
+  upgradeDatabase: {fileID: 11400000, guid: 202fcab5cdc2af44ebec4549069b5530, type: 2}
   inputActions: {fileID: -944628639613478452, guid: 5e716bb9195b9eb49a2ccb4c51691dc6, type: 3}
 --- !u!4 &1702168582
 Transform:

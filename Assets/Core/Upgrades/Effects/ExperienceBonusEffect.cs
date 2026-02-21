@@ -20,12 +20,12 @@ namespace Core.Upgrades.Effects
                 multiplier = 1f + bonusMultiplier
             };
 
-            context.RegisterExperienceModifier(_modifier);
+            context.Modifiers.AddXpModifier(_modifier);
         }
 
         public override void Remove(UpgradeContext context)
         {
-            context.UnregisterExperienceModifier(_modifier);
+            context.Modifiers.RemoveXpModifier(_modifier);
         }
     }
 }

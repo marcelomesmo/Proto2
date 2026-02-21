@@ -1,36 +1,19 @@
-using System.Collections.Generic;
-using Core.Services.Meta;
-using Core.Upgrades.Effects;
+using Core.Gameplay.Entity;
+using Game.Entity.Player.Subsystem;
 
 namespace Core.Upgrades
 {
     public sealed class UpgradeContext
     {
-        public readonly UpgradeManager Manager;
+        public readonly EntityController Entity;
+        public readonly EntityModifierSubsystem Modifiers;
         
-        private readonly List<ExperienceModifier> _xpModifiers =
-            new();
-
-        public UpgradeContext(UpgradeManager manager)
+        public UpgradeContext(
+            EntityController entity)
         {
-            Manager = manager;
+            Entity = entity;
+            Modifiers =
+                entity.GetComponent<EntityModifierSubsystem>();
         }
-        
-        // ---------------- XP ----------------
-
-        public void RegisterExperienceModifier(
-            ExperienceModifier modifier)
-        {
-            _xpModifiers.Add(modifier);
-        }
-
-        public void UnregisterExperienceModifier(
-            ExperienceModifier modifier)
-        {
-            _xpModifiers.Remove(modifier);
-        }
-
-        public IReadOnlyList<ExperienceModifier> ExperienceModifiers =>
-            _xpModifiers;
     }
 }
