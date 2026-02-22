@@ -567,6 +567,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f545478bd0fb7a478ed6f674a5210f5, type: 3}
+--- !u!1 &175964661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175964662}
+  m_Layer: 0
+  m_Name: MatchSceneRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175964662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175964661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 492220919}
+  - {fileID: 2500865944225924097}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &185506365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1238,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Binders.LootMatchStatsBinder
   lootCollectedChannel: {fileID: 11400000, guid: b66e4e1b3ccb8fe459015fc6a1aefb70, type: 2}
+--- !u!1 &492220918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492220919}
+  - component: {fileID: 492220920}
+  m_Layer: 0
+  m_Name: MatchSceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &492220919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492220918}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 175964662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &492220920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492220918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aad54051108772479cf3b0f4681a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Meta.MatchSceneController
+  playerParty: {fileID: 2500865944225924098}
+  startDelaySeconds: 0
 --- !u!1 &501953841
 GameObject:
   m_ObjectHideFlags: 0
@@ -4644,11 +4723,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 175964662}
     m_Modifications:
     - target: {fileID: 5113433106595524789, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_Name
-      value: PlayerParty
+      value: PlayerPartyController
       objectReference: {fileID: 0}
     - target: {fileID: 6705379173510546776, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: characterHUD
@@ -4672,15 +4751,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4699,6 +4778,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
+--- !u!4 &2500865944225924097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
+  m_PrefabInstance: {fileID: 2500865944225924096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2500865944225924098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6705379173510546776, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
+  m_PrefabInstance: {fileID: 2500865944225924096}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21e86acdb49c4c4382ac59e1f4e88cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.PlayerPartyController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4707,10 +4802,10 @@ SceneRoots:
   - {fileID: 1946717925}
   - {fileID: 147844362}
   - {fileID: 30668787}
-  - {fileID: 2500865944225924096}
   - {fileID: 1680770559}
   - {fileID: 1840772792}
   - {fileID: 903980137}
   - {fileID: 60333412}
   - {fileID: 2011007777}
   - {fileID: 491460098}
+  - {fileID: 175964662}

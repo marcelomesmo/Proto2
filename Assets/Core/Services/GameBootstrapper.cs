@@ -1,5 +1,6 @@
 using System.Collections;
 using Core.Services.Manager;
+using Core.Services.Meta;
 using Core.Services.Save;
 using Core.Upgrades;
 using Core.Upgrades.Database;
@@ -18,9 +19,13 @@ namespace Core.Services
         [SerializeField] private EntityPoolManager entityPoolPrefab;
         [SerializeField] private MonoBehaviour saveManagerPrefab;
         
-        [Header("Databases")]
-        [Tooltip("Optional Upgrade Database. If missing, no upgrades will be available.")]
+        [Header("Databases (Optional)")]
+        [Tooltip("If missing, no upgrades will be available.")]
         [SerializeField] private UpgradeDatabase upgradeDatabase;
+        
+        [Header("Lifecycle Handler (Optional)")]
+        [Tooltip("Game-layer lifecycle hook. Implement IMatchLifecycleHandler to inject match-start/end behavior without Core->Game coupling.")]
+        [SerializeField] private MonoBehaviour matchLifecycleHookPrefab;
         
         [Header("Game Input Actions")]
         [SerializeField] private InputActionAsset inputActions;
@@ -65,6 +70,8 @@ namespace Core.Services
             //
             // Upgrade Databases (always register interface, use Null object when missing)
             RegisterUpgradeDatabase();
+            
+            RegisterMatchLifecycleHook();
 
             // Let all Awake() calls settle
             yield return null;
@@ -129,6 +136,24 @@ namespace Core.Services
 
             // Register as a service (no singleton/static required).
             ServiceLocator.Register(upgradeDatabase);
+        }
+        
+        private void RegisterMatchLifecycleHook()
+        {
+            if (!matchLifecycleHookPrefab)
+                return;
+
+            var instance = Instantiate(matchLifecycleHookPrefab);
+            DontDestroyOnLoad(instance.gameObject);
+
+            if (instance is not IMatchLifecycleHandler hook)
+            {
+                Debug.LogError("[Bootstrap] MatchLifecycleHandler prefab must implement IMatchLifecycleHook.");
+                Destroy(instance.gameObject);
+                return;
+            }
+
+            ServiceLocator.Register<IMatchLifecycleHandler>(hook);
         }
     }
 }

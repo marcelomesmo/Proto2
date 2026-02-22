@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using Core.Upgrades;
+using Core.Upgrades.Runtime;
 
 namespace Core.Services.Meta
 {
-    // Runtime registry of unlocked upgrades for this match
-    public class UpgradeManager
+    // Runtime container for all upgrades active during a match.
+    // Cleared and recreated per match.
+    public sealed class UpgradeManager
     {
-        private readonly List<UpgradeDefinition> _activeUpgrades = new();
-        public IReadOnlyList<UpgradeDefinition> ActiveUpgrades => _activeUpgrades;
+        private readonly List<RuntimeUpgrade> _activeUpgrades = new();
+        public IReadOnlyList<RuntimeUpgrade> ActiveUpgrades => _activeUpgrades;
         
         public void OnMatchStart()
         {
-            // Nothing else here anymore
+            _activeUpgrades.Clear();
         }
 
         public void OnMatchEnd()
@@ -19,10 +21,14 @@ namespace Core.Services.Meta
             _activeUpgrades.Clear();
         }
         
-        // Called at match start
-        public void LoadUpgrades(IEnumerable<UpgradeDefinition> upgrades)
+        // Called at match start.
+        public void LoadUpgrades(IEnumerable<RuntimeUpgrade> upgrades)
         {
             _activeUpgrades.Clear();
+            
+            if (upgrades == null)
+                return;
+            
             _activeUpgrades.AddRange(upgrades);
         }
     }

@@ -22,16 +22,31 @@ namespace Game.Entity.Player
         
         private EntityController _castle;
         private PlayerCastleController _castleController;
+        
         private readonly List<EntityController> _activeEntities = new();
         public IReadOnlyList<EntityController> ActiveEntities => _activeEntities;
 
         public PlayerLoadoutData Loadout => loadout;
         
-        private void Start()
+        private bool _initialized;
+        
+        // Explicit entrypoint (called by MatchSceneController).
+        // Spawns party, applies upgrades, initializes HUD.
+        public void Initialize()
         {
+            if (_initialized)
+            {
+                Debug.LogWarning("[PlayerPartyController] BeginMatchParty called more than once.", this);
+                return;
+            }
+            
+            _initialized = true;
+            
             SpawnCastle();
             SpawnParty();
-            ApplyUpgrades();
+
+            ApplyUpgradesToParty();
+            
             InitializeHUD();
         }
 
@@ -97,7 +112,7 @@ namespace Game.Entity.Player
         
         #region Upgrades Initialize
         
-        private void ApplyUpgrades()
+        private void ApplyUpgradesToParty()
         {
             var upgradeManager =
                 ServiceLocator.Get<GameController>()?.UpgradeManager;
@@ -116,15 +131,24 @@ namespace Game.Entity.Player
         
         private void ApplyUpgradesToEntity(
             EntityController entity,
-            UpgradeManager manager)
+            UpgradeManager upgradeManager)
         {
-            foreach (var upgrade in manager.ActiveUpgrades)
+            var context = new UpgradeContext(entity);
+            
+            foreach (var runtime in upgradeManager.ActiveUpgrades)
             {
-                var context = new UpgradeContext(entity);
+                var def = runtime.Definition;
+                int level = runtime.Level;
 
-                foreach (var effect in upgrade.Effects)
+                if (!def || level <= 0)
+                    continue;
+                
+                foreach (var effect in def.Effects)
                 {
-                    effect.Apply(context);
+                    if (!effect)
+                        continue;
+                    
+                    effect.Apply(context, level);
                 }
             }
         }
@@ -164,6 +188,7 @@ namespace Game.Entity.Player
             }
             _castle = null;
             
+            // TODO: Move this outside of here when we do MatchStats and/or the end screen.
             // End of Level -> Defeat
             ServiceLocator.Get<GameController>().OnGameDefeat();
         }

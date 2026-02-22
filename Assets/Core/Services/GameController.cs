@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Services.Save;
-using Core.Upgrades;
-using Core.Upgrades.Database;
 using UnityEngine;
 
 namespace Core.Services
@@ -56,12 +53,20 @@ namespace Core.Services
             MatchRuntime.BeginMatch();
             MatchStats.OnMatchStart();
             UpgradeManager.OnMatchStart();
-            LoadRuntimeUpgrades();
+            
+            // Game-layer extension point (no Game types referenced here).
+            if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
+                hook.OnMatchStart(this);
         }
         
         private void EndMatch()
         {
             MatchRuntime.EndMatch();
+            
+            // Give Game a chance to react BEFORE runtime containers are cleared.
+            if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
+                hook.OnMatchEnd(this);
+            
             MatchStats.OnMatchEnd();
             UpgradeManager.OnMatchEnd();
             ServiceLocator.Get<ISaveManager>().OnMatchEnd();
@@ -86,7 +91,6 @@ namespace Core.Services
              */
 
             MatchRuntime.Tick(Time.deltaTime);
-            
             MatchStats.OnMatchTimeUpdated(MatchRuntime.ElapsedTime);
         }
         
@@ -198,57 +202,6 @@ namespace Core.Services
             ServiceLocator.Get<ProjectilePoolManager>()?.ReleaseAll();
             ServiceLocator.Get<VFXPoolManager>()?.ReleaseAll();
             ServiceLocator.Get<AudioManager>()?.ReleaseAll();
-        }
-        
-        #endregion
-        
-        // --------------------------------------------------
-        // Game Save
-        // --------------------------------------------------
-        
-        #region Game Save
-        
-        
-        
-        #endregion
-        
-        // --------------------------------------------------
-        // Game Load
-        // --------------------------------------------------
-        
-        #region Game Load
-        
-        private void LoadRuntimeUpgrades()
-        {
-            var save =
-                ServiceLocator.Get<ISaveManager>() as Game.Services.Save.GameSaveManager;
-
-            if (save == null)
-                return;
-
-            if (!ServiceLocator.TryGet<UpgradeDatabase>(out var db) || db == null)
-            {
-                Debug.LogError("[GameController] UpgradeDatabase service not registered.");
-                return;
-            }
-
-            var definitions = new List<UpgradeDefinition>();
-
-            // Only purchased upgrades apply to match.
-            foreach (var p in save.Profile.upgrades)
-            {
-                if (!p.unlocked)
-                    continue;
-
-                // Only apply upgrades that actually have purchased levels.
-                if (p.level <= 0)
-                    continue;
-                
-                if (db.TryGet(p.id, out var def))
-                    definitions.Add(def);
-            }
-
-            UpgradeManager.LoadUpgrades(definitions);
         }
         
         #endregion

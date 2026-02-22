@@ -28,7 +28,7 @@ namespace Game.Services.Binders
             if (gameController?.MatchStats is GameMatchStats stats)
             {
                 _matchStats = stats;
-                Debug.Log("[LootMatchStatsBinder] Successfully connected to GameMatchStats.");
+                //Debug.Log("[LootMatchStatsBinder] Successfully connected to GameMatchStats.");
             }
             else
             {

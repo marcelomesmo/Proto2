@@ -14,27 +14,59 @@ namespace Core.Upgrades.Effects
         private AttackData targetAttack;
 
         [Header("Effect")]
+        [Tooltip("Effect per purchased level. Index = level - 1. If shorter than maxLevel, last element is reused.")]
         [SerializeField]
-        private AttackEffectData burnEffect;
+        private AttackEffectData[] burnEffectPerLevel;
 
-        public override void Apply(UpgradeContext context)
+        public override void Apply(UpgradeContext context, int level)
         {
-            var attackSystem =
+            if (context == null || context.Entity == null)
+                return;
+
+            if (level <= 0)
+                return;
+
+            var attackSubsystem =
                 context.Entity.GetComponent<EntityAttackSubsystem>();
 
-            attackSystem?.RegisterRuntimeEffect(
-                targetAttack,
-                burnEffect);
+            if (attackSubsystem == null)
+                return;
+
+            var effect = GetEffectForLevel(level);
+            if (effect == null)
+                return;
+
+            attackSubsystem.RegisterRuntimeEffect(targetAttack, effect);
         }
-        
-        public override void Remove(UpgradeContext context)
+
+        public override void Remove(UpgradeContext context, int level)
         {
-            var attackSystem =
+            if (context == null || context.Entity == null)
+                return;
+
+            if (level <= 0)
+                return;
+
+            var attackSubsystem =
                 context.Entity.GetComponent<EntityAttackSubsystem>();
 
-            attackSystem?.UnregisterRuntimeEffect(
-                targetAttack,
-                burnEffect);
+            if (attackSubsystem == null)
+                return;
+
+            var effect = GetEffectForLevel(level);
+            if (effect == null)
+                return;
+
+            attackSubsystem.UnregisterRuntimeEffect(targetAttack, effect);
+        }
+
+        private AttackEffectData GetEffectForLevel(int level)
+        {
+            if (burnEffectPerLevel == null || burnEffectPerLevel.Length == 0)
+                return null;
+
+            int idx = Mathf.Clamp(level - 1, 0, burnEffectPerLevel.Length - 1);
+            return burnEffectPerLevel[idx];
         }
     }
 }

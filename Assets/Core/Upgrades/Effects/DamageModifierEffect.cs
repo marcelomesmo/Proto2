@@ -6,18 +6,41 @@ namespace Core.Upgrades.Effects
     [CreateAssetMenu(
         fileName = "DamageModifierEffect",
         menuName = "Upgrades/Effects/Damage Modifier")]
-    public class DamageModifierEffect : UpgradeEffect
+    public sealed class DamageModifierEffect : UpgradeEffect
     {
-        public DamageModifier modifier;
-        
-        public override void Apply(UpgradeContext context)
+        [Tooltip("Modifier per purchased level. Index = level - 1.")]
+        [SerializeField]
+        private DamageModifier[] modifierPerLevel;
+
+        public override void Apply(UpgradeContext context, int level)
         {
-            context.Modifiers.AddDamageModifier(modifier);
+            if (context == null || context.Modifiers == null)
+                return;
+
+            if (level <= 0)
+                return;
+
+            context.Modifiers.AddDamageModifier(GetModifierForLevel(level));
         }
 
-        public override void Remove(UpgradeContext context)
+        public override void Remove(UpgradeContext context, int level)
         {
-            context.Modifiers.RemoveDamageModifier(modifier);
+            if (context == null || context.Modifiers == null)
+                return;
+
+            if (level <= 0)
+                return;
+
+            context.Modifiers.RemoveDamageModifier(GetModifierForLevel(level));
+        }
+
+        private DamageModifier GetModifierForLevel(int level)
+        {
+            if (modifierPerLevel == null || modifierPerLevel.Length == 0)
+                return default;
+
+            int idx = Mathf.Clamp(level - 1, 0, modifierPerLevel.Length - 1);
+            return modifierPerLevel[idx];
         }
     }
 }

@@ -7,25 +7,42 @@ namespace Core.Upgrades.Effects
         menuName = "Upgrades/Effects/Experience Bonus")]
     public sealed class ExperienceBonusEffect : UpgradeEffect
     {
-        [Tooltip("Example: 0.1 = +10% XP")]
-        [Range(0f, 5f)]
-        public float bonusMultiplier = 0.1f;
+        [Tooltip("Total XP multiplier per level. Index = level - 1. Example: [1.10, 1.15, 1.30].")]
+        [SerializeField]
+        private float[] multiplierPerLevel = { 1.10f, 1.15f, 1.30f };
 
-        private ExperienceModifier _modifier;
-
-        public override void Apply(UpgradeContext context)
+        public override void Apply(UpgradeContext context, int level)
         {
-            _modifier = new ExperienceModifier
-            {
-                multiplier = 1f + bonusMultiplier
-            };
+            if (context == null || context.Modifiers == null)
+                return;
 
-            context.Modifiers.AddXpModifier(_modifier);
+            if (level <= 0)
+                return;
+
+            context.Modifiers.AddXpModifier(GetModifier(level));
         }
 
-        public override void Remove(UpgradeContext context)
+        public override void Remove(UpgradeContext context, int level)
         {
-            context.Modifiers.RemoveXpModifier(_modifier);
+            if (context == null || context.Modifiers == null)
+                return;
+
+            if (level <= 0)
+                return;
+
+            context.Modifiers.RemoveXpModifier(GetModifier(level));
+        }
+        
+        private ExperienceModifier GetModifier(int level) 
+            => new ExperienceModifier { multiplier = GetMultiplierForLevel(level) };
+
+        private float GetMultiplierForLevel(int level)
+        {
+            if (multiplierPerLevel == null || multiplierPerLevel.Length == 0)
+                return 1f;
+
+            int idx = Mathf.Clamp(level - 1, 0, multiplierPerLevel.Length - 1);
+            return multiplierPerLevel[idx];
         }
     }
 }

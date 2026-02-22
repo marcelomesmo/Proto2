@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de07e4d1a3916e4499704995ebb9e931, type: 3}
   m_Name: AttackDamageUpgrade_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.DamageModifierEffect
-  modifier:
-    scope: 0
+  modifierPerLevel:
+  - scope: 0
     type: 0
-    value: 1
+    value: 100

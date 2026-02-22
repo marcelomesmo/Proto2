@@ -2,8 +2,6 @@ using System;
 using Core.EventChannels;
 using Core.EventChannels.Payloads;
 using Core.Gameplay.Entity.Subsystem;
-using Core.Services;
-using Core.Services.Meta;
 using Game.Entity.Player.Progression;
 using Game.Entity.Player.Stats;
 using UnityEngine;
@@ -25,15 +23,14 @@ namespace Game.Entity.Player.Subsystem
         private int _currentXp;
         private int _currentLevel;
         
-        // Rounder for float & bonuses.
+        // Rounder for float & bonuses. Remainder accumulator so +10% of 5 XP behaves fairly over time.
         private float _xpRemainder;
 
         private CharacterStats _stats;
+        private EntityModifierSubsystem _modifiers;
 
         public int Level => _currentLevel;
         public int XP => _currentXp;
-
-        private float _multiplier;
 
         public event Action<int> OnLevelUp;
 
@@ -49,12 +46,19 @@ namespace Game.Entity.Player.Subsystem
                 return;
             }
             
-            _multiplier = Controller
-                .GetComponent<EntityModifierSubsystem>()?
-                .GetXpMultiplier() ?? 1f;
+            _modifiers = Controller.GetComponent<EntityModifierSubsystem>();
+            if (!_modifiers)
+            {
+                Debug.LogError(
+                    $"[CharacterLevelSubsystem] Requires EntityModifierSubsystem on {Controller.name}",
+                    this);
+                enabled = false;
+                return;
+            }
             
             _currentXp = 0;
             _currentLevel = 0;
+            _xpRemainder = 0f;
 
             xpEvent.OnEventRaised += HandleXpAwarded;
         }
@@ -62,6 +66,8 @@ namespace Game.Entity.Player.Subsystem
         protected override void OnDeinitialize()
         {
             xpEvent.OnEventRaised -= HandleXpAwarded;
+            _modifiers = null;
+            _stats = null;
         }
         
         private void HandleXpAwarded(int amount)
@@ -82,12 +88,14 @@ namespace Game.Entity.Player.Subsystem
                 return;
 
             // 1. Apply multiplier
-            float modified =
-                amount * _multiplier + _xpRemainder;
-            
+            float multiplier = _modifiers ? _modifiers.GetXpMultiplier() : 1f;
+
+            float modified = amount * multiplier + _xpRemainder;
             int finalAmount = Mathf.FloorToInt(modified);
-            
             _xpRemainder = modified - finalAmount;
+            
+            if (finalAmount <= 0)
+                return;
             
             // 2. Add the modified Exp to the current Exp.
             _currentXp += finalAmount;

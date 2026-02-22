@@ -2,7 +2,6 @@ using System;
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Tags;
-using Core.Services;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -21,10 +20,6 @@ namespace Game.Entity.Player
         
         protected override void HandleTagAdded(GameplayTag tag)
         {
-            // todo: remove this from here and add it to a entry-level sequencer later.
-            if(tag == Stats.spawnFinishedTag)
-                ServiceLocator.Get<GameController>().StartMatch();
-
             if (tag == Stats.burnTag)
             {
                 // do something? vfx
