@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 258737358}
   - component: {fileID: 258737360}
   m_Layer: 5
-  m_Name: RoosterPanel
+  m_Name: RoosterPanelController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,7 +612,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1820, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260878735
 MonoBehaviour:
@@ -627,15 +627,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 6358040702757662528, guid: 619e805f28428684b8cc719ac44fa698, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1492,7 +1492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 725261604}
   m_Layer: 5
-  m_Name: MenuRootController
+  m_Name: MenuRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1717363009}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.48542023
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3542,7 +3542,7 @@ GameObject:
   - component: {fileID: 1958757104}
   - component: {fileID: 1958757102}
   m_Layer: 5
-  m_Name: WalletPanel
+  m_Name: WalletPanelController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

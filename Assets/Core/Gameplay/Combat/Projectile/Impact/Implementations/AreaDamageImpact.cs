@@ -35,6 +35,8 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
                 filter.ToContactFilter(),
                 _results);
             
+            // todo: order the hits by distance before iterating, otherwise we are getting enemies too further away.
+            
             foreach (var hit in _results)
             {
                 if (!filter.CanHit(hit))

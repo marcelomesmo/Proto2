@@ -26,11 +26,15 @@ namespace Game.Entity.Player.Subsystem
         protected override void OnInitialize()
         {
             _levelSubsystem = GetComponent<CharacterLevelSubsystem>();
+            
+            // Force baseline stage for pooled reuse
             _currentStage = 0;
+            if (evolutionData.TryGetStage(0, out var stage0))
+                ApplyStage(stage0);
 
             _levelSubsystem.OnLevelUp += HandleLevelUp;
 
-            // Ensure correct initial state (spawn at higher level case)
+            // Now apply any evolution based on the current level (spawn at higher level case)
             EvaluateEvolution(_levelSubsystem.Level, force: true);
         }
 

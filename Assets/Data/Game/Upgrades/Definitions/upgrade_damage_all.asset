@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_damage_global
+  m_Name: upgrade_damage_all
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: damage_global_1
   displayName: Damage increase
-  description: Increas edamage bty 1
+  description: Increase all damage by 1
   icon: {fileID: 6301718139250434432, guid: 3156822df906bcb4985b34aaefc147d0, type: 3}
   maxLevel: 1
   levelCosts: 01000000

@@ -76,7 +76,7 @@ namespace Core.Gameplay.Entity.Subsystem
             if (!animatorOverride)
                 return;
 
-            if (!Controller.Animator)
+            if (!Controller || !Controller.Animator)
                 return;
             
             // Conserve animator state

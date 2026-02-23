@@ -9,10 +9,8 @@ using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Stats;
 using Core.Interfaces;
-using Core.Services;
 using Core.Services.Manager;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace Core.Gameplay.Entity.Subsystem
 {
