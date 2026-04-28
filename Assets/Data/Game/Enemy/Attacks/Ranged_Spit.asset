@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: 
   executionMode: 1
-  damage: 100
+  damage: 10
   range: 7
   cooldown: 4
   hitType: 4

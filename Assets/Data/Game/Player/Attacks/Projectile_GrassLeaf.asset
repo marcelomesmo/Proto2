@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile_GrassLeaf
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: Grass Leaf
-  icon: {fileID: 4121880872312635667, guid: 1346f8be3088620449e4bf49172220a0, type: 3}
+  icon: {fileID: 21300000, guid: 530bcabb1501d8148a19a77465ecac03, type: 3}
   description: aeeae ggrass leaf
   executionMode: 1
   damage: 5

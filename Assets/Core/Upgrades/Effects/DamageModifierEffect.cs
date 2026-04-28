@@ -14,12 +14,13 @@ namespace Core.Upgrades.Effects
 
         public override void Apply(UpgradeContext context, int level)
         {
-            if (context == null || context.Modifiers == null)
+            if (context == null || context.Modifiers == null || level <= 0)
                 return;
 
-            if (level <= 0)
-                return;
+            // Remove previous contribution from this effect
+            //Remove(context, level - 1);
 
+            // Add current level modifier
             context.Modifiers.AddDamageModifier(GetModifierForLevel(level));
         }
 

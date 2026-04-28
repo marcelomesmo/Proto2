@@ -134,7 +134,7 @@ namespace Game.Entity.Player
             UpgradeManager upgradeManager)
         {
             var context = new UpgradeContext(entity);
-            
+
             foreach (var runtime in upgradeManager.ActiveUpgrades)
             {
                 var def = runtime.Definition;

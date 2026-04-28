@@ -21,6 +21,7 @@ namespace Game.UI.Upgrades
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI costText;
+        [SerializeField] private Image costIcon;
 
         [Header("Visuals")]
         [SerializeField] private Material grayscaleMaterial;
@@ -63,6 +64,7 @@ namespace Game.UI.Upgrades
             if (level >= upgrade.maxLevel)
             {
                 costText.text = "";
+                costIcon.enabled = false;   // Hide cost icon as well
                 button.interactable = false;
             }
             else

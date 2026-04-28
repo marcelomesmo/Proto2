@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Area_Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: flamaeeethoror
-  icon: {fileID: 4023135878370671054, guid: b3fc5d65083a50c4b9f81f9b43a1ffd6, type: 3}
+  icon: {fileID: 21300000, guid: 51dcbb3542a768b49ac5942bd2a0c8bb, type: 3}
   description: dalsin attack
   executionMode: 2
   damage: 3
   range: 4
   cooldown: 10
-  hitType: 2
+  hitTypes: 4
   hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   projectilePrefab: {fileID: 0}

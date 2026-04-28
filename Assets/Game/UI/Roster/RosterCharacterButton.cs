@@ -13,7 +13,7 @@ namespace Game.UI.Roster
         IPointerEnterHandler,
         IPointerExitHandler
     {
-        [Header("UI")] 
+        [Header("UI")]
         [SerializeField] private Button button;
         [SerializeField] private Image characterImage;
         [SerializeField] private TextMeshProUGUI characterName;
@@ -24,18 +24,17 @@ namespace Game.UI.Roster
         [SerializeField] private Material grayscaleMaterial;
         [SerializeField] private Material normalMaterial;
         
-        private CharacterDefinition _character;
+        [Header("Config")]
+        [SerializeField] private CharacterDefinition character;
         private PlayerLoadoutData _loadout;
         private RosterPanelController _panel;
         private GameSaveManager _saveManager;
-
+        
         public void Initialize(
-            CharacterDefinition character,
             PlayerLoadoutData loadout,
             RosterPanelController panel
         )
         {
-            _character = character;
             _loadout = loadout;
             _panel = panel;
             _saveManager = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
@@ -53,9 +52,9 @@ namespace Game.UI.Roster
 
         public void Refresh()
         {
-            bool isUnlocked = _saveManager.IsCharacterUnlocked(_character.baseStats.characterId);
-            bool isSelected = _loadout.Contains(_character);
-            
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(character.baseStats.characterId);
+            bool isSelected = _loadout.Contains(character);
+
             if (!isUnlocked)
             {
                 characterName.text = "???";
@@ -64,29 +63,29 @@ namespace Game.UI.Roster
                 button.interactable = false;
                 return;
             }
-            
-            characterName.text = _character.name;
-            characterImage.sprite = _character.rosterScreenPortrait;
+
+            characterName.text = character.name;
+            characterImage.sprite = character.rosterScreenPortrait;
 
             characterImage.material = isSelected ? normalMaterial : grayscaleMaterial;
-            
+
             if (selectedOverlay != null)
                 selectedOverlay.enabled = isSelected;
-            
+
             button.interactable = true;
         }
         
         private void OnClicked()
         {
-            bool isUnlocked = _saveManager.IsCharacterUnlocked(_character.baseStats.characterId);
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(character.baseStats.characterId);
             if (!isUnlocked)
                 return;
             
-            if (_loadout.Contains(_character))
-                _loadout.RemoveFromParty(_character);
+            if (_loadout.Contains(character))
+                _loadout.RemoveFromParty(character);
             else
             {
-                if (!_loadout.AddToParty(_character))
+                if (!_loadout.AddToParty(character))
                     return; // party full, or invalid
             }
     
@@ -95,10 +94,11 @@ namespace Game.UI.Roster
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _panel.ShowTooltip(_character);
+            _panel.ShowTooltip(character);
             
-            // this doesnt work as the transform is the same for all the buttons,
-            // they change positions through the grid but transform is virtually the same.
+            // edit: this should work now as we changed from generated list to fixed spots.
+            // old: this doesnt work as the transform is the same for all the buttons,
+            //      they change positions through the grid, but transform is virtually the same.
             //_panel.ShowTooltip(_character, transform as RectTransform);
         }
 

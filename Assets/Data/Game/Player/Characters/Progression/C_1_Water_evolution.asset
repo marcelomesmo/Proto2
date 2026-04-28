@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d56b9a040cbeff14bb328c0712ad1721, type: 3}
-  m_Name: C_1_Water_evolution 2
+  m_Name: C_1_Water_evolution
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Progression.CharacterEvolutionData
   stages:
   - stage: 0
     requiredLevel: 0
-    portraitOverride: {fileID: 0}
-    spriteOverride: {fileID: -689054024, guid: f9f0a4c7773e7484d833a498de3a8482, type: 3}
-    animatorOverride: {fileID: 22100000, guid: c1ab549a20f2c914c9b95d792374ddc8, type: 2}
+    portraitOverride: {fileID: 1989722942000415948, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
+    spriteOverride: {fileID: 1183628967, guid: cc5c06d63d7c3e548884343c83320f2c, type: 3}
+    animatorOverride: {fileID: 22100000, guid: d0fe4dfaeb256b44599392984bb676b5, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 3fcd0fde1e404e9489341ad8ea7b3fb7, type: 2}
   - stage: 1
     requiredLevel: 5
     portraitOverride: {fileID: 0}
-    spriteOverride: {fileID: -1560991571, guid: 7d5b714bca88df44bb4596034e8cf7b3, type: 3}
+    spriteOverride: {fileID: 119338116, guid: 28a7fdd7570361b4b92ee6e1f5d8eb2b, type: 3}
     animatorOverride: {fileID: 22100000, guid: 5742980f1369c1942986de356647fdea, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 2ece28779a665824fbaad630046b7caa, type: 2}
   - stage: 2
     requiredLevel: 7
     portraitOverride: {fileID: 0}
-    spriteOverride: {fileID: 43162582, guid: f11b64923c0b8744cb944f1b4e6fa36d, type: 3}
+    spriteOverride: {fileID: 159443992, guid: c2299c38db6a48147ac78500b530e5f7, type: 3}
     animatorOverride: {fileID: 22100000, guid: 0fdbb3aac2acc794993c3fd500403bfc, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7009ad91747fefb4498c94b16cc19a7a, type: 2}

@@ -461,8 +461,8 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         
         // -------------------------------------
-// Runtime Attack Effects (Upgrades)
-// -------------------------------------
+        // Runtime Attack Effects (Upgrades)
+        // -------------------------------------
 
         public void RegisterRuntimeEffect(
             AttackData attack,

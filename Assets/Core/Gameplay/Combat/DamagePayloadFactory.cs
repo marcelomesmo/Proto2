@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Entity.Subsystem;
-using Core.Services;
 using Game.Entity.Player.Subsystem;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -25,11 +25,29 @@ namespace Core.Gameplay.Combat
             // 1. Collect Damage Modifiers
             // -----------------------------
 
-            var modifiers = source.sourceEntity
+            List<DamageModifier> filteredModifiers = null;
+            
+            var allModifiers  = source.sourceEntity
                 ? source.sourceEntity
                     .GetComponent<EntityModifierSubsystem>()?
                     .DamageModifiers
                 : null;
+            
+            if (allModifiers != null)
+            {
+                filteredModifiers = ListPool<DamageModifier>.Get();
+
+                HitTypes actualHitTypes = attackData.hitTypes;
+
+                Debug.Log($"Total modifiers: {allModifiers.Count}");
+                
+                foreach (var mod in allModifiers)
+                {
+                    Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
+                    if (mod.AppliesTo(scope, actualHitTypes))
+                        filteredModifiers.Add(mod);
+                }
+            }
 
             // -----------------------------
             // 2. Merge Attack Effects
@@ -65,7 +83,7 @@ namespace Core.Gameplay.Combat
             var payload = new DamagePayload(
                 hitData: attackData,
                 baseDamage: baseDamage,
-                modifiers: modifiers,
+                modifiers: filteredModifiers,
                 effects: effects,
                 hitPoint: hitPoint,
                 source: source

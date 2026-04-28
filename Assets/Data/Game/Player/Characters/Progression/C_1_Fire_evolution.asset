@@ -15,7 +15,7 @@ MonoBehaviour:
   stages:
   - stage: 0
     requiredLevel: 0
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -190135029210641338, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
     spriteOverride: {fileID: -689054024, guid: f9f0a4c7773e7484d833a498de3a8482, type: 3}
     animatorOverride: {fileID: 22100000, guid: c1ab549a20f2c914c9b95d792374ddc8, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}

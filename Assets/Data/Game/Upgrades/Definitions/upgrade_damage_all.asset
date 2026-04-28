@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: upgrade_damage_all
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: damage_global_1
-  displayName: Damage increase
-  description: Increase all damage by 1
-  icon: {fileID: 6301718139250434432, guid: 3156822df906bcb4985b34aaefc147d0, type: 3}
+  displayName: Damage Up
+  description: Increase all damage by 1.
+  icon: {fileID: 21300000, guid: e8a68fd17ce42174e9b24babd0ae6629, type: 3}
   maxLevel: 1
   levelCosts: 01000000
   levelDescriptions:

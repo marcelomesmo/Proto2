@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile_WaterSplash
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: Water Splash
-  icon: {fileID: 3776312371561069292, guid: c8b2e63db5423354d8cee47b29c0d1f8, type: 3}
+  icon: {fileID: 21300000, guid: 0ad2337320c1b5841ba3ceb24de6e91a, type: 3}
   description: splash effect
   executionMode: 1
   damage: 7

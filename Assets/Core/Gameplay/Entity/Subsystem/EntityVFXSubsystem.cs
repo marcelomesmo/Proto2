@@ -89,13 +89,13 @@ namespace Core.Gameplay.Entity.Subsystem
             {
                 Spawn(payload.hitData.hitVFX, hitAnchor);
 
-                switch (payload.hitData.hitType)
+                switch (payload.hitData.hitTypes)
                 {
-                    case HitType.Physical:
+                    case HitTypes.Physical:
                         // Spawn additional VFX if required
                         //Spawn(genericVFX_physical, hitAnchor);
                         break;
-                    case HitType.Explosive:
+                    case HitTypes.Explosive:
                         // Spawn explosion VFX case wanted
                         //Spawn(genericVFX_explosive, hitAnchor);
                         break;

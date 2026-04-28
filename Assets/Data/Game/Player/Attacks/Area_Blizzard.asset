@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_Blizzard
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: blizzards
-  icon: {fileID: -7221402579709423187, guid: 6305b38e6e19837489603c617add1743, type: 3}
+  icon: {fileID: 21300000, guid: f5ab3f534c1138f4786f23cd74103223, type: 3}
   description: not wow
   executionMode: 2
   damage: 1

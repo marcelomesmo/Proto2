@@ -21,7 +21,7 @@ namespace Core.Gameplay.Combat.Attack
         public int damage;
         public float range;
         public float cooldown;
-        public HitType hitType;
+        public HitTypes hitTypes;
         
         public GameObject hitVFX;
         public GameObject castVFX;

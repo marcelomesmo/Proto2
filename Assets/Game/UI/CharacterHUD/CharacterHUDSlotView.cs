@@ -16,6 +16,9 @@ namespace Game.UI.CharacterHUD
         public void SetLevel(int level)
         {
             levelText.text = level.ToString();
+
+            if (level == 0)
+                levelText.text = "";
         }
 
         public void SetStage(int stage)

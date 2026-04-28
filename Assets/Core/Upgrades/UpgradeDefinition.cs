@@ -67,6 +67,17 @@ namespace Core.Upgrades
                     $"[UpgradeDefinition] '{name}' levelDescriptions length should be {maxLevel}",
                     this);
             }
+            
+            if (Effects == null) return;
+
+            var set = new HashSet<UpgradeEffect>();
+            for (int i = 0; i < Effects.Count; i++)
+            {
+                if (Effects[i] != null && !set.Add(Effects[i]))
+                {
+                    Debug.LogWarning($"Duplicate effect in {name}: {Effects[i].name}", this);
+                }
+            }
         }
 #endif
     }

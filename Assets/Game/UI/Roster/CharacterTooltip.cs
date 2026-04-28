@@ -30,7 +30,7 @@ namespace Game.UI.Roster
         private string BuildStats(CharacterDefinition def)
         {
             var s = def.baseStats;
-            return $"HP: {s.maxHealth}\n"; //+
+            return ""; //$"HP: {s.maxHealth}\n"; //+
             //$"Attack: {s.attackPower}\n" +
             //$"Defense: {s.defense}";
         }
@@ -42,7 +42,7 @@ namespace Game.UI.Roster
 
             var text = "";
             foreach (var atk in def.initialAttackLoadout.Attacks)
-                text += $"- {atk.name}\n";
+                text += $"- {atk.displayName}\n{atk.description}\n";
 
             return text;
         }

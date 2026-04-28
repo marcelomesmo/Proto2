@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0689cd75e11c7e94fb764a280a36bf02, type: 3}
   m_Name: C_1_Fire
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
-  rosterScreenPortrait: {fileID: 818741962, guid: e23b46b8e0f85ca4393bcac454e6c1e8, type: 3}
+  rosterScreenPortrait: {fileID: -190135029210641338, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
   prefab: {fileID: 1331891463641475742, guid: f9071dba3c9922d4b82c2471b3273b61, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}
   baseStats: {fileID: 11400000, guid: 52668c3e5d43e0446b016367ef3c32fc, type: 2}

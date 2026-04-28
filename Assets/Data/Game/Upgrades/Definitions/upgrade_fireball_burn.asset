@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: upgrade_fireball_burn
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: fireball_burn
-  displayName: Fireball add burn
-  description: Fireball now apply a Burn effect.
-  icon: {fileID: 8638710384840876012, guid: b3fc5d65083a50c4b9f81f9b43a1ffd6, type: 3}
+  displayName: Burn
+  description: '[Fireball] now apply a Burn effect.'
+  icon: {fileID: 21300000, guid: 63b30c77b2de31d4398b65d935f4713c, type: 3}
   maxLevel: 1
   levelCosts: 64000000
   levelDescriptions:

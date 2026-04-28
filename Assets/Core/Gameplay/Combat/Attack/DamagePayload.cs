@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Modifiers;
-using Core.Gameplay.Combat.StatusEffect;
 using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack

@@ -12,16 +12,12 @@ namespace Game.UI.Roster
      */
     public class RosterPanelController : MonoBehaviour
     {
-        [Header("Data")]
-        [SerializeField] private List<CharacterDefinition> allCharacters;
+        [Header("Setup")]
+        [SerializeField] private List<RosterCharacterButton> characterButtons;
         [SerializeField] private PlayerLoadoutData loadout;
 
         [Header("UI")]
-        [SerializeField] private Transform contentRoot;
-        [SerializeField] private RosterCharacterButton buttonPrefab;
         [SerializeField] private CharacterTooltip tooltip;
-
-        private readonly List<RosterCharacterButton> _buttons = new();
 
         private void Awake()
         {
@@ -31,27 +27,21 @@ namespace Game.UI.Roster
         private void Build()
         {
             Clear();
-            
-            foreach (var character in allCharacters)
+
+            foreach (var btn in characterButtons)
             {
-                var btn = Instantiate(buttonPrefab, contentRoot);
-                btn.Initialize(character, loadout, this);
-                _buttons.Add(btn);
+                btn.Initialize(loadout, this);
             }
         }
 
         public void Refresh()
         {
-            foreach (var btn in _buttons)
+            foreach (var btn in characterButtons)
                 btn.Refresh();
         }
 
         private void Clear()
         {
-            foreach (var btn in _buttons)
-                Destroy(btn.gameObject);
-
-            _buttons.Clear();
             HideTooltip();
         }
 

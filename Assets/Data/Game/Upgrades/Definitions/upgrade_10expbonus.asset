@@ -15,12 +15,11 @@ MonoBehaviour:
   upgradeId: xp_bonus
   displayName: Experience Bonus
   description: Increases experience received.
-  icon: {fileID: 6658701557034754128, guid: 79dc3a4dc5b4dd8429cb79333a686461, type: 3}
+  icon: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
   maxLevel: 2
   levelCosts: 0000000064000000
   levelDescriptions:
   - Increase experience by 10%.
   - Increase experience by 20%.
   effects:
-  - {fileID: 11400000, guid: 907455a0ccd02034e9c1a40b858f5623, type: 2}
   - {fileID: 11400000, guid: 907455a0ccd02034e9c1a40b858f5623, type: 2}
