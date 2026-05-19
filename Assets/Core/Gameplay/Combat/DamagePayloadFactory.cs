@@ -39,11 +39,11 @@ namespace Core.Gameplay.Combat
 
                 HitTypes actualHitTypes = attackData.hitTypes;
 
-                Debug.Log($"Total modifiers: {allModifiers.Count}");
+                //Debug.Log($"Total modifiers: {allModifiers.Count}");
                 
                 foreach (var mod in allModifiers)
                 {
-                    Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
+                    //Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
                     if (mod.AppliesTo(scope, actualHitTypes))
                         filteredModifiers.Add(mod);
                 }

@@ -7,7 +7,6 @@ using Core.Gameplay.Combat.StatusEffect;
 using Core.Gameplay.Combat.StatusEffect.Implementations;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem

@@ -35,7 +35,11 @@ namespace Game.UI.CharacterHUD
 
         private void RefreshPortrait()
         {
-            portraitImage.sprite = portraitResolver.Resolve();
+            var portraitChange = portraitResolver.Resolve();
+            
+            // Avoids changing portraits when the data is null. Allows for empty inputs in data without breaking the refresh.
+            if(portraitChange)
+                portraitImage.sprite = portraitChange;
         }
     }
 }

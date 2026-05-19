@@ -69,10 +69,14 @@ MonoBehaviour:
   - {fileID: 3781629971766167114}
   - {fileID: 3780932347076838584}
   - {fileID: 3781507054042942470}
+  - {fileID: 7908662132628177771}
+  - {fileID: 2814174583669054527}
   stopAndClearOnDespawn:
   - {fileID: 3781629971766167114}
   - {fileID: 3780932347076838584}
   - {fileID: 3781507054042942470}
+  - {fileID: 7908662132628177771}
+  - {fileID: 2814174583669054527}
   stopOnlyOnDespawn: []
 --- !u!212 &7787481460175388734
 SpriteRenderer:
@@ -253,6 +257,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
+--- !u!198 &2814174583669054527 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 274839345072177945, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
+  m_PrefabInstance: {fileID: 2656446696654036774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &3780932347076838584 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1199375724006235038, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
@@ -271,5 +280,10 @@ ParticleSystem:
 --- !u!4 &3942223678169764752 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1326327400533036214, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
+  m_PrefabInstance: {fileID: 2656446696654036774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7908662132628177771 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5268277515762277453, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
   m_PrefabInstance: {fileID: 2656446696654036774}
   m_PrefabAsset: {fileID: 0}

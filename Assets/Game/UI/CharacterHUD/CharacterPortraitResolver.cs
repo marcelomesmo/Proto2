@@ -27,7 +27,7 @@ namespace Game.UI.CharacterHUD
         public Sprite Resolve()
         {
             if (_evolutionData  &&
-                _evolutionData .TryGetStage(_currentStage, out var stage) &&
+                _evolutionData.TryGetStage(_currentStage, out var stage) &&
                 stage.portraitOverride)
             {
                 return stage.portraitOverride;
