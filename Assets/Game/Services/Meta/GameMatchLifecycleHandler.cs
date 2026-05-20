@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Enum;
 using Core.Services;
 using Core.Services.Meta;
 using Core.Services.Save;
@@ -16,6 +17,8 @@ namespace Game.Services.Meta
     // - Load runtime upgrades into Core UpgradeManager
     public sealed class GameMatchLifecycleHandler : MonoBehaviour, IMatchLifecycleHandler
     {
+        private MatchSceneController _sceneController;
+        
         public void OnMatchStart(GameController gameController)
         {
             if (gameController == null)
@@ -61,12 +64,59 @@ namespace Game.Services.Meta
 
             // Registers the upgrades loaded in the UpgradeManager.
             gameController.UpgradeManager.LoadUpgrades(runtime);
+
+            _sceneController = Object.FindFirstObjectByType<MatchSceneController>();
+
+            if (_sceneController == null)
+            {
+                Debug.LogError("[GameMatchLifecycleHandler] GameMatchLifecycleHandler: scene controller not found");
+                return;
+            }
+
+            BindPresentation();
         }
 
-        public void OnMatchEnd(GameController gameController)
+        public void HandleMatchEnded(GameController gameController, MatchEndReason reason)
         {
             // Intentionally empty for now.
             // Later: difficulty progression, choose mutators, seed RNG, etc.
+
+            if (gameController.MatchStats is not GameMatchStats stats)
+            {
+                Debug.LogError(
+                    $"Expected GameMatchStats but got: " +
+                    $"{gameController.MatchStats?.GetType()}");
+
+                return;
+            }
+
+            _sceneController.EndOfLevelPanel.Show(reason, stats, gameController.MatchRuntime.ElapsedTime);
+        }
+
+        public void ConfirmExit()
+        {
+            UnbindPresentation();
+            
+            ServiceLocator
+                .Get<GameController>()
+                ?.ExitMatch();
+        }
+        
+        private void BindPresentation()
+        {
+            if (_sceneController.EndOfLevelPanel == null)
+                return;
+
+            _sceneController.EndOfLevelPanel.QuitClicked -= ConfirmExit;
+            _sceneController.EndOfLevelPanel.QuitClicked += ConfirmExit;
+        }
+        
+        private void UnbindPresentation()
+        {
+            if (_sceneController.EndOfLevelPanel == null)
+                return;
+
+            _sceneController.EndOfLevelPanel.QuitClicked -= ConfirmExit;
         }
     }
 }

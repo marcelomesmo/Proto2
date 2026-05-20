@@ -137,7 +137,7 @@ public class TransparencyRunner : MonoBehaviour
         // }
     }
 
-        private uint ColorToUint(Color color)
+    private uint ColorToUint(Color color)
     {
         byte r = (byte)(color.r * 255);
         byte g = (byte)(color.g * 255);

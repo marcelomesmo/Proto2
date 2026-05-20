@@ -1,6 +1,8 @@
+using Core.Enum;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Services.Save;
+using Game.Services.Meta;
 using UnityEngine;
 
 namespace Core.Services
@@ -63,9 +65,10 @@ namespace Core.Services
         {
             MatchRuntime.EndMatch();
             
+            // DEPRECATED: This is now called after the EndMatch and triggers the end of level flow.
             // Give Game a chance to react BEFORE runtime containers are cleared.
-            if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
-                hook.OnMatchEnd(this);
+            //if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
+            //    hook.OnMatchEnd(this);
             
             MatchStats.OnMatchEnd();
             UpgradeManager.OnMatchEnd();
@@ -175,20 +178,41 @@ namespace Core.Services
         
         public void OnGameDefeat()
         {
-            // play defeat UI, analytics, etc.
-            
             EndMatch();
             
-            Cleanup();
-            SceneLoader.LoadMenu();
+            PauseGame();
+            
+            // play defeat UI, analytics, etc.
+            ServiceLocator
+                .Get<IMatchLifecycleHandler>()
+                ?.HandleMatchEnded(this, MatchEndReason.Defeat);
         }
         
         public void OnGameVictory()
         {
-            // play victory UI, cinematics, etc.
-            
             EndMatch();
             
+            PauseGame();
+            
+            // play victory UI, cinematics, etc.
+            ServiceLocator
+                .Get<IMatchLifecycleHandler>()
+                ?.HandleMatchEnded(this, MatchEndReason.Victory);
+        }
+        
+        public void OnGameQuit()
+        {
+            EndMatch();
+
+            PauseGame();
+            
+            ServiceLocator
+                .Get<IMatchLifecycleHandler>()
+                ?.HandleMatchEnded(this, MatchEndReason.Quit);
+        }
+        
+        public void ExitMatch()
+        {
             Cleanup();
             SceneLoader.LoadMenu();
         }

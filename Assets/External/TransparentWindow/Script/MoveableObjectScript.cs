@@ -11,12 +11,12 @@ public class MoveableObjectScript : MonoBehaviour
         cam = Camera.main;
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         offset = transform.position - GetMouseWorldPosition();
     }
 
-    void OnMouseDrag()
+    private void OnMouseDrag()
     {
         transform.position = GetMouseWorldPosition() + offset;
     }

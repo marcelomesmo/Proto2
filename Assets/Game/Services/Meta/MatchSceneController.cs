@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Core.Services;
 using Game.Entity.Player;
+using Game.UI.Match;
 using UnityEngine;
 
 namespace Game.Services.Meta
@@ -22,6 +23,9 @@ namespace Game.Services.Meta
         [Tooltip("Optional delay before starting match (e.g., for fade-in).")]
         [SerializeField] private float startDelaySeconds = 0f;
 
+        [SerializeField] private EndOfLevelPanel endOfLevelPanel;
+        public EndOfLevelPanel EndOfLevelPanel => endOfLevelPanel;
+        
         public event Action OnBeforeMatchStart;
         public event Action OnAfterMatchStart;
 

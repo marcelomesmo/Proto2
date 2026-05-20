@@ -1,3 +1,5 @@
+using Core.Enum;
+
 namespace Core.Services.Meta
 {
     // Core-defined lifecycle extension point.
@@ -6,6 +8,7 @@ namespace Core.Services.Meta
     public interface IMatchLifecycleHandler
     {
         void OnMatchStart(GameController gameController);
-        void OnMatchEnd(GameController gameController);
+        void HandleMatchEnded(GameController gameController, MatchEndReason reason);
+        void ConfirmExit();
     }
 }

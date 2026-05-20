@@ -108,7 +108,11 @@ namespace Core.UI.PauseMenu
         public void QuitToMenu()
         {
             PauseService.Resume(); // restores input + time
-            SceneLoader.LoadMenu();
+            pauseRoot.SetActive(false);
+            
+            ServiceLocator
+                .Get<GameController>()
+                ?.OnGameQuit();
         }
     }
 }
