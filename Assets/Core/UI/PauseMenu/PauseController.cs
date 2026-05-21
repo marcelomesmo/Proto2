@@ -114,5 +114,10 @@ namespace Core.UI.PauseMenu
                 .Get<GameController>()
                 ?.OnGameQuit();
         }
+        
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }
