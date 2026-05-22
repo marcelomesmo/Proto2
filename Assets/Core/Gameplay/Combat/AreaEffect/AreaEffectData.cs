@@ -22,6 +22,7 @@ namespace Core.Gameplay.Combat.AreaEffect
         [Header("Timing")]
         public float duration;
         public float tickInterval = 1f;
+        public bool isChanneled;
 
         [Header("Targeting")]
         public LayerMask hitLayers;
@@ -31,7 +32,16 @@ namespace Core.Gameplay.Combat.AreaEffect
         public float forwardOffset; // distance in front of caster
         
         [Header("Visuals")]
-        public GameObject vfxPrefab;
+        public GameObject areaEffectPrefab;
         public bool followOwner = false;
+        public float fadeOutDuration = 0f;
     }
 }
+
+/*public enum OwnerDeathBehavior
+{
+    ImmediateDespawn,
+    FinishDuration,
+    DetachAndFade,
+    Persist
+}*/

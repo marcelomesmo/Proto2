@@ -19,10 +19,11 @@ MonoBehaviour:
   coneRadius: 3
   duration: 5
   tickInterval: 1
+  isChanneled: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
   spawnMode: 2
   forwardOffset: 0
-  vfxPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
+  areaEffectPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
   followOwner: 1

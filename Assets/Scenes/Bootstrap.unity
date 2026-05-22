@@ -196,6 +196,7 @@ MonoBehaviour:
   audioManagerPrefab: {fileID: 591270313074365237, guid: c6473fa2d267b924bb9df593dc4168b6, type: 3}
   vfxPoolPrefab: {fileID: 7557850150347317461, guid: f452610c27d80bf459374b69037280e1, type: 3}
   projectilePoolPrefab: {fileID: 8546929940581069133, guid: 46520878291936c40833de2d0776cf18, type: 3}
+  areaEffectPoolPrefab: {fileID: 3449227944526234064, guid: 246654140a175d643b2c7f32f547545d, type: 3}
   entityPoolPrefab: {fileID: 8097181172246228889, guid: dc598c4f40620f3429609c4ec76a48d0, type: 3}
   saveManagerPrefab: {fileID: 1241793126905456413, guid: feea5b2578fbc614592ef752ce3d35c4, type: 3}
   upgradeDatabase: {fileID: 11400000, guid: 202fcab5cdc2af44ebec4549069b5530, type: 2}

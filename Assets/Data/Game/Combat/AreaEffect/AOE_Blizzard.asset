@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: AOE_Blizzard
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectData
   shape: 1
-  radius: 0
+  circleRadius: 0
   boxSize: {x: 4, y: 4}
+  coneAngle: 45
+  coneRadius: 4
   duration: 5
   tickInterval: 1
+  isChanneled: 0
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
-  vfxPrefab: {fileID: 4099829488905969600, guid: 6d9b86b6e3347fd4fbb0767c7d1205b8, type: 3}
+  spawnMode: 0
+  forwardOffset: 0
+  areaEffectPrefab: {fileID: 4099829488905969600, guid: 6d9b86b6e3347fd4fbb0767c7d1205b8, type: 3}
   followOwner: 0

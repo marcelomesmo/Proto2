@@ -16,4 +16,6 @@ MonoBehaviour:
   - C_1_Fire
   - C_1_Grass
   - C_1_Water
+  - C_2_Fire
+  - C_2_Water
   startingGold: 0

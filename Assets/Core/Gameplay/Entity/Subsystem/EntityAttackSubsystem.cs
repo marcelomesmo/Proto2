@@ -8,6 +8,7 @@ using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Stats;
+using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
 using Core.Services.Manager;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace Core.Gameplay.Entity.Subsystem
         public IReadOnlyDictionary<AttackData, AttackInstance> Attacks => _attacks;
         
         private readonly Dictionary<AttackData, List<AttackEffectData>> _runtimeAttackEffects = new();
+        
+        // Active Attack State
+        public bool IsAttackChanneling => _channeledAttack != null;
+        private AttackInstance _channeledAttack;
+        private float _channeledAttackTimer;
         
         // Helpers
         private BaseEntityStats _stats;
@@ -66,15 +72,26 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             // Q: is it better to do this here or let HandleAttackResolveTimeout resolve?
             _currentAttack = null;
+            _channeledAttack = null;
             _pendingContext = default;
             _waitingForResolve = false;
-            
+
             _runtimeAttackEffects.Clear();
+        }
+        
+        protected override void HandleTagAdded(GameplayTag tag)
+        {
+            if (tag == Controller.Stats.deadTag)
+            {
+                InterruptChannel();
+            }
         }
 
         protected override void OnUpdate()
         {
             OnTick(Time.deltaTime);
+            
+            UpdateActiveAttack(Time.deltaTime);
             
             if (_waitingForResolve)             // TEMP (see below HandleAttackResolveTimeout)
             {
@@ -92,9 +109,24 @@ namespace Core.Gameplay.Entity.Subsystem
                 attack.Tick(deltaTime);
         }
         
+        private void UpdateActiveAttack(float deltaTime)
+        {
+            if (_channeledAttack == null)
+                return;
+
+            _channeledAttackTimer -= deltaTime;
+
+            if (_channeledAttackTimer <= 0f)
+                EndChanneledAttack();
+        }
+        
         public bool TryExecute(AttackData attack, AttackContext context)
         {
             if (attack == null)
+                return false;
+            
+            // Safeguard to prevent new attacks while channeling. Shouldn't be needed if check is properly done in Brain.
+            if (IsAttackChanneling)
                 return false;
             
             if (!_attacks.TryGetValue(attack, out var instance))
@@ -131,6 +163,8 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             if (_currentAttack == null)
                 return;
+            
+            bool keepAttackAlive = false;
 
             switch (_currentAttack.Data.executionMode)
             {
@@ -143,14 +177,19 @@ namespace Core.Gameplay.Entity.Subsystem
                     break;
 
                 case AttackExecutionMode.AreaEffect:
-                    SpawnAreaEffect(_currentAttack.Data, _pendingContext);
+                    keepAttackAlive =
+                        SpawnAreaEffect(_currentAttack.Data, _pendingContext);
                     break;
             }
-
-            _currentAttack = null;
-            _pendingContext = default; // or null if it's a class
             
             _waitingForResolve = false;             // TEMP (see below HandleAttackResolveTimeout)
+            
+            // Q: Maybe we could refactor so every attack is added to BeginActiveAttack with duration = 0 for instant attacks?
+            if (!keepAttackAlive)
+            {
+                _currentAttack = null;
+                _pendingContext = default; // or null if it's a class
+            }
         }
 
         //
@@ -174,7 +213,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 this);
 #endif
 
-            // Fail safe: cancel the attack so the entity doesn't soft-lock
+            // Failsafe: cancel the attack so the entity doesn't soft-lock
             _currentAttack = null;
             _pendingContext = default;
             _waitingForResolve = false;
@@ -237,39 +276,50 @@ namespace Core.Gameplay.Entity.Subsystem
         
         #region AttackExecutionMode : AreaEffect
         
-        private void SpawnAreaEffect(AttackData data, AttackContext context)
+        private bool SpawnAreaEffect(AttackData data, AttackContext context)
         {
             if (!data.areaEffectData)
             {
-                Debug.LogWarning($"Attack {data.name} has no AreaEffectData");
-                return;
+                Debug.LogWarning($"Attack {data.name} is set to ExecuteMode:AreaEffect but has no AreaEffectData");
+                return false;
             }
             
-            // 1. Define Spawn position
+            // 1. Resolve spawn transform/position
             var spawnTransform = ResolveAreaSpawnTransform(data.areaEffectData);
             var spawnPosition = ResolveAreaSpawnPosition(data.areaEffectData, context);
 
-            // todo: add pooling here in the future: AreaEffectPoolManager.Instance.Spawn(data.areaEffectPrefab)
-            var go = new GameObject($"AreaEffect_{data.name}");
+            // 2. Spawn pooled effect
+            var areaEffect = AreaEffectPoolManager.Instance.Spawn(data.areaEffectData.areaEffectPrefab);
             
-            // 2. Define Follow mode and apply position
+            if (!areaEffect)
+                return false;
+            
+            // Important:
+            // pooled transforms may still contain previous state
+            areaEffect.transform.SetParent(null);
+
+            // Reset transform state
+            areaEffect.transform.SetPositionAndRotation(
+                spawnPosition,
+                Quaternion.identity);
+            areaEffect.transform.localScale = Vector3.one;
+            
+            // 3. Follow owner handling
             if (data.areaEffectData.followOwner)
             {
-                go.transform.SetParent(spawnTransform, worldPositionStays: false);
-                go.transform.localPosition =
-                    spawnTransform.InverseTransformPoint(spawnPosition);
-            }
-            else
-            {
-                go.transform.position = spawnPosition;
-            }
+                areaEffect.transform.SetParent(
+                    spawnTransform,
+                    worldPositionStays: true);
 
-            var instance = go.AddComponent<AreaEffectInstance>();
+                //areaEffect.transform.localPosition =
+                //    spawnPosition - spawnTransform.position;
+            }
             
+            // 4. Damage source
             var damageSource = new DamageSource(
                 _stats.faction,
                 _controller,
-                transform.position,     // go.transform.position?
+                areaEffect.transform.position,
                 _targetFilter
             );
             
@@ -280,10 +330,61 @@ namespace Core.Gameplay.Entity.Subsystem
                 baseDamage: data.damage + attackPower,
                 scope: ModifierScope.Area,
                 source: damageSource,
-                hitPoint: go.transform.position
+                hitPoint: areaEffect.transform.position
             );
 
-            instance.Initialize(data.areaEffectData, payload);
+            // 5. Initialize
+            areaEffect.Initialize(
+                owner: _controller,
+                data: data.areaEffectData,
+                payload: payload
+            );
+
+            // 6 Begin channeling
+            if (data.areaEffectData.isChanneled)
+            {
+                BeginChanneledAttack(_currentAttack);
+                return true;
+            }
+
+            return false;
+        }
+        
+        private void BeginChanneledAttack(AttackInstance attack)
+        {
+            _channeledAttack = attack;
+            _channeledAttackTimer = attack.Data.areaEffectData.duration;
+
+            //
+            //  Lock movement/brain-facing
+            //  (this is done in the Brain)
+            //
+            
+            Controller.Animator.SetBool("isChanneling", true);
+
+            if (_presentation)
+                _presentation.LockFacing(true);
+        }
+        
+        private void EndChanneledAttack()
+        {
+            Controller.Animator.SetBool("isChanneling", false);
+            
+            if (_presentation)
+                _presentation.LockFacing(false);
+
+            _channeledAttack = null;
+            _currentAttack = null;
+
+            _pendingContext = default;
+        }
+        
+        public void InterruptChannel()
+        {
+            if (_channeledAttack == null)
+                return;
+
+            EndChanneledAttack();
         }
         
         private Transform ResolveAreaSpawnTransform(AreaEffectData data)

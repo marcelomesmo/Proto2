@@ -17,6 +17,7 @@ namespace Core.Gameplay.Entity.Subsystem
         
         public FacingDirection CurrentFacing { get; private set; }
         public event Action<FacingDirection> OnFacingChanged;
+        private bool _facingLocked;
         
         protected override void OnInitialize()
         {
@@ -35,6 +36,9 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
             }
 #endif        
+            
+            if (_facingLocked)
+                return;
             
             if (direction.x > 0.01f)
                 SetFacing(FacingDirection.Right);
@@ -88,6 +92,11 @@ namespace Core.Gameplay.Entity.Subsystem
             Controller.Animator.Update(0f);
 
             RestoreAnimatorState(Controller.Animator, snapshot);
+        }
+        
+        public void LockFacing(bool locked)
+        {
+            _facingLocked = locked;
         }
         
         #region Animator State Capture & Restore

@@ -224,6 +224,7 @@ namespace Core.Services
 
             ServiceLocator.Get<EntityPoolManager>()?.ReleaseAll();
             ServiceLocator.Get<ProjectilePoolManager>()?.ReleaseAll();
+            ServiceLocator.Get<AreaEffectPoolManager>()?.ReleaseAll();
             ServiceLocator.Get<VFXPoolManager>()?.ReleaseAll();
             ServiceLocator.Get<AudioManager>()?.ReleaseAll();
         }

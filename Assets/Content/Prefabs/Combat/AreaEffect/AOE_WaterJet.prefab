@@ -102,6 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8116977225347113644}
+  - component: {fileID: 4721148693487904352}
   m_Layer: 10
   m_Name: AOE_WaterJet
   m_TagString: Untagged
@@ -125,6 +126,18 @@ Transform:
   - {fileID: 8467999504324373465}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4721148693487904352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4099829488905969600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd732623b62fb2409d46f88c175d0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectInstance
 --- !u!1 &5693549961280314031
 GameObject:
   m_ObjectHideFlags: 0

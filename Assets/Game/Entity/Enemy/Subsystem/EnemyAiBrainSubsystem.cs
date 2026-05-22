@@ -113,6 +113,12 @@ namespace Game.Entity.Enemy.Subsystem
                 return; // <--- THIS blocks attack/move before spawn finished!
             }
             
+            if (_attackSubsystem.IsAttackChanneling)
+            {
+                _movement.Stop();
+                return;
+            }
+            
             // Mental model:
             // a. Can I attack right now from where I am?
             // b. If not, is there a ready attack I could reach by moving?

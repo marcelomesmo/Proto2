@@ -1,10 +1,10 @@
 using Core.Interfaces;
 using UnityEngine;
 
-namespace Core.Gameplay.Combat.Projectile
+namespace Core.Gameplay.Combat
 {
-    // Added to projectiles to Start/Clear persistent VFXs
-    public sealed class ProjectileVFXController : MonoBehaviour, IPoolableVisual
+    // Added to projectiles and area effects to Start/Clear persistent VFXs
+    public sealed class PoolableVFXController : MonoBehaviour, IPoolableVisual
     {
         [SerializeField] private ParticleSystem[] playOnSpawn;
         [SerializeField] private ParticleSystem[] stopAndClearOnDespawn;

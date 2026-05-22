@@ -16,6 +16,7 @@ namespace Core.Services
         [SerializeField] private AudioManager audioManagerPrefab;
         [SerializeField] private VFXPoolManager vfxPoolPrefab;
         [SerializeField] private ProjectilePoolManager projectilePoolPrefab;
+        [SerializeField] private AreaEffectPoolManager areaEffectPoolPrefab;
         [SerializeField] private EntityPoolManager entityPoolPrefab;
         [SerializeField] private MonoBehaviour saveManagerPrefab;
         
@@ -61,6 +62,7 @@ namespace Core.Services
             RegisterService(audioManagerPrefab);
             RegisterService(vfxPoolPrefab);
             RegisterService(projectilePoolPrefab);
+            RegisterService(areaEffectPoolPrefab);
             RegisterService(entityPoolPrefab);
 
             RegisterSaveManager();

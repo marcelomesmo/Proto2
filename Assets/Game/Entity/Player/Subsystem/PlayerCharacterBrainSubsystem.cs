@@ -87,6 +87,9 @@ namespace Game.Entity.Player.Subsystem
             if (!controlEnabled || Controller.IsStunned) 
                 return; // <--- THIS blocks attack/move before spawn finished!
            
+            if (_attackSubsystem.IsAttackChanneling)
+                return;
+            
             if (!HasTarget)
             {
                 TryAcquireTarget();

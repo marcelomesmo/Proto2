@@ -17,12 +17,13 @@ MonoBehaviour:
   boxSize: {x: 10, y: 1}
   coneAngle: 0
   coneRadius: 0
-  duration: 1
+  duration: 3
   tickInterval: 1
+  isChanneled: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
   spawnMode: 2
   forwardOffset: 0
-  vfxPrefab: {fileID: 4099829488905969600, guid: d5980aefddf298c4c9e6cf847b9b670a, type: 3}
+  areaEffectPrefab: {fileID: 4099829488905969600, guid: d5980aefddf298c4c9e6cf847b9b670a, type: 3}
   followOwner: 0

@@ -1,57 +1,78 @@
+using System.Collections;
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Attack;
+using Core.Gameplay.Entity;
 using Core.Interfaces;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Core.Gameplay.Combat.AreaEffect
 {
     public class AreaEffectInstance : MonoBehaviour
     {
+        private EntityController _owner;
+        
         private AreaEffectData _data;
         private DamagePayload _payload;
+        
         private float _remainingTime;
         private float _tickTimer;
         
+        private bool _isEnding;
+        
         private readonly List<Collider2D> _hits = new();
         
-        private GameObject _vfxInstance;
+        private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
+
+        public void Awake()
+        {
+            visuals = GetComponents<IPoolableVisual>();
+        }
 
         public void Initialize(
+            EntityController owner,
             AreaEffectData data,
             DamagePayload payload)
         {
+            _owner = owner;
             _data = data;
             _payload = payload;
 
+            _hits.Clear();
+            
             _remainingTime = data.duration;
             _tickTimer = Mathf.Max(0.01f, data.tickInterval);
             
-            // todo: also don't have the vfx for the effect instantiated as we dont instantiate a prefab
-            if (_data.vfxPrefab)
-            {
-                _vfxInstance = Instantiate(
-                    _data.vfxPrefab,
-                    transform.position,
-                    Quaternion.identity,
-                    _data.followOwner ? transform : null
-                );
-            }
+            _isEnding = false;
         }
 
         private void Update()
         {
+            if (_isReleased)
+                return;
+            
+            // 1. Owner death handling
+            if (!_isEnding && _owner && _owner.IsDead)
+            {
+                HandleOwnerDeath();
+            }
+            
+            // If ending, skip ticking logic
+            if (_isEnding)
+                return;
+            
+            // 2. Lifetime
             _remainingTime -= Time.deltaTime;
-            _tickTimer -= Time.deltaTime;
 
             if (_remainingTime <= 0f)
             {
-                if (_vfxInstance)
-                    Destroy(_vfxInstance);
-                
-                Destroy(gameObject); // pooled later
+                BeginEndSequence();
                 return;
             }
 
+            // 3. Tick damage
+            _tickTimer -= Time.deltaTime;
+            
             if (_tickTimer <= 0f)
             {
                 ApplyTick();
@@ -139,8 +160,89 @@ namespace Core.Gameplay.Combat.AreaEffect
                 return false;
 
             float angle = Vector2.Angle(forward, toTarget);
+            
             return angle <= halfAngleDeg;
         }
+        
+        
+        // Owner lifecycle
+        private void HandleOwnerDeath()
+        {
+            // Other sequencing can be added here.
+            
+            BeginEndSequence();
+        }
+        
+        // End / fade logic
+        private void BeginEndSequence()
+        {
+            if (_isEnding)
+                return;
+
+            _isEnding = true;
+
+            // Stop visuals emission
+            foreach (var visual in visuals)
+                visual?.OnDespawn();
+
+            // If you later add fade animations,
+            // replace this with coroutine logic.
+            if (_data.fadeOutDuration > 0f)
+                StartCoroutine(FadeOutRoutine());
+            else
+                ReturnToPoolSafe();
+        }
+        
+        private IEnumerator FadeOutRoutine()
+        {
+            yield return new WaitForSeconds(_data.fadeOutDuration);
+
+            ReturnToPoolSafe();
+        }
+        
+        
+        #region Pool
+        
+        private IObjectPool<AreaEffectInstance> _objectPool;
+        private bool _isReleased;
+        public void AssignToPool(IObjectPool<AreaEffectInstance> objectPool) => _objectPool = objectPool;    
+        private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
+        public void ReturnToPoolSafe() { if(_isReleased) return; ReturnToPool(); }
+        
+        #endregion
+    
+        #region Pool lifecycle helpers
+    
+        // Called by pool on Get (actionOnGet)
+        public void OnSpawn()
+        {
+            _isReleased = false;
+        
+            // Re-enable emission
+            foreach (var visual in visuals)
+                visual?.OnSpawn();
+        }
+
+        // Called by pool on Release (actionOnRelease)
+        public void OnDespawn()
+        {
+            _hits.Clear();
+            
+            _owner = null;
+            _data = null;
+            _payload = default;
+            
+            _remainingTime = 0f;
+            _tickTimer = 0f;
+            
+            _isEnding = false;
+            
+            // Disable emission
+            foreach (var visual in visuals)
+                visual?.OnDespawn();
+        }
+
+        #endregion
         
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -165,7 +267,8 @@ namespace Core.Gameplay.Combat.AreaEffect
                     break;
             }
             
-            float t = Mathf.Clamp01(_remainingTime / _data.duration);
+            float duration = Mathf.Max(0.0001f, _data.duration);
+            float t = Mathf.Clamp01(_remainingTime / duration);
             Gizmos.color = Color.Lerp(Color.red, Color.green, t);
             
             switch (_data.shape)
