@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_damage_fire
+  m_Name: upgrade_damage_water_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: damage_fire_1
-  displayName: Fire Synergy
-  description: Increase all [Fire] damage by 1.
-  icon: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
+  upgradeId: damage_water_1
+  displayName: Water Synergy
+  description: Increase all [Water] damage by 1.
+  icon: {fileID: 21300000, guid: 0ad2337320c1b5841ba3ceb24de6e91a, type: 3}
   maxLevel: 3
   levelCosts: 0a000000320000004b000000
   levelDescriptions:
-  - Fire Damage +1
-  - Fire Damage +2
-  - Fire Damage +3
+  - Water Damage +1
+  - Water Damage +2
+  - Water Damage +3
   effects:
-  - {fileID: 11400000, guid: 97d5c0457eb184046b6ea8b3f4196ed9, type: 2}
+  - {fileID: 11400000, guid: a06c26397defd9b49b958e8a0ff54680, type: 2}

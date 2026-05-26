@@ -5,13 +5,30 @@ using Core.Upgrades.Effects;
 
 namespace Game.Entity.Player.Subsystem
 {
-    // TODO: Make base EntityModifierSubsystem in Core and extend it to add xp only.
+    // TODO: Make base EntityModifierSubsystem in Core and extend it to add xp only?
     public sealed class EntityModifierSubsystem : BaseSubsystem
     {
         private readonly List<DamageModifier> _damageModifiers = new();
         private readonly List<ExperienceModifier> _xpModifiers = new();
 
-        // ---------------- Damage ----------------
+        // ----------------
+        //  Lifecycle flow
+        // ----------------
+        protected override void OnInitialize()
+        {
+            _damageModifiers.Clear();
+            _xpModifiers.Clear();
+        }
+
+        protected override void OnDeinitialize()
+        {
+            _damageModifiers.Clear();
+            _xpModifiers.Clear();
+        }
+
+        // ----------------
+        // Damage
+        // ----------------
 
         public void AddDamageModifier(DamageModifier modifier)
         {
@@ -26,7 +43,9 @@ namespace Game.Entity.Player.Subsystem
         public IReadOnlyList<DamageModifier> DamageModifiers =>
             _damageModifiers;
 
-        // ---------------- XP ----------------
+        // ----------------
+        // XP
+        // ----------------
 
         public void AddXpModifier(ExperienceModifier modifier)
         {

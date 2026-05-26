@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de07e4d1a3916e4499704995ebb9e931, type: 3}
+  m_Name: AttackDamageUpgrade_Water_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.DamageModifierEffect
+  modifierPerLevel:
+  - scope: 0
+    type: 0
+    value: 1
+    filterByHitType: 0
+    hitTypeses: 8
+  - scope: 0
+    type: 0
+    value: 3
+    filterByHitType: 0
+    hitTypeses: 8
+  - scope: 0
+    type: 0
+    value: 5
+    filterByHitType: 0
+    hitTypeses: 8

@@ -5,11 +5,11 @@ namespace Core.Enum
     {
         None = 0,
         Physical = 1 << 0,
-        Slash = 1 << 1,
+        Magical = 1 << 1,
         Fire = 1 << 2,
-        Ice = 1 << 3,
-        Poison = 1 << 4,
-        Shock = 1 << 5,
+        Water = 1 << 3,
+        Grass = 1 << 4,
+        Electric = 1 << 5,
         Explosive = 1 << 6,
     }
     

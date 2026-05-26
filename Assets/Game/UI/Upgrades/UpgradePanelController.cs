@@ -42,13 +42,6 @@ namespace Game.UI.Upgrades
 
         private void Build()
         {
-            // TODO: REMOVE THIS AND MOVE TO INITIALIZER
-            // TEMP test
-            _save.UnlockUpgrade("xp_bonus");
-            _save.UnlockUpgrade("damage_global_1");
-            _save.UnlockUpgrade("fireball_burn");
-            _save.UnlockUpgrade("damage_fire_1");
-            
             foreach (var btn in upgradeButtons)
                 btn.Initialize(this);
         }

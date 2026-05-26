@@ -181,6 +181,7 @@ namespace Game.Entity.Player
                     continue;
 
                 entity.Tags.AddTag(entity.Stats.matchEndedTag);
+                // TODO: Add Animation play here (for character defeat, if any).
             }
         }
         private void Despawn()

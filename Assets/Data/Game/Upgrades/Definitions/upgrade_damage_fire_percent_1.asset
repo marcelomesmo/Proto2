@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
+  m_Name: upgrade_damage_fire_percent_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
+  upgradeId: damage_fire_percent_1
+  displayName: Fire Synergy Advanced
+  description: Increase all [Fire] damage by 10%.
+  icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
+  maxLevel: 3
+  levelCosts: 010000000200000003000000
+  levelDescriptions:
+  - Fire Damage +10%
+  - Fire Damage +20%
+  - Fire Damage +30%
+  effects:
+  - {fileID: 11400000, guid: 0c06da5b7d03fb546aa4bf67694e45b8, type: 2}

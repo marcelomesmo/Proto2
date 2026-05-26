@@ -19,7 +19,7 @@ MonoBehaviour:
   damage: 2
   range: 9
   cooldown: 5
-  hitType: 5
+  hitTypes: 32
   hitVFX: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
   castVFX: {fileID: 1757226974508410, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
   projectilePrefab: {fileID: 5975751646184246127, guid: 45d07bbbb199a1d4f82340842c2122a1, type: 3}

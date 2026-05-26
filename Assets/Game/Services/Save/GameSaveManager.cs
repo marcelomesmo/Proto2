@@ -93,11 +93,23 @@ namespace Game.Services.Save
 
             Profile.gold = defaults.startingGold;
 
-            // todo; deprecate
+            // TODO: deprecate, move this to gacha system?
+            // TEMP test
             foreach (var id in defaults.startingUnlockedCharacters)
             {
                 Profile.unlockedCharacters.Add(id);
             }
+            
+            // TODO: REMOVE THIS AND MOVE TO INITIALIZER?
+            // TEMP test
+            foreach (var upgrade in defaults.startingUnlockedUpgrades)
+            {
+                UnlockUpgrade(upgrade.upgradeId);
+            }
+            //UnlockUpgrade("xp_bonus");
+            //UnlockUpgrade("damage_global_1");
+            //UnlockUpgrade("fireball_burn");
+            //UnlockUpgrade("damage_fire_1");
 
             Save();
 
@@ -266,7 +278,7 @@ namespace Game.Services.Save
 
         public void OnMatchEnd()
         {
-            RegisterMatch(false);   // todo: Implement victory/defeat logic (pass from gamecontroller or use global) if we want to distinguish for registering.
+            RegisterMatch(false);
             
             // Save gold collected during the match
             var gameController = ServiceLocator.Get<GameController>();
