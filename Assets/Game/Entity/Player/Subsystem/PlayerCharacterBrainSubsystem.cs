@@ -63,11 +63,13 @@ namespace Game.Entity.Player.Subsystem
                 _nextActionTime = Time.time + _stats.globalCooldown;
             }
 
-            if (tag == _stats.deadTag)
+            if (tag == _stats.deadTag || tag == _stats.matchEndedTag)
             {
                 controlEnabled = false;
                 
                 StopAllCoroutines();
+
+                // if we ever do player character move, also add here: _movement.Stop();
             }
         }
         

@@ -3,7 +3,6 @@ namespace Core.Util
     public class CooldownTimer
     {
         private float _remaining;
-        private readonly float _duration;
 
         public bool Tick(float deltaTime)
         {
@@ -11,9 +10,21 @@ namespace Core.Util
                 return true;
 
             _remaining -= deltaTime;
+
+            if (_remaining <= 0f)
+                _remaining = 0f;
+            
             return _remaining <= 0f;
         }
 
-        public void Reset() => _remaining = _duration;
+        public void Start(float duration)
+        { 
+            _remaining = duration;
+        }
+
+        public void Stop() => _remaining = 0f;
+        
+        public bool IsFinished => _remaining <= 0f;
+        public bool IsRunning => _remaining > 0f;
     }
 }

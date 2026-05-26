@@ -7,8 +7,11 @@ namespace Core.Services.Meta
     // (e.g., loading runtime upgrades, difficulty, mutators) without Core->Game coupling.
     public interface IMatchLifecycleHandler
     {
-        void OnMatchStart(GameController gameController);
+        void HandleMatchStart(GameController gameController);
+        
+        float HandleMatchEndStarted(GameController gameController, MatchEndReason reason);
         void HandleMatchEnded(GameController gameController, MatchEndReason reason);
+        
         void ConfirmExit();
     }
 }

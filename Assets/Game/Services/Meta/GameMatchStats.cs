@@ -42,7 +42,7 @@ namespace Game.Services.Meta
             EnemiesKilled++;
             OnEnemiesKilledChanged?.Invoke(EnemiesKilled);
         }
-        public void RegisterWaveCleared()
+        public void RegisterWaveCleared(int waveIndex)
         {
             WavesCleared++;
             OnWaveClearedChanged?.Invoke(WavesCleared);

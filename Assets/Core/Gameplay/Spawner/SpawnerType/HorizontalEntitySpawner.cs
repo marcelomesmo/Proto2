@@ -13,10 +13,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
             // Example:  +2, -2, +4, -4, +6, -6 ...
 
             // Max slots based on max count of entities in any wave
-            int maxSlots = 0;
-            foreach (var spawnWave in spawnData.spawnList)
-                if (spawnWave.entities.Count >= maxSlots)
-                    maxSlots = spawnWave.entities.Count;
+            int maxSlots = GetLargestWaveSize();
 
             SpawnSlots = new Vector2[maxSlots];
 
@@ -25,7 +22,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
                 int ring = (i / 2) + 1;
                 float dir = (i % 2 == 0) ? 1f : -1f;
                 
-                float xOffset = spawnData.minSpawnRadius + (ring * slotSpacing);
+                float xOffset = RuntimeController.SpawnData.minSpawnRadius + (ring * slotSpacing);
                 
                 SpawnSlots[i] = new Vector2(dir * xOffset, 0f);
             }
@@ -65,15 +62,10 @@ namespace Core.Gameplay.Spawner.SpawnerType
         
         protected override Vector3[] GetGizmoSlotPositions()
         {
-            if (spawnData == null)
+            if (RuntimeController.SpawnData == null)
                 return null;
 
-            int maxSlots = 0;
-            foreach (var wave in spawnData.spawnList)
-            {
-                if (wave.entities.Count > maxSlots)
-                    maxSlots = wave.entities.Count;
-            }
+            int maxSlots = GetLargestWaveSize();
             maxSlots = Mathf.Min(maxSlots, 12); // or any reasonable cap
             
             Vector3[] slots = new Vector3[maxSlots];
@@ -83,7 +75,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
                 int ring = (i / 2) + 1;
                 float dir = (i % 2 == 0) ? 1f : -1f;
                 float offset =
-                    spawnData.minSpawnRadius +
+                    RuntimeController.SpawnData.minSpawnRadius +
                     (ring * slotSpacing);
 
                 slots[i] = transform.position + Vector3.right * (dir * offset);
@@ -94,13 +86,13 @@ namespace Core.Gameplay.Spawner.SpawnerType
 
         protected override Vector3[] GetPreviewSpawnPositions()
         {
-            if (spawnData == null)
+            if (RuntimeController.SpawnData == null)
                 return null;
 
-            if (previewWaveIndex < 0 || previewWaveIndex >= spawnData.spawnList.Count)
+            if (previewWaveIndex < 0 || previewWaveIndex >= RuntimeController.SpawnData.waves.Count)
                 return null;
 
-            var wave = spawnData.spawnList[previewWaveIndex];
+            var wave = RuntimeController.SpawnData.waves[previewWaveIndex];
             int count = wave.entities.Count;
 
             if (previewSpawnCount > 0)

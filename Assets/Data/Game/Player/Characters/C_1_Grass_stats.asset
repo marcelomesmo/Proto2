@@ -18,6 +18,7 @@ MonoBehaviour:
   moveSpeed: 0
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
+  matchEndedTag: {fileID: 11400000, guid: 7ffb6aabc831e9b4d87ca0e76e9ce124, type: 2}
   deadTag: {fileID: 11400000, guid: 09ef483b3fe07814b9e192d23f2e4d0c, type: 2}
   stunTag: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}
   slowTag: {fileID: 11400000, guid: 14aa06fc0850e6b48a6a39d38000e856, type: 2}

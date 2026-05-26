@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
+using Core.Gameplay.Entity.Subsystem;
+using Core.Gameplay.Entity.Tags;
 using Core.Services;
 using Core.Services.Manager;
 using Core.Services.Meta;
@@ -168,14 +170,32 @@ namespace Game.Entity.Player
 
         public void OnDefeat()
         {
+            DisablePartyCombat();
             Despawn();
+        }
+        private void DisablePartyCombat()
+        {
+            foreach (var entity in _activeEntities)
+            {
+                if (!entity)
+                    continue;
+
+                entity.Tags.AddTag(entity.Stats.matchEndedTag);
+            }
         }
         private void Despawn()
         {
             EntityPoolManager.Instance.Despawn(_castle);
             
+            _activeEntities.RemoveAll(e => e == null);
+            
             foreach (var entity in _activeEntities)
+            {
+                if (!entity)
+                    continue;
+            
                 EntityPoolManager.Instance.Despawn(entity);
+            }
 
             // Clear Entity references
             _activeEntities.Clear();
@@ -187,6 +207,9 @@ namespace Game.Entity.Player
                 _castleController = null;
             }
             _castle = null;
+            
+            // Allow the next Party to be initialized in further matches.
+            _initialized = false;
             
             // TODO: Move this outside of here when we do MatchStats and/or the end screen.
             // End of Level -> Defeat

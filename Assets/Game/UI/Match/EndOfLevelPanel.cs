@@ -1,7 +1,5 @@
 using System;
 using Core.Enum;
-using Core.Services;
-using Core.Services.Meta;
 using Game.Services.Meta;
 using TMPro;
 using UnityEngine;

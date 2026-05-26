@@ -78,7 +78,7 @@ namespace Game.Entity.Enemy.Subsystem
                 //_nextScanTime = Time.time; // allow immediate scan
             }
 
-            if (tag == _stats.deadTag)
+            if (tag == _stats.deadTag || tag == _stats.matchEndedTag)
             {
                 controlEnabled = false;
                 

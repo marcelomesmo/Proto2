@@ -58,6 +58,8 @@ namespace Game.Entity.Enemy
                 .MatchStats as GameMatchStats;
 
             gameStats?.RegisterEnemyKilled();
+
+            RaiseDeathSignal();     // Notifies of death (goes to wave manager for now).
             
             Tags.ClearTemporaryTags();
         }

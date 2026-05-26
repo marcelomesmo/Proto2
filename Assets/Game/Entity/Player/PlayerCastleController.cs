@@ -44,7 +44,7 @@ namespace Game.Entity.Player
         
         private void HandleDeath()
         {
-            Debug.Log("[PlayerCastleController] Player is dead.");
+            //Debug.Log("[PlayerCastleController] Player is dead.");
             
             Tags.ClearTemporaryTags();
         }
@@ -58,7 +58,7 @@ namespace Game.Entity.Player
             // Signal death
             CastleDestroyed?.Invoke();
             
-            Debug.Log("[PlayerCastleController] Player finished playing death animation.");
+            //Debug.Log("[PlayerCastleController] PlayerCastle finished playing death animation.");
         }
 
         protected override void ApplySpawnScaling(in SpawnContext context)

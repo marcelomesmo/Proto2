@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06044cd4ce85d34797ff59785d78f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Meta.GameMatchLifecycleHandler
+  victorySequenceDuration: 3
+  defeatSequenceDuration: 2

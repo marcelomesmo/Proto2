@@ -1,3 +1,4 @@
+using System.Collections;
 using Core.Enum;
 using Core.Services.Manager;
 using Core.Services.Meta;
@@ -58,7 +59,7 @@ namespace Core.Services
             
             // Game-layer extension point (no Game types referenced here).
             if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
-                hook.OnMatchStart(this);
+                hook.HandleMatchStart(this);
         }
         
         private void EndMatch()
@@ -178,37 +179,39 @@ namespace Core.Services
         
         public void OnGameDefeat()
         {
-            EndMatch();
-            
-            PauseGame();
-            
-            // play defeat UI, analytics, etc.
-            ServiceLocator
-                .Get<IMatchLifecycleHandler>()
-                ?.HandleMatchEnded(this, MatchEndReason.Defeat);
+            StartCoroutine(GameEndRoutine(MatchEndReason.Defeat));
         }
         
         public void OnGameVictory()
         {
-            EndMatch();
-            
-            PauseGame();
-            
-            // play victory UI, cinematics, etc.
-            ServiceLocator
-                .Get<IMatchLifecycleHandler>()
-                ?.HandleMatchEnded(this, MatchEndReason.Victory);
+            StartCoroutine(GameEndRoutine(MatchEndReason.Victory));
         }
         
         public void OnGameQuit()
         {
+            StartCoroutine(GameEndRoutine(MatchEndReason.Quit));
+        }
+        
+        private IEnumerator GameEndRoutine(MatchEndReason reason)
+        {
             EndMatch();
 
+            float delay = 0f;
+
+            // IMatchLifecycleHandler will define the coroutine duration. Any Victory effect will be implemente there.
+            if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook))
+            {
+                delay = hook.HandleMatchEndStarted(this, reason);
+            }
+
+            if (delay > 0f)
+                yield return new WaitForSeconds(delay);
+
             PauseGame();
-            
+
             ServiceLocator
                 .Get<IMatchLifecycleHandler>()
-                ?.HandleMatchEnded(this, MatchEndReason.Quit);
+                ?.HandleMatchEnded(this, reason);
         }
         
         public void ExitMatch()

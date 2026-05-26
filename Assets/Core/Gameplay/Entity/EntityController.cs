@@ -1,3 +1,4 @@
+using System;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Spawn;
 using Core.Gameplay.Entity.Stats;
@@ -19,6 +20,8 @@ namespace Core.Gameplay.Entity
         private bool _isSpawned;
 
         protected SpawnContext SpawnContext { get; private set; }
+        
+        public event Action<EntityController> DeathSignal;
         
         protected virtual void Awake()
         {
@@ -84,6 +87,10 @@ namespace Core.Gameplay.Entity
         protected virtual void HandleTagRemoved(GameplayTag tag) { }
 
         public abstract void NotifyDeathAnimationFinished();
+        protected void RaiseDeathSignal()
+        {
+            DeathSignal?.Invoke(this);
+        }
 
         #region Tag Checks
         
@@ -167,6 +174,8 @@ namespace Core.Gameplay.Entity
         
         private void ResetState()
         {
+            DeathSignal = null;
+            
             _isConfigured = false;
             _isSpawned = false;
             SpawnContext = default;

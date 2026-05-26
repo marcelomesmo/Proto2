@@ -20,6 +20,7 @@ namespace Core.Gameplay.Entity.Stats
         [Header("Tags")]
         public GameplayTag invulnerableTag;
         public GameplayTag spawnFinishedTag;
+        public GameplayTag matchEndedTag;
         public GameplayTag deadTag;
         
         public GameplayTag stunTag;

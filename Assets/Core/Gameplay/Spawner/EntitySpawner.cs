@@ -1,63 +1,53 @@
-using System;
 using Core.Interfaces;
 using Core.Services.Manager;
-using Core.Util;
 using Game.Entity.Player;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Core.Gameplay.Spawner
 {
+    /*
+     * Only responsible for spawning entities.
+     * No wave progression, no timers, no runtime flow.
+     *
+     * Controlled externally by EntitySpawnerRuntimeController.
+     */
     public abstract class EntitySpawner : MonoBehaviour
     {
-        [Header("Spawn Data")]
-        [SerializeField] protected EntitySpawnerData spawnData;
+        [Header("Spawn Context")]
         [SerializeField, Tooltip("REQUIRED. Must implement ISpawnContextProvider.")] 
         private MonoBehaviour spawnContextProviderBehaviour;
-
-        [Header("Trigger Settings")]
-        [SerializeField] private bool spawnOnGameStart;
-        [SerializeField] private float spawnStartDelay;
-        
-        [Header("Proximity Trigger")]
-        [SerializeField] private bool useProximityTrigger = false;
-        [SerializeField] private float triggerRadius = 5f;
-        
-        [Header("Refresh Settings")]
-        [Tooltip("Time for the spawner to be available again (restart) after current set of waves is completed. 0 = no refresh.")]
-        [SerializeField] private float restartDelay = 0f;
         
         // --------------------------------------------------
-        // Internal State
+        // Spawn Context
         // --------------------------------------------------
-        private SpawnerState _state = SpawnerState.Waiting;
         
-        private CooldownTimer _startDelayTimer;
-        private CooldownTimer _refreshTimer;
-        
-        public bool IsSpawning => _state == SpawnerState.Spawning;
-        
-        // Spawn context
         private ISpawnContextProvider _contextProvider;
         
-        // Wave progression
-        private int _currentWaveIndex;
-        private int _spawnedElementsInWave;
-        private bool _waveFinished;
-        
-        // Timers
-        private float _spawnTimer;
-        private float _waveCooldownTimer;
-        
-        // Spawn slots
+        // --------------------------------------------------
+        // Spawn Slots
+        // --------------------------------------------------
+
         protected Vector2[] SpawnSlots;
         protected int[] SlotOrder;   // helper to shuffle slot spawn order
         
-        // Proximity specific
-        private bool _proximityTriggered;
+        // --------------------------------------------------
+        // RuntimeController report
+        // --------------------------------------------------
         
-        public event Action OnWaveCompletedSignal;
-        public event Action OnAllWavesCompletedSignal;
+        private EntitySpawnerRuntimeController _runtimeController;
+        
+        // Lazy-getter to allow gizmo fetching runtimecontroller in editor
+        protected EntitySpawnerRuntimeController RuntimeController
+        {
+            get
+            {
+                if (_runtimeController == null)
+                    _runtimeController =
+                        GetComponent<EntitySpawnerRuntimeController>();
+
+                return _runtimeController;
+            }
+        }
         
         // --------------------------------------------------
         // Unity Lifecycle
@@ -65,196 +55,60 @@ namespace Core.Gameplay.Spawner
         
         protected virtual void Awake()
         {
-            _startDelayTimer = new CooldownTimer();
-            _refreshTimer = new CooldownTimer();
+            if (RuntimeController == null)
+            {
+                throw new MissingComponentException(
+                    $"{name}: Missing EntitySpawnerRuntimeController."
+                );
+            }
+
+            _contextProvider = 
+                spawnContextProviderBehaviour as ISpawnContextProvider;
             
-            _contextProvider = spawnContextProviderBehaviour as ISpawnContextProvider;
             if (_contextProvider == null)
                 throw new MissingComponentException(
                     $"{name}: EntitySpawner requires a component implementing ISpawnContextProvider."
                 );
         }
         
-        protected virtual void Start()
-        {
-            ResetSpawnerInternal();
-
-            if (spawnOnGameStart)
-            {
-                _startDelayTimer = new CooldownTimer();
-                _startDelayTimer.Reset();
-                _state = SpawnerState.Ready;
-            }
-        }
-        
-        private void Update()
-        {
-#if UNITY_EDITOR
-            if (Keyboard.current.nKey.wasPressedThisFrame)
-            {
-                ForceNextWave();
-            }
-#endif
-            
-            switch (_state)
-            {
-                case SpawnerState.Waiting:
-                    UpdateWaitingState();
-                    break;
-
-                case SpawnerState.Ready:
-                    UpdateReadyState();
-                    break;
-
-                case SpawnerState.Spawning:
-                    UpdateSpawningState();
-                    break;
-
-                case SpawnerState.Refreshing:
-                    UpdateRefreshingState();
-                    break;
-            }
-        }
-        
-        // --------------------------------------------------
-        // State Updates
-        // --------------------------------------------------
-        
-        private void UpdateWaitingState()
-        {
-            if (!useProximityTrigger)
-                return;
-
-            if (_proximityTriggered)
-                _state = SpawnerState.Ready;
-        }
-        
-        private void UpdateReadyState()
-        {
-            if (spawnStartDelay <= 0f)
-            {
-                BeginSpawning();
-                return;
-            }
-
-            if (_startDelayTimer.Tick(Time.deltaTime))
-                BeginSpawning();
-        }
-        
-        private void UpdateSpawningState()
-        {
-            if (_currentWaveIndex >= spawnData.spawnList.Count)
-            {
-                OnAllWavesCompleted();
-                return;
-            }
-
-            if (!_waveFinished)
-                UpdateWaveSpawn();
-            else
-                UpdateWaveCooldown();
-        }
-        
-        private void UpdateRefreshingState()
-        {
-            if (_refreshTimer.Tick(Time.deltaTime))
-            {
-                ResetSpawnerInternal();
-                _state = SpawnerState.Waiting;
-            }
-        }
-        
         // --------------------------------------------------
         // Spawn Control
         // --------------------------------------------------
 
-        private void BeginSpawning()
+        public virtual void PrepareWave()
         {
-            ResetWaveState();
             BuildSpawnSlots();
             BuildSlotOrder();
-            _state = SpawnerState.Spawning;
-        }
-
-        private void OnAllWavesCompleted()
-        {
-            if (restartDelay > 0f)
-            {
-                _refreshTimer = new CooldownTimer();
-                _refreshTimer.Reset();
-                _state = SpawnerState.Refreshing;
-            }
-            else
-            {
-                _state = SpawnerState.Waiting;
-            }
-            
-            OnAllWavesCompletedSignal?.Invoke();
-        }
-
-        private void ResetSpawnerInternal()
-        {
-            _currentWaveIndex = 0;
-            ResetWaveState();
-        }
-
-        private void ResetWaveState()
-        {
-            _spawnedElementsInWave = 0;
-            _spawnTimer = 0f;
-            _waveCooldownTimer = 0f;
-            _waveFinished = false;
-        }
-
-        // --------------------------------------------------
-        // Wave Logic
-        // --------------------------------------------------
-
-        private void UpdateWaveSpawn()
-        {
-            var wave = spawnData.spawnList[_currentWaveIndex];
-            int waveSize = wave.entities.Count;
-
-            if (_spawnedElementsInWave >= waveSize)
-            {
-                _waveFinished = true;
-                return;
-            }
-
-            _spawnTimer += Time.deltaTime;
-            if (_spawnTimer < spawnData.spawnDelay)
-                return;
-
-            _spawnTimer = 0f;
-
-            SpawnEntity(
-                wave.entities[_spawnedElementsInWave],
-                waveSize,
-                _spawnedElementsInWave
-            );
-
-            _spawnedElementsInWave++;
         }
         
-        private void UpdateWaveCooldown()
+        public void SpawnWaveEntity(
+            EntitySpawnerData.WaveDefinition wave,
+            int currentWaveIndex,
+            int spawnIndex)
         {
-            _waveCooldownTimer += Time.deltaTime;
-            if (_waveCooldownTimer < spawnData.waveDelay)
+            if (wave == null)
                 return;
 
-            _waveCooldownTimer = 0f;
-            _waveFinished = false;
-            _spawnedElementsInWave = 0;
-            _currentWaveIndex++;
+            if (spawnIndex < 0 || spawnIndex >= wave.entities.Count)
+                return;
 
-            OnWaveCompletedSignal?.Invoke();
+            SpawnEntity(
+                wave.entities[spawnIndex],
+                currentWaveIndex,
+                wave.entities.Count,
+                spawnIndex
+            );
         }
 
         // --------------------------------------------------
         // Spawn Execution
         // --------------------------------------------------
         
-        private void SpawnEntity(CharacterDefinition character, int waveSize, int spawnIndex)
+        private void SpawnEntity(
+            CharacterDefinition character, 
+            int currentWaveIndex,
+            int waveSize, 
+            int spawnIndex)
         {
             Vector2 offset = GetSpawnSlotOffset(spawnIndex);
 
@@ -263,17 +117,19 @@ namespace Core.Gameplay.Spawner
             var context = _contextProvider.CreateContext(
                 character,
                 gameObject,
-                _currentWaveIndex,
+                currentWaveIndex,
                 spawnIndex
             );
 
-            EntityPoolManager.Instance.Spawn(
+            var entity = EntityPoolManager.Instance.Spawn(
                 character.prefab,
                 position,
                 Quaternion.identity,
                 context
             );
 
+            _runtimeController.RegisterSpawnedEnemy(entity);
+            
             // Intentionally no post-spawn logic yet
         }
         
@@ -298,58 +154,41 @@ namespace Core.Gameplay.Spawner
         }
         
         // --------------------------------------------------
-        // Utilities
+        // Slot Construction
         // --------------------------------------------------
         
         // Can be built different ways: Lane, Horizontal, 8dir.
         protected abstract void BuildSpawnSlots();
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!useProximityTrigger)
-                return;
-
-            if (other.CompareTag("Player"))
-                _proximityTriggered = true;
-        }
-
+        
         protected abstract void BuildSlotOrder();
-        
-        public void ForceNextWave()
-        {
-            if (_state != SpawnerState.Spawning)
-                return;
 
-            _waveFinished = true;
-            _waveCooldownTimer = spawnData.waveDelay;
-        }
-        
-        // --------------------------------------------------
-        // Internal State Definition
-        // --------------------------------------------------
-        
-        private enum SpawnerState
+        protected int GetLargestWaveSize()
         {
-            Waiting,    // Waiting for trigger or initial state
-            Ready,      // Ready to start spawn countdown
-            Spawning,   // Currently spawning
-            Refreshing  // Waiting for refresh timer
+            if (_runtimeController.SpawnData == null)
+                return 0;
+
+            int max = 0;
+
+            foreach (var wave in _runtimeController.SpawnData.waves)
+            {
+                if (wave.entities.Count > max)
+                    max = wave.entities.Count;
+            }
+
+            return max;
         }
         
 #if UNITY_EDITOR
         
         [Header("### Editor Preview ###")]
-        [SerializeField, Tooltip("Editor-only: which wave to preview")]
+        [SerializeField, Tooltip("Editor-only: which wave to preview. Used by implementations.")]
         protected int previewWaveIndex = 0;
 
-        [SerializeField, Tooltip("Editor-only: preview only first N spawns (0 = all)")]
+        [SerializeField, Tooltip("Editor-only: preview only first N spawns (0 = all). Used by implementations.")]
         protected int previewSpawnCount = 0;
         
         protected virtual void OnDrawGizmosSelected()
         {
-            if (!spawnData)
-                return;
-            
             var slots = GetGizmoSlotPositions();
             if (slots == null)
                 return;

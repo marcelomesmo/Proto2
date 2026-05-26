@@ -17,9 +17,13 @@ namespace Game.Services.Meta
     // - Load runtime upgrades into Core UpgradeManager
     public sealed class GameMatchLifecycleHandler : MonoBehaviour, IMatchLifecycleHandler
     {
+        [Header("Match Lifecycle")]
+        [SerializeField] private float victorySequenceDuration = 3f;
+        [SerializeField] private float defeatSequenceDuration = 2f;
+        
         private MatchSceneController _sceneController;
         
-        public void OnMatchStart(GameController gameController)
+        public void HandleMatchStart(GameController gameController)
         {
             if (gameController == null)
                 return;
@@ -65,7 +69,7 @@ namespace Game.Services.Meta
             // Registers the upgrades loaded in the UpgradeManager.
             gameController.UpgradeManager.LoadUpgrades(runtime);
 
-            _sceneController = Object.FindFirstObjectByType<MatchSceneController>();
+            _sceneController = FindFirstObjectByType<MatchSceneController>();
 
             if (_sceneController == null)
             {
@@ -91,6 +95,40 @@ namespace Game.Services.Meta
             }
 
             _sceneController.EndOfLevelPanel.Show(reason, stats, gameController.MatchRuntime.ElapsedTime);
+        }
+
+        public float HandleMatchEndStarted(GameController gameController, MatchEndReason reason)
+        {
+            // Play VFX
+            // Trigger cameras
+            // Start fanfare, screen shake, boss dissolve
+            // Spawn chest, etc
+            // All handled by PlayVictorySequence and PlayDefeatSequence implementations.
+
+            switch (reason)
+            {
+                case MatchEndReason.Victory:
+                    PlayVictorySequence();
+                    return victorySequenceDuration;
+                case MatchEndReason.Defeat:
+                    PlayEndSequence();
+                    return defeatSequenceDuration;
+                case MatchEndReason.Quit:
+                default:
+                    return 0f;
+            }
+        }
+
+        private void PlayVictorySequence()
+        {
+            // TODO: Add VFX handling here
+            Debug.Log("[GameMatchLifecycleHandler] Playing Victory Sequence");
+        }
+        
+        private void PlayEndSequence()
+        {
+            // TODO: Add VFX handling here
+            Debug.Log("[GameMatchLifecycleHandler] Playing Defeat Sequence");
         }
 
         public void ConfirmExit()

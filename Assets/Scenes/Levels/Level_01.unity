@@ -1439,6 +1439,7 @@ GameObject:
   - component: {fileID: 491460098}
   - component: {fileID: 491460097}
   - component: {fileID: 491460099}
+  - component: {fileID: 491460100}
   m_Layer: 0
   m_Name: GameBinders
   m_TagString: Untagged
@@ -1458,7 +1459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6245527934b012d4a923e32d7f2e2727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Binders.SpawnerMatchStatsBinder
-  spawner: {fileID: 229772899563586131}
+  spawner: {fileID: 229772899563586132}
 --- !u!4 &491460098
 Transform:
   m_ObjectHideFlags: 0
@@ -1487,6 +1488,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Binders.LootMatchStatsBinder
   lootCollectedChannel: {fileID: 11400000, guid: b66e4e1b3ccb8fe459015fc6a1aefb70, type: 2}
+--- !u!114 &491460100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491460096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ba3f8910180b847bb3aa34af99aaba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Services.Binders.SpawnerGameControllerBinder
+  spawner: {fileID: 229772899563586132}
 --- !u!1 &492220918
 GameObject:
   m_ObjectHideFlags: 0
@@ -6635,19 +6649,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1320402823776042237, guid: b1a9912bd5d579449af4630c8a7a9378, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 229772899563586132}
   m_SourcePrefab: {fileID: 100100000, guid: b1a9912bd5d579449af4630c8a7a9378, type: 3}
---- !u!114 &229772899563586131 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4346748997767226499, guid: b1a9912bd5d579449af4630c8a7a9378, type: 3}
+--- !u!1 &229772899563586131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1320402823776042237, guid: b1a9912bd5d579449af4630c8a7a9378, type: 3}
   m_PrefabInstance: {fileID: 229772899563586130}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &229772899563586132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229772899563586131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef06a12759733b42926349ee1418cff, type: 3}
+  m_Script: {fileID: 11500000, guid: 02608595402a5924e9700c28e874e874, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Spawner.SpawnerType.LaneEntitySpawner
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Spawner.EntitySpawnerRuntimeController
+  spawnData: {fileID: 11400000, guid: 6c90a09c279d7704080b043199102b22, type: 2}
+  spawnOnGameStart: 1
+  spawnStartDelay: 2
+  triggerVictoryOnCompletion: 1
+  useProximityTrigger: 0
+  triggerRadius: 0
+  restartDelay: 0
 --- !u!1001 &2500865944225924096
 PrefabInstance:
   m_ObjectHideFlags: 0

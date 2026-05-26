@@ -44,13 +44,13 @@ namespace Core.Gameplay.Spawner.SpawnerType
 #if UNITY_EDITOR
         protected override Vector3[] GetPreviewSpawnPositions()
         {
-            if (spawnData == null)
+            if (RuntimeController.SpawnData == null)
                 return null;
 
-            if (previewWaveIndex < 0 || previewWaveIndex >= spawnData.spawnList.Count)
+            if (previewWaveIndex < 0 || previewWaveIndex >= RuntimeController.SpawnData.waves.Count)
                 return null;
 
-            var wave = spawnData.spawnList[previewWaveIndex];
+            var wave = RuntimeController.SpawnData.waves[previewWaveIndex];
             int count = wave.entities.Count;
 
             if (previewSpawnCount > 0)
@@ -82,7 +82,7 @@ namespace Core.Gameplay.Spawner.SpawnerType
 
         protected override Vector3[] GetGizmoSlotPositions()
         {
-            if (spawnData == null)
+            if (RuntimeController.SpawnData == null)
                 return null;
             
             Vector3[] slots = new Vector3[maxLaneSlots];

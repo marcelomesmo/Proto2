@@ -7,7 +7,7 @@ namespace Game.Services.Binders
 {
     public class SpawnerMatchStatsBinder : MonoBehaviour
     {
-        [SerializeField] private EntitySpawner spawner;
+        [SerializeField] private EntitySpawnerRuntimeController spawner;
 
         private GameMatchStats _matchStats;
 
