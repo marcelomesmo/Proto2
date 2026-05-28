@@ -129,6 +129,8 @@ namespace Game.Entity.Player
 
                 ApplyUpgradesToEntity(entity, upgradeManager);
             }
+            
+            ApplyUpgradesToEntity(_castle, upgradeManager);
         }
         
         private void ApplyUpgradesToEntity(
@@ -136,7 +138,7 @@ namespace Game.Entity.Player
             UpgradeManager upgradeManager)
         {
             var context = new UpgradeContext(entity);
-
+            
             foreach (var runtime in upgradeManager.ActiveUpgrades)
             {
                 var def = runtime.Definition;
@@ -148,6 +150,9 @@ namespace Game.Entity.Player
                 foreach (var effect in def.Effects)
                 {
                     if (!effect)
+                        continue;
+
+                    if (!effect.CanApply(context))
                         continue;
                     
                     effect.Apply(context, level);

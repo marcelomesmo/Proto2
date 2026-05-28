@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.ChainAttack;
+using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.StatusEffect;
 using Core.Gameplay.Combat.StatusEffect.Implementations;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
+using Game.Entity.Player.Subsystem;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
@@ -16,10 +18,10 @@ namespace Core.Gameplay.Entity.Subsystem
         public Faction Faction => Controller.Stats.faction;
         
         private int _currentHealth;
+        private int _maxHealth;
         public int GetCurrentHealth() => _currentHealth;
+        public int GetCurrentMaxHealth() => _maxHealth;
         
-        //[Header("Broadcast (Player only)")]
-        //[SerializeField] protected IntIntEventChannelSO OnHealthChanged;
         public event Action<int, int> HealthChanged;
         public event Action<DamagePayload> OnDamageTaken;
         
@@ -35,6 +37,48 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         
         // ---------------------------
+        // Health Initialize / Adjust
+        // ---------------------------
+        public void ResetHealth()
+        {
+            _maxHealth = ResolveMaxHealth();
+
+            _currentHealth = _maxHealth;
+            
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+        
+        private int ResolveMaxHealth()
+        {
+            int result = Controller.Stats.maxHealth;
+
+            var modifiers =
+                Controller.GetComponent<EntityModifierSubsystem>()
+                    ?.HealthModifiers;
+
+            if (modifiers == null)
+                return result;
+
+            foreach (var mod in modifiers)
+            {
+                Debug.Log("[EntityHealth] Found modifier value: " + mod.value);
+                
+                switch (mod.type)
+                {
+                    case ModifierType.Additive:
+                        result += Mathf.RoundToInt(mod.value);
+                        break;
+
+                    case ModifierType.Multiplicative:
+                        result = Mathf.RoundToInt(result * mod.value);
+                        break;
+                }
+            }
+
+            return Mathf.Max(1, result);
+        }
+        
+        // ---------------------------
         // Tag Reactions
         // ---------------------------
         protected override void HandleTagAdded(GameplayTag tag)
@@ -46,19 +90,8 @@ namespace Core.Gameplay.Entity.Subsystem
         }
 
         // ---------------------------
-        // Health Logic
+        // Health Change Logic
         // ---------------------------
-        
-        public void ResetHealth()
-        {
-            _currentHealth = Controller.Stats.maxHealth;
-            
-            // Initialize Health in HUD
-            //if (Faction == Faction.Player)
-            //    OnHealthChanged?.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
-            //else
-                HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
-        }
 
         public void SetInvulnerable(bool invulnerable)
         {
@@ -77,7 +110,7 @@ namespace Core.Gameplay.Entity.Subsystem
             _currentHealth = Mathf.Clamp(
                 _currentHealth - damage,
                 0,
-                Controller.Stats.maxHealth
+                _maxHealth
             );
             
             // 2. Apply status effects
@@ -88,7 +121,7 @@ namespace Core.Gameplay.Entity.Subsystem
 
             // 4. Raise events
             //if (Faction == Faction.Player) OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
-            HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
             OnDamageTaken?.Invoke(payload);
             
             // 5. Resolve Chain Attacks: this coupling is intentional (for now).
@@ -170,34 +203,9 @@ namespace Core.Gameplay.Entity.Subsystem
 
         private void Die()
         {
-            Controller.Tags.AddTag(Controller.Stats.deadTag);   // todo: vfx subsystem on death tag added play audio?
-            Controller.Animator.SetBool("isDead", true);
-            Controller.Animator.ResetTrigger("attack");
-            Controller.Animator.ResetTrigger("jump");
-            Controller.Animator.ResetTrigger("dash");
-            Controller.Animator.ResetTrigger("spawned");
-            
-            //if(deathAudio)
-            //    EntityAudio.Play(deathAudio);
+            Controller.Tags.AddTag(Controller.Stats.deadTag);
         }
         
-        // ---------------------------
-        // Animation Events
-        // ---------------------------
-        // Called via animation event at end of Death animation
-        public void NotifyDeathAnimationFinished()
-        {
-            Controller.NotifyDeathAnimationFinished();
-        }
-       
-        public void NotifySpawnAnimationFinished()
-        {
-            Controller.Animator.SetTrigger("spawned");
-            
-            Controller.Tags.RemoveTag(Controller.Stats.invulnerableTag); // Force loss of invulnerability
-            Controller.Tags.AddTag(Controller.Stats.spawnFinishedTag);
-        }
-
         public bool IsDead => _currentHealth <= 0;
     }
 }

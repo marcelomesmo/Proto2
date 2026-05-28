@@ -995,6 +995,7 @@ MonoBehaviour:
   upgradeButtons:
   - {fileID: 55763204632076973}
   - {fileID: 6034260025681254883}
+  - {fileID: 660547991746083867}
   - {fileID: 1231921533896182382}
   - {fileID: 864243829562341383}
   - {fileID: 3482114015775456670}
@@ -1726,6 +1727,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c609eba2f50fa54d8cf122be7100531, type: 3}
+--- !u!114 &660547991746083867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1614193945467339876, guid: 8c609eba2f50fa54d8cf122be7100531, type: 3}
+  m_PrefabInstance: {fileID: 2255309666784753791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2379380b444db544bbce248f7486a28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.UI.Upgrades.UpgradeButton
 --- !u!224 &1772235875507697286 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 564153999232814841, guid: 8c609eba2f50fa54d8cf122be7100531, type: 3}

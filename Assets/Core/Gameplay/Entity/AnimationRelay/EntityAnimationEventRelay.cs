@@ -8,17 +8,14 @@ namespace Core.Gameplay.Entity.AnimationRelay
         private EntityHealth _healthSubsystem;
         private EntityAttackSubsystem _attackSubsystem;
         private EntityMovement _movementSubsystem;
+        private EntityPresentationSubsystem _presentationSubsystem;
         
         private void Awake()
         {
             _healthSubsystem = GetComponentInParent<EntityHealth>();
             _attackSubsystem = GetComponentInParent<EntityAttackSubsystem>();
             _movementSubsystem = GetComponentInParent<EntityMovement>();
-        }
-
-        public void OnDeathAnimationFinished()
-        {
-            _healthSubsystem?.NotifyDeathAnimationFinished();
+            _presentationSubsystem = GetComponentInParent<EntityPresentationSubsystem>();
         }
 
         public void SetInvulnerableTrue()
@@ -30,10 +27,15 @@ namespace Core.Gameplay.Entity.AnimationRelay
         {
             if (_healthSubsystem) _healthSubsystem.SetInvulnerable(false);
         }
+
+        public void OnDeathAnimationFinished()
+        {
+            _presentationSubsystem?.NotifyDeathAnimationFinished();
+        }
         
         public void OnSpawnAnimationFinished()
         {
-            _healthSubsystem?.NotifySpawnAnimationFinished();
+            _presentationSubsystem?.NotifySpawnAnimationFinished();
         }
         
         public void OnAttackFrameFinished()

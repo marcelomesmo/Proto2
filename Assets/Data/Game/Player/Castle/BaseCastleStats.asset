@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0e232372b9b054d8e3af74bc5cc84f, type: 3}
   m_Name: BaseCastleStats
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Stats.CastleStats
+  characterId: Castle
   faction: 1
-  maxHealth: 100
+  maxHealth: 120
   moveSpeed: 0
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
-  stunnedTag: {fileID: 0}
+  matchEndedTag: {fileID: 0}
   deadTag: {fileID: 11400000, guid: 09ef483b3fe07814b9e192d23f2e4d0c, type: 2}
+  stunTag: {fileID: 0}
+  slowTag: {fileID: 0}
+  burnTag: {fileID: 0}
   lootBonus: 1
   expBonus: 1
   initialTimer: 0

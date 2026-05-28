@@ -1,4 +1,5 @@
 using Core.Gameplay.Combat.Modifiers;
+using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
 
 namespace Core.Upgrades.Effects
@@ -42,6 +43,13 @@ namespace Core.Upgrades.Effects
 
             int idx = Mathf.Clamp(level - 1, 0, modifierPerLevel.Length - 1);
             return modifierPerLevel[idx];
+        }
+        
+        // Validate against having an EntityAttackSubsystem.
+        public override bool CanApply(UpgradeContext context)
+        {
+            return context?.Entity?.GetComponent<EntityAttackSubsystem>() != null &&
+                   context.Modifiers != null;
         }
     }
 }

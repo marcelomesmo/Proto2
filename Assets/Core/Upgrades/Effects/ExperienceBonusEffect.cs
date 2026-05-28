@@ -44,5 +44,7 @@ namespace Core.Upgrades.Effects
             int idx = Mathf.Clamp(level - 1, 0, multiplierPerLevel.Length - 1);
             return multiplierPerLevel[idx];
         }
+        
+        // TODO: Later we can add a CanApply() if we move the CharacterLevelSubsystem component to Core.
     }
 }

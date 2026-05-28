@@ -88,7 +88,7 @@ namespace Game.Entity.Player.Subsystem
                 return;
 
             // 1. Apply multiplier
-            float multiplier = _modifiers ? _modifiers.GetXpMultiplier() : 1f;
+            float multiplier = ResolveModifier();
 
             float modified = amount * multiplier + _xpRemainder;
             int finalAmount = Mathf.FloorToInt(modified);
@@ -110,7 +110,25 @@ namespace Game.Entity.Player.Subsystem
                     _currentXp
                 ));
 
-            //Debug.Log("Added " + amount + " XP to " + _stats.characterId + " (" + _currentLevel + "/" + progressionData.MaxLevel + ")");
+            //Debug.Log("Added " + finalAmount + " XP to " + _stats.characterId + " (" + _currentLevel + "/" + levelUpData.MaxLevel + ")");
+        }
+        
+        public float ResolveModifier()
+        {
+            float result = 1f;
+            
+            var modifiers =
+                Controller.GetComponent<EntityModifierSubsystem>()
+                    ?.XpModifiers;
+
+            if (modifiers == null)
+                return result;
+
+            // Add modifiers type later if required (check EntityHealth.ResolveMaxHealth() to see an example).
+            foreach (var mod in modifiers)
+                result *= mod.multiplier;
+
+            return result;
         }
 
         private void TryLevelUp()

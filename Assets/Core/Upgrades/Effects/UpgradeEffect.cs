@@ -8,5 +8,10 @@ namespace Core.Upgrades.Effects
         // Convention: level <= 0 => do nothing.
         public abstract void Apply(UpgradeContext context, int level);
         public abstract void Remove(UpgradeContext context, int level);
+        
+        
+        // Effects should validate themselves using component existence.
+        // Avoid applying non-used effects (where entity doesn't have a matching component).
+        public virtual bool CanApply(UpgradeContext context) { return true; }
     }
 }

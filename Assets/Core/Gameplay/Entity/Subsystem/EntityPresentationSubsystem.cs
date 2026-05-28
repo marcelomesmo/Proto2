@@ -1,5 +1,6 @@
 using System;
 using Core.Enum;
+using Core.Gameplay.Entity.Tags;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
@@ -24,6 +25,41 @@ namespace Core.Gameplay.Entity.Subsystem
             // Explicit initial state — no ambiguity
             SetFacing(FacingDirection.Left, force: true);
         }
+
+        protected override void HandleTagAdded(GameplayTag tag)
+        {
+            if (tag == Controller.Stats.deadTag)
+            {
+                Controller.Animator.SetBool("isDead", true);
+                
+                Controller.Animator.ResetTrigger("attack");
+                Controller.Animator.ResetTrigger("jump");
+                Controller.Animator.ResetTrigger("dash");
+                Controller.Animator.ResetTrigger("spawned");
+            }
+        }
+        
+        // ---------------------------
+        // Animation Events
+        // ---------------------------
+        
+        // Called via animation event at end of Death animation
+        public void NotifyDeathAnimationFinished()
+        {
+            Controller.NotifyDeathAnimationFinished();
+        }
+       
+        public void NotifySpawnAnimationFinished()
+        {
+            Controller.Animator.SetTrigger("spawned");
+            
+            Controller.Tags.RemoveTag(Controller.Stats.invulnerableTag); // Force loss of invulnerability
+            Controller.Tags.AddTag(Controller.Stats.spawnFinishedTag);
+        }
+        
+        // ------------------
+        // Presentation
+        // ------------------
         
         public void FaceDirection(Vector2 direction)
         {

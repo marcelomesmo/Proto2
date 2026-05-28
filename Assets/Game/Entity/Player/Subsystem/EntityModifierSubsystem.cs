@@ -5,10 +5,12 @@ using Core.Upgrades.Effects;
 
 namespace Game.Entity.Player.Subsystem
 {
-    // TODO: Make base EntityModifierSubsystem in Core and extend it to add xp only?
+    // TODO: Move this to Core since all the modifiers are there. Each specific game will only uses the ones they need.
+    // (deprecated: Make base EntityModifierSubsystem in Core and extend it to add xp only?)
     public sealed class EntityModifierSubsystem : BaseSubsystem
     {
         private readonly List<DamageModifier> _damageModifiers = new();
+        private readonly List<HealthModifier> _healthModifiers = new();
         private readonly List<ExperienceModifier> _xpModifiers = new();
 
         // ----------------
@@ -17,12 +19,14 @@ namespace Game.Entity.Player.Subsystem
         protected override void OnInitialize()
         {
             _damageModifiers.Clear();
+            _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
 
         protected override void OnDeinitialize()
         {
             _damageModifiers.Clear();
+            _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
 
@@ -42,6 +46,23 @@ namespace Game.Entity.Player.Subsystem
 
         public IReadOnlyList<DamageModifier> DamageModifiers =>
             _damageModifiers;
+       
+        // ----------------
+        // Health
+        // ----------------
+        
+        public void AddHealthModifier(HealthModifier modifier)
+        {
+            _healthModifiers.Add(modifier);
+        }
+
+        public void RemoveHealthModifier(HealthModifier modifier)
+        {
+            _healthModifiers.Remove(modifier);
+        }
+
+        public IReadOnlyList<HealthModifier> HealthModifiers =>
+            _healthModifiers;
 
         // ----------------
         // XP
@@ -56,15 +77,8 @@ namespace Game.Entity.Player.Subsystem
         {
             _xpModifiers.Remove(modifier);
         }
-
-        public float GetXpMultiplier()
-        {
-            float result = 1f;
-
-            foreach (var mod in _xpModifiers)
-                result *= mod.multiplier;
-
-            return result;
-        }
+        
+        public IReadOnlyList<ExperienceModifier> XpModifiers =>
+            _xpModifiers;
     }
 }

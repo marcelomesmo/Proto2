@@ -152,6 +152,7 @@ namespace Core.Gameplay.Entity.Subsystem
             _waitingForResolve = true;              // TEMP (see below HandleAttackResolveTimeout)
             _resolveTimer = attackResolveTimeout;   // TEMP (see below HandleAttackResolveTimeout)
             
+            // TODO: Later we should maybe do Controller.Tags.AddTag(attackingTag) and let the PresentationSubsystem handle this?
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("attack");
 

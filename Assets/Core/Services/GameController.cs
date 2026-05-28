@@ -66,10 +66,7 @@ namespace Core.Services
         {
             MatchRuntime.EndMatch();
             
-            // DEPRECATED: This is now called after the EndMatch and triggers the end of level flow.
-            // Give Game a chance to react BEFORE runtime containers are cleared.
-            //if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
-            //    hook.OnMatchEnd(this);
+            ShutdownCombatRuntime();
             
             MatchStats.OnMatchEnd();
             UpgradeManager.OnMatchEnd();
@@ -195,7 +192,7 @@ namespace Core.Services
         private IEnumerator GameEndRoutine(MatchEndReason reason)
         {
             EndMatch();
-
+            
             float delay = 0f;
 
             // IMatchLifecycleHandler will define the coroutine duration. Any Victory effect will be implemente there.
@@ -203,10 +200,10 @@ namespace Core.Services
             {
                 delay = hook.HandleMatchEndStarted(this, reason);
             }
-
+            
             if (delay > 0f)
                 yield return new WaitForSeconds(delay);
-
+            
             PauseGame();
 
             ServiceLocator
@@ -217,6 +214,32 @@ namespace Core.Services
         public void ExitMatch()
         {
             Cleanup();
+            
+            // TODO:
+            // Later, when introducing:
+            // - multiple Worlds/biomes
+            // - Addressables
+            // - large world-specific asset sets
+            //
+            // we should also CLEAR cached pools here
+            // (not only Release active instances).
+            //
+            // ReleaseAll():
+            // - despawns active runtime objects
+            // - keeps inactive cached instances alive for reuse
+            //
+            // Clear():
+            // - destroys cached pooled instances
+            // - releases asset references
+            // - allows Addressables/world assets to unload correctly
+            //
+            // Otherwise pooled inactive objects may keep old World
+            // assets resident in memory across matches/transitions.
+            //
+            // ProjectilePoolManager.Clear();
+            // EntityPoolManager.Clear();
+            // VFXPoolManager.Clear();
+            
             SceneLoader.LoadMenu();
         }
         
@@ -226,10 +249,15 @@ namespace Core.Services
             _isPaused = false;
 
             ServiceLocator.Get<EntityPoolManager>()?.ReleaseAll();
+            ShutdownCombatRuntime();
+            ServiceLocator.Get<AudioManager>()?.ReleaseAll();
+        }
+        
+        private void ShutdownCombatRuntime()
+        {
             ServiceLocator.Get<ProjectilePoolManager>()?.ReleaseAll();
             ServiceLocator.Get<AreaEffectPoolManager>()?.ReleaseAll();
             ServiceLocator.Get<VFXPoolManager>()?.ReleaseAll();
-            ServiceLocator.Get<AudioManager>()?.ReleaseAll();
         }
         
         #endregion

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5629737502117312240}
   - component: {fileID: -145380756021302407}
   - component: {fileID: 318875851817311258}
+  - component: {fileID: 7275408251769959614}
   - component: {fileID: -7966908845983944858}
   m_Layer: 8
   m_Name: Castle
@@ -153,6 +154,18 @@ MonoBehaviour:
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 8365653023187925199}
   cameraShakeEvent: {fileID: 0}
+--- !u!114 &7275408251769959614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921365048271783160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e72b19101db9645afa7a9d6287cde7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.EntityModifierSubsystem
 --- !u!70 &-7966908845983944858
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
