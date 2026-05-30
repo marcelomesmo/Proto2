@@ -15,8 +15,7 @@ namespace Core.Gameplay.Combat
             AttackData attackData,
             int baseDamage,
             ModifierScope scope,
-            DamageSource source,
-            Vector2 hitPoint)
+            DamageSource source)
         {
             if (attackData == null)
                 return default;
@@ -44,7 +43,7 @@ namespace Core.Gameplay.Combat
                 foreach (var mod in allModifiers)
                 {
                     //Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
-                    if (mod.AppliesTo(scope, actualHitTypes))
+                    if (mod.AppliesTo(attackData, scope, actualHitTypes))
                         filteredModifiers.Add(mod);
                 }
             }
@@ -85,7 +84,6 @@ namespace Core.Gameplay.Combat
                 baseDamage: baseDamage,
                 modifiers: filteredModifiers,
                 effects: effects,
-                hitPoint: hitPoint,
                 source: source
             );
 
@@ -115,7 +113,6 @@ namespace Core.Gameplay.Combat
                 baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
                 modifiers: previous.modifiers,
                 effects: effects,
-                hitPoint: previous.hitPoint,
                 source: previous.source,
                 chainDepth: previous.chainDepth + 1
             );
@@ -128,7 +125,6 @@ namespace Core.Gameplay.Combat
         public static DamagePayload CreateEffectDamage(
             int damage,
             DamageSource source,
-            Vector2 hitPoint,
             List<DamageModifier> modifiers)
         {
             return new DamagePayload(
@@ -136,7 +132,6 @@ namespace Core.Gameplay.Combat
                 baseDamage: damage,
                 modifiers: modifiers,
                 effects: null,
-                hitPoint: hitPoint,
                 source: source,
                 chainDepth: 0
             );

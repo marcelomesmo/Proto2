@@ -1,4 +1,5 @@
 using Core.Gameplay.Entity;
+using Core.Gameplay.Entity.Subsystem;
 using Game.Entity.Player.Subsystem;
 
 namespace Core.Upgrades

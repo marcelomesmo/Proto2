@@ -20,11 +20,16 @@ MonoBehaviour:
   - C_2_Water
   startingUnlockedUpgrades:
   - {fileID: 11400000, guid: 49d9df98e9388d245a5de6cfa60c74d2, type: 2}
+  - {fileID: 11400000, guid: 3b5b7c543fc302c4d8fc61ab881ed98f, type: 2}
   - {fileID: 11400000, guid: 0de0da6d8f71b2c40a33b032a6605a78, type: 2}
-  - {fileID: 11400000, guid: 0b99411d3af7d2449b6dd2616a9a88b6, type: 2}
-  - {fileID: 11400000, guid: eaa64ad39c30a8340969647a096ba849, type: 2}
   - {fileID: 11400000, guid: 8d985bbf80419b941adfe76d6bca7bec, type: 2}
   - {fileID: 11400000, guid: 258fbafe4ec0dd84dac6b5c4270d725d, type: 2}
   - {fileID: 11400000, guid: 36bae5c7441bc55478ac398a5dc33291, type: 2}
   - {fileID: 11400000, guid: 9b11fb72e1d50b14984bbffc0f40c28f, type: 2}
+  - {fileID: 11400000, guid: eaa64ad39c30a8340969647a096ba849, type: 2}
+  - {fileID: 11400000, guid: e968b9801dc374845873ea98de262094, type: 2}
+  - {fileID: 11400000, guid: 98eed35651655494fabb69298a5e5694, type: 2}
+  - {fileID: 11400000, guid: 0b99411d3af7d2449b6dd2616a9a88b6, type: 2}
+  - {fileID: 11400000, guid: 071ffe988da3de04aa1b07836e9c5c5c, type: 2}
+  - {fileID: 11400000, guid: ccea3f814d174314dae72a4b14fdb059, type: 2}
   startingGold: 10000

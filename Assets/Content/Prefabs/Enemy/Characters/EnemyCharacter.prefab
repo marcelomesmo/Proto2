@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: -1255696515498329439}
   - component: {fileID: 646872805972670233}
   - component: {fileID: -3408298325961480241}
+  - component: {fileID: 5044594042734989476}
   - component: {fileID: 4307992883338118906}
   - component: {fileID: 3022106705329449248}
   - component: {fileID: -534619075015666269}
@@ -299,6 +300,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8aef9e79c38ae47a54bc531eed0939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Attack.EntityAttackLoadout
+--- !u!114 &5044594042734989476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318268104879652713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e72b19101db9645afa7a9d6287cde7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityModifierSubsystem
 --- !u!114 &4307992883338118906
 MonoBehaviour:
   m_ObjectHideFlags: 0

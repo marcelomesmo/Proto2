@@ -44,6 +44,7 @@ namespace Core.Gameplay.Combat.Projectile
         private Collider2D col;
         private SpriteRenderer sr;
         private DamageSource _damageSource;
+        private DamagePayload _payload;
         private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
         
         public void Awake()
@@ -54,7 +55,7 @@ namespace Core.Gameplay.Combat.Projectile
             visuals = GetComponents<IPoolableVisual>();
         }
 
-        public void Configure(ProjectileContext context, DamageSource source)
+        public void Configure(ProjectileContext context, DamageSource source, DamagePayload payload)
         {
             if (source == null || source.targetFilter == null)
             {
@@ -67,6 +68,7 @@ namespace Core.Gameplay.Combat.Projectile
             
             _ownerFaction = context.faction;
             _damageSource = source;
+            _payload = payload;
             
             _remainingHits = impactBehavior.GetMaxTargets(context);
 
@@ -173,33 +175,10 @@ namespace Core.Gameplay.Combat.Projectile
             // Ignore Damageables that can't be hit.
             if (other.TryGetComponent<IDamageable>(out var damageable) && !damageable.CanBeDamaged())
                 return;
-
-            // Get the point on the enemy collider closest to the projectile
-            Vector2 hitPoint = other.ClosestPoint(transform.position);
-            
-            // Locate Player stats
-            int attackPower = 0;
-
-            if (_damageSource.sourceEntity &&
-                _damageSource.sourceEntity.TryGetComponent(
-                    out Game.Entity.Player.Subsystem.CharacterLevelSubsystem level))
-            {
-                var stats = _damageSource.sourceEntity.Stats as Game.Entity.Player.Stats.CharacterStats;
-                if (stats != null)
-                    attackPower = Mathf.RoundToInt(stats.attackPower);
-            }
-            
-            var payload = DamagePayloadFactory.Create(
-                attackData: attackProperties,
-                baseDamage: attackProperties.damage + attackPower,
-                scope: ModifierScope.Projectile,
-                source: _damageSource,
-                hitPoint: hitPoint
-            );
-            
+         
             // Handle Damage done
             // Trigger OnImpact results.
-            impactBehavior?.OnImpact(this, other, payload);
+            impactBehavior?.OnImpact(this, other, _payload);
             
             _remainingHits--;
         

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Attack;
-using Core.Gameplay.Combat.Modifiers;
 using Core.Interfaces;
 using Core.Services;
 using UnityEngine;

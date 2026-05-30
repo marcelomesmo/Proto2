@@ -1,13 +1,18 @@
+using Core.Enum;
+using Core.Gameplay.Entity.Subsystem;
+
 namespace Core.Gameplay.Combat.Attack
 {
     public sealed class AttackInstance
     {
+        private readonly EntityModifierSubsystem _modifiers;
         public AttackData Data { get; }
         public float CooldownRemaining { get; private set; }
 
-        public AttackInstance(AttackData data)
+        public AttackInstance(AttackData data, EntityModifierSubsystem modifiers)
         {
             Data = data;
+            _modifiers = modifiers;
             CooldownRemaining = 0f;
         }
 
@@ -21,7 +26,57 @@ namespace Core.Gameplay.Combat.Attack
 
         public void Consume()
         {
-            CooldownRemaining = Data.cooldown;
+            CooldownRemaining = GetCooldown();
+        }
+        
+        public float GetCooldown()
+        {
+            return AttackStatResolver.Resolve(
+                baseValue: Data.cooldown,
+                attack: Data,
+                statType: AttackStatType.Cooldown,
+                scope: ResolveScope(),
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
+            );
+        }
+        
+        public float GetRange()
+        {
+            return AttackStatResolver.Resolve(
+                baseValue: Data.range,
+                attack: Data,
+                statType: AttackStatType.Range,
+                scope: ResolveScope(),
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
+            );
+        }
+
+        public float GetDuration()
+        {
+            if (!Data.areaEffectData)
+                return 0f;
+
+            return AttackStatResolver.Resolve(
+                baseValue: Data.areaEffectData.duration,
+                attack: Data,
+                statType: AttackStatType.Duration,
+                scope: ResolveScope(),
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
+            );
+        }
+
+        private ModifierScope ResolveScope()
+        {
+            return Data.executionMode switch
+            {
+                AttackExecutionMode.Melee => ModifierScope.Melee,
+                AttackExecutionMode.Projectile => ModifierScope.Projectile,
+                AttackExecutionMode.AreaEffect => ModifierScope.Area,
+                _ => ModifierScope.All
+            };
         }
     }
 }

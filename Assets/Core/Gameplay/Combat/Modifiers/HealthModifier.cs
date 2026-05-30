@@ -1,4 +1,5 @@
 using System;
+using Core.Enum;
 
 namespace Core.Gameplay.Combat.Modifiers
 {

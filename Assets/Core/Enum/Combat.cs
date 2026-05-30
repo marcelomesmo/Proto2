@@ -13,6 +13,29 @@ namespace Core.Enum
         Explosive = 1 << 6,
     }
     
+    public enum ModifierType
+    {
+        Additive,           // +10 damage
+        Multiplicative      // x1.2 damage
+    }
+
+    public enum ModifierScope
+    {
+        All,
+        Melee,
+        Projectile,
+        Area,
+        Chain,
+        Effect
+    }
+    
+    public enum AttackStatType
+    {
+        Cooldown,
+        Duration,
+        Range
+    }
+    
     /*
      * Later, in case we want to differentiate between Element/Damage types.
      

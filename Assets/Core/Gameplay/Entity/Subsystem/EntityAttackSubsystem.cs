@@ -4,7 +4,6 @@ using Core.Enum;
 using Core.Gameplay.Combat;
 using Core.Gameplay.Combat.AreaEffect;
 using Core.Gameplay.Combat.Attack;
-using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Stats;
@@ -16,6 +15,7 @@ using UnityEngine;
 namespace Core.Gameplay.Entity.Subsystem
 {
     [RequireComponent(typeof(EntityAttackLoadout))]
+    [RequireComponent(typeof(EntityModifierSubsystem))]
     public class EntityAttackSubsystem : BaseSubsystem
     {
         [Header("Attack Settings")]
@@ -31,10 +31,11 @@ namespace Core.Gameplay.Entity.Subsystem
         private AttackInstance _channeledAttack;
         private float _channeledAttackTimer;
         
-        // Helpers
+        // Helpers - cached
         private BaseEntityStats _stats;
         private EntityController _controller;
         private EntityAttackLoadout _attackLoadout;
+        private EntityModifierSubsystem _modifiers;
         private AttackInstance _currentAttack;
         private AttackContext _pendingContext;
         private EntityPresentationSubsystem _presentation;
@@ -60,6 +61,8 @@ namespace Core.Gameplay.Entity.Subsystem
             
             _attackLoadout = GetComponent<EntityAttackLoadout>();
             
+            _modifiers = GetComponent<EntityModifierSubsystem>();
+            
             _attacks.Clear();
             
             _attackLoadout.OnLoadoutChanged += RebuildAttackInstances;
@@ -81,7 +84,7 @@ namespace Core.Gameplay.Entity.Subsystem
         
         protected override void HandleTagAdded(GameplayTag tag)
         {
-            if (tag == Controller.Stats.deadTag)
+            if (tag == Controller.Stats.deadTag || tag == Controller.Stats.matchEndedTag)
             {
                 InterruptChannel();
             }
@@ -135,7 +138,7 @@ namespace Core.Gameplay.Entity.Subsystem
             if (!instance.IsReady)
                 return false;
 
-            if (!IsTargetInRange(attack, context))
+            if (!IsTargetInRange(instance, context))
                 return false;
 
             ExecuteAttack(instance, context);
@@ -170,16 +173,16 @@ namespace Core.Gameplay.Entity.Subsystem
             switch (_currentAttack.Data.executionMode)
             {
                 case AttackExecutionMode.Melee:
-                    ApplyMeleeHit(_currentAttack.Data);
+                    ApplyMeleeHit(_currentAttack);
                     break;
 
                 case AttackExecutionMode.Projectile:
-                    ShootProjectile(_currentAttack.Data, _pendingContext);
+                    ShootProjectile(_currentAttack, _pendingContext);
                     break;
 
                 case AttackExecutionMode.AreaEffect:
                     keepAttackAlive =
-                        SpawnAreaEffect(_currentAttack.Data, _pendingContext);
+                        SpawnAreaEffect(_currentAttack, _pendingContext);
                     break;
             }
             
@@ -222,7 +225,7 @@ namespace Core.Gameplay.Entity.Subsystem
 
         #region AttackExecutionMode : Projectile
         
-        private void ShootProjectile(AttackData data, AttackContext context)
+        private void ShootProjectile(AttackInstance attack, AttackContext context)
         {
             if (context.Direction.sqrMagnitude < 0.0001f)
             {
@@ -231,16 +234,16 @@ namespace Core.Gameplay.Entity.Subsystem
                     this);
             }
 
-            // Find the correct angle.
+            // 1. Resolve the correct angle and direction.
             float angle;
-            switch (data.directionMode)
+            switch (attack.Data.directionMode)
             {
                 case ProjectileDirectionMode.UseAttackDirection:
                     angle = Mathf.Atan2(context.Direction.y, context.Direction.x) * Mathf.Rad2Deg;
                     break;
 
                 case ProjectileDirectionMode.FixedAngle:
-                    angle = data.fixedAngle;
+                    angle = attack.Data.fixedAngle;
                     break;
 
                 case ProjectileDirectionMode.HorizontalFacing:
@@ -249,7 +252,8 @@ namespace Core.Gameplay.Entity.Subsystem
                     break;
             }
 
-            var projectile = ProjectilePoolManager.Instance.Spawn(data.projectilePrefab);
+            // 2. Spawn pooled projectile
+            var projectile = ProjectilePoolManager.Instance.Spawn(attack.Data.projectilePrefab);
             
             // Spawn at CastAnchor when available.
             var spawnTransform =
@@ -262,6 +266,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 spawnTransform.rotation
             );
             
+            // 4. Damage source
             var damageSource = new DamageSource(
                 _stats.faction,
                 _controller,
@@ -269,7 +274,14 @@ namespace Core.Gameplay.Entity.Subsystem
                 _targetFilter
             );
             
-            projectile.Configure(CreateProjectileContext(data), damageSource);
+            var payload = DamagePayloadFactory.Create(
+                attackData: attack.Data,
+                baseDamage: GetResolvedDamage(attack),
+                scope: ModifierScope.Projectile,
+                source: damageSource
+            );
+            
+            projectile.Configure(CreateProjectileContext(attack), damageSource, payload);
             projectile.Launch(angle);
         }
         
@@ -277,20 +289,20 @@ namespace Core.Gameplay.Entity.Subsystem
         
         #region AttackExecutionMode : AreaEffect
         
-        private bool SpawnAreaEffect(AttackData data, AttackContext context)
+        private bool SpawnAreaEffect(AttackInstance attack, AttackContext context)
         {
-            if (!data.areaEffectData)
+            if (!attack.Data.areaEffectData)
             {
-                Debug.LogWarning($"Attack {data.name} is set to ExecuteMode:AreaEffect but has no AreaEffectData");
+                Debug.LogWarning($"Attack {attack.Data.name} is set to ExecuteMode:AreaEffect but has no AreaEffectData");
                 return false;
             }
             
             // 1. Resolve spawn transform/position
-            var spawnTransform = ResolveAreaSpawnTransform(data.areaEffectData);
-            var spawnPosition = ResolveAreaSpawnPosition(data.areaEffectData, context);
+            var spawnTransform = ResolveAreaSpawnTransform(attack.Data.areaEffectData);
+            var spawnPosition = ResolveAreaSpawnPosition(attack.Data.areaEffectData, context);
 
             // 2. Spawn pooled effect
-            var areaEffect = AreaEffectPoolManager.Instance.Spawn(data.areaEffectData.areaEffectPrefab);
+            var areaEffect = AreaEffectPoolManager.Instance.Spawn(attack.Data.areaEffectData.areaEffectPrefab);
             
             if (!areaEffect)
                 return false;
@@ -306,7 +318,7 @@ namespace Core.Gameplay.Entity.Subsystem
             areaEffect.transform.localScale = Vector3.one;
             
             // 3. Follow owner handling
-            if (data.areaEffectData.followOwner)
+            if (attack.Data.areaEffectData.followOwner)
             {
                 areaEffect.transform.SetParent(
                     spawnTransform,
@@ -324,25 +336,22 @@ namespace Core.Gameplay.Entity.Subsystem
                 _targetFilter
             );
             
-            var attackPower = GetAttackPowerBonus();
-            
             var payload = DamagePayloadFactory.Create(
-                attackData: data,
-                baseDamage: data.damage + attackPower,
+                attackData: attack.Data,
+                baseDamage: GetResolvedDamage(attack),
                 scope: ModifierScope.Area,
-                source: damageSource,
-                hitPoint: areaEffect.transform.position
+                source: damageSource
             );
 
             // 5. Initialize
             areaEffect.Initialize(
                 owner: _controller,
-                data: data.areaEffectData,
+                data: attack.Data.areaEffectData,
                 payload: payload
             );
 
             // 6 Begin channeling
-            if (data.areaEffectData.isChanneled)
+            if (attack.Data.areaEffectData.isChanneled)
             {
                 BeginChanneledAttack(_currentAttack);
                 return true;
@@ -354,7 +363,7 @@ namespace Core.Gameplay.Entity.Subsystem
         private void BeginChanneledAttack(AttackInstance attack)
         {
             _channeledAttack = attack;
-            _channeledAttackTimer = attack.Data.areaEffectData.duration;
+            _channeledAttackTimer = attack.GetDuration();
 
             //
             //  Lock movement/brain-facing
@@ -433,19 +442,21 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private readonly List<Collider2D> _meleeHits = new();
         
-        private void ApplyMeleeHit(AttackData data)
+        private void ApplyMeleeHit(AttackInstance attack)
         {
             Bounds bounds = GetEntityBounds();
 
+            float range = attack.GetRange();
+            
             float halfWidth = bounds.extents.x;
-            float boxHalf = data.range * 0.5f;
+            float boxHalf = range * 0.5f;
 
             int facingDirection = Controller.GetComponent<EntityPresentationSubsystem>().CurrentFacing == FacingDirection.Right ? 1 : -1;
             
             Vector2 origin = bounds.center;
             Vector2 center = origin + new Vector2((halfWidth + boxHalf) * facingDirection, 0f);
 
-            _boxSize.x = data.range;
+            _boxSize.x = range;
 
             _meleeHits.Clear();
 
@@ -458,6 +469,8 @@ namespace Core.Gameplay.Entity.Subsystem
                 filter,
                 _meleeHits
             );
+
+            int resolvedDamage = GetResolvedDamage(attack);
 
             foreach (var hit in _meleeHits)
             {
@@ -483,11 +496,10 @@ namespace Core.Gameplay.Entity.Subsystem
                 var attackPower = GetAttackPowerBonus();
                 
                 var payload = DamagePayloadFactory.Create(
-                    attackData: data,
-                    baseDamage: data.damage + attackPower,
+                    attackData: attack.Data,
+                    baseDamage: resolvedDamage,
                     scope: ModifierScope.Melee,
-                    source: damageSource,
-                    hitPoint: Vector2.zero
+                    source: damageSource
                 );
                 
                 damageable.TakeDamage(payload);
@@ -498,11 +510,13 @@ namespace Core.Gameplay.Entity.Subsystem
         
         #region Util
         
-        private ProjectileContext CreateProjectileContext(AttackData data)
+        private ProjectileContext CreateProjectileContext(AttackInstance attack)
         {
+            Debug.Log("Creating projectile context with range " + attack.GetRange());
+            
             return new ProjectileContext(
                 faction: _stats.faction,
-                range: data.range,
+                range: attack.GetRange(),
                 bonusPierce: 0,
                 damageMultiplier: 1f
             );
@@ -519,7 +533,7 @@ namespace Core.Gameplay.Entity.Subsystem
             return new Bounds(transform.position, Vector3.one);
         }
         
-        private bool IsTargetInRange(AttackData data, AttackContext context)
+        private bool IsTargetInRange(AttackInstance attack, AttackContext context)
         {
             if (context.Target == null)
                 return true; // Directional or blind attack
@@ -528,11 +542,15 @@ namespace Core.Gameplay.Entity.Subsystem
                 transform.position,
                 context.Target.transform.position
             );
+            
+            Debug.Log("Target distance is " + distance + " range is " + attack.GetRange());
 
-            return distance <= data.range;
+            return distance <= attack.GetRange();
         }
 
         public bool CanExecute(AttackData data) => _attacks.ContainsKey(data);
+        
+        
 
         private void BuildTargetFilter()
         {
@@ -547,6 +565,25 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             _targetFilter.layerMask = newMask;
             _targetFilter.allowTriggers = allowTriggers;
+        }
+        
+        private int GetResolvedDamage(AttackInstance attack)
+        {
+            float value = attack.Data.damage;
+
+            // Entity stats contribution
+            value += GetAttackPowerBonus();
+
+            // Future:
+            // crit bonus
+            // berserk
+            // temporary buffs
+            // aura modifiers
+            // debuffs
+            // difficulty scaling
+            // etc
+
+            return Mathf.RoundToInt(value);
         }
         
         private int GetAttackPowerBonus()
@@ -632,7 +669,7 @@ namespace Core.Gameplay.Entity.Subsystem
                     continue;
                 }
 
-                _attacks.Add(attack, new AttackInstance(attack));
+                _attacks.Add(attack, new AttackInstance(attack, _modifiers));
             }
         }
         

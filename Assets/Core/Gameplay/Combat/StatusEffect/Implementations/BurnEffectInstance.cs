@@ -59,7 +59,6 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
             var payload = DamagePayloadFactory.CreateEffectDamage(
                 damage: Mathf.RoundToInt(_data.value),
                 source: _damageSource,
-                hitPoint: _target.transform.position,
                 modifiers: null
             );
 

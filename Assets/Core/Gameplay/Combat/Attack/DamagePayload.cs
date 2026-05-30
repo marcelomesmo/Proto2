@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Enum;
 using Core.Gameplay.Combat.Modifiers;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace Core.Gameplay.Combat.Attack
         public readonly int baseDamage;                                 // ALWAYS set
         public readonly IReadOnlyList<DamageModifier> modifiers;
         public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
-        public readonly Vector2 hitPoint;
         public readonly DamageSource source;
         public readonly int chainDepth;
         
@@ -20,7 +20,6 @@ namespace Core.Gameplay.Combat.Attack
             int baseDamage,
             IReadOnlyList<DamageModifier> modifiers,
             IReadOnlyList<AttackEffectData> effects,
-            Vector2 hitPoint,
             DamageSource source,
             int chainDepth = 0)
         {
@@ -28,7 +27,6 @@ namespace Core.Gameplay.Combat.Attack
             this.baseDamage = baseDamage;
             this.modifiers = modifiers;
             this.effects = effects;
-            this.hitPoint = hitPoint;
             this.source = source;
             this.chainDepth = chainDepth;
         }
@@ -58,7 +56,6 @@ namespace Core.Gameplay.Combat.Attack
         public static DamagePayload CreateEffectDamage(
             int damage,
             DamageSource source,
-            Vector2 hitPoint,
             IReadOnlyList<DamageModifier> modifiers)
         {
             return new DamagePayload(
@@ -66,7 +63,6 @@ namespace Core.Gameplay.Combat.Attack
                 baseDamage: damage,
                 modifiers: modifiers,
                 effects: null,
-                hitPoint: hitPoint,
                 source: source
             );
         }

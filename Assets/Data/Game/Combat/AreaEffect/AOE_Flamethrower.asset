@@ -15,7 +15,7 @@ MonoBehaviour:
   shape: 2
   circleRadius: 0
   boxSize: {x: 0, y: 0}
-  coneAngle: 45
+  coneAngle: 120
   coneRadius: 3
   duration: 5
   tickInterval: 1
@@ -27,3 +27,4 @@ MonoBehaviour:
   forwardOffset: 0
   areaEffectPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
   followOwner: 1
+  fadeOutDuration: 0

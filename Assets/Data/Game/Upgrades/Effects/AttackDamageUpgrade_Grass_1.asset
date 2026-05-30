@@ -16,15 +16,15 @@ MonoBehaviour:
   - scope: 0
     type: 0
     value: 1
-    filterByHitType: 0
-    hitTypeses: 16
+    filterByHitType: 1
+    hitTypes: 16
   - scope: 0
     type: 0
     value: 2
-    filterByHitType: 0
-    hitTypeses: 16
+    filterByHitType: 1
+    hitTypes: 16
   - scope: 0
     type: 0
     value: 3
-    filterByHitType: 0
-    hitTypeses: 16
+    filterByHitType: 1
+    hitTypes: 16

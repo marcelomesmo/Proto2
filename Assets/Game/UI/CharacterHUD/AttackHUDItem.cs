@@ -22,7 +22,7 @@ namespace Game.UI.CharacterHUD
             float normalized =
                 _attack.IsReady
                     ? 1f
-                    : 1f - (_attack.CooldownRemaining / _attack.Data.cooldown);
+                    : 1f - (_attack.CooldownRemaining / _attack.GetCooldown());
 
             _view.SetCooldown(normalized, _attack.IsReady);
         }

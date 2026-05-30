@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Modifiers;
-using Core.Gameplay.Entity.Subsystem;
 using Core.Upgrades.Effects;
 
-namespace Game.Entity.Player.Subsystem
+namespace Core.Gameplay.Entity.Subsystem
 {
-    // TODO: Move this to Core since all the modifiers are there. Each specific game will only uses the ones they need.
-    // (deprecated: Make base EntityModifierSubsystem in Core and extend it to add xp only?)
     public sealed class EntityModifierSubsystem : BaseSubsystem
     {
         private readonly List<DamageModifier> _damageModifiers = new();
+        private readonly List<AttackStatModifier> _attackStatModifiers = new();
         private readonly List<HealthModifier> _healthModifiers = new();
         private readonly List<ExperienceModifier> _xpModifiers = new();
 
@@ -19,6 +17,7 @@ namespace Game.Entity.Player.Subsystem
         protected override void OnInitialize()
         {
             _damageModifiers.Clear();
+            _attackStatModifiers.Clear();
             _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
@@ -26,6 +25,7 @@ namespace Game.Entity.Player.Subsystem
         protected override void OnDeinitialize()
         {
             _damageModifiers.Clear();
+            _attackStatModifiers.Clear();
             _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
@@ -46,7 +46,24 @@ namespace Game.Entity.Player.Subsystem
 
         public IReadOnlyList<DamageModifier> DamageModifiers =>
             _damageModifiers;
-       
+        
+        // ----------------
+        // Attack Stats (Range, Duration, Cooldown)
+        // ----------------
+        
+        public void AddAttackStatModifier(AttackStatModifier modifier)
+        {
+            _attackStatModifiers.Add(modifier);
+        }
+
+        public void RemoveAttackStatModifier(AttackStatModifier modifier)
+        {
+            _attackStatModifiers.Remove(modifier);
+        }
+        
+        public IReadOnlyList<AttackStatModifier> AttackStatModifiers =>
+            _attackStatModifiers;
+        
         // ----------------
         // Health
         // ----------------

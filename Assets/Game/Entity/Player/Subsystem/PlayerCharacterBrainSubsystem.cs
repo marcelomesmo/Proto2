@@ -112,14 +112,6 @@ namespace Game.Entity.Player.Subsystem
             // Try all attacks, first valid wins
             foreach (var attack in _attackLoadout.Attacks)
             {
-                float distance = Vector2.Distance(
-                    transform.position,
-                    CurrentTarget.transform.position
-                );
-                
-                if (!IsAttackAppropriate(attack, distance))
-                    continue;
-                        
                 Vector2 attackDir = 
                     (CurrentTarget.transform.position - transform.position).normalized;
                 
@@ -141,29 +133,6 @@ namespace Game.Entity.Player.Subsystem
             
             // No attack available → do nothing, wait for cooldowns
         }
-        
-        #region Attack Selection
-        
-        private IEnumerable<AttackData> GetCandidateAttacks(EntityController target)
-        {
-            float distance =
-                Vector2.Distance(transform.position, target.transform.position);
-
-            foreach (var attack in _attackLoadout.Attacks)
-            {
-                if (IsAttackAppropriate(attack, distance))
-                    yield return attack;
-            }
-        }
-        
-        private bool IsAttackAppropriate(AttackData attack, float distance)
-        {
-            // High-level AI intent check ONLY
-            // Exact range validation happens inside AttackSubsystem
-            return distance <= attack.range;
-        }
-        
-        #endregion
         
         // TODO: This could be added to a TargetingSubsystem.
         #region Targeting
