@@ -350,7 +350,7 @@ MonoBehaviour:
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 0}
   cameraShakeEvent: {fileID: 0}
-  levelUpVfxPrefab: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f, type: 3}
-  evolutionVfxPrefab: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
+  levelUpVfxPrefab: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+  evolutionVfxPrefab: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
   levelUpEvent: {fileID: 11400000, guid: 8f0b8dfb2960bfc4183269906b9f649e, type: 2}
   stageUpEvent: {fileID: 11400000, guid: 473df635b2513dc41ba0008b23887f3c, type: 2}

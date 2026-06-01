@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StraightMovement
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Projectile.Movement.Implementations.StraightMovement
   physicsMode: 0
-  speed: 8
+  speed: 6

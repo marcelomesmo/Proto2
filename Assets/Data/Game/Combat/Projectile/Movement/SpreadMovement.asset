@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ea4a8c3c658214190ebb602451f756, type: 3}
   m_Name: SpreadMovement
   m_EditorClassIdentifier: 
-  speed: 15
+  physicsMode: 0
+  speed: 8
   sideOffset: 0.5
