@@ -26,5 +26,5 @@ MonoBehaviour:
   directionMode: 1
   fixedAngle: 0
   areaEffectData: {fileID: 0}
-  chainData: {fileID: 0}
+  chainData: {fileID: 11400000, guid: a9091765b30a52b4db911a52b9c05767, type: 2}
   effects: []

@@ -6674,7 +6674,7 @@ MonoBehaviour:
   spawnData: {fileID: 11400000, guid: 6c90a09c279d7704080b043199102b22, type: 2}
   spawnOnGameStart: 1
   spawnStartDelay: 2
-  triggerVictoryOnCompletion: 1
+  triggerMatchEndOnCompletion: 1
   useProximityTrigger: 0
   triggerRadius: 0
   restartDelay: 0

@@ -8,7 +8,7 @@ namespace Core.Gameplay.Combat.Attack
     public readonly struct DamagePayload
     {
         // What happened
-        public readonly AttackData hitData;                             // null for DOT / effect damage
+        public readonly AttackInstance attack;                             // null for DOT / effect damage
         public readonly int baseDamage;                                 // ALWAYS set
         public readonly IReadOnlyList<DamageModifier> modifiers;
         public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
@@ -16,14 +16,14 @@ namespace Core.Gameplay.Combat.Attack
         public readonly int chainDepth;
         
         public DamagePayload(
-            AttackData hitData,
+            AttackInstance attack,
             int baseDamage,
             IReadOnlyList<DamageModifier> modifiers,
             IReadOnlyList<AttackEffectData> effects,
             DamageSource source,
             int chainDepth = 0)
         {
-            this.hitData = hitData;
+            this.attack = attack;
             this.baseDamage = baseDamage;
             this.modifiers = modifiers;
             this.effects = effects;
@@ -49,22 +49,6 @@ namespace Core.Gameplay.Combat.Attack
             }
 
             return Mathf.Max(0, Mathf.RoundToInt(value));
-        }
-        
-        // Factory for damage-over-time / effect-based damage.
-        // Explicitly bypasses AttackData and effects.
-        public static DamagePayload CreateEffectDamage(
-            int damage,
-            DamageSource source,
-            IReadOnlyList<DamageModifier> modifiers)
-        {
-            return new DamagePayload(
-                hitData: null,
-                baseDamage: damage,
-                modifiers: modifiers,
-                effects: null,
-                source: source
-            );
         }
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b913d65c39efc77499a8373f8899f7c2, type: 3}
-  m_Name: Chain_ChainLightning
+  m_Name: Chain_Leaf
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.ChainAttack.ChainAttackData
-  maxBounces: 2
-  chainRange: 3
+  maxBounces: 0
+  chainRange: 7
   damageMultiplierPerBounce: 0.8
   applyEffectsOnEveryBounce: 1
-  chainVfxPrefab: {fileID: 4924597200019519335, guid: d7bcec26dce33314aa642de17136e02a, type: 3}
+  chainVfxPrefab: {fileID: 4924597200019519335, guid: 0ea9a74da7765de43955071026908de8, type: 3}
   vfxLifetime: 0.2
   hopVfxDelay: 0.15

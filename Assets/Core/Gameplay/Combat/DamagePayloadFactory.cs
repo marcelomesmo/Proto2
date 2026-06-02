@@ -12,12 +12,12 @@ namespace Core.Gameplay.Combat
     public static class DamagePayloadFactory
     {
         public static DamagePayload Create(
-            AttackData attackData,
+            AttackInstance attack,
             int baseDamage,
             ModifierScope scope,
             DamageSource source)
         {
-            if (attackData == null)
+            if (attack == null)
                 return default;
 
             // -----------------------------
@@ -36,14 +36,14 @@ namespace Core.Gameplay.Combat
             {
                 filteredModifiers = ListPool<DamageModifier>.Get();
 
-                HitTypes actualHitTypes = attackData.hitTypes;
+                HitTypes actualHitTypes = attack.Data.hitTypes;
 
                 //Debug.Log($"Total modifiers: {allModifiers.Count}");
                 
                 foreach (var mod in allModifiers)
                 {
                     //Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
-                    if (mod.AppliesTo(attackData, scope, actualHitTypes))
+                    if (mod.AppliesTo(attack.Data, scope, actualHitTypes))
                         filteredModifiers.Add(mod);
                 }
             }
@@ -55,8 +55,8 @@ namespace Core.Gameplay.Combat
             var effects = ListPool<AttackEffectData>.Get();
 
             // Base attack effects
-            if (attackData.Effects != null)
-                effects.AddRange(attackData.Effects);
+            if (attack.Data.Effects != null)
+                effects.AddRange(attack.Data.Effects);
 
             // Upgrade-provided effects
             var attackSubsystem =
@@ -66,7 +66,7 @@ namespace Core.Gameplay.Combat
             if (attackSubsystem != null)
             {
                 var combined =
-                    attackSubsystem.GetCombinedEffects(attackData);
+                    attackSubsystem.GetCombinedEffects(attack.Data);
 
                 if (combined != null)
                 {
@@ -80,7 +80,7 @@ namespace Core.Gameplay.Combat
             // -----------------------------
 
             var payload = new DamagePayload(
-                hitData: attackData,
+                attack: attack,
                 baseDamage: baseDamage,
                 modifiers: filteredModifiers,
                 effects: effects,
@@ -96,11 +96,10 @@ namespace Core.Gameplay.Combat
 
         public static DamagePayload CreateChain(
             DamagePayload previous,
-            AttackData attackData,
             float multiplier,
             bool applyEffectsEveryBounce)
         {
-            if (previous.hitData == null)
+            if (previous.attack == null)
                 return default;
 
             IReadOnlyList<AttackEffectData> effects =
@@ -109,7 +108,7 @@ namespace Core.Gameplay.Combat
                     : null;
 
             return new DamagePayload(
-                hitData: previous.hitData,
+                attack: previous.attack,
                 baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
                 modifiers: previous.modifiers,
                 effects: effects,
@@ -128,7 +127,7 @@ namespace Core.Gameplay.Combat
             List<DamageModifier> modifiers)
         {
             return new DamagePayload(
-                hitData: null,
+                attack: null,
                 baseDamage: damage,
                 modifiers: modifiers,
                 effects: null,

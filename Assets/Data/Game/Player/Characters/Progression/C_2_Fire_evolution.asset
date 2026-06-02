@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56b9a040cbeff14bb328c0712ad1721, type: 3}
+  m_Name: C_2_Fire_evolution
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Progression.CharacterEvolutionData
+  stages:
+  - stage: 0
+    requiredLevel: 0
+    portraitOverride: {fileID: -190135029210641338, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
+    spriteOverride: {fileID: -689054024, guid: f9f0a4c7773e7484d833a498de3a8482, type: 3}
+    animatorOverride: {fileID: 22100000, guid: fa0948cecc52e0d4994318cff016d1d4, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 067eec885c23ad24291276cd0bde879d, type: 2}
+  - stage: 1
+    requiredLevel: 3
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: -1560991571, guid: 7d5b714bca88df44bb4596034e8cf7b3, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 199a2254f9bc60a41930789d3a91650c, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 067eec885c23ad24291276cd0bde879d, type: 2}
+  - stage: 2
+    requiredLevel: 7
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: 43162582, guid: f11b64923c0b8744cb944f1b4e6fa36d, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 2e31cd803b3dffd42aae5aef5a699c19, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 067eec885c23ad24291276cd0bde879d, type: 2}

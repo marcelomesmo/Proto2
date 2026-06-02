@@ -31,9 +31,19 @@ namespace Core.Enum
     
     public enum AttackStatType
     {
+        // TODO: Later, we might want to deprecate DamageModifier and use Damage here instead.
+        //      However, that includes a big refactor to DamagePayloadFactory, etc, and we'll do that later.
         Cooldown,
         Duration,
-        Range
+        Range,
+        
+        ExtraExecutions,
+        ExtraChainBounces,
+
+        // future
+        //ChainRange,
+        ChainDamageMultiplier,
+        //ProjectilePierce
     }
     
     /*

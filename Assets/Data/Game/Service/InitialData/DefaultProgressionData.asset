@@ -32,4 +32,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b99411d3af7d2449b6dd2616a9a88b6, type: 2}
   - {fileID: 11400000, guid: 071ffe988da3de04aa1b07836e9c5c5c, type: 2}
   - {fileID: 11400000, guid: ccea3f814d174314dae72a4b14fdb059, type: 2}
+  - {fileID: 11400000, guid: 01124ebb0c3c6ea45bc25e5af14dfe30, type: 2}
+  - {fileID: 11400000, guid: 2744c721e8078b9439f28d50d7fffebf, type: 2}
+  - {fileID: 11400000, guid: 52156bace88473b44aa3f00aadb15d63, type: 2}
   startingGold: 10000

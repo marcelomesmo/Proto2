@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat;
@@ -28,8 +29,11 @@ namespace Core.Gameplay.Entity.Subsystem
         
         // Active Attack State
         public bool IsAttackChanneling => _channeledAttack != null;
+        public bool IsAttackInProgress => _currentAttack != null || _channeledAttack != null;
         private AttackInstance _channeledAttack;
         private float _channeledAttackTimer;
+        private Coroutine _extraExecutionRoutine;
+        private int _remainingExtraExecutions;
         
         // Helpers - cached
         private BaseEntityStats _stats;
@@ -73,6 +77,12 @@ namespace Core.Gameplay.Entity.Subsystem
 
         protected override void OnDeinitialize()
         {
+            // avoid lingering coroutine
+            if (_extraExecutionRoutine != null)
+            {
+                StopCoroutine(_extraExecutionRoutine);
+                _extraExecutionRoutine = null;
+            }
             // Q: is it better to do this here or let HandleAttackResolveTimeout resolve?
             _currentAttack = null;
             _channeledAttack = null;
@@ -84,9 +94,11 @@ namespace Core.Gameplay.Entity.Subsystem
         
         protected override void HandleTagAdded(GameplayTag tag)
         {
-            if (tag == Controller.Stats.deadTag || tag == Controller.Stats.matchEndedTag)
+            if (tag == Controller.Stats.deadTag ||
+                tag == Controller.Stats.matchEndedTag ||
+                tag == Controller.Stats.stunTag)
             {
-                InterruptChannel();
+                CancelAnyAttackSequence();
             }
         }
 
@@ -128,8 +140,8 @@ namespace Core.Gameplay.Entity.Subsystem
             if (attack == null)
                 return false;
             
-            // Safeguard to prevent new attacks while channeling. Shouldn't be needed if check is properly done in Brain.
-            if (IsAttackChanneling)
+            // Safeguard to prevent new attacks while performing one attack. Shouldn't be needed if check is properly done in Brain.
+            if (IsAttackInProgress)
                 return false;
             
             if (!_attacks.TryGetValue(attack, out var instance))
@@ -151,6 +163,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             _currentAttack = attack;
             _pendingContext = context;
+            _remainingExtraExecutions = attack.GetResolvedExtraExecutions();
             
             _waitingForResolve = true;              // TEMP (see below HandleAttackResolveTimeout)
             _resolveTimer = attackResolveTimeout;   // TEMP (see below HandleAttackResolveTimeout)
@@ -191,9 +204,69 @@ namespace Core.Gameplay.Entity.Subsystem
             // Q: Maybe we could refactor so every attack is added to BeginActiveAttack with duration = 0 for instant attacks?
             if (!keepAttackAlive)
             {
-                _currentAttack = null;
-                _pendingContext = default; // or null if it's a class
+                if (_remainingExtraExecutions > 0)
+                {
+                    _remainingExtraExecutions--;
+
+                    _extraExecutionRoutine = 
+                        StartCoroutine(ExecuteNextAttack());
+
+                    return;
+                }
+                    
+                EndAttackSequence();
             }
+        }
+        
+        //
+        //  Scheduled Executions Handling
+        //
+        private const float DelayBetweenExtraExecutions = 0.15f;
+        private IEnumerator ExecuteNextAttack()
+        {
+            yield return new WaitForSeconds(DelayBetweenExtraExecutions);
+            
+            _extraExecutionRoutine = null;
+            
+            if (_currentAttack == null)
+                yield break;
+
+            if (Controller == null || Controller.IsDead)
+            {
+                EndAttackSequence();
+                yield break;
+            }
+            
+            _waitingForResolve = true;
+            _resolveTimer = attackResolveTimeout;
+            
+            if (Controller.Animator)
+                Controller.Animator.SetTrigger("attack");
+        }
+        private void EndAttackSequence()
+        {
+            _currentAttack = null;
+            _pendingContext = default;
+
+            _remainingExtraExecutions = 0;
+
+            _waitingForResolve = false;
+            _resolveTimer = 0f;
+            
+            _extraExecutionRoutine = null;
+        }
+        
+        private void CancelAnyAttackSequence()
+        {
+            if (_extraExecutionRoutine != null)
+            {
+                StopCoroutine(_extraExecutionRoutine);
+                _extraExecutionRoutine = null;
+            }
+
+            EndAttackSequence();
+
+            InterruptChannel();
         }
 
         //
@@ -210,17 +283,20 @@ namespace Core.Gameplay.Entity.Subsystem
             if (Controller.IsDead)
                 return;
             
+            if (_currentAttack == null)
+            {
+                _waitingForResolve = false;
+                return;
+            }
+            
 #if UNITY_EDITOR
             Debug.LogError(
                 $"[Attack] Attack '{_currentAttack.Data.name}' on '{name}' never resolved.\n" +
                 $"Did you forget the OnAttackHit animation event?",
                 this);
 #endif
-
-            // Failsafe: cancel the attack so the entity doesn't soft-lock
-            _currentAttack = null;
-            _pendingContext = default;
-            _waitingForResolve = false;
+            
+            EndAttackSequence();
         }
 
         #region AttackExecutionMode : Projectile
@@ -275,7 +351,7 @@ namespace Core.Gameplay.Entity.Subsystem
             );
             
             var payload = DamagePayloadFactory.Create(
-                attackData: attack.Data,
+                attack: attack,
                 baseDamage: GetResolvedDamage(attack),
                 scope: ModifierScope.Projectile,
                 source: damageSource
@@ -337,7 +413,7 @@ namespace Core.Gameplay.Entity.Subsystem
             );
             
             var payload = DamagePayloadFactory.Create(
-                attackData: attack.Data,
+                attack: attack,
                 baseDamage: GetResolvedDamage(attack),
                 scope: ModifierScope.Area,
                 source: damageSource
@@ -369,8 +445,9 @@ namespace Core.Gameplay.Entity.Subsystem
             //  Lock movement/brain-facing
             //  (this is done in the Brain)
             //
-            
-            Controller.Animator.SetBool("isChanneling", true);
+           
+            if (Controller.Animator)
+                Controller.Animator.SetBool("isChanneling", true);
 
             if (_presentation)
                 _presentation.LockFacing(true);
@@ -378,7 +455,8 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private void EndChanneledAttack()
         {
-            Controller.Animator.SetBool("isChanneling", false);
+            if (Controller.Animator)
+                Controller.Animator.SetBool("isChanneling", false);
             
             if (_presentation)
                 _presentation.LockFacing(false);
@@ -496,7 +574,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 var attackPower = GetAttackPowerBonus();
                 
                 var payload = DamagePayloadFactory.Create(
-                    attackData: attack.Data,
+                    attack: attack,
                     baseDamage: resolvedDamage,
                     scope: ModifierScope.Melee,
                     source: damageSource
@@ -512,8 +590,6 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private ProjectileContext CreateProjectileContext(AttackInstance attack)
         {
-            Debug.Log("Creating projectile context with range " + attack.GetRange());
-            
             return new ProjectileContext(
                 faction: _stats.faction,
                 range: attack.GetRange(),
@@ -542,15 +618,20 @@ namespace Core.Gameplay.Entity.Subsystem
                 transform.position,
                 context.Target.transform.position
             );
-            
-            Debug.Log("Target distance is " + distance + " range is " + attack.GetRange());
 
             return distance <= attack.GetRange();
         }
 
-        public bool CanExecute(AttackData data) => _attacks.ContainsKey(data);
-        
-        
+        public bool CanExecute(AttackData data)
+        {
+            if (IsAttackInProgress)
+                return false;
+
+            if (!_attacks.TryGetValue(data, out var instance))
+                return false;
+
+            return instance.IsReady;
+        }
 
         private void BuildTargetFilter()
         {
@@ -567,6 +648,8 @@ namespace Core.Gameplay.Entity.Subsystem
             _targetFilter.allowTriggers = allowTriggers;
         }
         
+        // TODO: Later move this to the AttackInstance when we move Damage to AttackStatModifier and when
+        //      AttackInstance gets ownership of the owner stats (should we?).
         private int GetResolvedDamage(AttackInstance attack)
         {
             float value = attack.Data.damage;

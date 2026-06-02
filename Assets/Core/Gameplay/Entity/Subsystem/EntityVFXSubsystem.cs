@@ -85,11 +85,11 @@ namespace Core.Gameplay.Entity.Subsystem
             //    : damagePopupPrefab;
             
             // 2. Spawn Hit VFX treatment.
-            if (payload.hitData != null)
+            if (payload.attack != null)
             {
-                Spawn(payload.hitData.hitVFX, hitAnchor);
+                Spawn(payload.attack.Data.hitVFX, hitAnchor);
 
-                switch (payload.hitData.hitTypes)
+                switch (payload.attack.Data.hitTypes)
                 {
                     case HitTypes.Physical:
                         // Spawn additional VFX if required

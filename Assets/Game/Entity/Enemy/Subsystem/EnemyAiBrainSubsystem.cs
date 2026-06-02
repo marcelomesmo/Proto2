@@ -6,7 +6,6 @@ using Core.Gameplay.Entity.Attack;
 using Core.Gameplay.Entity.Subsystem;
 using Core.Gameplay.Entity.Tags;
 using Game.Entity.Enemy.Stats;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace Game.Entity.Enemy.Subsystem
@@ -113,7 +112,7 @@ namespace Game.Entity.Enemy.Subsystem
                 return; // <--- THIS blocks attack/move before spawn finished!
             }
             
-            if (_attackSubsystem.IsAttackChanneling)
+            if (_attackSubsystem.IsAttackInProgress)
             {
                 _movement.Stop();
                 return;

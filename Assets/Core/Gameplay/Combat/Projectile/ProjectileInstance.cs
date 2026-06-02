@@ -1,6 +1,5 @@
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
-using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Combat.Projectile.Impact;
 using Core.Gameplay.Combat.Projectile.Movement;
 using Core.Interfaces;
@@ -14,7 +13,6 @@ namespace Core.Gameplay.Combat.Projectile
         [Header("Behaviours")]
         public ProjectileMovement movementBehavior;
         public ProjectileImpact impactBehavior;
-        public AttackData attackProperties;
         [SerializeField] private ProjectileLifetimePolicy lifetimePolicy = ProjectileLifetimePolicy.DespawnOnLastHit;
         
         //[Header("VFX")]
@@ -22,9 +20,6 @@ namespace Core.Gameplay.Combat.Projectile
     
         private Faction _ownerFaction;
         public Faction GetOwnerFaction() => _ownerFaction;
-        
-        // per-instance impact context created from the SO
-        // TODO: We might need to create a local ProjectileContext as well later.
         
         // per-instance movement context created from the SO
         private MovementContext _movementContext;
@@ -35,7 +30,10 @@ namespace Core.Gameplay.Combat.Projectile
         private Vector2 _direction = Vector2.zero;
         private float _range = 5f;   // How far the projectile will travel in world units
         private float _rangeSqr;     // Optimization: squared range
-
+        
+        // per-instance impact context created from the SO
+        // TODO: We might need to create a local ProjectileContext as well later.
+        
         // per-instance context created on fire
         private ProjectileContext _context;
         private int _remainingHits;

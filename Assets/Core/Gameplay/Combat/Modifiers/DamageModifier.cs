@@ -49,7 +49,9 @@ namespace Core.Gameplay.Combat.Modifiers
                 return true;
             
             /*
-            // Element check
+            // Element check    
+            // PS: HitType is actually now being used as Element type already, which was a mistake.
+            //      HitType should be stuff like: Normal, Slash, Pyshical, Magical, and then Elemental: Water, Fire, etc.
             if (filterByElement)
             {
                 if (!actualElements.HasValue)

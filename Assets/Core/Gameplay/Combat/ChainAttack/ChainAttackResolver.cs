@@ -9,14 +9,14 @@ namespace Core.Gameplay.Combat.ChainAttack
     public static class ChainAttackResolver
     {
         public static void ResolveChain(
-            AttackData attackData,
+            AttackInstance attack,
             DamagePayload initialPayload,
             IDamageable firstTarget)
         {
-            if (!attackData.chainData)
+            if (!attack.Data.chainData)
                 return;
 
-            var chain = attackData.chainData;
+            var chain = attack.Data.chainData;
 
             var hitTargets = new HashSet<IDamageable>();
             hitTargets.Add(firstTarget);
@@ -24,7 +24,9 @@ namespace Core.Gameplay.Combat.ChainAttack
             var currentPayload = initialPayload;
             var currentTarget = firstTarget;
 
-            for (int i = 0; i < chain.maxBounces; i++)
+            var effectiveMaxBounces = attack.GetResolvedChainBounces();
+
+            for (int i = 0; i < effectiveMaxBounces; i++)
             {
                 var nextTarget = FindNextTarget(
                     currentTarget,
@@ -38,12 +40,12 @@ namespace Core.Gameplay.Combat.ChainAttack
                 hitTargets.Add(nextTarget);
 
                 currentPayload = ModifyPayloadForBounce(
-                    attackData,
+                    attack,
                     currentPayload,
                     i + 1);
 
                 SpawnChainVfx(
-                    attackData,
+                    attack.Data,
                     ((Component)currentTarget).transform,
                     ((Component)nextTarget).transform,
                     i
@@ -97,19 +99,18 @@ namespace Core.Gameplay.Combat.ChainAttack
         }
         
         private static DamagePayload ModifyPayloadForBounce(
-            AttackData attackData,
+            AttackInstance attack,
             DamagePayload previous,
             int bounceIndex)
         {
             float multiplier = Mathf.Pow(
-                attackData.chainData.damageMultiplierPerBounce,     // multiply damage
+                attack.GetResolvedChainDamageMultiplier(),     // multiply damage
                 bounceIndex);
             
             return DamagePayloadFactory.CreateChain(
                 previous,
-                attackData,
                 multiplier,
-                attackData.chainData.applyEffectsOnEveryBounce
+                attack.Data.chainData.applyEffectsOnEveryBounce
             );
         }
         

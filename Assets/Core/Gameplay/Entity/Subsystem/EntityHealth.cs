@@ -125,12 +125,12 @@ namespace Core.Gameplay.Entity.Subsystem
             OnDamageTaken?.Invoke(payload);
             
             // 5. Resolve Chain Attacks: this coupling is intentional (for now).
-            if (payload.hitData != null &&
-                payload.hitData.chainData != null &&
+            if (payload.attack != null &&
+                payload.attack.Data.chainData != null &&
                 payload.chainDepth == 0)
             {
                 ChainAttackResolver.ResolveChain(
-                    payload.hitData,
+                    payload.attack,
                     payload,
                     this
                 );
