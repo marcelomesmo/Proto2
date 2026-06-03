@@ -45,6 +45,12 @@ namespace Core.Enum
         ChainDamageMultiplier,
         //ProjectilePierce
     }
+
+	public enum AttackVariantCondition
+	{	
+		EveryNthCast,
+		RandomChance,
+	}
     
     /*
      * Later, in case we want to differentiate between Element/Damage types.

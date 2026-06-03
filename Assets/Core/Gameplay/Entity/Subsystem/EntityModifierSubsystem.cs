@@ -8,6 +8,7 @@ namespace Core.Gameplay.Entity.Subsystem
     {
         private readonly List<DamageModifier> _damageModifiers = new();
         private readonly List<AttackStatModifier> _attackStatModifiers = new();
+        private readonly List<AttackVariantModifier> _attackVariantModifiers = new();
         private readonly List<HealthModifier> _healthModifiers = new();
         private readonly List<ExperienceModifier> _xpModifiers = new();
 
@@ -18,6 +19,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             _damageModifiers.Clear();
             _attackStatModifiers.Clear();
+            _attackVariantModifiers.Clear();
             _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
@@ -26,6 +28,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             _damageModifiers.Clear();
             _attackStatModifiers.Clear();
+            _attackVariantModifiers.Clear();
             _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
@@ -63,6 +66,23 @@ namespace Core.Gameplay.Entity.Subsystem
         
         public IReadOnlyList<AttackStatModifier> AttackStatModifiers =>
             _attackStatModifiers;
+        
+        // ----------------
+        // Attack Variants (AttackData replacement)
+        // ----------------
+        
+        public void AddAttackVariantModifier(AttackVariantModifier modifier)
+        {
+            _attackVariantModifiers.Add(modifier);
+        }
+
+        public void RemoveAttackVariantModifier(AttackVariantModifier modifier)
+        {
+            _attackVariantModifiers.Remove(modifier);
+        }
+        
+        public IReadOnlyList<AttackVariantModifier> AttackVariantModifiers =>
+            _attackVariantModifiers;
         
         // ----------------
         // Health

@@ -9,6 +9,9 @@ namespace Core.Gameplay.Combat.Attack
         private readonly EntityModifierSubsystem _modifiers;
         public AttackData Data { get; }
         public float CooldownRemaining { get; private set; }
+        
+        private int _castCount;
+        public int CastCount => _castCount;
 
         public AttackInstance(AttackData data, EntityModifierSubsystem modifiers)
         {
@@ -27,6 +30,7 @@ namespace Core.Gameplay.Combat.Attack
 
         public void Consume()
         {
+            _castCount++;
             CooldownRemaining = GetCooldown();
         }
         
@@ -115,6 +119,17 @@ namespace Core.Gameplay.Combat.Attack
                     modifiers: _modifiers.AttackStatModifiers
                 )
             );
+        }
+        
+        public AttackInstance GetResolvedAttackVariant(
+            AttackContext context,
+            EntityAttackSubsystem attackSubsystem)
+        {
+            return AttackVariantResolver.Resolve(
+                this,
+                context,
+                _modifiers.AttackVariantModifiers,
+                attackSubsystem);
         }
 
         private ModifierScope ResolveScope()

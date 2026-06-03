@@ -24,6 +24,7 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private readonly Dictionary<AttackData, AttackInstance> _attacks = new();
         public IReadOnlyDictionary<AttackData, AttackInstance> Attacks => _attacks;
+        private readonly Dictionary<AttackData, AttackInstance> _variantInstances = new();
         
         private readonly Dictionary<AttackData, List<AttackEffectData>> _runtimeAttackEffects = new();
         
@@ -40,6 +41,7 @@ namespace Core.Gameplay.Entity.Subsystem
         private EntityController _controller;
         private EntityAttackLoadout _attackLoadout;
         private EntityModifierSubsystem _modifiers;
+        private AttackInstance _sourceAttack;
         private AttackInstance _currentAttack;
         private AttackContext _pendingContext;
         private EntityPresentationSubsystem _presentation;
@@ -84,6 +86,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 _extraExecutionRoutine = null;
             }
             // Q: is it better to do this here or let HandleAttackResolveTimeout resolve?
+            _sourceAttack = null;
             _currentAttack = null;
             _channeledAttack = null;
             _pendingContext = default;
@@ -153,17 +156,30 @@ namespace Core.Gameplay.Entity.Subsystem
             if (!IsTargetInRange(instance, context))
                 return false;
 
-            ExecuteAttack(instance, context);
+            AttackInstance resolvedAttack  =
+                instance.GetResolvedAttackVariant(
+                    context,
+                    this);
+            
+            ExecuteAttack(
+                sourceAttack: instance,
+                executionAttack: resolvedAttack,
+                context: context);
+            
             instance.Consume();
 
             return true;
         }
         
-        private void ExecuteAttack(AttackInstance attack, AttackContext context)
+        private void ExecuteAttack(
+            AttackInstance sourceAttack,
+            AttackInstance executionAttack,
+            AttackContext context)
         {
-            _currentAttack = attack;
+            _sourceAttack = sourceAttack;
+            _currentAttack = executionAttack;
             _pendingContext = context;
-            _remainingExtraExecutions = attack.GetResolvedExtraExecutions();
+            _remainingExtraExecutions = executionAttack.GetResolvedExtraExecutions();
             
             _waitingForResolve = true;              // TEMP (see below HandleAttackResolveTimeout)
             _resolveTimer = attackResolveTimeout;   // TEMP (see below HandleAttackResolveTimeout)
@@ -172,7 +188,7 @@ namespace Core.Gameplay.Entity.Subsystem
             if (Controller.Animator)
                 Controller.Animator.SetTrigger("attack");
 
-            OnAttackExecuted?.Invoke(attack);
+            OnAttackExecuted?.Invoke(executionAttack);
         }
 
         // Called via animation event
@@ -245,6 +261,7 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         private void EndAttackSequence()
         {
+            _sourceAttack = null;
             _currentAttack = null;
             _pendingContext = default;
 
@@ -462,6 +479,8 @@ namespace Core.Gameplay.Entity.Subsystem
                 _presentation.LockFacing(false);
 
             _channeledAttack = null;
+            
+            _sourceAttack = null;
             _currentAttack = null;
 
             _pendingContext = default;
@@ -740,6 +759,7 @@ namespace Core.Gameplay.Entity.Subsystem
         private void RebuildAttackInstances()
         {
             _attacks.Clear();
+            _variantInstances.Clear();
             
             // Initialize attack reference dictionary.
             foreach (var attack in _attackLoadout.Attacks)
@@ -754,6 +774,29 @@ namespace Core.Gameplay.Entity.Subsystem
 
                 _attacks.Add(attack, new AttackInstance(attack, _modifiers));
             }
+        }
+        
+        public AttackInstance GetOrCreateVariantInstance(
+            AttackData attackData)
+        {
+            if (attackData == null)
+                return null;
+
+            if (_attacks.TryGetValue(attackData, out var loadoutInstance))
+                return loadoutInstance;
+
+            if (_variantInstances.TryGetValue(attackData, out var variantInstance))
+                return variantInstance;
+
+            variantInstance = new AttackInstance(
+                attackData,
+                _modifiers);
+
+            _variantInstances.Add(
+                attackData,
+                variantInstance);
+
+            return variantInstance;
         }
         
         #endregion
