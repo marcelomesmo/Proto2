@@ -2,7 +2,6 @@ using System.Collections;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Services.Save;
-using Core.Upgrades;
 using Core.Upgrades.Database;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -68,10 +67,14 @@ namespace Core.Services
             RegisterSaveManager();
             
             //
-            // Register (catalogs/databases)
+            // Register catalogs/databases
             //
-            // Upgrade Databases (always register interface, use Null object when missing)
-            RegisterUpgradeDatabase();
+            
+            RegisterUpgradeDatabase(); // Upgrade Databases (always register interface, use Null object when missing)
+            
+            //
+            // Managers
+            //
             
             RegisterMatchLifecycleHook();
 

@@ -221,6 +221,8 @@ namespace Game.Entity.Enemy.Subsystem
         #endregion
         
         // TODO: This could be added to a TargetingSubsystem.
+        // TryAcquireTarget() becomes a configurable acquisition strategy, something like: ClosestEnemyTargetingStrategy (similar to what we've done for ProjectileMovement/Impact).
+        // Also probably extend with FindClosestEnemy(), FindClosestAlly(), FindTargetsInRadius().
         #region Targeting
         
         private readonly List<Collider2D> _overlapResults = new();

@@ -2,7 +2,6 @@ using System;
 using Core.Services;
 using Core.Services.Save;
 using Core.Services.Save.Storage;
-using Core.Upgrades;
 using Core.Upgrades.Database;
 using Game.Services.Meta;
 using UnityEngine;
@@ -23,13 +22,12 @@ namespace Game.Services.Save
         private SaveSerializer<GameSave> _save;
         private IUpgradeDatabase _upgradeDatabase;
 
+        // TODO: This needs to go to ISaveManager and become ISave.
         public GameSave Profile => _save.Data;
 
         // UI Events
         public event Action<int> OnGoldChanged;
         public event Action<string> OnCharacterUnlocked;
-        public event Action<string> OnUpgradeUnlocked;
-        public event Action<string, int> OnUpgradeLevelChanged;
 
         // ------------------------------------
 
@@ -99,17 +97,6 @@ namespace Game.Services.Save
             {
                 Profile.unlockedCharacters.Add(id);
             }
-            
-            // TODO: REMOVE THIS AND MOVE TO INITIALIZER?
-            // TEMP test
-            foreach (var upgrade in defaults.startingUnlockedUpgrades)
-            {
-                UnlockUpgrade(upgrade.upgradeId);
-            }
-            //UnlockUpgrade("xp_bonus");
-            //UnlockUpgrade("damage_global_1");
-            //UnlockUpgrade("fireball_burn");
-            //UnlockUpgrade("damage_fire_1");
 
             Save();
 
@@ -169,94 +156,7 @@ namespace Game.Services.Save
         // Upgrades
         // ------------------------------------
 
-        private UpgradeProgress GetOrCreateUpgrade(string id)
-        {
-            foreach (var u in Profile.upgrades)
-            {
-                if (u.id == id)
-                    return u;
-            }
-
-            var progress = new UpgradeProgress
-            {
-                id = id,
-                unlocked = false,
-                level = 0
-            };
-
-            Profile.upgrades.Add(progress);
-            return progress;
-        }
-
-        public bool IsUpgradeUnlocked(string id) =>
-            GetOrCreateUpgrade(id).unlocked;
-
-        public int GetUpgradeLevel(string id) =>
-            GetOrCreateUpgrade(id).level;
-        
-        public bool CanPurchaseUpgrade(string id)
-        {
-            var p = GetOrCreateUpgrade(id);
-
-            if (!p.unlocked)
-                return false;
-
-            if (!_upgradeDatabase.TryGet(id, out var def))
-                return false;
-
-            return p.level < def.maxLevel;
-        }
-        
-        public int GetNextUpgradeCost(string id)
-        {
-            var p = GetOrCreateUpgrade(id);
-
-            if (_upgradeDatabase == null)
-                return int.MaxValue;
-            
-            if (!_upgradeDatabase.TryGet(id, out var def))
-                return int.MaxValue;
-
-            int nextLevel = p.level + 1;
-            
-            return def.GetCostForLevel(nextLevel);
-        }
-        
-        public bool TryPurchaseUpgrade(string id)
-        {
-            if (!CanPurchaseUpgrade(id))
-                return false;
-            
-            var p = GetOrCreateUpgrade(id);
-
-            if (!_upgradeDatabase.TryGet(id, out var def))
-                return false;
-            
-            int cost = def.GetCostForLevel(p.level + 1);
-            
-            if (!SpendGold(cost))
-                return false;
-            
-            p.level++;
-            Save();
-
-            OnUpgradeLevelChanged?.Invoke(id, p.level);
-
-            return true;
-        }
-        
-        public void UnlockUpgrade(string id)
-        {
-            var p = GetOrCreateUpgrade(id);
-            
-            if (p.unlocked)
-                return;
-            
-            p.unlocked = true;
-            Save();
-
-            OnUpgradeUnlocked?.Invoke(id);
-        }
+        // Moved to UpgradeManager.cs
 
         // ------------------------------------
         // Match Stats

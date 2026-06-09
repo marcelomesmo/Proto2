@@ -33,7 +33,7 @@ namespace Game.Services.Meta
             if (save == null)
             {
                 // No save -> no upgrades.
-                gameController.UpgradeManager.LoadUpgrades(null);
+                gameController.UpgradeRuntimeManager.LoadUpgrades(null);
                 return;
             }
 
@@ -41,7 +41,7 @@ namespace Game.Services.Meta
             if (!ServiceLocator.TryGet<IUpgradeDatabase>(out var db) || db == null)
             {
                 // No database -> no upgrades.
-                gameController.UpgradeManager.LoadUpgrades(null);
+                gameController.UpgradeRuntimeManager.LoadUpgrades(null);
                 return;
             }
 
@@ -49,9 +49,6 @@ namespace Game.Services.Meta
 
             foreach (var p in save.Profile.upgrades)
             {
-                if (!p.unlocked)
-                    continue;
-
                 // Only purchased upgrades apply during the match.
                 if (p.level <= 0)
                     continue;
@@ -67,7 +64,7 @@ namespace Game.Services.Meta
             }
 
             // Registers the upgrades loaded in the UpgradeManager.
-            gameController.UpgradeManager.LoadUpgrades(runtime);
+            gameController.UpgradeRuntimeManager.LoadUpgrades(runtime);
 
             _sceneController = FindFirstObjectByType<MatchSceneController>();
 

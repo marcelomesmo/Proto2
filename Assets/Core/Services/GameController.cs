@@ -3,7 +3,7 @@ using Core.Enum;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Services.Save;
-using Game.Services.Meta;
+using Core.Upgrades.Database;
 using UnityEngine;
 
 namespace Core.Services
@@ -24,6 +24,7 @@ namespace Core.Services
         
         public MatchStats MatchStats { get; private set; }
         public MatchRuntime MatchRuntime { get; private set; }
+        public UpgradeRuntimeManager UpgradeRuntimeManager { get; private set; }
         public UpgradeManager UpgradeManager { get; private set; }
       
         // --------------------------------------------------
@@ -39,7 +40,12 @@ namespace Core.Services
                 ? matchStatsProvider.CreateStats()
                 : new NullMatchStats();
 
+            UpgradeRuntimeManager = new UpgradeRuntimeManager();
+            
             UpgradeManager = new UpgradeManager();
+            UpgradeManager.Initialize(
+                ServiceLocator.Get<ISaveManager>(),
+                ServiceLocator.Get<IUpgradeDatabase>());
             
             SetGameSpeed(1f);
         }
@@ -55,7 +61,7 @@ namespace Core.Services
             _isPaused = false;
             MatchRuntime.BeginMatch();
             MatchStats.OnMatchStart();
-            UpgradeManager.OnMatchStart();
+            UpgradeRuntimeManager.OnMatchStart();
             
             // Game-layer extension point (no Game types referenced here).
             if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
@@ -69,7 +75,7 @@ namespace Core.Services
             ShutdownCombatRuntime();
             
             MatchStats.OnMatchEnd();
-            UpgradeManager.OnMatchEnd();
+            UpgradeRuntimeManager.OnMatchEnd();
             ServiceLocator.Get<ISaveManager>().OnMatchEnd();
         }
         

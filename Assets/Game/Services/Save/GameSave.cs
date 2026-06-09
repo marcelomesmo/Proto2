@@ -33,7 +33,6 @@ namespace Game.Services.Save
     public sealed class UpgradeProgress
     {
         public string id;
-        public bool unlocked;
         public int level;
     }
 }

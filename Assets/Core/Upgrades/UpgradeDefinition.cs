@@ -18,6 +18,10 @@ namespace Core.Upgrades
         [Header("Progression")]
         public int maxLevel = 5;
         
+        [Header("Unlock Requirements")]
+        [SerializeField] private UpgradeUnlockRule upgradeUnlockRule;
+        public UpgradeUnlockRule UnlockRule => upgradeUnlockRule;
+        
         [Tooltip("Cost per level (index = level - 1)")]
         [SerializeField]
         private int[] levelCosts;
@@ -52,6 +56,9 @@ namespace Core.Upgrades
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            //
+            //  Level Cost check
+            //
             if (levelCosts == null ||
                 levelCosts.Length != maxLevel)
             {
@@ -68,6 +75,9 @@ namespace Core.Upgrades
                     this);
             }
             
+            //
+            //  Effects check
+            //
             if (Effects == null) return;
 
             var set = new HashSet<UpgradeEffect>();
@@ -76,6 +86,34 @@ namespace Core.Upgrades
                 if (Effects[i] != null && !set.Add(Effects[i]))
                 {
                     Debug.LogWarning($"Duplicate effect in {name}: {Effects[i].name}", this);
+                }
+            }
+            
+            //
+            //  Requirements check
+            //
+            if (upgradeUnlockRule?.Requirements == null)
+                return;
+
+            foreach (var requirement in upgradeUnlockRule.Requirements)
+            {
+                if (requirement == null)
+                    continue;
+
+                if (requirement.Upgrade == null)
+                {
+                    Debug.LogWarning(
+                        $"[UpgradeDefinition] '{name}' contains a null requirement.",
+                        this);
+
+                    continue;
+                }
+
+                if (requirement.Upgrade == this)
+                {
+                    Debug.LogWarning(
+                        $"[UpgradeDefinition] '{name}' cannot require itself.",
+                        this);
                 }
             }
         }

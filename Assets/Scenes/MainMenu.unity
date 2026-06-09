@@ -1578,10 +1578,10 @@ RectTransform:
   - {fileID: 1188644551}
   m_Father: {fileID: 67167938}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &802367794
 GameObject:
@@ -3783,11 +3783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945066910831002410, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1820
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5945066910831002410, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5945066910831002410, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3840,6 +3840,10 @@ PrefabInstance:
     - target: {fileID: 7682658619321706724, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
       propertyPath: m_Name
       value: RoosterPanelController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682658619321706724, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4001,11 +4005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3057600394170103575, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1820
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3057600394170103575, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3057600394170103575, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4058,10 +4062,6 @@ PrefabInstance:
     - target: {fileID: 6388528940403307423, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
       propertyPath: m_Name
       value: UpgradePanelController
-      objectReference: {fileID: 0}
-    - target: {fileID: 6388528940403307423, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

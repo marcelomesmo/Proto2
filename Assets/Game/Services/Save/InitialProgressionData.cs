@@ -10,7 +10,6 @@ namespace Game.Services.Save
     public sealed class InitialProgressionData : ScriptableObject
     {
         public List<string> startingUnlockedCharacters;
-        public List<UpgradeDefinition> startingUnlockedUpgrades;
         public int startingGold = 0;
     }
 }

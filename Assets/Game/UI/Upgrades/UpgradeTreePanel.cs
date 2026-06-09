@@ -1,22 +1,26 @@
 using System.Collections.Generic;
 using Core.Services;
+using Core.Services.Meta;
 using Core.Services.Save;
 using Game.Services.Save;
 using UnityEngine;
 
 namespace Game.UI.Upgrades
 {
-    public sealed class UpgradePanelController : MonoBehaviour
+    public sealed class UpgradeTreePanel : MonoBehaviour
     {
         [Header("UI")]
-        [SerializeField] private List<UpgradeButton> upgradeButtons;
+        [SerializeField] private List<UpgradeNode> upgradeButtons;
         [SerializeField] private UpgradeTooltip tooltip;
+        [SerializeField] private UpgradeConnectionRenderer connections;
 
         private GameSaveManager _save;
+        private UpgradeManager _upgradeManager;
         
         private void Awake()
         {
             _save = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
+            _upgradeManager = ServiceLocator.Get<GameController>().UpgradeManager as UpgradeManager;
 
             if (_save == null)
             {
@@ -24,19 +28,26 @@ namespace Game.UI.Upgrades
                 enabled = false;
                 return;
             }
+            
+            if (_upgradeManager == null)
+            {
+                Debug.LogError("[UpgradePanelController] No UpgradeManager registered.");
+                enabled = false;
+                return;
+            }
 
             Build();
 
-            _save.OnUpgradeLevelChanged += HandleUpgradeChanged;
+            _upgradeManager.OnUpgradeLevelChanged += HandleUpgradeChanged;
             _save.OnGoldChanged += HandleGoldChanged;
         }
         
         private void OnDestroy()
         {
-            if (_save == null)
+            if (_save == null || _upgradeManager == null)
                 return;
 
-            _save.OnUpgradeLevelChanged -= HandleUpgradeChanged;
+            _upgradeManager.OnUpgradeLevelChanged -= HandleUpgradeChanged;
             _save.OnGoldChanged -= HandleGoldChanged;
         }
 
@@ -44,6 +55,8 @@ namespace Game.UI.Upgrades
         {
             foreach (var btn in upgradeButtons)
                 btn.Initialize(this);
+            
+            connections?.Build(upgradeButtons);
         }
         
         private void HandleUpgradeChanged(string id, int level)

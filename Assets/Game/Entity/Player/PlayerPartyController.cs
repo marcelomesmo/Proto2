@@ -117,7 +117,7 @@ namespace Game.Entity.Player
         private void ApplyUpgradesToParty()
         {
             var upgradeManager =
-                ServiceLocator.Get<GameController>()?.UpgradeManager;
+                ServiceLocator.Get<GameController>()?.UpgradeRuntimeManager;
 
             if (upgradeManager == null)
                 return;
@@ -135,11 +135,11 @@ namespace Game.Entity.Player
         
         private void ApplyUpgradesToEntity(
             EntityController entity,
-            UpgradeManager upgradeManager)
+            UpgradeRuntimeManager upgradeRuntimeManager)
         {
             var context = new UpgradeContext(entity);
             
-            foreach (var runtime in upgradeManager.ActiveUpgrades)
+            foreach (var runtime in upgradeRuntimeManager.ActiveUpgrades)
             {
                 var def = runtime.Definition;
                 int level = runtime.Level;
