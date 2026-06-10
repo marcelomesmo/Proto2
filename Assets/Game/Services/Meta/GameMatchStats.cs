@@ -22,6 +22,7 @@ namespace Game.Services.Meta
         // Events for UI/external systems
         public event Action<int> OnEnemiesKilledChanged;
         public event Action<int> OnWaveClearedChanged;  // todo: add to analytics screen? end of level ui?
+        public event Action<int> OnWaveStartedChanged;
         public event Action<float> OnMatchTimeChanged;
         public event Action<LootType, int> OnLootCollectedChanged;
         
@@ -41,6 +42,11 @@ namespace Game.Services.Meta
         {
             EnemiesKilled++;
             OnEnemiesKilledChanged?.Invoke(EnemiesKilled);
+        }
+        public void RegisterWaveStarted(int waveIndex)
+        {
+            int waveNumber = waveIndex + 1;
+            OnWaveStartedChanged?.Invoke(waveNumber);
         }
         public void RegisterWaveCleared(int waveIndex)
         {

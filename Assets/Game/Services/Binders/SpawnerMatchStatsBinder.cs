@@ -19,13 +19,17 @@ namespace Game.Services.Binders
             if (_matchStats == null || spawner == null)
                 return;
 
+            spawner.OnWaveStartedSignal += _matchStats.RegisterWaveStarted;
             spawner.OnWaveCompletedSignal += _matchStats.RegisterWaveCleared;
         }
 
         private void OnDestroy()
         {
             if (spawner != null && _matchStats != null)
+            {
+                spawner.OnWaveStartedSignal -= _matchStats.RegisterWaveStarted;
                 spawner.OnWaveCompletedSignal -= _matchStats.RegisterWaveCleared;
+            }
         }
     }
 }

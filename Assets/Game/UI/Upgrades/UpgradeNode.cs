@@ -34,12 +34,16 @@ namespace Game.UI.Upgrades
         private GameSaveManager _save;
         private UpgradeManager _upgradeManager;
         
+        private RectTransform _rectTransform;
+        
         public void Initialize(UpgradeTreePanel treePanel)
         {
             _treePanel = treePanel;
             _save = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
             _upgradeManager = ServiceLocator.Get<GameController>().UpgradeManager;
-
+            
+            _rectTransform = transform as RectTransform;
+            
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnClicked);
 
@@ -98,7 +102,7 @@ namespace Game.UI.Upgrades
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _treePanel.ShowTooltip(upgrade);
+            _treePanel.ShowTooltip(upgrade, _rectTransform);
         }
 
         public void OnPointerExit(PointerEventData eventData)

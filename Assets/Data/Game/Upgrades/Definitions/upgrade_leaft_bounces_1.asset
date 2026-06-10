@@ -17,6 +17,11 @@ MonoBehaviour:
   description: '[Leaf] now bounces between 3 enemies.'
   icon: {fileID: 21300000, guid: 313eb4d0157f6ec418d857892d7b44ad, type: 3}
   maxLevel: 1
+  upgradeUnlockRule:
+    mode: 0
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 071ffe988da3de04aa1b07836e9c5c5c, type: 2}
+      requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
   - '[Leaf] +2 Bounces'

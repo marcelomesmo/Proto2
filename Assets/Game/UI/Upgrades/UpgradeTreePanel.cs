@@ -75,9 +75,9 @@ namespace Game.UI.Upgrades
                 btn.Refresh();
         }
 
-        public void ShowTooltip(Core.Upgrades.UpgradeDefinition def)
+        public void ShowTooltip(Core.Upgrades.UpgradeDefinition def, RectTransform nodePosition)
         {
-            tooltip?.Show(def);
+            tooltip?.Show(def, nodePosition);
         }
 
         public void HideTooltip()

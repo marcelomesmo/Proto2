@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1628003009989661345, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628003009989661345, guid: 49fb7096760e7044f942e457606a1390, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2040420345007629619, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: lootData
       value: 
@@ -62,16 +70,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Size.y
-      value: 6
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8008818501793099674, guid: ea188837054ffb748882a529d0075542, type: 3}
+      objectReference: {fileID: 6660783624410144326, guid: 9c779a4c1432be148bd4af7b73033570, type: 3}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

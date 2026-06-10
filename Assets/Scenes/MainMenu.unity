@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2344270669467322306, guid: 1346f8be3088620449e4bf49172220a0, type: 3}
+  m_Sprite: {fileID: 6660783624410144326, guid: 9c779a4c1432be148bd4af7b73033570, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2095,7 +2095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -164.4375, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1188644552
@@ -3517,7 +3517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 490}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1958757102
@@ -3841,10 +3841,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoosterPanelController
       objectReference: {fileID: 0}
-    - target: {fileID: 7682658619321706724, guid: f2cca1c6b280b0c4497493c7f50ce523, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4061,7 +4057,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6388528940403307423, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
       propertyPath: m_Name
-      value: UpgradePanelController
+      value: UpgradeTreePanelController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6388528940403307423, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105952494443178063, guid: 71e9b6ae20785e843bfa3e749bdc108c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -582.63135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

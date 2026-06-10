@@ -15,8 +15,11 @@ MonoBehaviour:
   upgradeId: damage_fire_1
   displayName: Fire Synergy
   description: Increase all [Fire] damage by 1.
-  icon: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
+  icon: {fileID: -1270652384455538060, guid: e8c838ad0005adf43b1da7e39e913f4b, type: 3}
   maxLevel: 3
+  upgradeUnlockRule:
+    mode: 0
+    requirements: []
   levelCosts: 0a000000320000004b000000
   levelDescriptions:
   - Fire Damage +1

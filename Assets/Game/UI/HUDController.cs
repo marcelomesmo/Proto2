@@ -19,6 +19,7 @@ namespace Game.UI
         
         [Header("Stats")]
         [SerializeField] private TextMeshProUGUI killText;
+        [SerializeField] private TextMeshProUGUI wavesText;
         [SerializeField] private TextMeshProUGUI matchTimer;
         
         //[Header("Stats")]
@@ -39,6 +40,8 @@ namespace Game.UI
             
             gameStats
                 .OnEnemiesKilledChanged += UpdateKillCounter;
+            gameStats.
+                OnWaveStartedChanged += UpdateWaveCounter;
             gameStats
                 .OnMatchTimeChanged += UpdateMatchClock;
         }
@@ -55,6 +58,8 @@ namespace Game.UI
             
             gameStats
                 .OnEnemiesKilledChanged -= UpdateKillCounter;
+            gameStats.
+                OnWaveStartedChanged -= UpdateWaveCounter;
             gameStats
                 .OnMatchTimeChanged -= UpdateMatchClock;
         }
@@ -94,6 +99,11 @@ namespace Game.UI
         private void UpdateKillCounter(int count)
         {
             killText.text = count.ToString();
+        }
+        
+        private void UpdateWaveCounter(int count)
+        {
+            wavesText.text = count.ToString();
         }
         
         private void UpdateMatchClock(float time)

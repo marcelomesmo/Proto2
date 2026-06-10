@@ -194,7 +194,7 @@ namespace Core.Gameplay.Entity.Subsystem
         private Transform ResolveAnchorForTag(GameplayTag tag)
         {
             if (tag == Controller.Stats.burnTag)
-                return statusEffectDamageAnchor;
+                return statusEffectHeadAnchor;//statusEffectDamageAnchor;
 
             if (tag == Controller.Stats.stunTag || tag == Controller.Stats.slowTag)
                 return statusEffectHeadAnchor;
