@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56b9a040cbeff14bb328c0712ad1721, type: 3}
+  m_Name: C_2_Water_evolution
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Progression.CharacterEvolutionData
+  stages:
+  - stage: 0
+    requiredLevel: 0
+    portraitOverride: {fileID: 1989722942000415948, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
+    spriteOverride: {fileID: 1183628967, guid: cc5c06d63d7c3e548884343c83320f2c, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 297896574beaccc4185ad6f2775e77a9, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 78a23e813ca64e742855b7a8a68b7ef0, type: 2}
+  - stage: 1
+    requiredLevel: 5
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: 119338116, guid: 28a7fdd7570361b4b92ee6e1f5d8eb2b, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 297896574beaccc4185ad6f2775e77a9, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 78a23e813ca64e742855b7a8a68b7ef0, type: 2}
+  - stage: 2
+    requiredLevel: 7
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: 159443992, guid: c2299c38db6a48147ac78500b530e5f7, type: 3}
+    animatorOverride: {fileID: 22100000, guid: 297896574beaccc4185ad6f2775e77a9, type: 2}
+    attackLoadoutOverride: {fileID: 11400000, guid: 78a23e813ca64e742855b7a8a68b7ef0, type: 2}
