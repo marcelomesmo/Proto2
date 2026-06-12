@@ -1,6 +1,7 @@
 using System;
 using Core.Enum;
 using Core.Gameplay.Entity.Tags;
+using Game.Entity.Presentation;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
@@ -20,14 +21,44 @@ namespace Core.Gameplay.Entity.Subsystem
         public event Action<FacingDirection> OnFacingChanged;
         private bool _facingLocked;
         
+        // TODO: if we later want timers in status icons, we add this here and subscribe to the events.
+        //private EntityStatusEffectSubsystem _statusEffects;
+        private EntityStatusIconController _statusIcons;
+        
         protected override void OnInitialize()
         {
             // Explicit initial state — no ambiguity
             SetFacing(FacingDirection.Left, force: true);
+
+            // TODO: maybe later replace with a reference?
+            _statusIcons =
+                Controller.GetComponentInChildren<EntityStatusIconController>();
+            
+            // TODO: (see above)
+            /*
+                _statusEffects =
+                    Controller.GetComponent<EntityStatusEffectSubsystem>();
+
+                if (_statusEffects != null)
+                {
+                    _statusEffects.OnStatusAdded += HandleStatusAdded;
+                    _statusEffects.OnStatusRemoved += HandleStatusRemoved;
+                    _statusEffects.OnStatusUpdated += HandleStatusUpdated;
+                }
+
+                and then in HandleStatusAdded we do:
+                    _statusIcons?.Add(effect);
+                instead of having in HandleTagAdded the _statusIcons?.Add(tag).
+             */
         }
 
         protected override void HandleTagAdded(GameplayTag tag)
         {
+            if(tag == null)
+                return;
+
+            _statusIcons?.Add(tag);
+            
             if (tag == Controller.Stats.deadTag)
             {
                 Controller.Animator.SetBool("isDead", true);
@@ -37,6 +68,11 @@ namespace Core.Gameplay.Entity.Subsystem
                 Controller.Animator.ResetTrigger("dash");
                 Controller.Animator.ResetTrigger("spawned");
             }
+        }
+
+        protected override void HandleTagRemoved(GameplayTag tag)
+        {
+            _statusIcons?.Remove(tag);
         }
         
         // ---------------------------

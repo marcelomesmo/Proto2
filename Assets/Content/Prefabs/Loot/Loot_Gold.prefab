@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1628003009989661345, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1628003009989661345, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2040420345007629619, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: lootData
@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6660783624410144326, guid: 9c779a4c1432be148bd4af7b73033570, type: 3}
+      objectReference: {fileID: 7028616704906629411, guid: c16a3b0acedc1bd4b8f9b02ac65e872f, type: 3}
     - target: {fileID: 4268124221879179666, guid: 49fb7096760e7044f942e457606a1390, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

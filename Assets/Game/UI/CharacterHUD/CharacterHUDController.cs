@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Gameplay.Entity;
-using Game.Entity.Player.Progression;
 using Game.Entity.Player.Subsystem;
 using UnityEngine;
 

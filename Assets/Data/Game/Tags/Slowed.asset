@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Slowed
   m_EditorClassIdentifier: 
   lifetime: 1
-  vfxPrefab: {fileID: 1545806602296978, guid: f62036f89f48cb64c927acdc92d09650, type: 3}
+  vfxPrefab: {fileID: 0}

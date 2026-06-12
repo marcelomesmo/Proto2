@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Burned
   m_EditorClassIdentifier: 
   lifetime: 1
-  vfxPrefab: {fileID: 1545806602296978, guid: fcb3577a4ae77884291f85682e10aefd, type: 3}
+  vfxPrefab: {fileID: 0}

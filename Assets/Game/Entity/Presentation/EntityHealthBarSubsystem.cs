@@ -1,7 +1,7 @@
 using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
 
-namespace Game.Entity.Utils
+namespace Game.Entity.Presentation
 {
     public class EntityHealthBarSubsystem : BaseSubsystem
     {
