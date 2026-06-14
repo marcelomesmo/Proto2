@@ -28,7 +28,7 @@ namespace Game.Entity.Enemy.Stats
         [Header("Targeting")]
         public float aggroRadius = 8f;
         public float aggroTolerance = 10f;
-        public LayerMask targetEntityLayer;
+        public LayerMask combatEntityLayers;
         
         [Header("Attributes")]
         public int xpReward = 5;

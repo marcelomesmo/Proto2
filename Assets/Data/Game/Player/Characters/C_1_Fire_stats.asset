@@ -28,6 +28,6 @@ MonoBehaviour:
   speedMult: 1
   thinkingTime: 1.5
   globalCooldown: 0.5
-  targetEntityLayer:
+  combatEntityLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768

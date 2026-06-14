@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: E_1_OneEye_channeler_attacks
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
-  - {fileID: 11400000, guid: 3b3374a6a6d95364787ab42625c3c312, type: 2}
+  - {fileID: 11400000, guid: 03c4fe4aca850e847be07ba16bbe3c66, type: 2}
+  - {fileID: 11400000, guid: 6abb7eb7d0a29134a94909c5223ac621, type: 2}

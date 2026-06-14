@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
-  m_Name: Ranged_Fireray
+  m_Name: Healing_HealTarget_Projectile
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: 
   icon: {fileID: 0}
   description: 
-  executionMode: 2
-  combatActionType: 0
-  amount: 5
+  executionMode: 1
+  combatActionType: 1
+  amount: 1
   range: 6
-  cooldown: 15
-  hitTypes: 4
-  hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
+  cooldown: 4
+  hitTypes: 2
+  hitVFX: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
-  targetType: 1
+  targetType: 2
   targetLayers:
     serializedVersion: 2
-    m_Bits: 256
-  projectilePrefab: {fileID: 0}
+    m_Bits: 512
+  projectilePrefab: {fileID: 5975751646184246127, guid: 28e56a6de4847cc4382085c56ae9bf3d, type: 3}
   directionMode: 1
   fixedAngle: 0
-  areaEffectData: {fileID: 11400000, guid: 72893af0a41f619468963d26e8a2ffea, type: 2}
+  areaEffectData: {fileID: 0}
   chainData: {fileID: 0}
   effects: []

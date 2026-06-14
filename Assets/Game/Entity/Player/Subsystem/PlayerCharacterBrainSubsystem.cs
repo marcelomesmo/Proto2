@@ -42,7 +42,7 @@ namespace Game.Entity.Player.Subsystem
             _targetFilter = new ContactFilter2D
             {
                 useLayerMask = true,
-                layerMask = _stats.targetEntityLayer,
+                layerMask = _stats.combatEntityLayers,
                 useTriggers = true
             };
         }

@@ -47,18 +47,14 @@ namespace Core.Gameplay.Combat.Attack
                 case CombatTargetType.Allies:
                     return source.sourceEntity.IsAlly(target);
 
-
                 case CombatTargetType.Enemies:
                     return source.sourceEntity.IsEnemy(target);
-
 
                 case CombatTargetType.Self:
                     return source.sourceEntity == target;
 
-
                 case CombatTargetType.Any:
                     return true;
-
 
                 default:
                     return false;

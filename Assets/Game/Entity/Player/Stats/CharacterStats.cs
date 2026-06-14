@@ -17,7 +17,7 @@ namespace Game.Entity.Player.Stats
         public float globalCooldown = 0.5f;
         
         [Header("Targeting")]
-        public LayerMask targetEntityLayer;
+        public LayerMask combatEntityLayers;
         
         public CharacterStats() { faction = Faction.Player; }
     }
