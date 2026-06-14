@@ -1,3 +1,4 @@
+using Core.Enum;
 using TMPro;
 using UnityEngine;
 
@@ -12,22 +13,37 @@ namespace Core.VFX
         [SerializeField] private AnimationCurve alphaOverLifetime;
 
         [Header("Text")]
-        [SerializeField] private TMP_Text damageText;
+        [SerializeField] private TMP_Text floatingText;
+        
+        [Header("Visuals")]
+        [SerializeField] private Color damageColor;
+        [SerializeField] private Color healingColor;
 
         private Color _originalColor;
 
         private void Awake()
         {
-            _originalColor = damageText.color;
+            _originalColor = floatingText.color;
         }
 
-        public void Initialize(int amount, GameObject prefab)
+        public void Initialize(CombatAction actionType, int amount, GameObject prefab)
         {
             PrefabReference = prefab;
             Timer = lifetime;
 
-            damageText.text = amount.ToString();
-            damageText.color = _originalColor;
+            floatingText.text = amount.ToString();
+            switch (actionType)
+            {
+                case CombatAction.Heal:
+                    floatingText.color = healingColor;
+                    break;
+                case CombatAction.Damage:
+                    floatingText.color = damageColor;
+                    break;
+                default:
+                    floatingText.color = _originalColor;
+                    break;
+            }
 
             Initialized = true;
         }
@@ -38,9 +54,9 @@ namespace Core.VFX
 
             float t = 1f - (Timer / lifetime);
         
-            Color c = damageText.color;
+            Color c = floatingText.color;
             c.a = alphaOverLifetime.Evaluate(t);
-            damageText.color = c;
+            floatingText.color = c;
         }
     }
 }

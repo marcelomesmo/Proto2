@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity;
+using Core.Gameplay.Entity.Subsystem;
 using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -13,9 +15,9 @@ namespace Core.Gameplay.Combat.AreaEffect
         private EntityController _owner;
         
         private AreaEffectData _data;
-        private DamagePayload _payload;
+        private CombatPayload _payload;
         
-        private float _remainingTime;
+        private float _lifetimeRemaining;
         private float _tickTimer;
         
         private bool _isEnding;
@@ -32,7 +34,7 @@ namespace Core.Gameplay.Combat.AreaEffect
         public void Initialize(
             EntityController owner,
             AreaEffectData data,
-            DamagePayload payload)
+            CombatPayload payload)
         {
             _owner = owner;
             _data = data;
@@ -40,7 +42,7 @@ namespace Core.Gameplay.Combat.AreaEffect
 
             _hits.Clear();
             
-            _remainingTime = data.duration;
+            _lifetimeRemaining = data.duration;
             _tickTimer = Mathf.Max(0.01f, data.tickInterval);
             
             _isEnding = false;
@@ -61,22 +63,44 @@ namespace Core.Gameplay.Combat.AreaEffect
             if (_isEnding)
                 return;
             
-            // 2. Lifetime
-            _remainingTime -= Time.deltaTime;
-
-            if (_remainingTime <= 0f)
-            {
-                BeginEndSequence();
-                return;
-            }
-
-            // 3. Tick damage
+            // 2. Tick damage
             _tickTimer -= Time.deltaTime;
             
             if (_tickTimer <= 0f)
             {
                 ApplyTick();
-                _tickTimer = _data.tickInterval;
+                
+                // preserve leftover time
+                _tickTimer += _data.tickInterval;
+                
+                /*
+                    This is important because with the old code:
+
+                    tick interval = 0.5
+                    frame overshoots by 0.1
+
+                    We lose the 0.1.
+
+                    Example:
+                    timer = -0.1
+                    reset -> 0.5
+
+                    The next tick is delayed.
+
+                    Adding preserves the error:
+
+                    timer = -0.1
+                    +0.5
+                    =0.4
+                 */
+            }
+            
+            // 3. Lifetime
+            _lifetimeRemaining -= Time.deltaTime;
+
+            if (_lifetimeRemaining <= 0f)
+            {
+                BeginEndSequence();
             }
         }
 
@@ -98,7 +122,7 @@ namespace Core.Gameplay.Combat.AreaEffect
                 
                 case AreaShape.Box:
                     Physics2D.OverlapBox(
-                        transform.position,
+                        GetShapeCenter(),
                         _data.boxSize,
                         0f,
                         filter,
@@ -115,9 +139,16 @@ namespace Core.Gameplay.Combat.AreaEffect
                     break;
             }
             
+            if(_payload.action == CombatAction.Heal)
+                Debug.Log(
+                    $"AreaEffect query: action={_payload.action}, " +
+                    $"layers={LayerMask.LayerToName(Mathf.RoundToInt(Mathf.Log(_payload.source.targetFilter.layerMask.value, 2)))}" +
+                    $", hits={_hits.Count}"
+                );
+            
             // For cone only
             Vector2 origin = transform.position;
-            Vector2 forward = transform.right;
+            Vector2 forward = GetForward();
             float halfAngle = _data.coneAngle * 0.5f;
 
             foreach (var hit in _hits)
@@ -125,11 +156,11 @@ namespace Core.Gameplay.Combat.AreaEffect
                 if (!_payload.source.targetFilter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<IDamageable>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var receiver))
                     continue;
 
-                if (!damageable.CanBeDamaged())
-                    continue;
+                if (!receiver.CanReceiveCombat(_payload))
+                   continue;
                 
                 // For cone only
                 if (_data.shape == AreaShape.Cone)
@@ -142,9 +173,41 @@ namespace Core.Gameplay.Combat.AreaEffect
                             halfAngle))
                         continue;
                 }
-
-                damageable.TakeDamage(_payload);
+                
+                CombatExecutionPipeline.Execute(
+                    receiver,
+                    _payload
+                );
             }
+        }
+        
+        private Vector2 GetShapeCenter()
+        {
+            Vector2 origin = transform.position;
+
+            if (_data.spawnMode != AreaSpawnMode.InFrontOfCaster)
+                return origin;
+
+            Vector2 offset = new Vector2(_data.forwardOffset, 0);
+            Vector2 forward = GetForward();
+
+            return origin +
+                   forward * (_data.boxSize.x * 0.5f) + offset;
+        }
+        
+        private Vector2 GetForward()
+        {
+            var presentation =
+                _owner.GetComponent<EntityPresentationSubsystem>();
+
+            if (!presentation)
+                return transform.right;
+
+            return presentation.CastAnchor.right;
+
+            //return presentation.CurrentFacing == FacingDirection.Right
+            //    ? Vector2.right
+            //    : Vector2.left;
         }
         
         private bool IsInsideCone(
@@ -184,7 +247,7 @@ namespace Core.Gameplay.Combat.AreaEffect
             // Stop visuals emission
             foreach (var visual in visuals)
                 visual?.OnDespawn();
-
+            
             // If you later add fade animations,
             // replace this with coroutine logic.
             if (_data.fadeOutDuration > 0f)
@@ -232,7 +295,7 @@ namespace Core.Gameplay.Combat.AreaEffect
             _data = null;
             _payload = default;
             
-            _remainingTime = 0f;
+            _lifetimeRemaining = 0f;
             _tickTimer = 0f;
             
             _isEnding = false;
@@ -259,7 +322,7 @@ namespace Core.Gameplay.Combat.AreaEffect
                     break;
 
                 case AreaShape.Box:
-                    Gizmos.DrawWireCube(transform.position, _data.boxSize);
+                    Gizmos.DrawWireCube(GetShapeCenter(), _data.boxSize);
                     break;
                 
                 case AreaShape.Cone:
@@ -268,7 +331,7 @@ namespace Core.Gameplay.Combat.AreaEffect
             }
             
             float duration = Mathf.Max(0.0001f, _data.duration);
-            float t = Mathf.Clamp01(_remainingTime / duration);
+            float t = Mathf.Clamp01(_lifetimeRemaining / duration);
             Gizmos.color = Color.Lerp(Color.red, Color.green, t);
             
             switch (_data.shape)
@@ -278,7 +341,7 @@ namespace Core.Gameplay.Combat.AreaEffect
                     break;
 
                 case AreaShape.Box:
-                    Gizmos.DrawCube(transform.position, _data.boxSize);
+                    Gizmos.DrawCube(GetShapeCenter(), _data.boxSize);
                     break;
                 
                 case AreaShape.Cone:

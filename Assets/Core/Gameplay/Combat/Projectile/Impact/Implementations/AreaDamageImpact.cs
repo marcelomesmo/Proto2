@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Interfaces;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
         public override void OnImpact(
             ProjectileInstance projectileInstance, 
             Collider2D other, 
-            DamagePayload payload)
+            CombatPayload payload)
         {
             _results.Clear();
 
@@ -42,16 +43,23 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
                 if (!filter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<IDamageable>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var receiver))
                     continue;
 
-                if (damageable.Faction == projectileInstance.GetOwnerFaction())
+                if (payload.action == CombatAction.Damage &&
+                    receiver.Faction == projectileInstance.GetOwnerFaction())     // Damage ignores allies
+                    continue;
+                
+                if (payload.action == CombatAction.Heal &&
+                    receiver.Faction != projectileInstance.GetOwnerFaction())     // Healing ignores enemies
                     continue;
 
-                if (!damageable.CanBeDamaged())
+                if (!receiver.CanReceiveCombat(payload))
                     continue;
 
-                damageable.TakeDamage(payload);
+                CombatExecutionPipeline.Execute(
+                    receiver,
+                    payload);
                 
                 // Reached maximum splash hits
                 _entitiesHit++;

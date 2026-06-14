@@ -135,6 +135,14 @@ namespace Core.Gameplay.Entity.Subsystem
                 local.x = Mathf.Abs(local.x) * (int)facing;
                 anchor.localPosition = local;
             }
+            
+            // Rotate Cast Anchor
+            if(castAnchor)
+                castAnchor.localRotation =
+                    Quaternion.Euler(
+                        0f,
+                        0f,
+                        facing == FacingDirection.Right ? 0f : 180f);
 
             OnFacingChanged?.Invoke(facing);
         }

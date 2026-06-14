@@ -10,15 +10,15 @@ namespace Core.Gameplay.Combat.ChainAttack
     {
         public static void ResolveChain(
             AttackInstance attack,
-            DamagePayload initialPayload,
-            IDamageable firstTarget)
+            CombatPayload initialPayload,
+            ICombatReceiver firstTarget)
         {
             if (!attack.Data.chainData)
                 return;
 
             var chain = attack.Data.chainData;
 
-            var hitTargets = new HashSet<IDamageable>();
+            var hitTargets = new HashSet<ICombatReceiver>();
             hitTargets.Add(firstTarget);
 
             var currentPayload = initialPayload;
@@ -32,7 +32,7 @@ namespace Core.Gameplay.Combat.ChainAttack
                     currentTarget,
                     hitTargets,     // exclude previous targets
                     chain.chainRange,
-                    initialPayload.source.targetFilter);
+                    initialPayload);
 
                 if (nextTarget == null)
                     break;
@@ -51,18 +51,21 @@ namespace Core.Gameplay.Combat.ChainAttack
                     i
                 );
                 
-                nextTarget.TakeDamage(currentPayload);
+                CombatExecutionPipeline.Execute(
+                    nextTarget,
+                    currentPayload
+                );
                 currentTarget = nextTarget;
             }
         }
         
         private static readonly List<Collider2D> _chainHits = new();
         
-        private static IDamageable FindNextTarget(
-            IDamageable from,
-            HashSet<IDamageable> excluded,
+        private static ICombatReceiver FindNextTarget(
+            ICombatReceiver from,
+            HashSet<ICombatReceiver> excluded,
             float range,
-            AttackTargetFilter filter)
+            CombatPayload payload)
         {
             var origin = ((Component)from).transform.position;
             
@@ -71,7 +74,7 @@ namespace Core.Gameplay.Combat.ChainAttack
             Physics2D.OverlapCircle(
                 origin,
                 range,
-                filter.ToContactFilter(),
+                payload.source.targetFilter.ToContactFilter(),
                 _chainHits
             );
 
@@ -80,16 +83,16 @@ namespace Core.Gameplay.Combat.ChainAttack
                 if (!hit)
                     continue;
 
-                if (!filter.CanHit(hit))
+                if (!payload.source.targetFilter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<IDamageable>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var damageable))
                     continue;
 
                 if (excluded.Contains(damageable))      // this needs to change later if we want it to bounce to same target.
                     continue;
 
-                if (!damageable.CanBeDamaged())
+                if (!damageable.CanReceiveCombat(payload))
                     continue;
 
                 return damageable;
@@ -98,16 +101,16 @@ namespace Core.Gameplay.Combat.ChainAttack
             return null;
         }
         
-        private static DamagePayload ModifyPayloadForBounce(
+        private static CombatPayload ModifyPayloadForBounce(
             AttackInstance attack,
-            DamagePayload previous,
+            CombatPayload previous,
             int bounceIndex)
         {
             float multiplier = Mathf.Pow(
-                attack.GetResolvedChainDamageMultiplier(),     // multiply damage
+                attack.GetResolvedChainAmountMultiplier(),     // multiply damage
                 bounceIndex);
             
-            return DamagePayloadFactory.CreateChain(
+            return CombatPayloadFactory.CreateChain(
                 previous,
                 multiplier,
                 attack.Data.chainData.applyEffectsOnEveryBounce

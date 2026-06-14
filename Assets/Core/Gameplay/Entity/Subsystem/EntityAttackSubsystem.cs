@@ -47,7 +47,7 @@ namespace Core.Gameplay.Entity.Subsystem
         private EntityPresentationSubsystem _presentation;
         
         private Vector2 _boxSize = new(3f, 0.5f);
-        private AttackTargetFilter _targetFilter;
+        //private AttackTargetFilter _targetFilter;
 
         public event Action<AttackInstance> OnAttackExecuted;
         
@@ -74,7 +74,7 @@ namespace Core.Gameplay.Entity.Subsystem
             _attackLoadout.OnLoadoutChanged += RebuildAttackInstances;
             RebuildAttackInstances();
 
-            BuildTargetFilter();
+            //BuildTargetFilter();
         }
 
         protected override void OnDeinitialize()
@@ -360,21 +360,23 @@ namespace Core.Gameplay.Entity.Subsystem
             );
             
             // 4. Damage source
-            var damageSource = new DamageSource(
+            var targetFilter = BuildAttackTargetFilter(attack.Data);
+            
+            var combatSource = new AttackSource(
                 _stats.faction,
                 _controller,
                 transform.position,
-                _targetFilter
+                targetFilter
             );
             
-            var payload = DamagePayloadFactory.Create(
+            var payload = CombatPayloadFactory.Create(
                 attack: attack,
-                baseDamage: GetResolvedDamage(attack),
+                amount: GetResolvedCombatAmount(attack),
                 scope: ModifierScope.Projectile,
-                source: damageSource
+                source: combatSource
             );
             
-            projectile.Configure(CreateProjectileContext(attack), damageSource, payload);
+            projectile.Configure(CreateProjectileContext(attack), combatSource, payload);
             projectile.Launch(angle);
         }
         
@@ -422,16 +424,18 @@ namespace Core.Gameplay.Entity.Subsystem
             }
             
             // 4. Damage source
-            var damageSource = new DamageSource(
+            var targetFilter = BuildAttackTargetFilter(attack.Data);
+            
+            var damageSource = new AttackSource(
                 _stats.faction,
                 _controller,
                 areaEffect.transform.position,
-                _targetFilter
+                targetFilter
             );
             
-            var payload = DamagePayloadFactory.Create(
+            var payload = CombatPayloadFactory.Create(
                 attack: attack,
-                baseDamage: GetResolvedDamage(attack),
+                amount: GetResolvedCombatAmount(attack),
                 scope: ModifierScope.Area,
                 source: damageSource
             );
@@ -557,7 +561,8 @@ namespace Core.Gameplay.Entity.Subsystem
 
             _meleeHits.Clear();
 
-            var filter = _targetFilter.ToContactFilter();
+            var targetFilter = BuildAttackTargetFilter(attack.Data);
+            var filter = targetFilter.ToContactFilter();
 
             Physics2D.OverlapBox(
                 center,
@@ -567,39 +572,39 @@ namespace Core.Gameplay.Entity.Subsystem
                 _meleeHits
             );
 
-            int resolvedDamage = GetResolvedDamage(attack);
-
+            int resolvedDamage = GetResolvedCombatAmount(attack);
+            
+            //var targetFilter = BuildAttackTargetFilter(attack.Data);
+            
+            var damageSource = new AttackSource(
+                _stats.faction,
+                _controller,
+                transform.position,
+                targetFilter
+            );
+                
+            var payload = CombatPayloadFactory.Create(
+                attack: attack,
+                amount: resolvedDamage,
+                scope: ModifierScope.Melee,
+                source: damageSource
+            );
+            
             foreach (var hit in _meleeHits)
             {
                 if (!hit)
                     continue;
                 
-                if (!_targetFilter.CanHit(hit))
+                if (!targetFilter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<IDamageable>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var damageable))
                     continue;
                 
-                if (!damageable.CanBeDamaged())
-                    continue;
-                
-                var damageSource = new DamageSource(
-                    _stats.faction,
-                    _controller,
-                    transform.position,
-                    _targetFilter
+                CombatExecutionPipeline.Execute(
+                    damageable,
+                    payload
                 );
-                
-                var attackPower = GetAttackPowerBonus();
-                
-                var payload = DamagePayloadFactory.Create(
-                    attack: attack,
-                    baseDamage: resolvedDamage,
-                    scope: ModifierScope.Melee,
-                    source: damageSource
-                );
-                
-                damageable.TakeDamage(payload);
             }
         }
         
@@ -652,26 +657,36 @@ namespace Core.Gameplay.Entity.Subsystem
             return instance.IsReady;
         }
 
+        private AttackTargetFilter BuildAttackTargetFilter(AttackData attack)
+        {
+            return new AttackTargetFilter
+            {
+                layerMask = attack.targetLayers,
+                allowTriggers = true,
+                targetType = attack.targetType
+            };
+        }
+        
         private void BuildTargetFilter()
         {
-            _targetFilter = new AttackTargetFilter
+            /*_targetFilter = new AttackTargetFilter
             {
                 layerMask = hitLayers,
                 allowTriggers = true
-            };
+            };*/
         }
         
         public void RebuildTargetFilter(LayerMask newMask, bool allowTriggers)
         {
-            _targetFilter.layerMask = newMask;
-            _targetFilter.allowTriggers = allowTriggers;
+            /*_targetFilter.layerMask = newMask;
+            _targetFilter.allowTriggers = allowTriggers;*/
         }
         
         // TODO: Later move this to the AttackInstance when we move Damage to AttackStatModifier and when
         //      AttackInstance gets ownership of the owner stats (should we?).
-        private int GetResolvedDamage(AttackInstance attack)
+        private int GetResolvedCombatAmount(AttackInstance attack)
         {
-            float value = attack.Data.damage;
+            float value = attack.Data.amount;
 
             // Entity stats contribution
             value += GetAttackPowerBonus();

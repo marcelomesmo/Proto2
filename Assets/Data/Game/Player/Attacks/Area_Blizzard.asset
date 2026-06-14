@@ -16,12 +16,17 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f5ab3f534c1138f4786f23cd74103223, type: 3}
   description: not wow
   executionMode: 2
-  damage: 1
+  combatActionType: 0
+  amount: 0
   range: 12
   cooldown: 10
   hitTypes: 8
   hitVFX: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   castVFX: {fileID: 1883419434696116, guid: 0b0d69410ca2f1045b821e4b992ce9a2, type: 3}
+  targetType: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0

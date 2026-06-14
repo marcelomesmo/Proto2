@@ -16,15 +16,20 @@ namespace Core.Gameplay.Combat.Attack
         
         [Header("Execution")]
         public AttackExecutionMode executionMode = AttackExecutionMode.Melee;
+        public CombatAction combatActionType = CombatAction.Damage;
         
         [Header("Base Settings")]
-        public int damage;
+        public int amount;
         public float range;
         public float cooldown;
         public HitTypes hitTypes;
         
         public GameObject hitVFX;
         public GameObject castVFX;
+        
+        [Header("Targeting")]
+        public CombatTargetType targetType;
+        public LayerMask targetLayers;
 
         [Header("Ranged - Settings")]
         public GameObject projectilePrefab;

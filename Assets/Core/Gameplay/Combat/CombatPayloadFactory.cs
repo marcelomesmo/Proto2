@@ -3,19 +3,18 @@ using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Entity.Subsystem;
-using Game.Entity.Player.Subsystem;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace Core.Gameplay.Combat
 {
-    public static class DamagePayloadFactory
+    public static class CombatPayloadFactory
     {
-        public static DamagePayload Create(
+        public static CombatPayload Create(
             AttackInstance attack,
-            int baseDamage,
+            int amount,
             ModifierScope scope,
-            DamageSource source)
+            AttackSource source)
         {
             if (attack == null)
                 return default;
@@ -34,7 +33,7 @@ namespace Core.Gameplay.Combat
             
             if (allModifiers != null)
             {
-                filteredModifiers = ListPool<DamageModifier>.Get();
+                filteredModifiers = ListPool<DamageModifier>.Get(); // TODO: When is this release? Do we need to?
 
                 HitTypes actualHitTypes = attack.Data.hitTypes;
 
@@ -79,9 +78,10 @@ namespace Core.Gameplay.Combat
             // 3. Build Payload
             // -----------------------------
 
-            var payload = new DamagePayload(
+            var payload = new CombatPayload(
+                action: attack.Data.combatActionType,
                 attack: attack,
-                baseDamage: baseDamage,
+                amount: amount,
                 modifiers: filteredModifiers,
                 effects: effects,
                 source: source
@@ -94,8 +94,8 @@ namespace Core.Gameplay.Combat
         // Chain Payload
         // --------------------------------
 
-        public static DamagePayload CreateChain(
-            DamagePayload previous,
+        public static CombatPayload CreateChain(
+            CombatPayload previous,
             float multiplier,
             bool applyEffectsEveryBounce)
         {
@@ -107,9 +107,10 @@ namespace Core.Gameplay.Combat
                     ? previous.effects
                     : null;
 
-            return new DamagePayload(
+            return new CombatPayload(
+                action: previous.attack.Data.combatActionType,
                 attack: previous.attack,
-                baseDamage: Mathf.RoundToInt(previous.baseDamage * multiplier),
+                amount: Mathf.RoundToInt(previous.amount * multiplier),
                 modifiers: previous.modifiers,
                 effects: effects,
                 source: previous.source,
@@ -118,17 +119,18 @@ namespace Core.Gameplay.Combat
         }
 
         // --------------------------------
-        // Effect Damage (DOT, Auras, etc.)
+        // Effect Damage (DOT, HOTs?, Auras, etc.)
         // --------------------------------
 
-        public static DamagePayload CreateEffectDamage(
+        public static CombatPayload CreateEffectDamage(
             int damage,
-            DamageSource source,
+            AttackSource source,
             List<DamageModifier> modifiers)
         {
-            return new DamagePayload(
+            return new CombatPayload(
+                action: CombatAction.Damage,
                 attack: null,
-                baseDamage: damage,
+                amount: damage,
                 modifiers: modifiers,
                 effects: null,
                 source: source,

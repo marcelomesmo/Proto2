@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
 {
-    public sealed class DamageSource
+    public sealed class AttackSource
     {
         // Who caused it
         public readonly Faction faction;
@@ -18,7 +18,7 @@ namespace Core.Gameplay.Combat.Attack
         public readonly AttackTargetFilter targetFilter;
         //public readonly Vector2 impactPosition; to add later.
         
-        public DamageSource(
+        public AttackSource(
             Faction faction,
             EntityController sourceEntity,
             Vector2 sourcePosition,

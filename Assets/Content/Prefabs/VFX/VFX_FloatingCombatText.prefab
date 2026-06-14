@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 6873050831551389960}
   - component: {fileID: -5634127321225208857}
   m_Layer: 9
-  m_Name: VFX_FloatingDamage
+  m_Name: VFX_FloatingCombatText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,4 +261,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  damageText: {fileID: 3420167116019846742}
+  floatingText: {fileID: 3420167116019846742}
+  damageColor: {r: 1, g: 1, b: 1, a: 0}
+  healingColor: {r: 0.057491798, g: 0.6981132, b: 0, a: 0}

@@ -148,7 +148,7 @@ namespace Game.Entity.Enemy.Subsystem
             _movement.Stop();
         }
         
-        private void OnDamageTaken(DamagePayload payload)
+        private void OnDamageTaken(CombatPayload payload)
         {
             //Debug.Log("[EnemyAIBrainSubsystem] Enemy has taken damage from " + payload.source.controller);
             if (payload.source.sourceEntity != null)
@@ -255,7 +255,7 @@ namespace Game.Entity.Enemy.Subsystem
                 if (candidate.IsDead)
                     continue;
 
-                if (candidate.Stats.faction != Faction.Player)  // TODO: This will ignore Ally layer. Should this be any opponent Layer?
+                if (!Controller.IsEnemy(candidate))
                     continue;
 
                 Vector2 toTarget = candidate.transform.position - (Vector3)origin;

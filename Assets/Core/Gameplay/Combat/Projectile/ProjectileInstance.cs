@@ -41,8 +41,8 @@ namespace Core.Gameplay.Combat.Projectile
         private Rigidbody2D rb;
         private Collider2D col;
         private SpriteRenderer sr;
-        private DamageSource _damageSource;
-        private DamagePayload _payload;
+        private AttackSource _attackSource;
+        private CombatPayload _payload;
         private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
         
         public void Awake()
@@ -53,7 +53,7 @@ namespace Core.Gameplay.Combat.Projectile
             visuals = GetComponents<IPoolableVisual>();
         }
 
-        public void Configure(ProjectileContext context, DamageSource source, DamagePayload payload)
+        public void Configure(ProjectileContext context, AttackSource source, CombatPayload payload)
         {
             if (source == null || source.targetFilter == null)
             {
@@ -65,7 +65,7 @@ namespace Core.Gameplay.Combat.Projectile
             }
             
             _ownerFaction = context.faction;
-            _damageSource = source;
+            _attackSource = source;
             _payload = payload;
             
             _remainingHits = impactBehavior.GetMaxTargets(context);
@@ -166,12 +166,12 @@ namespace Core.Gameplay.Combat.Projectile
             if (_remainingHits <= 0)
                 return;
             
-            var filter = _damageSource.targetFilter;
+            var filter = _attackSource.targetFilter;
             if (!filter.CanHit(other))
                 return;
 
             // Ignore Damageables that can't be hit.
-            if (other.TryGetComponent<IDamageable>(out var damageable) && !damageable.CanBeDamaged())
+            if (other.TryGetComponent<ICombatReceiver>(out var damageable) && !damageable.CanReceiveCombat(_payload))
                 return;
          
             // Handle Damage done
@@ -203,27 +203,6 @@ namespace Core.Gameplay.Combat.Projectile
         }
     
         #region VFX helpers
-
-        private void SpawnImpactVFX(Vector2 impactPoint)
-        {
-            /*
-            if (!impactVFXPrefab)
-                return;
-        
-            // Get pooled VFX
-            var vfx = VFXPoolManager.Instance.Spawn(impactVFXPrefab);
-        
-            Vector3 hitPos = impactPoint;
-            Vector3 hitNormal = impactPoint.normalized;
-        
-            vfx.transform.position = hitPos;
-            vfx.transform.rotation = Quaternion.Euler(0, 0,
-                Vector2.SignedAngle(Vector2.right, hitNormal));
-
-            vfx.GetComponent<ParticleSystemVFX>()
-                .Initialize(impactVFXPrefab);
-            */
-        }
 
         private void SpawnMaxRangeVFX()
         {

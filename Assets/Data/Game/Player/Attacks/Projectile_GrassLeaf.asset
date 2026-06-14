@@ -16,12 +16,17 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 530bcabb1501d8148a19a77465ecac03, type: 3}
   description: aeeae ggrass leaf
   executionMode: 1
-  damage: 5
+  combatActionType: 0
+  amount: 0
   range: 8
   cooldown: 3
   hitTypes: 16
   hitVFX: {fileID: 1186752452136346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
   castVFX: {fileID: 1554156215293492, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
+  targetType: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
   projectilePrefab: {fileID: 5975751646184246127, guid: 0bc12ededd5c9294fa63c827ecb3f01b, type: 3}
   directionMode: 1
   fixedAngle: 0

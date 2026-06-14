@@ -5,35 +5,38 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
 {
-    public readonly struct DamagePayload
+    public readonly struct CombatPayload
     {
         // What happened
+        public readonly CombatAction action;
         public readonly AttackInstance attack;                             // null for DOT / effect damage
-        public readonly int baseDamage;                                 // ALWAYS set
+        public readonly int amount;                                 // ALWAYS set
         public readonly IReadOnlyList<DamageModifier> modifiers;
         public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
-        public readonly DamageSource source;
+        public readonly AttackSource source;
         public readonly int chainDepth;
         
-        public DamagePayload(
+        public CombatPayload(
+            CombatAction action,
             AttackInstance attack,
-            int baseDamage,
+            int amount,
             IReadOnlyList<DamageModifier> modifiers,
             IReadOnlyList<AttackEffectData> effects,
-            DamageSource source,
+            AttackSource source,
             int chainDepth = 0)
         {
+            this.action = action;
             this.attack = attack;
-            this.baseDamage = baseDamage;
+            this.amount = amount;
             this.modifiers = modifiers;
             this.effects = effects;
             this.source = source;
             this.chainDepth = chainDepth;
         }
         
-        public int ResolveDamage()
+        public int ResolveAmount()
         {
-            float value = baseDamage;
+            float value = amount;
 
             if (modifiers != null)
             {

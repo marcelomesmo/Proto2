@@ -1,19 +1,14 @@
 using System;
-using System.Collections.Generic;
 using Core.Enum;
+using Core.Gameplay.Combat;
 using Core.Gameplay.Combat.Attack;
-using Core.Gameplay.Combat.ChainAttack;
-using Core.Gameplay.Combat.Modifiers;
-using Core.Gameplay.Combat.StatusEffect;
-using Core.Gameplay.Combat.StatusEffect.Implementations;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
-using Game.Entity.Player.Subsystem;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
 {
-    public class EntityHealth : BaseSubsystem, IDamageable
+    public class EntityHealth : BaseSubsystem, ICombatReceiver
     {
         public Faction Faction => Controller.Stats.faction;
         
@@ -23,7 +18,8 @@ namespace Core.Gameplay.Entity.Subsystem
         public int GetCurrentMaxHealth() => _maxHealth;
         
         public event Action<int, int> HealthChanged;
-        public event Action<DamagePayload> OnDamageTaken;
+        public event Action<CombatPayload> OnDamageTaken;
+        public event Action<CombatPayload> OnHealingTaken;
         
         protected override void OnInitialize()
         {
@@ -98,107 +94,99 @@ namespace Core.Gameplay.Entity.Subsystem
             if(invulnerable) Controller.Tags.AddTag(Controller.Stats.invulnerableTag);
             else Controller.Tags.RemoveTag(Controller.Stats.invulnerableTag);
         }
-        
-        public void TakeDamage(DamagePayload payload)
+
+        public void ReceiveDamage(CombatPayload payload)
+        {
+            ApplyDamage(payload);
+        }
+
+        public void ReceiveHeal(CombatPayload payload)
+        {
+            ApplyHeal(payload);
+        }
+
+        private void ApplyDamage(CombatPayload payload)
         {
             // Extra defensive check — in case someone calls TakeDamage directly:
-            if (!CanBeDamaged()) return;
+            if (!CanReceiveCombat(payload)) 
+                return;
             
             // 1. Apply damage
-            int damage = payload.ResolveDamage();
+            int damage = payload.ResolveAmount();
             
             _currentHealth = Mathf.Clamp(
                 _currentHealth - damage,
                 0,
                 _maxHealth
             );
-            
-            // 2. Apply status effects
-            ApplyAttackEffects(payload.effects, payload.source);
-            
-            // 3. Play animation
-            //Controller.Animator.SetTrigger("hurt");
 
-            // 4. Raise events
-            //if (Faction == Faction.Player) OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
+            // 2. Raise events
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
             OnDamageTaken?.Invoke(payload);
+
+            // 3. Apply Effects
+            ApplyCombatEffects(payload);
             
-            // 5. Resolve Chain Attacks: this coupling is intentional (for now).
-            if (payload.attack != null &&
-                payload.attack.Data.chainData != null &&
-                payload.chainDepth == 0)
-            {
-                ChainAttackResolver.ResolveChain(
-                    payload.attack,
-                    payload,
-                    this
-                );
-            }
-            
-            // 6. Finally, check status.
+            // 4. Finally, check status.
             if (_currentHealth <= 0)
                 Die();
         }
 
-        public void ApplyAttackEffects(IReadOnlyList<AttackEffectData> effects, DamageSource source)
+        private void ApplyHeal(CombatPayload payload)
         {
-            if (effects == null || effects.Count == 0)
+            if (!CanReceiveCombat(payload))
                 return;
 
-            if (!TryGetComponent(out EntityStatusEffectSubsystem entityStatusEffectSubsystem))
-                return;
-            
-            foreach (var effect in effects)
-            {
-                StatusEffectInstance instance = effect.effectType switch
-                {
-                    StatusEffectType.Burn =>
-                        new BurnEffectInstance(
-                            Controller, 
-                            effect, 
-                            source,
-                            Controller.Stats.burnTag),
+            _currentHealth = Mathf.Clamp(
+                _currentHealth + payload.ResolveAmount(),   // TODO: how we filter healing modifiers?
+                0,
+                _maxHealth);
 
-                    StatusEffectType.Stun =>
-                        new StunEffectInstance(
-                            Controller,
-                            effect,
-                            Controller.Stats.stunTag),
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            OnHealingTaken?.Invoke(payload);
 
-                    StatusEffectType.Slow =>
-                        new SlowEffectInstance(
-                            Controller,
-                            effect,
-                            Controller.Stats.slowTag),
-
-                    _ => null
-                };
-
-                if (instance == null) return;
-                
-                entityStatusEffectSubsystem.AddEffect(instance);
-            }
+            ApplyCombatEffects(payload);
         }
-
-        public void Heal(int healing)
+        
+        private void ApplyCombatEffects(CombatPayload payload)
         {
-            //_currentHealth = Mathf.Clamp(_currentHealth + healing, 0, Controller.Stats.maxHealth);
+            if (payload.effects == null ||
+                payload.effects.Count == 0)
+                return;
 
-            //if (Faction == Faction.Player)
-            //    OnHealthChanged.RaiseEvent(_currentHealth, Controller.Stats.maxHealth);
-            //else 
-            //    HealthChanged?.Invoke(_currentHealth, Controller.Stats.maxHealth);
-            
-            //PlayVFX_OnHeal();
+            if (!Controller.TryGetComponent<EntityStatusEffectSubsystem>(
+                    out var statusSubsystem))
+                return;
+
+            foreach (var effect in payload.effects)
+            {
+                var instance =
+                    StatusEffectFactory.Create(
+                        effect,
+                        Controller,
+                        payload.source);
+
+                if (instance != null)
+                    statusSubsystem.AddEffect(instance);
+            }
         }
 
         // Keep CanBeDamaged() extremely cheap (only boolean checks).
         // Heavy checks (animations, raycasts, slow queries) should be avoided there.
-        public bool CanBeDamaged()
+        public bool CanReceiveCombat(CombatPayload payload)
         {
-            return !Controller.Tags.HasTag(Controller.Stats.deadTag)
-                   && !Controller.Tags.HasTag(Controller.Stats.invulnerableTag);
+            if (Controller.IsDead &&
+                payload.action != CombatAction.Revive)
+                return false;
+            
+            if(Controller.IsInvulnerable &&
+               payload.action == CombatAction.Damage)
+                return false;
+            
+            return payload.source.targetFilter.CanTarget(
+                payload.source,
+                Controller
+            );
         }
 
         private void Die()

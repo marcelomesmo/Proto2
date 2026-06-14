@@ -51,10 +51,28 @@ namespace Core.Enum
 		EveryNthCast,
 		RandomChance,
 	}
+
+    public enum CombatAction
+    {
+        Damage,
+        Heal,
+        ApplyStatus,
+        RemoveStatus,
+        ModifyStat,
+        Revive
+    }
+
+    public enum CombatTargetType
+    {
+        Self,
+        Enemies,
+        Allies,
+        Any
+    }
     
     /*
      * Later, in case we want to differentiate between Element/Damage types.
-     
+
         [System.Flags]
         public enum ElementType
         {

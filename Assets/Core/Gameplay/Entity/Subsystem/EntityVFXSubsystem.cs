@@ -19,7 +19,7 @@ namespace Core.Gameplay.Entity.Subsystem
     public class EntityVFXSubsystem : BaseSubsystem
     {
         [Header("Anchors")]
-        [SerializeField] private Transform damagePopupAnchor;
+        [SerializeField] private Transform combatTextPopupAnchor;
         [SerializeField] private Transform hitAnchor;
         [SerializeField] private Transform deathAnchor;
         [SerializeField] private Transform movementAnchor;
@@ -28,7 +28,7 @@ namespace Core.Gameplay.Entity.Subsystem
         [SerializeField] private Transform attackCastAnchor;
 
         [Header("VFX Prefabs")]
-        [SerializeField] private GameObject damagePopupPrefab;
+        [SerializeField] private GameObject combatTextPopupPrefab;
         [SerializeField] private GameObject deathVfxPrefab;
         [SerializeField] private GameObject dustVfxPrefab;
         
@@ -54,6 +54,7 @@ namespace Core.Gameplay.Entity.Subsystem
             }
             
             _healthSubsystem.OnDamageTaken += HandleDamageTaken;
+            _healthSubsystem.OnHealingTaken += HandleHealingTaken;
             //health.Died += OnDied;
             
             _attackSubsystem = Controller.GetComponent<EntityAttackSubsystem>();
@@ -66,6 +67,7 @@ namespace Core.Gameplay.Entity.Subsystem
             // Unsubscribe unconditionally and null the delegate owner -> avoid GC or pool reuse problems.
             // "Whoever subscribes is 100% responsible for unsubscribing — regardless of order."
             _healthSubsystem.OnDamageTaken -= HandleDamageTaken;
+            _healthSubsystem.OnHealingTaken -= HandleHealingTaken;
             _healthSubsystem = null;
             
             if(_attackSubsystem)
@@ -75,11 +77,11 @@ namespace Core.Gameplay.Entity.Subsystem
 
         #region Damage and Attack
         
-        private void HandleDamageTaken(DamagePayload payload)
+        private void HandleDamageTaken(CombatPayload payload)
         {
             // 1. Spawn Damage Popup VFX lettering.
-            var prefab = damagePopupPrefab;
-            SpawnDamagePopup(prefab, damagePopupAnchor, payload.ResolveDamage());
+            var prefab = combatTextPopupPrefab;
+            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.ResolveAmount(), payload.action);
             //var prefab = isCritical
             //    ? damagePopupCriticalPrefab
             //    : damagePopupPrefab;
@@ -108,6 +110,20 @@ namespace Core.Gameplay.Entity.Subsystem
             // 3. Handle Flash shader.
             if (hitFlash)
                 hitFlash.Flash();
+        }
+        
+        private void HandleHealingTaken(CombatPayload payload)
+        {
+            // 1. Spawn Damage Popup VFX lettering.
+            var prefab = combatTextPopupPrefab;
+            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.ResolveAmount(), payload.action);
+            
+            // 2. Spawn Hit VFX treatment.
+            if (payload.attack != null)
+            {
+                // TODO: Create healingVFX. Generic or specific to attack?
+                //Spawn(payload.attack.Data.healingVFX, hitAnchor);
+            }
         }
         
         private void HandleAttackExecuted(AttackInstance attack)
@@ -257,10 +273,11 @@ namespace Core.Gameplay.Entity.Subsystem
             return vfx;
         }
 
-        private void SpawnDamagePopup(
+        private void SpawnCombatPopup(
             GameObject prefab,
             Transform anchor,
-            int amount)
+            int amount,
+            CombatAction actionType)
         {
             if (prefab == null || anchor == null)
                 return;
@@ -269,7 +286,7 @@ namespace Core.Gameplay.Entity.Subsystem
             vfx.transform.SetPositionAndRotation(anchor.position, Quaternion.identity);
 
             vfx.GetComponent<FloatingDamageVFX>()
-                .Initialize(amount, prefab);
+                .Initialize(actionType, amount, prefab);
         }
         
         #endregion

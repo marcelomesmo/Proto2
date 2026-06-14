@@ -57,3 +57,11 @@ MonoBehaviour:
     collectionCheck: 0
     defaultCapacity: 0
     maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: 0ab42955580603040a5c4a15a7066930, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: b755eeb21814dbe449723945b60c7d23, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10

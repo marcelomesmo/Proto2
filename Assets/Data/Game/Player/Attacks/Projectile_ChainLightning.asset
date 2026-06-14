@@ -16,12 +16,17 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: e592c899b12b70d47816500e8113cb16, type: 3}
   description: yeah shocky
   executionMode: 1
-  damage: 2
+  combatActionType: 0
+  amount: 0
   range: 9
   cooldown: 5
   hitTypes: 32
   hitVFX: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
   castVFX: {fileID: 1757226974508410, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
+  targetType: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
   projectilePrefab: {fileID: 5975751646184246127, guid: 45d07bbbb199a1d4f82340842c2122a1, type: 3}
   directionMode: 1
   fixedAngle: 0

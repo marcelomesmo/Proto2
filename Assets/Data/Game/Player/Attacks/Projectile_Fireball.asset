@@ -16,12 +16,17 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
   description: shots fireball lol
   executionMode: 1
-  damage: 1
+  combatActionType: 0
+  amount: 0
   range: 8
   cooldown: 2
   hitTypes: 4
   hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+  targetType: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
   projectilePrefab: {fileID: 5975751646184246127, guid: 03ca94d99f22e6f4c9f0f7febdfefe60, type: 3}
   directionMode: 1
   fixedAngle: 0

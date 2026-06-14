@@ -10,16 +10,19 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
         public override void OnImpact(
             ProjectileInstance projectileInstance,
             Collider2D other,
-            DamagePayload payload)
+            CombatPayload payload)
         {
             // Sanity check, but this is already handled in ProjectileInstance.
-            if (!other.TryGetComponent<IDamageable>(out var damageable))
+            if (!other.TryGetComponent<ICombatReceiver>(out var damageable))
                 return;
 
-            if (!damageable.CanBeDamaged())
-                return;
+            if (!damageable.CanReceiveCombat(payload))
+               return;
 
-            damageable.TakeDamage(payload);
+            CombatExecutionPipeline.Execute(
+                damageable,
+                payload
+            );
         }
     }
 }

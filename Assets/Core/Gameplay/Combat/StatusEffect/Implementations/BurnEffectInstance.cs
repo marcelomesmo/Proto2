@@ -10,7 +10,7 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
     {
         private readonly EntityController _target;
         private readonly AttackEffectData _data;
-        private readonly DamageSource _damageSource;
+        private readonly AttackSource _attackSource;
         private float _tickTimer;
         
         private readonly GameplayTag _burnTag;
@@ -18,12 +18,12 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
         public BurnEffectInstance(
             EntityController target,
             AttackEffectData data,
-            DamageSource damageSource,
+            AttackSource attackSource,
             GameplayTag burnTag)
         {
             _target = target;
             _data = data;
-            _damageSource = damageSource;
+            _attackSource = attackSource;
 
             _burnTag = burnTag;
             
@@ -53,16 +53,19 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
 
             _tickTimer = _data.tickInterval;
 
-            if (!_target.TryGetComponent<IDamageable>(out var damageable))
+            if (!_target.TryGetComponent<ICombatReceiver>(out var damageable))
                 return;
             
-            var payload = DamagePayloadFactory.CreateEffectDamage(
+            var payload = CombatPayloadFactory.CreateEffectDamage(
                 damage: Mathf.RoundToInt(_data.value),
-                source: _damageSource,
+                source: _attackSource,
                 modifiers: null
             );
 
-            damageable.TakeDamage(payload);
+            CombatExecutionPipeline.Execute(
+                damageable,
+                payload
+            );
         }
     }
 }

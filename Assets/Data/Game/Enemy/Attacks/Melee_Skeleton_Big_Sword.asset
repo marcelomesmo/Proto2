@@ -12,13 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
   m_Name: Melee_Skeleton_Big_Sword
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: 
+  icon: {fileID: 0}
+  description: 
   executionMode: 0
-  damage: 15
+  combatActionType: 0
+  amount: 5
   range: 3
   cooldown: 5
-  hitType: 0
+  hitTypes: 0
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}
+  targetType: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 256
   projectilePrefab: {fileID: 0}
   directionMode: 0
   fixedAngle: 0

@@ -17,6 +17,6 @@ namespace Core.Gameplay.Combat.Projectile.Impact
         public abstract void OnImpact(
             ProjectileInstance projectileInstance, 
             Collider2D other, 
-            DamagePayload payload);
+            CombatPayload payload);
     }
 }

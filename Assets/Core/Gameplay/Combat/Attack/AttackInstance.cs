@@ -90,20 +90,18 @@ namespace Core.Gameplay.Combat.Attack
             );
         }
         
-        public int GetResolvedChainDamageMultiplier()
+        public float GetResolvedChainAmountMultiplier()
         {
             if (!Data.chainData)
                 return 0;
 
-            return Mathf.RoundToInt(
-                AttackStatResolver.Resolve(
-                    baseValue: Data.chainData.damageMultiplierPerBounce,
-                    attack: Data,
-                    statType: AttackStatType.ChainDamageMultiplier,
-                    scope: ResolveScope(),
-                    hitTypes: Data.hitTypes,
-                    modifiers: _modifiers.AttackStatModifiers
-                )
+            return AttackStatResolver.Resolve(
+                baseValue: Data.chainData.damageMultiplierPerBounce,
+                attack: Data,
+                statType: AttackStatType.ChainDamageMultiplier,
+                scope: ResolveScope(),
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
             );
         }
         

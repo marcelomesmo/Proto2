@@ -142,14 +142,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6b8aee3f55b7245a7b73ea22970bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Effects.EntityVFXSubsystem
-  damagePopupAnchor: {fileID: 0}
+  combatTextPopupAnchor: {fileID: 0}
   hitAnchor: {fileID: 4365477494171357506}
   deathAnchor: {fileID: 0}
   movementAnchor: {fileID: 0}
   statusEffectHeadAnchor: {fileID: 8461843516710524155}
   statusEffectDamageAnchor: {fileID: 6950481680333085818}
   attackCastAnchor: {fileID: 0}
-  damagePopupPrefab: {fileID: 0}
+  combatTextPopupPrefab: {fileID: 0}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 8365653023187925199}

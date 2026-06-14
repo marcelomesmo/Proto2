@@ -73,3 +73,7 @@ MonoBehaviour:
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100
+  - projectilePrefab: {fileID: 5975751646184246127, guid: 28e56a6de4847cc4382085c56ae9bf3d, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100

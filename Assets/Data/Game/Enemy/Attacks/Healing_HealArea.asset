@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
+  m_Name: Healing_HealArea
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: 
+  icon: {fileID: 0}
+  description: 
+  executionMode: 2
+  combatActionType: 1
+  amount: 1
+  range: 6
+  cooldown: 4
+  hitTypes: 2
+  hitVFX: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
+  castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+  targetType: 2
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  projectilePrefab: {fileID: 0}
+  directionMode: 1
+  fixedAngle: 0
+  areaEffectData: {fileID: 11400000, guid: 8f5ea692130e11846b9baafb65f48779, type: 2}
+  chainData: {fileID: 0}
+  effects: []

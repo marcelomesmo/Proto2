@@ -91,6 +91,27 @@ namespace Core.Gameplay.Entity
         {
             DeathSignal?.Invoke(this);
         }
+        
+        #region Faction Checks
+        
+        public bool IsAlly(EntityController other)
+        {
+            if (other == null)
+                return false;
+
+            return Stats.faction == other.Stats.faction;
+        }
+
+
+        public bool IsEnemy(EntityController other)
+        {
+            if (other == null)
+                return false;
+
+            return Stats.faction != other.Stats.faction;
+        }
+        
+        #endregion
 
         #region Tag Checks
         

@@ -23,9 +23,6 @@ namespace Core.Gameplay.Combat.AreaEffect
         public float duration;
         public float tickInterval = 1f;
         public bool isChanneled;
-
-        [Header("Targeting")]
-        public LayerMask hitLayers;
         
         [Header("Spawn")]
         public AreaSpawnMode spawnMode;
