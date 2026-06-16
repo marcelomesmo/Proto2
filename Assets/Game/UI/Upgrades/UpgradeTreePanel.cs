@@ -84,5 +84,11 @@ namespace Game.UI.Upgrades
         {
             tooltip?.Hide();
         }
+
+        public void ResetUpgrades()
+        {
+            _upgradeManager.ResetUpgrades();
+            Refresh();
+        }
     }
 }

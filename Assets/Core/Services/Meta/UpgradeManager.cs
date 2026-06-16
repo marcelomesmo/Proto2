@@ -214,5 +214,36 @@ namespace Core.Services.Meta
                        requirement.Upgrade.upgradeId)
                    >= requirement.RequiredLevel;
         }
+        
+        //
+        //  Upgrade Tree refund
+        //
+        public int CalculateUpgradeRefund()
+        {
+            int refund = 0;
+
+            foreach (var progress in _saveManager.Profile.upgrades)
+            {
+                if (!_database.TryGet(progress.id, out var definition))
+                    continue;
+
+                for (int level = 1; level <= progress.level; level++)
+                {
+                    refund += definition.GetCostForLevel(level);
+                }
+            }
+
+            return refund;
+        }
+        
+        public void ResetUpgrades()
+        {
+            int refund = CalculateUpgradeRefund();
+
+            _saveManager.Profile.gold += refund;
+            _saveManager.Profile.upgrades.Clear();
+
+            _saveManager.Save();
+        }
     }
 }

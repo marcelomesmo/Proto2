@@ -51,5 +51,10 @@ namespace Game.UI.Wallet
         {
             goldText.text = "";
         }
+
+        public void RefreshExternal()
+        {
+            Refresh();
+        }
     }
 }
