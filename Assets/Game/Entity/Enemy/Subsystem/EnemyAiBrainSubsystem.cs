@@ -182,11 +182,6 @@ namespace Game.Entity.Enemy.Subsystem
                     continue;
 
                 EntityController target = ResolveAttackTarget(attack);
-                
-                if(attack.combatActionType == CombatAction.Heal)
-                    Debug.Log(
-                        $"Trying {attack.name}, target={target}"
-                    );
 
                 if (!target)
                     continue;
@@ -507,9 +502,7 @@ namespace Game.Entity.Enemy.Subsystem
                 }
             }
 
-            Debug.Log(
-                $"[{name}] Closest ally = {best}"
-            );
+            //Debug.Log($"[{name}] Closest ally = {best}");
 
             return best;
         }
