@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 
 namespace Core.Camera
@@ -11,7 +12,9 @@ namespace Core.Camera
         static extern void InitializeWindow(
             IntPtr hwnd,
             bool topMost,
-            bool borderless
+            bool borderless,
+            int width,
+            int height
         );
 
         [DllImport("TransparentWindowPlugin")]
@@ -29,6 +32,12 @@ namespace Core.Camera
         
         [DllImport("user32.dll")]
         static extern IntPtr GetActiveWindow();
+        
+        [DllImport("TransparentWindowPlugin")]
+        static extern void SetWindowVisible(bool visible);
+        
+        [DllImport("TransparentWindowPlugin")]
+        static extern bool GetWindowVisible();
 #endif
         
         [Header("References")]
@@ -48,68 +57,40 @@ namespace Core.Camera
         
         void Start()
         {
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-            IntPtr hwnd = GetActiveWindow();
-
-            InitializeWindow(
-                hwnd,
-                pinToTop,
-                borderless
-            );
-#endif
+            // Set up render textures immediately (no window calls yet)
             int width = Mathf.RoundToInt(mainCamera.pixelRect.width);
             int height = Mathf.RoundToInt(mainCamera.pixelRect.height);
-            
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-            ResizeWindow(
-                width,
-                height
-            );
-#endif
-            
-            renderTexture =
-                new RenderTexture(
-                    width,
-                    height,
-                    24,
-                    RenderTextureFormat.ARGB32
-                );
-            
+
+            renderTexture = new RenderTexture(width, height, 24, RenderTextureFormat.ARGB32);
             renderTexture.Create();
 
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-            mainCamera.targetTexture = renderTexture;
-#endif
-
             mainCamera.clearFlags = CameraClearFlags.SolidColor;
-            mainCamera.backgroundColor =
-                new Color(
-                    0,
-                    0,
-                    0,
-                    0
-                );
+            mainCamera.backgroundColor = new Color(0, 0, 0, 0);
             mainCamera.allowHDR = false;
 
-            readTexture =
-                new Texture2D(
-                    width,
-                    height,
-                    TextureFormat.RGBA32,
-                    false
-                );
-            
-            frameBuffer =  new byte[width * height * 4];
-            
-            Debug.Log(
-                $"Screen: {Screen.width}x{Screen.height}"
-            );
+            readTexture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            frameBuffer = new byte[width * height * 4];
 
-            Debug.Log(
-                $"Render: {Display.main.renderingWidth}x{Display.main.renderingHeight}"
-            );
+            foreach (GameObject obj in objectsToHide)
+                obj.SetActive(false);
+
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            StartCoroutine(InitializeWindowNextFrame(width, height));
+#endif
         }
-
+        
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+        private IEnumerator InitializeWindowNextFrame(int width, int height)
+        {
+            yield return null; // wait one frame for Unity's input system to settle
+        
+            IntPtr hwnd = GetActiveWindow();
+            InitializeWindow(hwnd, pinToTop, borderless, width, height);
+        
+            mainCamera.targetTexture = renderTexture; // attach only after window is configured
+        }
+#endif
+        
         void LateUpdate()
         {
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
@@ -229,6 +210,18 @@ namespace Core.Camera
                 renderTexture = null;
             }
         }
+        
+        /*
+         This is dangerous without a tray icon as it completely hides the game.
+         
+         public void ToggleVisibility()
+        {
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            bool isVisible = GetWindowVisible();
+            SetWindowVisible(!isVisible);
+#endif
+        }
+        */
         
         /*public void ToggleTransparency()
         {

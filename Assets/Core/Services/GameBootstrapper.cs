@@ -39,6 +39,13 @@ namespace Core.Services
                 Destroy(gameObject);
                 return;
             }
+            
+            Screen.SetResolution(
+                1920,
+                1080,
+                FullScreenMode.Windowed,
+                60
+            );
 
             _bootstrapped = true;
             DontDestroyOnLoad(gameObject);

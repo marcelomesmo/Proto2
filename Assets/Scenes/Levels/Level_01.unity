@@ -702,8 +702,8 @@ Transform:
   m_GameObject: {fileID: 185506365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.65, z: 0}
-  m_LocalScale: {x: 39.999996, y: 2.734375, z: 1}
+  m_LocalPosition: {x: 2.8125, y: -0.65, z: 0}
+  m_LocalScale: {x: 31.4, y: 2.734375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1680770559}
@@ -1015,7 +1015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 893.5625, y: 0}
+  m_AnchoredPosition: {x: 756.44183, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &340560846
@@ -2483,12 +2483,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2122956204}
-  - {fileID: 1945731793}
-  - {fileID: 383704352}
-  - {fileID: 1892064911}
   - {fileID: 501953842}
   - {fileID: 1943338750}
   - {fileID: 340560845}
+  - {fileID: 1945731793}
+  - {fileID: 383704352}
+  - {fileID: 1892064911}
   - {fileID: 859631230}
   - {fileID: 2136450981}
   - {fileID: 1703695462}
@@ -2534,7 +2534,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2560,7 +2560,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2017443257
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &859631229
@@ -2975,7 +2975,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 875, y: -483}
+  m_AnchoredPosition: {x: 760, y: -483}
   m_SizeDelta: {x: 84, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146977941
@@ -3698,7 +3698,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3724,7 +3724,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2017443257
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1001 &1325248696
@@ -4450,7 +4450,7 @@ Transform:
   m_GameObject: {fileID: 1561861705}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4474,7 +4474,6 @@ MonoBehaviour:
   defaultOptionsSelection: {fileID: 1325248699}
   gameplayCanvases:
   - {fileID: 822494070}
-  - {fileID: 1305514033}
   - {fileID: 903980136}
 --- !u!1 &1597285059
 GameObject:
@@ -5821,7 +5820,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2017443257
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &1943338749
@@ -5861,7 +5860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 767.625, y: -483}
+  m_AnchoredPosition: {x: 926.3963, y: -793.32574}
   m_SizeDelta: {x: 84, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943338752
@@ -6140,9 +6139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Camera.TransparentWindowGame
   mainCamera: {fileID: 519420031}
-  objectsToHide: []
+  objectsToHide:
+  - {fileID: 1305514029}
   borderless: 1
-  pinToTop: 0
+  pinToTop: 1
 --- !u!1 &2026296273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6675,7 +6675,7 @@ PrefabInstance:
       objectReference: {fileID: 344643883}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -4.875
       objectReference: {fileID: 0}
     - target: {fileID: 8758143417819079548, guid: 835457484bdd1cb48a68f099fb9ced78, type: 3}
       propertyPath: m_LocalPosition.y

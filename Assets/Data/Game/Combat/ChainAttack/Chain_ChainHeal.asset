@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b913d65c39efc77499a8373f8899f7c2, type: 3}
+  m_Name: Chain_ChainHeal
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.ChainAttack.ChainAttackData
+  maxBounces: 3
+  chainRange: 5
+  damageMultiplierPerBounce: 1
+  applyEffectsOnEveryBounce: 1
+  chainVfxPrefab: {fileID: 4924597200019519335, guid: 0ea9a74da7765de43955071026908de8, type: 3}
+  vfxLifetime: 0.2
+  hopVfxDelay: 0.15
