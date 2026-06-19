@@ -209,9 +209,13 @@ namespace Core.Gameplay.Entity.Subsystem
                     ShootProjectile(_currentAttack, _pendingContext);
                     break;
 
-                case AttackExecutionMode.AreaEffect:
+                case AttackExecutionMode.Area:
                     keepAttackAlive =
                         SpawnAreaEffect(_currentAttack, _pendingContext);
+                    break;
+                
+                case AttackExecutionMode.Direct:
+                    ExecuteDirectCast(_currentAttack, _pendingContext);
                     break;
             }
             
@@ -576,7 +580,7 @@ namespace Core.Gameplay.Entity.Subsystem
             
             //var targetFilter = BuildAttackTargetFilter(attack.Data);
             
-            var damageSource = new AttackSource(
+            var source = new AttackSource(
                 _stats.faction,
                 _controller,
                 transform.position,
@@ -587,7 +591,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 attack: attack,
                 amount: resolvedDamage,
                 scope: ModifierScope.Melee,
-                source: damageSource
+                source: source
             );
             
             foreach (var hit in _meleeHits)
@@ -598,11 +602,43 @@ namespace Core.Gameplay.Entity.Subsystem
                 if (!targetFilter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<ICombatReceiver>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var receiver))
                     continue;
                 
                 CombatExecutionPipeline.Execute(
-                    damageable,
+                    receiver,
+                    payload
+                );
+            }
+        }
+        
+        #endregion
+        
+        #region AttackExeuctionMode: Direct
+
+        private void ExecuteDirectCast(AttackInstance attack, AttackContext context)
+        {
+            if (!context.Target)
+                return;
+
+            var source = new AttackSource(
+                _stats.faction,
+                _controller,
+                transform.position,
+                BuildAttackTargetFilter(attack.Data)
+            );
+            
+            var payload = CombatPayloadFactory.Create(
+                attack,
+                GetResolvedCombatAmount(attack),
+                ModifierScope.All,
+                source
+            );
+            
+            if(context.Target.TryGetComponent<ICombatReceiver>(out var receiver))
+            {
+                CombatExecutionPipeline.Execute(
+                    receiver,
                     payload
                 );
             }
@@ -667,53 +703,18 @@ namespace Core.Gameplay.Entity.Subsystem
             };
         }
         
-        private void BuildTargetFilter()
+        private int GetResolvedCombatAmount(AttackInstance attackInstance)
         {
-            /*_targetFilter = new AttackTargetFilter
-            {
-                layerMask = hitLayers,
-                allowTriggers = true
-            };*/
-        }
-        
-        public void RebuildTargetFilter(LayerMask newMask, bool allowTriggers)
-        {
-            /*_targetFilter.layerMask = newMask;
-            _targetFilter.allowTriggers = allowTriggers;*/
-        }
-        
-        // TODO: Later move this to the AttackInstance when we move Damage to AttackStatModifier and when
-        //      AttackInstance gets ownership of the owner stats (should we?).
-        private int GetResolvedCombatAmount(AttackInstance attack)
-        {
-            float value = attack.Data.amount;
-
-            // Entity stats contribution
-            value += GetAttackPowerBonus();
-
-            // Future:
-            // crit bonus
-            // berserk
-            // temporary buffs
-            // aura modifiers
-            // debuffs
-            // difficulty scaling
-            // etc
+            AttackResolveContext context = 
+                new AttackResolveContext 
+                {
+                    Source = this.Controller,
+                    Modifiers = _modifiers
+                };
+            
+            float value = attackInstance.GetResolvedCombatAmount(context);
 
             return Mathf.RoundToInt(value);
-        }
-        
-        private int GetAttackPowerBonus()
-        {
-            if (Controller.Stats is Game.Entity.Player.Stats.CharacterStats stats)
-                return Mathf.RoundToInt(stats.attackPower);
-            
-            // Simple for now, but later we can do:
-            //  stats.attackPower + _temporaryAttackBuff, or
-            //  stats.attackPower * (IsEnraged ? 2 : 1); or
-            //  stats.attackPower * stats.attackPowerMultiplier; etc.
-
-            return 0;
         }
         
         // -------------------------------------

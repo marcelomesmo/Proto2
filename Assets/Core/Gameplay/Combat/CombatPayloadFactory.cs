@@ -23,17 +23,17 @@ namespace Core.Gameplay.Combat
             // 1. Collect Damage Modifiers
             // -----------------------------
 
-            List<DamageModifier> filteredModifiers = null;
+            List<AttackStatModifier> filteredModifiers = null;
             
             var allModifiers  = source.sourceEntity
                 ? source.sourceEntity
                     .GetComponent<EntityModifierSubsystem>()?
-                    .DamageModifiers
+                    .AttackStatModifiers
                 : null;
             
             if (allModifiers != null)
             {
-                filteredModifiers = ListPool<DamageModifier>.Get(); // TODO: When is this release? Do we need to?
+                filteredModifiers = ListPool<AttackStatModifier>.Get(); // TODO: When is this release? Do we need to?
 
                 HitTypes actualHitTypes = attack.Data.hitTypes;
 
@@ -41,8 +41,12 @@ namespace Core.Gameplay.Combat
                 
                 foreach (var mod in allModifiers)
                 {
+                    var type = attack.Data.combatActionType == CombatAction.Damage
+                        ? AttackStatType.Damage
+                        : AttackStatType.Healing;
+                    
                     //Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
-                    if (mod.AppliesTo(attack.Data, scope, actualHitTypes))
+                    if (mod.AppliesTo(attack.Data, type, scope, actualHitTypes))
                         filteredModifiers.Add(mod);
                 }
             }
@@ -125,7 +129,7 @@ namespace Core.Gameplay.Combat
         public static CombatPayload CreateEffectDamage(
             int damage,
             AttackSource source,
-            List<DamageModifier> modifiers)
+            List<AttackStatModifier> modifiers)
         {
             return new CombatPayload(
                 action: CombatAction.Damage,

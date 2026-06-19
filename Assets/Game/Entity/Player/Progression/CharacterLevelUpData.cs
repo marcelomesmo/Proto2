@@ -46,6 +46,7 @@ namespace Game.Entity.Player.Progression
     public struct LevelStatGain
     {
         public int attackPower;
+        public int healingPower;
         public int defense;
     }
 }

@@ -26,4 +26,4 @@ MonoBehaviour:
   levelDescriptions:
   - '[Fireball] damage +1'
   effects:
-  - {fileID: 11400000, guid: e68f6d50ccb2c08488d9209c293664ec, type: 2}
+  - {fileID: 11400000, guid: 7f3830ee85d91fd4482ec6c3c51a9e2d, type: 2}

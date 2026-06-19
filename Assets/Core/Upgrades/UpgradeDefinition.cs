@@ -47,10 +47,19 @@ namespace Core.Upgrades
 
         public string GetEffectDescriptionForLevel(int level)
         {
-            if (level <= 0 || level > levelDescriptions.Length)
+            if (level < 0 || level > levelDescriptions.Length)
                 return string.Empty;
-
+            
             return levelDescriptions[level - 1];
+        }
+        
+        public string GetEffectDescriptionForNextLevel(int currentLevel)
+        {
+            if(currentLevel == levelDescriptions.Length )
+                return GetEffectDescriptionForLevel(currentLevel);  // stops when at last level,
+                                                                    // obs: considers levelDescriptions size is correct.
+            
+            return GetEffectDescriptionForLevel(currentLevel+1);
         }
         
 #if UNITY_EDITOR

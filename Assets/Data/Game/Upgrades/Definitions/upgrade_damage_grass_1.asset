@@ -17,10 +17,13 @@ MonoBehaviour:
   description: Increase all [Grass] damage by 1.
   icon: {fileID: 21300000, guid: 313eb4d0157f6ec418d857892d7b44ad, type: 3}
   maxLevel: 3
+  upgradeUnlockRule:
+    mode: 0
+    requirements: []
   levelCosts: 0a000000320000004b000000
   levelDescriptions:
   - Grass Damage +1
   - Grass Damage +2
   - Grass Damage +3
   effects:
-  - {fileID: 11400000, guid: 799478eea5f67294ea6388a041301e66, type: 2}
+  - {fileID: 11400000, guid: 97b7832bf1afd9c449321fedded7a1e3, type: 2}

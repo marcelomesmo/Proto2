@@ -169,6 +169,7 @@ namespace Game.Entity.Player.Subsystem
             var gain = levelUpData.GetStatGainForLevel(level);
 
             _stats.attackPower += gain.attackPower;
+            _stats.healingPower += gain.healingPower;
             _stats.defense += gain.defense;
         }
     }

@@ -97,12 +97,21 @@ namespace Game.UI.Upgrades
             if (_upgradeManager.TryPurchaseUpgrade(upgrade.upgradeId))
             {
                 Refresh();
+            
+                // Force refresh tooltip
+                _treePanel.RefreshTooltip(
+                    upgrade, 
+                    _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
+                    _rectTransform);
             }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _treePanel.ShowTooltip(upgrade, _rectTransform);
+            _treePanel.ShowTooltip(
+                upgrade, 
+                _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
+                _rectTransform);
         }
 
         public void OnPointerExit(PointerEventData eventData)

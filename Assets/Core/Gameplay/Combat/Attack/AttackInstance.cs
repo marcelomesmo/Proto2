@@ -1,4 +1,5 @@
 using Core.Enum;
+using Core.Gameplay.Entity.Stats;
 using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
 
@@ -136,9 +137,81 @@ namespace Core.Gameplay.Combat.Attack
             {
                 AttackExecutionMode.Melee => ModifierScope.Melee,
                 AttackExecutionMode.Projectile => ModifierScope.Projectile,
-                AttackExecutionMode.AreaEffect => ModifierScope.Area,
+                AttackExecutionMode.Area => ModifierScope.Area,
+                AttackExecutionMode.Direct => ModifierScope.Direct,
                 _ => ModifierScope.All
             };
+        }
+        
+        public int GetResolvedCombatAmount(
+            AttackResolveContext context)
+        {
+            float value = 0f;
+
+            switch(Data.combatActionType)
+            {
+                case CombatAction.Damage:
+                    // Apply modifiers
+                    value = 
+                        AttackStatResolver.Resolve(
+                            baseValue: Data.amount,
+                            attack: Data,
+                            statType: AttackStatType.Damage,
+                            scope: ResolveScope(),
+                            hitTypes: Data.hitTypes,
+                            modifiers: _modifiers.AttackStatModifiers
+                        );
+
+                    // Apply stat bonuses
+                    value += GetDamageBonus(context);
+                    break;
+
+                case CombatAction.Heal:
+                    value =  
+                        AttackStatResolver.Resolve(
+                            baseValue: Data.amount,
+                            attack: Data,
+                            statType: AttackStatType.Healing,
+                            scope: ResolveScope(),
+                            hitTypes: Data.hitTypes,
+                            modifiers: _modifiers.AttackStatModifiers
+                        );
+                    
+                    value += GetHealingBonus(context);
+                    break;
+            }
+
+            // Future:
+            // crit bonus
+            // berserk
+            // temporary buffs
+            // aura modifiers
+            // debuffs
+            // difficulty scaling
+            // etc
+            
+            // Simple for now, but later we can do:
+            //  stats.attackPower + _temporaryAttackBuff, or
+            //  stats.attackPower * (IsEnraged ? 2 : 1); or
+            //  stats.attackPower * stats.attackPowerMultiplier; etc.
+            
+            return Mathf.RoundToInt(value);
+        }
+        
+        private int GetDamageBonus(AttackResolveContext context)
+        {
+            if (context.Source.Stats)
+                return Mathf.RoundToInt(context.Source.Stats.attackPower);
+            
+            return 0;
+        }
+        
+        private int GetHealingBonus(AttackResolveContext context)
+        {
+            if (context.Source.Stats)
+                return Mathf.RoundToInt(context.Source.Stats.healingPower);
+
+            return 0;
         }
     }
 }

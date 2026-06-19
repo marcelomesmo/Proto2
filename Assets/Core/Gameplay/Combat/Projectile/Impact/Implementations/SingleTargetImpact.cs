@@ -13,14 +13,14 @@ namespace Core.Gameplay.Combat.Projectile.Impact.Implementations
             CombatPayload payload)
         {
             // Sanity check, but this is already handled in ProjectileInstance.
-            if (!other.TryGetComponent<ICombatReceiver>(out var damageable))
+            if (!other.TryGetComponent<ICombatReceiver>(out var receiver))
                 return;
 
-            if (!damageable.CanReceiveCombat(payload))
+            if (!receiver.CanReceiveCombat(payload))
                return;
 
             CombatExecutionPipeline.Execute(
-                damageable,
+                receiver,
                 payload
             );
         }

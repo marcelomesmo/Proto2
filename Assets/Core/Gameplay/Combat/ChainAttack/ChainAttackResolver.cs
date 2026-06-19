@@ -86,16 +86,16 @@ namespace Core.Gameplay.Combat.ChainAttack
                 if (!payload.source.targetFilter.CanHit(hit))
                     continue;
                 
-                if (!hit.TryGetComponent<ICombatReceiver>(out var damageable))
+                if (!hit.TryGetComponent<ICombatReceiver>(out var receiver))
                     continue;
 
-                if (excluded.Contains(damageable))      // this needs to change later if we want it to bounce to same target.
+                if (excluded.Contains(receiver))      // this needs to change later if we want it to bounce to same target.
                     continue;
 
-                if (!damageable.CanReceiveCombat(payload))
+                if (!receiver.CanReceiveCombat(payload))
                     continue;
 
-                return damageable;
+                return receiver;
             }
 
             return null;

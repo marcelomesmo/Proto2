@@ -11,7 +11,7 @@ namespace Core.Gameplay.Combat.Attack
         public readonly CombatAction action;
         public readonly AttackInstance attack;                             // null for DOT / effect damage
         public readonly int amount;                                 // ALWAYS set
-        public readonly IReadOnlyList<DamageModifier> modifiers;
+        public readonly IReadOnlyList<AttackStatModifier> modifiers;
         public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
         public readonly AttackSource source;
         public readonly int chainDepth;
@@ -20,7 +20,7 @@ namespace Core.Gameplay.Combat.Attack
             CombatAction action,
             AttackInstance attack,
             int amount,
-            IReadOnlyList<DamageModifier> modifiers,
+            IReadOnlyList<AttackStatModifier> modifiers,
             IReadOnlyList<AttackEffectData> effects,
             AttackSource source,
             int chainDepth = 0)

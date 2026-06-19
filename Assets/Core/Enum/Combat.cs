@@ -25,14 +25,15 @@ namespace Core.Enum
         Melee,
         Projectile,
         Area,
+        Direct,
         Chain,
         Effect
     }
     
     public enum AttackStatType
     {
-        // TODO: Later, we might want to deprecate DamageModifier and use Damage here instead.
-        //      However, that includes a big refactor to DamagePayloadFactory, etc, and we'll do that later.
+        Damage,
+        Healing,
         Cooldown,
         Duration,
         Range,

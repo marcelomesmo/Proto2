@@ -6,7 +6,6 @@ namespace Core.Gameplay.Entity.Subsystem
 {
     public sealed class EntityModifierSubsystem : BaseSubsystem
     {
-        private readonly List<DamageModifier> _damageModifiers = new();
         private readonly List<AttackStatModifier> _attackStatModifiers = new();
         private readonly List<AttackVariantModifier> _attackVariantModifiers = new();
         private readonly List<HealthModifier> _healthModifiers = new();
@@ -17,7 +16,6 @@ namespace Core.Gameplay.Entity.Subsystem
         // ----------------
         protected override void OnInitialize()
         {
-            _damageModifiers.Clear();
             _attackStatModifiers.Clear();
             _attackVariantModifiers.Clear();
             _healthModifiers.Clear();
@@ -26,32 +24,14 @@ namespace Core.Gameplay.Entity.Subsystem
 
         protected override void OnDeinitialize()
         {
-            _damageModifiers.Clear();
             _attackStatModifiers.Clear();
             _attackVariantModifiers.Clear();
             _healthModifiers.Clear();
             _xpModifiers.Clear();
         }
-
-        // ----------------
-        // Damage
-        // ----------------
-
-        public void AddDamageModifier(DamageModifier modifier)
-        {
-            _damageModifiers.Add(modifier);
-        }
-
-        public void RemoveDamageModifier(DamageModifier modifier)
-        {
-            _damageModifiers.Remove(modifier);
-        }
-
-        public IReadOnlyList<DamageModifier> DamageModifiers =>
-            _damageModifiers;
         
         // ----------------
-        // Attack Stats (Range, Duration, Cooldown)
+        // Attack Stats (Damage, Healing, Range, Duration, Cooldown)
         // ----------------
         
         public void AddAttackStatModifier(AttackStatModifier modifier)

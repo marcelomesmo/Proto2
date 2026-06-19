@@ -2,7 +2,6 @@ using Core.Upgrades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Game.UI.Upgrades
 {
@@ -23,7 +22,7 @@ namespace Game.UI.Upgrades
             _parentRect = transform.parent as RectTransform;
         }
         
-        public void Show(UpgradeDefinition def, RectTransform nodePosition)
+        public void Show(UpgradeDefinition def, int currentLevel, RectTransform nodePosition)
         {
             if (def == null || nodePosition == null)
                 return;
@@ -31,7 +30,7 @@ namespace Game.UI.Upgrades
             gameObject.SetActive(true);
 
             title.text = def.displayName;
-            description.text = def.description;
+            description.text = def.GetEffectDescriptionForNextLevel(currentLevel);
             
             // Rebuild after text changes to capture tooltip size properly. Specially useful if later we make dynamic sizes.
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rect);
@@ -41,6 +40,15 @@ namespace Game.UI.Upgrades
             //PositionAt(nodePosition);
             
             PositionAtAdaptative(nodePosition);
+        }
+        
+        public void Refresh(UpgradeDefinition def, int currentLevel, RectTransform nodePosition)
+        {
+            Show(def, currentLevel, nodePosition);
+
+            // In the future, we can add other UI changes here:
+            // like a VFX, or changing the borders per level, or other visual feedbacks.
+            // eg. def.IsMaxLevel -> spawn(vfx)
         }
 
         private void PositionAt(RectTransform nodePosition)

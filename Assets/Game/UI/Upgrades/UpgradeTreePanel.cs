@@ -75,14 +75,19 @@ namespace Game.UI.Upgrades
                 btn.Refresh();
         }
 
-        public void ShowTooltip(Core.Upgrades.UpgradeDefinition def, RectTransform nodePosition)
+        public void ShowTooltip(Core.Upgrades.UpgradeDefinition def, int currentLevel, RectTransform nodePosition)
         {
-            tooltip?.Show(def, nodePosition);
+            tooltip?.Show(def, currentLevel, nodePosition);
         }
 
         public void HideTooltip()
         {
             tooltip?.Hide();
+        }
+        
+        public void RefreshTooltip(Core.Upgrades.UpgradeDefinition def, int currentLevel, RectTransform nodePosition)
+        {
+            tooltip?.Refresh(def, currentLevel, nodePosition);
         }
 
         public void ResetUpgrades()

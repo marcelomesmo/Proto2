@@ -28,4 +28,4 @@ MonoBehaviour:
   - Fire Damage +20%
   - Fire Damage +30%
   effects:
-  - {fileID: 11400000, guid: 0c06da5b7d03fb546aa4bf67694e45b8, type: 2}
+  - {fileID: 11400000, guid: 37df027ead04b7c48a179ab1af3f62ba, type: 2}

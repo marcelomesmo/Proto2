@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de07e4d1a3916e4499704995ebb9e931, type: 3}
+  m_Script: {fileID: 11500000, guid: f70e5c062ee6c8c41b5816f8a4b3048f, type: 3}
   m_Name: Fireball_DamageUpgrade_1
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.DamageModifierEffect
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
   modifierPerLevel:
   - targetAttack: {fileID: 11400000, guid: 51b0f66cbeabe8f43bfbe0cd5529418f, type: 2}
-    scope: 0
+    statType: 0
+    scope: 2
     type: 0
     value: 1
     filterByHitType: 0

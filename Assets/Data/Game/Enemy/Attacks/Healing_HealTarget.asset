@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: 
   icon: {fileID: 0}
   description: 
-  executionMode: 1
+  executionMode: 3
   combatActionType: 1
-  amount: 1
+  amount: 10
   range: 6
   cooldown: 4
   hitTypes: 2
@@ -27,7 +27,7 @@ MonoBehaviour:
   targetLayers:
     serializedVersion: 2
     m_Bits: 512
-  projectilePrefab: {fileID: 5975751646184246127, guid: 28e56a6de4847cc4382085c56ae9bf3d, type: 3}
+  projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
   areaEffectData: {fileID: 0}

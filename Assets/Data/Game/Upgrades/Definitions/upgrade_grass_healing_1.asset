@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_damage_water_1
+  m_Name: upgrade_grass_healing_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: damage_water_1
-  displayName: Water Synergy
-  description: Increase all [Water] damage by 1.
+  upgradeId: grass_healing_1
+  displayName: restoring waves
+  description: '[Healing] now heals Castle for +10'
   icon: {fileID: 21300000, guid: 0ad2337320c1b5841ba3ceb24de6e91a, type: 3}
-  maxLevel: 3
+  maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements: []
-  levelCosts: 0a000000320000004b000000
+  levelCosts: 01000000
   levelDescriptions:
-  - Water Damage +1
-  - Water Damage +2
-  - Water Damage +3
+  - '[Healing] +10'
   effects:
-  - {fileID: 11400000, guid: 6281978df34bdc449bb74393265a04d1, type: 2}
+  - {fileID: 11400000, guid: 519cb195cd5c9b048afe42b7844aeeff, type: 2}

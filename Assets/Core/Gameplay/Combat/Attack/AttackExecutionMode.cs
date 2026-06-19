@@ -4,7 +4,8 @@ namespace Core.Gameplay.Combat.Attack
     {
         Melee,
         Projectile,
-        AreaEffect
+        Area,
+        Direct
         // Chain will come later
     }
 }
