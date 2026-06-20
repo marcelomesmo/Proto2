@@ -15,12 +15,21 @@ namespace Core.Gameplay.Entity.Stats
         public float healingPower = 10f;
         public float defense = 1f;
         
+        [Header("Targeting")]
+        public LayerMask combatEntityLayers;
+        public float aggroRadius = 8f;
+        public float aggroTolerance = 10f;
+        
         [Header("Stats")]
         public int maxHealth = 100;
     
         [Header("Movement")]
         public float moveSpeed = 2f;
         public float speedMult = 1f;
+        
+        [Header("Actions")]
+        public float thinkingTime = 1.5f;       // Could maybe rename this to scanInterval since "thinking is an enemy-flavoured word
+        public float globalCooldown = 0.5f;
     
         [Header("Tags")]
         public GameplayTag invulnerableTag;

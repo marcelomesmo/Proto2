@@ -112,7 +112,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
             
             // 1. Apply damage
-            int damage = payload.ResolveAmount();
+            int damage = payload.amount;
             
             _currentHealth = Mathf.Clamp(
                 _currentHealth - damage,
@@ -138,7 +138,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
 
             _currentHealth = Mathf.Clamp(
-                _currentHealth + payload.ResolveAmount(),   // TODO: how we filter healing modifiers?
+                _currentHealth + payload.amount,
                 0,
                 _maxHealth);
 

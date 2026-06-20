@@ -53,17 +53,16 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
 
             _tickTimer = _data.tickInterval;
 
-            if (!_target.TryGetComponent<ICombatReceiver>(out var damageable))
+            if (!_target.TryGetComponent<ICombatReceiver>(out var receiver))
                 return;
             
             var payload = CombatPayloadFactory.CreateEffectDamage(
-                damage: Mathf.RoundToInt(_data.value),
-                source: _attackSource,
-                modifiers: null
+                damage: Mathf.RoundToInt(_data.value),  // TODO: In case we need modifiers to effect damage later, this is where we change.
+                source: _attackSource
             );
 
             CombatExecutionPipeline.Execute(
-                damageable,
+                receiver,
                 payload
             );
         }

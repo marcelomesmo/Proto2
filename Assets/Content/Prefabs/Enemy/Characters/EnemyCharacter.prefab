@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: -3408298325961480241}
   - component: {fileID: 5044594042734989476}
   - component: {fileID: 4307992883338118906}
+  - component: {fileID: 7358767272661125478}
   - component: {fileID: 3022106705329449248}
   - component: {fileID: -534619075015666269}
   - component: {fileID: 5537539291508507723}
@@ -274,9 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyAiBrainSubsystem
   controlEnabled: 0
-  losBlockMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &646872805972670233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +326,21 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &7358767272661125478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318268104879652713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6670a5eed56a840b28e3a81eda752e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityTargetingSubsystem
+  losBlockMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &3022106705329449248
 MonoBehaviour:
   m_ObjectHideFlags: 0

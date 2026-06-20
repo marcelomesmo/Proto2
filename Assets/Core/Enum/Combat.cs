@@ -70,6 +70,23 @@ namespace Core.Enum
         Allies,
         Any
     }
+
+    public enum TargetSelectionMode
+    {
+        Closest,
+        Furthest,
+        LowestHealth,
+        HighestHealth
+    }
+    
+    public enum TargetRequirement
+    {
+        None,
+        MissingHealth,
+        MissingShield,
+        HasDebuff,
+        Dead
+    }
     
     /*
      * Later, in case we want to differentiate between Element/Damage types.

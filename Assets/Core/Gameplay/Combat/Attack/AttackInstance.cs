@@ -1,5 +1,4 @@
 using Core.Enum;
-using Core.Gameplay.Entity.Stats;
 using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
 

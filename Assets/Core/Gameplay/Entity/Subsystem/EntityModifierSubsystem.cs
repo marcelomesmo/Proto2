@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Gameplay.Combat.Modifiers;
 using Core.Upgrades.Effects;
+using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
 {

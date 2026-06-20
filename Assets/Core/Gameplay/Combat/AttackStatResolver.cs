@@ -28,7 +28,6 @@ namespace Core.Gameplay.Combat
             // -------------------------
             // Additive
             // -------------------------
-
             foreach (var mod in modifiers)
             {
                 if (!mod.AppliesTo(attack, statType, scope, hitTypes))
@@ -43,7 +42,6 @@ namespace Core.Gameplay.Combat
             // -------------------------
             // Multiplicative
             // -------------------------
-
             foreach (var mod in modifiers)
             {
                 if (!mod.AppliesTo(attack, statType, scope, hitTypes))

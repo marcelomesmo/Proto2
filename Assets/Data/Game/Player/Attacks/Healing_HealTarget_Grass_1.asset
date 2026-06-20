@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
-  m_Name: Healing_HealArea
+  m_Name: Healing_HealTarget_Grass_1
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: 
   icon: {fileID: 0}
   description: 
-  executionMode: 2
+  executionMode: 3
   combatActionType: 1
-  amount: 1
+  amount: 10
   range: 6
   cooldown: 4
-  hitTypes: 2
+  hitTypes: 18
   hitVFX: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 2
-  targetSelectionMode: 2
+  targetSelectionMode: 0
   targetRequirement: 1
   targetLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 256
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
-  areaEffectData: {fileID: 11400000, guid: 8f5ea692130e11846b9baafb65f48779, type: 2}
+  areaEffectData: {fileID: 0}
   chainData: {fileID: 0}
   effects: []

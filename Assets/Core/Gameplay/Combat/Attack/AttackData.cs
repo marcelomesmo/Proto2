@@ -29,6 +29,8 @@ namespace Core.Gameplay.Combat.Attack
         
         [Header("Targeting")]
         public CombatTargetType targetType;
+        public TargetSelectionMode targetSelectionMode = TargetSelectionMode.Closest;
+        public TargetRequirement targetRequirement = TargetRequirement.None;
         public LayerMask targetLayers;
 
         [Header("Ranged - Settings")]

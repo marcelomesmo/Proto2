@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
-using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -23,7 +22,11 @@ namespace Core.Gameplay.Combat
             // 1. Collect Damage Modifiers
             // -----------------------------
 
-            List<AttackStatModifier> filteredModifiers = null;
+            /*
+             
+             DEPRECATED, kept here just in case.
+             
+             List<AttackStatModifier> filteredModifiers = null;
             
             var allModifiers  = source.sourceEntity
                 ? source.sourceEntity
@@ -50,6 +53,7 @@ namespace Core.Gameplay.Combat
                         filteredModifiers.Add(mod);
                 }
             }
+            */
 
             // -----------------------------
             // 2. Merge Attack Effects
@@ -86,7 +90,6 @@ namespace Core.Gameplay.Combat
                 action: attack.Data.combatActionType,
                 attack: attack,
                 amount: amount,
-                modifiers: filteredModifiers,
                 effects: effects,
                 source: source
             );
@@ -115,7 +118,6 @@ namespace Core.Gameplay.Combat
                 action: previous.attack.Data.combatActionType,
                 attack: previous.attack,
                 amount: Mathf.RoundToInt(previous.amount * multiplier),
-                modifiers: previous.modifiers,
                 effects: effects,
                 source: previous.source,
                 chainDepth: previous.chainDepth + 1
@@ -128,14 +130,12 @@ namespace Core.Gameplay.Combat
 
         public static CombatPayload CreateEffectDamage(
             int damage,
-            AttackSource source,
-            List<AttackStatModifier> modifiers)
+            AttackSource source)
         {
             return new CombatPayload(
                 action: CombatAction.Damage,
                 attack: null,
                 amount: damage,
-                modifiers: modifiers,
                 effects: null,
                 source: source,
                 chainDepth: 0

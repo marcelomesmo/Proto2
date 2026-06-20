@@ -81,7 +81,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             // 1. Spawn Damage Popup VFX lettering.
             var prefab = combatTextPopupPrefab;
-            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.ResolveAmount(), payload.action);
+            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.amount, payload.action);
             //var prefab = isCritical
             //    ? damagePopupCriticalPrefab
             //    : damagePopupPrefab;
@@ -116,7 +116,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             // 1. Spawn Damage Popup VFX lettering.
             var prefab = combatTextPopupPrefab;
-            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.ResolveAmount(), payload.action);
+            SpawnCombatPopup(prefab, combatTextPopupAnchor, payload.amount, payload.action);
             
             // 2. Spawn Hit VFX treatment.
             if (payload.attack != null)

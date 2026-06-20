@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
   m_Name: Healing_HealTarget
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
-  displayName: 
+  displayName: Healing Leaves
   icon: {fileID: 0}
-  description: 
+  description: Heal Castle for 10HP
   executionMode: 3
   combatActionType: 1
   amount: 10
@@ -24,6 +24,8 @@ MonoBehaviour:
   hitVFX: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 2
+  targetSelectionMode: 2
+  targetRequirement: 1
   targetLayers:
     serializedVersion: 2
     m_Bits: 512

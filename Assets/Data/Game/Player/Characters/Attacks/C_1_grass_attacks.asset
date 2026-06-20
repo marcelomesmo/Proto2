@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: C_1_grass_attacks
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
+  - {fileID: 11400000, guid: 0218849db3e55474a8f480037dd7bbdf, type: 2}
   - {fileID: 11400000, guid: fd99ac6ec3add4b47a9ae12b5c48b299, type: 2}

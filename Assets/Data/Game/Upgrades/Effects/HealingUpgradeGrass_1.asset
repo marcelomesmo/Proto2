@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f70e5c062ee6c8c41b5816f8a4b3048f, type: 3}
-  m_Name: Healing_HealingIncrease_1
+  m_Name: HealingUpgradeGrass_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
   modifierPerLevel:
   - targetAttack: {fileID: 0}
     statType: 1
     scope: 0
     type: 0
-    value: 10
+    value: 100
     filterByHitType: 1
     hitTypes: 16

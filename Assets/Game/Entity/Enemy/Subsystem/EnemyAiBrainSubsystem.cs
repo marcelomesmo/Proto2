@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity;
@@ -11,18 +10,17 @@ using UnityEngine;
 namespace Game.Entity.Enemy.Subsystem
 {
     [RequireComponent(typeof(EntityMovement))]
-    [RequireComponent(typeof(EntityPresentationSubsystem))]
     [RequireComponent(typeof(EntityAttackSubsystem))]
     [RequireComponent(typeof(EntityAttackLoadout))]
+    [RequireComponent(typeof(EntityTargetingSubsystem))]
+    [RequireComponent(typeof(EntityPresentationSubsystem))]
     public sealed class EnemyAiBrainSubsystem : EntityBrainSubsystem
     {
-        [Header("Line of Sight")]
-        [SerializeField] private LayerMask losBlockMask;  // walls, ground, obstacles
-        
         private EntityHealth _health;
         private EntityMovement _movement;
         private EntityAttackSubsystem _attackSubsystem;
         private EntityAttackLoadout _attackLoadout;
+        private EntityTargetingSubsystem _targeting;
         private EntityPresentationSubsystem _presentationSubsystem;
         
         private EnemyStats _stats;
@@ -30,30 +28,28 @@ namespace Game.Entity.Enemy.Subsystem
         private float _nextActionTime;
         private float _nextScanTime;
         
+        // Offset applied to the movement destination so enemies don't all stack
+        // on the exact same position. Sign is set once in SetTarget based on
+        // which side of the target this enemy spawned on.
+        private float _positionOffset;
+        
         protected override void OnInitialize()
         {
             _attackLoadout = GetComponent<EntityAttackLoadout>();
             _movement = GetComponent<EntityMovement>();
             _attackSubsystem = GetComponent<EntityAttackSubsystem>();
+            _targeting = GetComponent<EntityTargetingSubsystem>();
             _presentationSubsystem = GetComponent<EntityPresentationSubsystem>();
             _health = Controller.GetComponent<EntityHealth>();
-            
-            // Adjust to the ideal position for facing direction - when sprite is drawn to the left - given spawn position (P ------- E).
-            if (Controller.Stats.faction == Faction.Enemy) // ALWAYS TRUE HERE
-                _presentationSubsystem.SetFacing(FacingDirection.Left, force: true);
             
             if (Controller.Stats is EnemyStats enemyStats)
                 _stats = enemyStats;
             else
                 Debug.LogError("[EnemyAI] requires EnemyStats!");
             
-            _entityFilter = new ContactFilter2D
-            {
-                useLayerMask = true,
-                layerMask = _stats.combatEntityLayers,
-                useTriggers = true
-            };
-            
+            // Sprite is drawn facing left — correct for the (P -------- E) layout.
+            _presentationSubsystem.SetFacing(FacingDirection.Left, force: true);
+
             _health.OnDamageTaken += OnDamageTaken;
         }
         
@@ -80,7 +76,6 @@ namespace Game.Entity.Enemy.Subsystem
             if (tag == _stats.deadTag || tag == _stats.matchEndedTag)
             {
                 controlEnabled = false;
-                
                 StopAllCoroutines();
                 _movement.Stop();
             }
@@ -91,12 +86,12 @@ namespace Game.Entity.Enemy.Subsystem
             if (!controlEnabled)
                 return;
             
-            if (!HasAnyPossibleActionTarget())
+            if (!HasAggroTarget)
             {
                 if (Time.time >= _nextScanTime)
                 {
                     _nextScanTime = Time.time + _stats.thinkingTime;
-                    TryAcquireTarget();
+                    TryAcquireAggroTarget();
                 }
                 return;
             }
@@ -106,12 +101,13 @@ namespace Game.Entity.Enemy.Subsystem
         
         protected override void OnFixedUpdate()
         {
-            if (!controlEnabled || Controller.IsStunned || !HasAnyPossibleActionTarget()) 
+            if (!controlEnabled || Controller.IsStunned) 
             {
                 _movement.Stop();
                 return; // <--- THIS blocks attack/move before spawn finished!
             }
             
+            // A sequence is mid-execution — don't start anything new and don't move.
             if (_attackSubsystem.IsAttackInProgress)
             {
                 _movement.Stop();
@@ -121,18 +117,10 @@ namespace Game.Entity.Enemy.Subsystem
             // Mental model:
             // a. Can I attack right now from where I am?
             // b. If not, is there a ready attack I could reach by moving?
-            // c. Otherwise, no ready attacks at all -> idle / hold / wait for cooldowns
-            
-            float distance = HasTarget
-                ? Vector2.Distance(
-                    transform.position,
-                    CurrentTarget.transform.position)
-                : float.MaxValue;
-            // No enemy target = dont chase
-            // Ally exists = still try attacks
+            // c. Otherwise, all ready attacks are on cooldown — hold position.
             
             // --- ATTACK INTENT ---
-            // 1. Attack immediately if possible
+            // 1. Attack immediately if the global cooldown has elapsed.
             if (Time.time >= _nextActionTime)
             {
                 if (TryExecuteAnyReadyAttack())
@@ -140,69 +128,62 @@ namespace Game.Entity.Enemy.Subsystem
             }
             
             // --- MOVEMENT INTENT ---
-            // 2. Move if there exists a READY attack we could reach
-            if (HasReadyAttackOutOfRange())
+            // 2. Move toward target if a ready attack exists but is out of range.
+            if (ShouldMoveTowardAggroTarget())
             {
-                FaceTarget(CurrentTarget);
-                
-                _movement.MoveTo(CurrentTarget.transform.position);
-                
+                FaceTarget(CurrentAggroTarget, CombatTargetType.Enemies);
+                _movement.MoveTo(CurrentAggroTarget.transform.position);
                 return;
             }
             
-            // 3. Otherwise, wait (we are in range, but all attacks are on cooldown)
+            // 3. In range but all attacks on cooldown — hold position.
             _movement.Stop();
         }
         
+        //
+        //  Damage reaction
+        // 
         private void OnDamageTaken(CombatPayload payload)
         {
-            //Debug.Log("[EnemyAIBrainSubsystem] Enemy has taken damage from " + payload.source.controller);
             if (payload.source.sourceEntity != null)
-                SetTarget(payload.source.sourceEntity);
+                SetAggroTarget(payload.source.sourceEntity);
         }
         
-        #region Movement
-        
-        private void HandleMovement()
-        {
-            _movement.MoveTo(TargetPosition);
-        }
-        
-        #endregion
-        
-        
+        //
+        //  Attack selection
+        // 
         #region Attack Selection
         
         private bool TryExecuteAnyReadyAttack()
         {
             foreach (var attack in _attackLoadout.Attacks)
             {
-                // Attack is on cooldown, skip.
+                // This specific attack's cooldown hasn't elapsed yet.
                 if (!_attackSubsystem.CanExecute(attack))
                     continue;
 
-                EntityController target = ResolveAttackTarget(attack);
+                EntityController target = _targeting.ResolveAttackTarget(attack, requireLos: false);
 
                 if (!target)
                     continue;
                 
+                // Self-targeted abilities have no positional requirement.
                 if (attack.targetType != CombatTargetType.Self)
                 {
-                    float distance =
-                        Vector2.Distance(
-                            transform.position,
-                            target.transform.position);
+                    float distance = Vector2.Distance(
+                        transform.position,
+                        target.transform.position);
 
                     // Attack isn't in range, skip.
                     if (distance > attack.range)
                         continue;
                 }
                 
-                // Ensure facing is correct before attack
-                Vector2 attackDir =
-                    (target.transform.position - transform.position).normalized;
-
-                FaceTarget(target);
+                FaceTarget(target, attack.targetType);
+                
+                Vector2 attackDir = attack.targetType == CombatTargetType.Self
+                    ? (Vector2)transform.right
+                    : (target.transform.position - transform.position).normalized;
 
                 bool executed = _attackSubsystem.TryExecute(
                     attack,
@@ -223,29 +204,35 @@ namespace Game.Entity.Enemy.Subsystem
             return false;
         }
         
-        private bool HasReadyAttackOutOfRange()
+        // Returns true if at least one ready, non-self attack exists whose
+        // target is alive but currently out of range — meaning we should chase.
+        private bool ShouldMoveTowardAggroTarget()
         {
+            if (!HasAggroTarget)
+                return false;
+            
             foreach (var attack in _attackLoadout.Attacks)
             {
                 if (!_attackSubsystem.CanExecute(attack))
                     continue;
-
-                EntityController target =
-                    ResolveAttackTarget(attack);
-
-                if (!target)
-                    continue;
                 
                 if (attack.targetType == CombatTargetType.Self)
-                    return false;
+                    continue;
                 
-                float distance =
-                    Vector2.Distance(
+                // TODO: This will only work for Damage abilities, for Healing abilities the entity will not
+                // move towards allies to heal them. i.e. Enemy only move towards the Player to attack but
+                // not towards allies to heal, we should change this is a HealerBrain probably.
+                
+                // Enemy attacks are evaluated against aggro target
+                if (attack.targetType == CombatTargetType.Enemies)
+                {
+                    float distance = Vector2.Distance(
                         transform.position,
-                        target.transform.position);
+                        CurrentAggroTarget.transform.position);
                 
-                if (distance > attack.range)
-                    return true;
+                    if (distance > attack.range)
+                        return true;
+                }
             }
 
             return false;
@@ -253,200 +240,82 @@ namespace Game.Entity.Enemy.Subsystem
         
         #endregion
         
-        // TODO: This could be added to a TargetingSubsystem.
-        // TryAcquireTarget() becomes a configurable acquisition strategy, something like: ClosestEnemyTargetingStrategy (similar to what we've done for ProjectileMovement/Impact).
-        // Also probably extend with FindClosestEnemy(), FindClosestAlly(), FindTargetsInRadius().
-        #region Targeting
-        
-        private readonly List<Collider2D> _overlapResults = new();
-        private ContactFilter2D _entityFilter;
-        private float _positionOffset;
-        
         //
-        // Find possible combat entities
-        // Relationship is resolved by targeting strategy
+        //  Targeting — movement target (CurrentTarget)
         //
-        private EntityController ResolveAttackTarget(
-            AttackData attack)
-        {
-            switch (attack.targetType)
-            {
-                case CombatTargetType.Self:
-                    return Controller;
-
-                case CombatTargetType.Enemies:
-                    return CurrentTarget;
-
-                case CombatTargetType.Allies:
-                    return FindClosestAlly();
-
-                case CombatTargetType.Any:
-                    return FindClosestEntity();
-
-                default:
-                    return null;
-            }
-        }
+        //  CurrentTarget drives where this enemy walks.
+        //  It is always an enemy-faction entity (i.e. a player character).
+        //
+        // Attacks resolve their own targets independently using the filter.
+        // Movement follows CurrentAggroTarget.
+        // Specialized brains may override movement intent.
+        //
+        #region Targeting for Movement
         
-        /*
-         * TODO: Later we might want something like:
-         * TargetingMode:
-            - Aggressive
-            - Defensive
-            - Support
-            - ProtectAlly
-            - Selfish
-         */
-        private void TryAcquireTarget()
+        private void TryAcquireAggroTarget()
         {
-            _overlapResults.Clear();
-            
-            Physics2D.OverlapCircle(
-                Controller.transform.position,
+            EntityController best = _targeting.FindBestEnemy(
                 _stats.aggroRadius,
-                _entityFilter,
-                _overlapResults
-            );
-
-            EntityController bestTarget = null;
-            float bestDistSq = float.MaxValue;
-            Vector2 origin = Controller.transform.position;
+                TargetSelectionMode.Closest,
+                requireLos: true);
             
-            foreach (var col in _overlapResults)
-            {
-                if (!col.TryGetComponent(out EntityController candidate))
-                    continue;
-
-                if (candidate.IsDead)
-                    continue;
-
-                if (!Controller.IsEnemy(candidate))
-                    continue;
-
-                Vector2 toTarget = candidate.transform.position - (Vector3)origin;
-                float distSq = toTarget.sqrMagnitude;
-                
-                // Early distance reject
-                if (distSq >= bestDistSq)
-                    continue;
-
-                // Line-of-sight check
-                if (!HasLineOfSight(origin, candidate.transform.position))
-                    continue;
-
-                bestDistSq = distSq;
-                bestTarget = candidate;
-            }
-
-            if (bestTarget)
-                SetTarget(bestTarget);
+            if (best)
+                SetAggroTarget(best);
         }
         
-        private bool HasLineOfSight(Vector2 origin, Vector2 target)
-        {
-            Vector2 dir = target - origin;
-            float dist = dir.magnitude;
-
-            RaycastHit2D hit = Physics2D.Raycast(
-                origin,
-                dir.normalized,
-                dist,
-                losBlockMask
-            );
-
-            // If we hit something, LOS is blocked
-            return hit.collider == null;
-        }
-        
-        private void SetTarget(EntityController target)
+        private void SetAggroTarget(EntityController target)
         {
             if (target == null || target.IsDead)
                 return;
             
-            CurrentTarget = target;
+            CurrentAggroTarget = target;
             
-            // Random X offset (always positive or always negative based on spawn position)
-            float direction = 
-                transform.position.x > CurrentTarget.transform.position.x ? 1f : -1f;
+            // Space enemies out so they don't all converge on the exact same pixel.
+            float direction = transform.position.x > CurrentAggroTarget.transform.position.x 
+                ? 1f 
+                : -1f;
             
             _positionOffset = Random.Range(0.5f, 1f) * direction; // Will space them out based on which side they spawn
         }
         
         private void ClearTarget()
         {
-            CurrentTarget = null;
+            CurrentAggroTarget = null;
+            _positionOffset = 0f;   // This was added now, check if it doesn't break anything. If you see this in the future and movement is fine, remove this comment (leave the code).
         }
         
         private void ValidateCurrentTarget()
         {
-            if (CurrentTarget == null || !CurrentTarget.gameObject || CurrentTarget.IsDead)
+            if (CurrentAggroTarget == null || !CurrentAggroTarget.gameObject || CurrentAggroTarget.IsDead)
             {
                 ClearTarget();
                 return;
             }
 
-            float distSq = 
-                (CurrentTarget.transform.position - Controller.transform.position).sqrMagnitude;
-
-            float loseAggroRadius = _stats.aggroRadius + _stats.aggroTolerance;
+            float distSq = (CurrentAggroTarget.transform.position - Controller.transform.position).sqrMagnitude;
+            float leashRadius = _stats.aggroRadius + _stats.aggroTolerance; // Lose agroo radius
             
-            if (distSq > loseAggroRadius * loseAggroRadius)
+            if (distSq > leashRadius * leashRadius)
                 ClearTarget(); // Clearing target because out of range.
         }
         
-        private bool HasTarget =>
-            CurrentTarget != null &&
-            CurrentTarget.gameObject != null &&
-            !CurrentTarget.IsDead;
+        private bool HasAggroTarget =>
+            CurrentAggroTarget != null &&
+            CurrentAggroTarget.gameObject != null &&
+            !CurrentAggroTarget.IsDead;
         
-        // TODO: We keep this for now because movement is enemy-centric, but later we might want a healer brain that override this. 
-        private Vector2 TargetPosition =>
-            HasTarget 
-                ? new Vector2(
-                    CurrentTarget.transform.position.x + _positionOffset, 
-                    CurrentTarget.transform.position.y) 
-                : Vector2.zero;
-
-        private void FaceTarget(EntityController target)
-        {
-            if (!target)
-                return;
-            
-            _presentationSubsystem.FaceDirection(
-                (target.transform.position - transform.position).normalized
-            );
-        }
+        //
+        //  Brain gate — should this AI do anything this frame?
+        //
         
-        // This checks: Should this AI brain continue processing actions this frame?
-        private bool HasAnyPossibleActionTarget()
-        {
-            /* Originally we had:
-             
-                if(CurrentTarget)
-                    return true;
-
-                return FindClosestAlly() != null;
-            
-            Which covered:
-
-                enemy exists → attack it
-                ally exists → heal/buff it
-
-            But it missed:
-
-                no enemy
-                no ally
-                self-cast ability available
-                
-            (It was also expensive since we were checking physics every frame in FindClosestAlly)
-            */
-            
-            return HasTarget || HasSelfActionAvailable();
-            /* Then we add HasSelfActionAvailable() to the check, which is only doing this:
-"               Before giving up and becoming idle, do I have a ready action that 
-                does not require another entity?
-             */
-        }
+        // True when at least one meaningful action is possible:
+        //   • We have a movement/attack target (enemy), OR
+        //   • We have a self-cast ability ready (no target needed).
+        // Ally-targeted abilities (heals/buffs) are NOT checked here because
+        // the targeting subsystem resolves them fresh inside TryExecuteAnyReadyAttack;
+        // we rely on that path rather than scanning for allies every frame.
+        private bool HasAnyPossibleActionTarget() =>
+            HasAggroTarget || HasSelfActionAvailable();
         
         private bool HasSelfActionAvailable()
         {
@@ -462,104 +331,56 @@ namespace Game.Entity.Enemy.Subsystem
             return false;
         }
         
-        private EntityController FindClosestAlly()
-        {
-            _overlapResults.Clear();
-
-            Physics2D.OverlapCircle(
-                transform.position,
-                _stats.aggroRadius,
-                _entityFilter,
-                _overlapResults);
-
-            EntityController best = null;
-
-            float bestDistance = float.MaxValue;
-
-            foreach(var col in _overlapResults)
-            {
-                if(!col.TryGetComponent(out EntityController candidate))
-                    continue;
-
-                if(candidate == Controller)
-                    continue;
-                
-                if(candidate.IsDead)
-                    continue;
-
-                if(!Controller.IsAlly(candidate))
-                    continue;
-
-                float distance =
-                    (candidate.transform.position -
-                     transform.position)
-                    .sqrMagnitude;
-
-                if(distance < bestDistance)
-                {
-                    bestDistance = distance;
-                    best = candidate;
-                }
-            }
-
-            //Debug.Log($"[{name}] Closest ally = {best}");
-
-            return best;
-        }
+        // TODO: We keep this for now because movement is enemy-centric,
+        // but later we might want a healer brain that override this. 
+        private Vector2 TargetPosition =>
+            HasAggroTarget 
+                ? new Vector2(
+                    CurrentAggroTarget.transform.position.x + _positionOffset, 
+                    CurrentAggroTarget.transform.position.y) 
+                : Vector2.zero;
         
-        private EntityController FindClosestEntity()
+        #endregion
+        
+        //
+        //  Presentation helpers
+        //
+        #region Presentation helpers
+        
+        // Encapsulates the self-cast special case so no call site
+        // has to reason about it. Self-casts preserve the current facing.
+        private void FaceTarget(EntityController target, CombatTargetType targetType)
         {
-            _overlapResults.Clear();
-
-            Physics2D.OverlapCircle(
-                transform.position,
-                _stats.aggroRadius,
-                _entityFilter,
-                _overlapResults);
-
-            EntityController best = null;
-
-            float bestDistance = float.MaxValue;
+            if (!target)
+                return;
             
-            foreach(var col in _overlapResults)
-            {
-                if(!col.TryGetComponent(out EntityController candidate))
-                    continue;
-                
-                if(candidate == Controller)
-                    continue;
-                
-                if(candidate.IsDead)
-                    continue;
+            if (targetType == CombatTargetType.Self)
+                return; // preserve current facing
 
-                float distance =
-                    (candidate.transform.position -
-                     transform.position)
-                    .sqrMagnitude;
-
-                if(distance < bestDistance)
-                {
-                    bestDistance = distance;
-                    best = candidate;
-                }
-            }
-            
-            return best;
+            _presentationSubsystem.FaceDirection(
+                (target.transform.position - transform.position).normalized
+            );
         }
 
         #endregion
         
-                
+        //
+        //  Editor
+        //
+        
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             if (!_stats)
                 return;
             
+            // Aggro acquire radius
             Gizmos.color = Color.yellow;
-
-            // Draw agroo radius
             Gizmos.DrawWireSphere(transform.position, _stats.aggroRadius);
+            
+            // Leash radius (aggro + tolerance) — where the target is dropped
+            Gizmos.color = new Color(1f, 0.5f, 0f); // orange
+            Gizmos.DrawWireSphere(transform.position, _stats.aggroRadius + _stats.aggroTolerance);
         }
 #endif
     }

@@ -24,6 +24,8 @@ MonoBehaviour:
   hitVFX: {fileID: 1616087419151336, guid: 91fb7ab2ef38317499700fcf6b971451, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 2
+  targetSelectionMode: 2
+  targetRequirement: 1
   targetLayers:
     serializedVersion: 2
     m_Bits: 512
