@@ -20,7 +20,6 @@ namespace Core.UI.LoadingScreen
                 progressBar.value = value;
         }
         
-        /*
         private void Update()
         {
             // Optional fade-in
@@ -31,6 +30,5 @@ namespace Core.UI.LoadingScreen
                     Time.deltaTime * 2f
                 );
         }
-        */
     }
 }

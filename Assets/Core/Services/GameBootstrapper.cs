@@ -97,7 +97,7 @@ namespace Core.Services
                 save.Initialize();*/
             
             // Transition to menu (async-ready)
-            SceneLoader.LoadMenu();
+            SceneLoader.LoadSplashScreen();
         }
 
         private void RegisterService<T>(T prefab) where T : MonoBehaviour

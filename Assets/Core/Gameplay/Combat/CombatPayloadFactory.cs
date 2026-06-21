@@ -12,6 +12,7 @@ namespace Core.Gameplay.Combat
         public static CombatPayload Create(
             AttackInstance attack,
             int amount,
+            CombatFlags flags,
             ModifierScope scope,
             AttackSource source)
         {
@@ -19,44 +20,7 @@ namespace Core.Gameplay.Combat
                 return default;
 
             // -----------------------------
-            // 1. Collect Damage Modifiers
-            // -----------------------------
-
-            /*
-             
-             DEPRECATED, kept here just in case.
-             
-             List<AttackStatModifier> filteredModifiers = null;
-            
-            var allModifiers  = source.sourceEntity
-                ? source.sourceEntity
-                    .GetComponent<EntityModifierSubsystem>()?
-                    .AttackStatModifiers
-                : null;
-            
-            if (allModifiers != null)
-            {
-                filteredModifiers = ListPool<AttackStatModifier>.Get(); // TODO: When is this release? Do we need to?
-
-                HitTypes actualHitTypes = attack.Data.hitTypes;
-
-                //Debug.Log($"Total modifiers: {allModifiers.Count}");
-                
-                foreach (var mod in allModifiers)
-                {
-                    var type = attack.Data.combatActionType == CombatAction.Damage
-                        ? AttackStatType.Damage
-                        : AttackStatType.Healing;
-                    
-                    //Debug.Log($"Modifier: {mod.value} | HitType: {mod.hitTypeses}");
-                    if (mod.AppliesTo(attack.Data, type, scope, actualHitTypes))
-                        filteredModifiers.Add(mod);
-                }
-            }
-            */
-
-            // -----------------------------
-            // 2. Merge Attack Effects
+            // 1. Merge Attack Effects
             // -----------------------------
 
             var effects = ListPool<AttackEffectData>.Get();
@@ -83,7 +47,7 @@ namespace Core.Gameplay.Combat
             }
 
             // -----------------------------
-            // 3. Build Payload
+            // 2. Build Payload
             // -----------------------------
 
             var payload = new CombatPayload(
@@ -91,7 +55,8 @@ namespace Core.Gameplay.Combat
                 attack: attack,
                 amount: amount,
                 effects: effects,
-                source: source
+                source: source,
+                flags: flags
             );
 
             return payload;
@@ -120,6 +85,7 @@ namespace Core.Gameplay.Combat
                 amount: Mathf.RoundToInt(previous.amount * multiplier),
                 effects: effects,
                 source: previous.source,
+                flags: previous.flags,
                 chainDepth: previous.chainDepth + 1
             );
         }
@@ -137,8 +103,7 @@ namespace Core.Gameplay.Combat
                 attack: null,
                 amount: damage,
                 effects: null,
-                source: source,
-                chainDepth: 0
+                source: source
             );
         }
     }

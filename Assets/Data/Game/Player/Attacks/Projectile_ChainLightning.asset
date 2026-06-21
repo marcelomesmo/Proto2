@@ -17,13 +17,15 @@ MonoBehaviour:
   description: yeah shocky
   executionMode: 1
   combatActionType: 0
-  amount: 0
+  amount: 2
   range: 9
   cooldown: 5
   hitTypes: 32
   hitVFX: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
   castVFX: {fileID: 1757226974508410, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
   targetType: 1
+  targetSelectionMode: 0
+  targetRequirement: 0
   targetLayers:
     serializedVersion: 2
     m_Bits: 512

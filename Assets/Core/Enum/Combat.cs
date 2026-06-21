@@ -45,6 +45,11 @@ namespace Core.Enum
         //ChainRange,
         ChainDamageMultiplier,
         //ProjectilePierce
+        
+        CritChance,
+        CritDamage,
+        Health,
+        Defense
     }
 
 	public enum AttackVariantCondition
@@ -86,6 +91,15 @@ namespace Core.Enum
         MissingShield,
         HasDebuff,
         Dead
+    }
+    
+    [System.Flags]
+    public enum CombatFlags
+    {
+        None      = 0,
+        Critical  = 1 << 0,
+        // Block  = 1 << 1,
+        // Resist = 1 << 2,
     }
     
     /*

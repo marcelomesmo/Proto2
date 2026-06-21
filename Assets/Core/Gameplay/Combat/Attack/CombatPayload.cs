@@ -12,6 +12,7 @@ namespace Core.Gameplay.Combat.Attack
         public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
         public readonly AttackSource source;
         public readonly int chainDepth;
+        public readonly CombatFlags flags;
         
         public CombatPayload(
             CombatAction action,
@@ -19,6 +20,7 @@ namespace Core.Gameplay.Combat.Attack
             int amount,
             IReadOnlyList<AttackEffectData> effects,
             AttackSource source,
+            CombatFlags flags = CombatFlags.None,
             int chainDepth = 0)
         {
             this.action = action;
@@ -26,7 +28,10 @@ namespace Core.Gameplay.Combat.Attack
             this.amount = amount;
             this.effects = effects;
             this.source = source;
+            this.flags = flags;
             this.chainDepth = chainDepth;
         }
+        
+        public bool IsCritical => (flags & CombatFlags.Critical) != 0;
     }
 }

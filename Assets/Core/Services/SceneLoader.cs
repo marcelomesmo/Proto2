@@ -19,6 +19,11 @@ namespace Core.Services
 
         // ---------- PUBLIC API ----------
 
+        public static void LoadSplashScreen(Action<float> onProgress = null)
+        {
+            LoadSceneAsync("SplashScreen", onProgress);
+        }
+        
         public static void LoadMenu(Action<float> onProgress = null)
         {
             LoadSceneAsync("MainMenu", onProgress);

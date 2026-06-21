@@ -264,3 +264,4 @@ MonoBehaviour:
   floatingText: {fileID: 3420167116019846742}
   damageColor: {r: 1, g: 1, b: 1, a: 0}
   healingColor: {r: 0.057491798, g: 0.6981132, b: 0, a: 0}
+  critFontSize: 10

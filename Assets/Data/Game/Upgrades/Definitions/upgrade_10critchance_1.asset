@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_healtarget_grass_1
+  m_Name: upgrade_10critchance_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: healtarget_grass_1
-  displayName: Healing Rain
-  description: Increase healing by
-  icon: {fileID: 21300000, guid: 0e7966e8857d9da42bd7ac9668f85ce2, type: 3}
-  maxLevel: 2
+  upgradeId: 10critbonus_1
+  displayName: CritChance Bonus
+  description: 'Increases crit chance by '
+  icon: {fileID: 21300000, guid: 1004daa7515009d4ea9ae2e8b15feda7, type: 3}
+  maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements: []
-  levelCosts: 0100000001000000
+  levelCosts: 01000000
   levelDescriptions:
-  - Increase Healing heal by 10.
-  - Increase Healing heal by 40.
+  - Increase CritChance by 10%.
   effects:
-  - {fileID: 11400000, guid: d62c3005d576138489d09b21ce936f97, type: 2}
+  - {fileID: 11400000, guid: 49de106034041bf4d8d50f072c6bafc5, type: 2}

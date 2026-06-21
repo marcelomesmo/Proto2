@@ -1,4 +1,5 @@
 using Core.Enum;
+using Core.Gameplay.Combat.Attack;
 using TMPro;
 using UnityEngine;
 
@@ -18,21 +19,24 @@ namespace Core.VFX
         [Header("Visuals")]
         [SerializeField] private Color damageColor;
         [SerializeField] private Color healingColor;
+        [SerializeField] private float critFontSize;
 
         private Color _originalColor;
+        private float _originalFontSize;
 
         private void Awake()
         {
             _originalColor = floatingText.color;
+            _originalFontSize = floatingText.fontSize;
         }
 
-        public void Initialize(CombatAction actionType, int amount, GameObject prefab)
+        public void Initialize(CombatPayload payload, GameObject prefab)
         {
             PrefabReference = prefab;
             Timer = lifetime;
 
-            floatingText.text = amount.ToString();
-            switch (actionType)
+            floatingText.text = payload.amount.ToString();
+            switch (payload.action)
             {
                 case CombatAction.Heal:
                     floatingText.color = healingColor;
@@ -44,6 +48,11 @@ namespace Core.VFX
                     floatingText.color = _originalColor;
                     break;
             }
+
+            if (payload.IsCritical)
+                floatingText.fontSize = critFontSize;
+            else
+                floatingText.fontSize = _originalFontSize;
 
             Initialized = true;
         }

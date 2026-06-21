@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
 {
+    [RequireComponent(typeof(EntityModifierSubsystem))]
     public class EntityHealth : BaseSubsystem, ICombatReceiver
     {
         public Faction Faction => Controller.Stats.faction;
@@ -21,9 +22,14 @@ namespace Core.Gameplay.Entity.Subsystem
         public event Action<CombatPayload> OnDamageTaken;
         public event Action<CombatPayload> OnHealingTaken;
         
+        // Helpers - cached
+        private EntityModifierSubsystem _modifiers;
+        
         protected override void OnInitialize()
         {
             ResetHealth();
+            
+            _modifiers = GetComponent<EntityModifierSubsystem>();
         }
         
         protected override void OnDeinitialize()
@@ -48,9 +54,7 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             int result = Controller.Stats.maxHealth;
 
-            var modifiers =
-                Controller.GetComponent<EntityModifierSubsystem>()
-                    ?.HealthModifiers;
+            var modifiers = _modifiers?.HealthModifiers;
 
             if (modifiers == null)
                 return result;
@@ -110,22 +114,36 @@ namespace Core.Gameplay.Entity.Subsystem
             // Extra defensive check — in case someone calls TakeDamage directly:
             if (!CanReceiveCombat(payload)) 
                 return;
+
+            var resolvedDefense = GetResolvedDefense(payload.attack);
             
             // 1. Apply damage
-            int damage = payload.amount;
+            int mitigatedDamage = Mathf.Max(0, payload.amount - resolvedDefense.amount);
+            
+            // Rebuild payload with merged flags and post-mitigation amount
+            // so listeners on OnDamageTaken see the final resolved state.
+            CombatPayload resolvedPayload = new CombatPayload(
+                action: payload.action,
+                attack: payload.attack,
+                amount: mitigatedDamage,
+                effects: payload.effects,
+                source: payload.source,
+                flags: payload.flags | resolvedDefense.flags,
+                chainDepth: payload.chainDepth
+            );
             
             _currentHealth = Mathf.Clamp(
-                _currentHealth - damage,
+                _currentHealth - mitigatedDamage,
                 0,
                 _maxHealth
             );
 
             // 2. Raise events
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
-            OnDamageTaken?.Invoke(payload);
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);  // TODO: Pass flags here in case we want VFX feedback
+            OnDamageTaken?.Invoke(resolvedPayload);
 
             // 3. Apply Effects
-            ApplyCombatEffects(payload);
+            ApplyCombatEffects(resolvedPayload);
             
             // 4. Finally, check status.
             if (_currentHealth <= 0)
@@ -169,6 +187,24 @@ namespace Core.Gameplay.Entity.Subsystem
                 if (instance != null)
                     statusSubsystem.AddEffect(instance);
             }
+        }
+        
+        private CombatAmountResult GetResolvedDefense(AttackInstance attackInstance)
+        {
+            if (attackInstance == null) // Effect's have null attack instances when applied.
+                return new CombatAmountResult(
+                    amount: Mathf.RoundToInt(Controller.Stats.defense),
+                    flags: CombatFlags.None
+                );
+            
+            AttackResolveContext context = 
+                new AttackResolveContext 
+                {
+                    Source = this.Controller,
+                    Modifiers = _modifiers
+                };
+
+            return attackInstance.GetResolvedDefenseAmount(context);
         }
 
         // Keep CanBeDamaged() extremely cheap (only boolean checks).

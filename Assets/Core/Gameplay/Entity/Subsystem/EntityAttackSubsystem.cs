@@ -373,9 +373,14 @@ namespace Core.Gameplay.Entity.Subsystem
                 targetFilter
             );
             
+            // Projectiles have no single target at cast time; crit is rolled per-hit inside the projectile.
+            // We resolve against null target here so the projectile carries a pre-rolled crit from the caster.
+            var result = GetResolvedCombatAmount(attack);
+            
             var payload = CombatPayloadFactory.Create(
                 attack: attack,
-                amount: GetResolvedCombatAmount(attack),
+                amount: result.amount,
+                flags: result.flags,
                 scope: ModifierScope.Projectile,
                 source: combatSource
             );
@@ -422,9 +427,6 @@ namespace Core.Gameplay.Entity.Subsystem
                 areaEffect.transform.SetParent(
                     spawnTransform,
                     worldPositionStays: true);
-
-                //areaEffect.transform.localPosition =
-                //    spawnPosition - spawnTransform.position;
             }
             
             // 4. Damage source
@@ -437,9 +439,13 @@ namespace Core.Gameplay.Entity.Subsystem
                 targetFilter
             );
             
+            // Area effects hit multiple targets over time; crit is rolled once at spawn and shared accross all hits.
+            var result = GetResolvedCombatAmount(attack);
+            
             var payload = CombatPayloadFactory.Create(
                 attack: attack,
-                amount: GetResolvedCombatAmount(attack),
+                amount: result.amount,
+                flags: result.flags,
                 scope: ModifierScope.Area,
                 source: damageSource
             );
@@ -575,23 +581,12 @@ namespace Core.Gameplay.Entity.Subsystem
                 filter,
                 _meleeHits
             );
-
-            int resolvedDamage = GetResolvedCombatAmount(attack);
-            
-            //var targetFilter = BuildAttackTargetFilter(attack.Data);
             
             var source = new AttackSource(
                 _stats.faction,
                 _controller,
                 transform.position,
                 targetFilter
-            );
-                
-            var payload = CombatPayloadFactory.Create(
-                attack: attack,
-                amount: resolvedDamage,
-                scope: ModifierScope.Melee,
-                source: source
             );
             
             foreach (var hit in _meleeHits)
@@ -604,6 +599,17 @@ namespace Core.Gameplay.Entity.Subsystem
                 
                 if (!hit.TryGetComponent<ICombatReceiver>(out var receiver))
                     continue;
+
+                // Resolve per-target so each target gets an independent crit roll.
+                var result = GetResolvedCombatAmount(attack);
+            
+                var payload = CombatPayloadFactory.Create(
+                    attack: attack,
+                    amount: result.amount,
+                    flags: result.flags,
+                    scope: ModifierScope.Melee,
+                    source: source
+                );
                 
                 CombatExecutionPipeline.Execute(
                     receiver,
@@ -628,11 +634,14 @@ namespace Core.Gameplay.Entity.Subsystem
                 BuildAttackTargetFilter(attack.Data)
             );
             
+            var result = GetResolvedCombatAmount(attack);
+            
             var payload = CombatPayloadFactory.Create(
-                attack,
-                GetResolvedCombatAmount(attack),
-                ModifierScope.All,
-                source
+                attack: attack,
+                amount: result.amount,
+                flags: result.flags,
+                scope: ModifierScope.Direct,
+                source: source
             );
             
             if(context.Target.TryGetComponent<ICombatReceiver>(out var receiver))
@@ -703,7 +712,7 @@ namespace Core.Gameplay.Entity.Subsystem
             };
         }
         
-        private int GetResolvedCombatAmount(AttackInstance attackInstance)
+        private CombatAmountResult GetResolvedCombatAmount(AttackInstance attackInstance)
         {
             AttackResolveContext context = 
                 new AttackResolveContext 
@@ -712,9 +721,7 @@ namespace Core.Gameplay.Entity.Subsystem
                     Modifiers = _modifiers
                 };
             
-            float value = attackInstance.GetResolvedCombatAmount(context);
-
-            return Mathf.RoundToInt(value);
+            return attackInstance.GetResolvedCombatAmount(context);
         }
         
         // -------------------------------------

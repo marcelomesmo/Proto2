@@ -4,6 +4,18 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
 {
+    public readonly struct CombatAmountResult
+    {
+        public readonly int amount;
+        public readonly CombatFlags flags;
+
+        public CombatAmountResult(int amount, CombatFlags flags)
+        {
+            this.amount = amount;
+            this.flags = flags;
+        }
+    }
+    
     public sealed class AttackInstance
     {
         private readonly EntityModifierSubsystem _modifiers;
@@ -142,11 +154,15 @@ namespace Core.Gameplay.Combat.Attack
             };
         }
         
-        public int GetResolvedCombatAmount(
+        public CombatAmountResult GetResolvedCombatAmount(
             AttackResolveContext context)
         {
             float value = 0f;
+            var resolvedScope = ResolveScope();
 
+            //
+            //  1. Calculate base amount and stat modifiers
+            //
             switch(Data.combatActionType)
             {
                 case CombatAction.Damage:
@@ -156,7 +172,7 @@ namespace Core.Gameplay.Combat.Attack
                             baseValue: Data.amount,
                             attack: Data,
                             statType: AttackStatType.Damage,
-                            scope: ResolveScope(),
+                            scope: resolvedScope,
                             hitTypes: Data.hitTypes,
                             modifiers: _modifiers.AttackStatModifiers
                         );
@@ -171,7 +187,7 @@ namespace Core.Gameplay.Combat.Attack
                             baseValue: Data.amount,
                             attack: Data,
                             statType: AttackStatType.Healing,
-                            scope: ResolveScope(),
+                            scope: resolvedScope,
                             hitTypes: Data.hitTypes,
                             modifiers: _modifiers.AttackStatModifiers
                         );
@@ -189,12 +205,33 @@ namespace Core.Gameplay.Combat.Attack
             // difficulty scaling
             // etc
             
+            //
+            //  2. Crit step
+            //
+            CombatFlags flags = CombatFlags.None;
+            
+            if (RollCrit(context, resolvedScope))
+            {
+                flags |= CombatFlags.Critical;
+                float critDamageBonus = ResolveCritDamage(context, resolvedScope);
+                value = value + (critDamageBonus * value);
+            }
+
+            
+            //
+            //  n. Return final value with resulting flags
+            //
+            return new CombatAmountResult(
+                amount: Mathf.RoundToInt(value),
+                flags: flags
+            );
+            
             // Simple for now, but later we can do:
             //  stats.attackPower + _temporaryAttackBuff, or
             //  stats.attackPower * (IsEnraged ? 2 : 1); or
             //  stats.attackPower * stats.attackPowerMultiplier; etc.
             
-            return Mathf.RoundToInt(value);
+            //return Mathf.RoundToInt(value);
         }
         
         private int GetDamageBonus(AttackResolveContext context)
@@ -211,6 +248,74 @@ namespace Core.Gameplay.Combat.Attack
                 return Mathf.RoundToInt(context.Source.Stats.healingPower);
 
             return 0;
+        }
+        
+        //
+        //  Critical resolution
+        //
+        private bool RollCrit(AttackResolveContext context, ModifierScope scope)
+        {
+            float critChance = 0f;
+
+            if (context.Source != null && context.Source.Stats != null)
+                critChance = context.Source.Stats.critChance;
+
+            critChance = AttackStatResolver.Resolve(
+                baseValue: critChance,
+                attack: Data,
+                statType: AttackStatType.CritChance,
+                scope: scope,
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
+            ) / 100f;   // divided to keep input 0-100
+
+            return UnityEngine.Random.value < critChance;
+        }
+
+        private float ResolveCritDamage(AttackResolveContext context, ModifierScope scope)
+        {
+            float critDamage = 0f;
+
+            if (context.Source != null && context.Source.Stats != null)
+                critDamage = context.Source.Stats.critDamage;
+
+            return AttackStatResolver.Resolve(
+                baseValue: critDamage,
+                attack: Data,
+                statType: AttackStatType.CritDamage,
+                scope: scope,
+                hitTypes: Data.hitTypes,
+                modifiers: _modifiers.AttackStatModifiers
+            ) / 100f;   // divided to keep input 0-100
+        }
+        
+        //
+        //  Defense and Health
+        //
+        public CombatAmountResult GetResolvedDefenseAmount(AttackResolveContext context)
+        {
+            float baseDefense = context.Source.Stats.defense;
+            var resolvedScope = ResolveScope();
+
+            // 1. Base Defense value
+            float resolved = AttackStatResolver.Resolve(
+                baseValue: baseDefense,
+                attack: Data,
+                statType: AttackStatType.Defense,
+                scope: resolvedScope,
+                hitTypes: Data.hitTypes,
+                modifiers: context.Modifiers.AttackStatModifiers
+            );
+            
+            // 2. Any other application that might result in flag: Resisted, Blocked, etc.
+            CombatFlags flags = CombatFlags.None;
+            
+            
+            // n. Return final value with resulting flags
+            return new CombatAmountResult(
+                amount: Mathf.RoundToInt(resolved),
+                flags: flags
+            );
         }
     }
 }

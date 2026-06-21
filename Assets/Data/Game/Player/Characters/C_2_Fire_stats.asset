@@ -17,6 +17,8 @@ MonoBehaviour:
   attackPower: 3
   healingPower: 10
   defense: 3
+  critChance: 5
+  critDamage: 100
   combatEntityLayers:
     serializedVersion: 2
     m_Bits: 768

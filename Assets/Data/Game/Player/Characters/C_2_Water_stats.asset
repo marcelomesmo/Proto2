@@ -14,8 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Stats.CharacterStats
   characterId: C_2_Water
   faction: 1
+  attackPower: 3
+  healingPower: 10
+  defense: 3
+  critChance: 5
+  critDamage: 100
+  combatEntityLayers:
+    serializedVersion: 2
+    m_Bits: 768
+  aggroRadius: 8
+  aggroTolerance: 10
   maxHealth: 100
   moveSpeed: 0
+  speedMult: 1
+  thinkingTime: 1.5
+  globalCooldown: 0.5
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
   matchEndedTag: {fileID: 11400000, guid: 7ffb6aabc831e9b4d87ca0e76e9ce124, type: 2}
@@ -23,11 +36,3 @@ MonoBehaviour:
   stunTag: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}
   slowTag: {fileID: 11400000, guid: 14aa06fc0850e6b48a6a39d38000e856, type: 2}
   burnTag: {fileID: 11400000, guid: 26edb4c68d1bf0e43a0d056516031bcd, type: 2}
-  attackPower: 3
-  defense: 3
-  speedMult: 1
-  thinkingTime: 1.5
-  globalCooldown: 0.5
-  combatEntityLayers:
-    serializedVersion: 2
-    m_Bits: 768
