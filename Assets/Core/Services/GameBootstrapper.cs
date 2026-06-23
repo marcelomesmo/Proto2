@@ -18,15 +18,19 @@ namespace Core.Services
         [SerializeField] private AreaEffectPoolManager areaEffectPoolPrefab;
         [SerializeField] private EntityPoolManager entityPoolPrefab;
         [SerializeField] private MonoBehaviour saveManagerPrefab;
+        [SerializeField] private SceneTransitionService sceneTransitionServicePrefab;
+        
+        [Header("Registries")]
+        [SerializeField] private LevelRegistry levelRegistry;
         
         [Header("Databases (Optional)")]
         [Tooltip("If missing, no upgrades will be available.")]
         [SerializeField] private UpgradeDatabase upgradeDatabase;
         
-        [Header("Lifecycle Handler (Optional)")]
+        [Header("Lifecycle Handlers (Optional)")]
         [Tooltip("Game-layer lifecycle hook. Implement IMatchLifecycleHandler to inject match-start/end behavior without Core->Game coupling.")]
         [SerializeField] private MonoBehaviour matchLifecycleHookPrefab;
-        
+
         [Header("Game Input Actions")]
         [SerializeField] private InputActionAsset inputActions;
         
@@ -70,6 +74,7 @@ namespace Core.Services
             RegisterService(projectilePoolPrefab);
             RegisterService(areaEffectPoolPrefab);
             RegisterService(entityPoolPrefab);
+            RegisterService(sceneTransitionServicePrefab);
 
             RegisterSaveManager();
             
@@ -77,6 +82,7 @@ namespace Core.Services
             // Register catalogs/databases
             //
             
+            RegisterLevelRegistry();
             RegisterUpgradeDatabase(); // Upgrade Databases (always register interface, use Null object when missing)
             
             //
@@ -130,6 +136,18 @@ namespace Core.Services
             
             DontDestroyOnLoad(instance.gameObject);
             ServiceLocator.Register(saveManager);
+        }
+        
+        private void RegisterLevelRegistry()
+        {
+            if (!levelRegistry)
+            {
+                Debug.LogWarning("[Bootstrap] Missing LevelRegistry. Level configs will not be available.");
+                return;
+            }
+
+            levelRegistry.BuildIndex();
+            ServiceLocator.Register(levelRegistry);
         }
         
         private void RegisterUpgradeDatabase()

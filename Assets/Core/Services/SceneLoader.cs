@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using Core.Enum;
+using Core.Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,17 +23,30 @@ namespace Core.Services
 
         public static void LoadSplashScreen(Action<float> onProgress = null)
         {
-            LoadSceneAsync("SplashScreen", onProgress);
+            // Fix: was LoadSceneAsync, should be immediate — no visuals to transition from
+            //LoadSceneAsync("SplashScreen", onProgress);
+            LoadSceneImmediate("SplashScreen");
         }
         
         public static void LoadMenu(Action<float> onProgress = null)
         {
-            LoadSceneAsync("MainMenu", onProgress);
+            if(onProgress != null)
+                LoadSceneAsync("MainMenu", onProgress);
+            else
+                LoadLevel("MainMenu");
         }
 
-        public static void LoadLevel(string levelName, Action<float> onProgress = null)
+        // LoadLevel — unchanged signature, internally now reads LevelConfig
+        public static void LoadLevel(string sceneName)
         {
-            LoadSceneAsync(levelName, onProgress);
+            if (_runner == null)
+            {
+                Debug.LogError("[SceneLoader] Not initialized. Falling back to sync load.");
+                SceneManager.LoadScene(sceneName);
+                return;
+            }
+            
+            _runner.StartCoroutine(LoadLevelWithTransition(sceneName));
         }
 
         /*
@@ -109,6 +124,44 @@ namespace Core.Services
             op.allowSceneActivation = true;
             
             _pendingScene = null;
+        }
+        
+        // New internal coroutine — replaces direct LoadRoutine call for levels
+        private static IEnumerator LoadLevelWithTransition(string sceneName)
+        {
+            ServiceLocator.TryGet<SceneTransitionService>(out var transition);
+            ServiceLocator.TryGet<LevelRegistry>(out var registry);
+
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            LevelConfig outgoingConfig = null;
+
+            if (registry == null)
+                Debug.LogWarning($"[SceneLoader] LevelRegistry not available. Loading '{sceneName}' without config.");
+            else if (!registry.TryGet(currentSceneName, out outgoingConfig))
+                    Debug.LogWarning($"[SceneLoader] No LevelConfig for outgoing scene '{currentSceneName}'.");
+            
+            TransitionStyle style = outgoingConfig?.ExitTransitionStyle ?? TransitionStyle.None;
+            float duration = outgoingConfig?.TransitionDuration ?? 0.4f;
+            
+            IEnumerator loadRoutine = AsyncLoadRoutine(sceneName);
+            
+            if (transition != null)
+                yield return _runner.StartCoroutine(
+                    transition.PlayFullTransition(style, duration, loadRoutine));
+            else
+                yield return _runner.StartCoroutine(loadRoutine);
+        }
+        
+        private static IEnumerator AsyncLoadRoutine(string sceneName)
+        {
+            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+            op.allowSceneActivation = false;
+
+            while (op.progress < 0.9f)
+                yield return null;
+
+            op.allowSceneActivation = true;
+            yield return null; // one frame for scene to settle
         }
     }
 }

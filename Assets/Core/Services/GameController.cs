@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Core.Enum;
 using Core.Services.Manager;
@@ -26,6 +27,10 @@ namespace Core.Services
         public MatchRuntime MatchRuntime { get; private set; }
         public UpgradeRuntimeManager UpgradeRuntimeManager { get; private set; }
         public UpgradeManager UpgradeManager { get; private set; }
+        
+        public event Action OnMatchStarted;
+        public event Action OnMatchVictory;
+        public event Action OnMatchDefeat;
       
         // --------------------------------------------------
         // Initialization
@@ -66,6 +71,8 @@ namespace Core.Services
             // Game-layer extension point (no Game types referenced here).
             if (ServiceLocator.TryGet<IMatchLifecycleHandler>(out var hook) && hook != null)
                 hook.HandleMatchStart(this);
+            
+            OnMatchStarted?.Invoke();
         }
         
         private void EndMatch()
@@ -198,6 +205,9 @@ namespace Core.Services
         private IEnumerator GameEndRoutine(MatchEndReason reason)
         {
             EndMatch();
+            
+            if (reason == MatchEndReason.Victory) OnMatchVictory?.Invoke();
+            else if (reason == MatchEndReason.Defeat) OnMatchDefeat?.Invoke();
             
             float delay = 0f;
 

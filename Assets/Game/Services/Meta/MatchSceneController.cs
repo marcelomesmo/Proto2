@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Core.Level;
 using Core.Services;
 using Game.Entity.Player;
 using Game.UI.Match;
@@ -17,9 +18,12 @@ namespace Game.Services.Meta
     // 4) (Optional) After-start hook (start waves, enable input, etc.)
     public sealed class MatchSceneController : MonoBehaviour
     {
+        [Header("Level Config")]
+        [SerializeField] private LevelConfig levelConfig;   // If we want to, we can hook level specific stuff here later.
+        
         [Header("Scene References")]
         [SerializeField] private PlayerPartyController playerParty;
-
+        
         [Tooltip("Optional delay before starting match (e.g., for fade-in).")]
         [SerializeField] private float startDelaySeconds = 0f;
 

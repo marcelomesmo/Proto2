@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 3877660}
   - component: {fileID: 3877659}
   - component: {fileID: 3877658}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,9 +320,9 @@ Canvas:
   m_GameObject: {fileID: 67167934}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 1800902318}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -331,7 +331,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2017443257
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &67167938
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140086803}
   - component: {fileID: 140086802}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577441112}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pause UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,7 +1149,7 @@ GameObject:
   - component: {fileID: 615898265}
   - component: {fileID: 615898264}
   - component: {fileID: 615898263}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: QuitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1281,7 @@ GameObject:
   - component: {fileID: 679496195}
   - component: {fileID: 679496197}
   - component: {fileID: 679496196}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1594,7 +1594,7 @@ GameObject:
   - component: {fileID: 802367795}
   - component: {fileID: 802367797}
   - component: {fileID: 802367796}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2126,7 +2126,7 @@ GameObject:
   - component: {fileID: 1226948231}
   - component: {fileID: 1226948230}
   - component: {fileID: 1226948229}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2258,7 +2258,7 @@ GameObject:
   - component: {fileID: 1288238256}
   - component: {fileID: 1288238255}
   - component: {fileID: 1288238254}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2415,7 +2415,7 @@ GameObject:
   - component: {fileID: 1365446625}
   - component: {fileID: 1365446627}
   - component: {fileID: 1365446626}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2822,7 +2822,7 @@ GameObject:
   - component: {fileID: 1722966564}
   - component: {fileID: 1722966566}
   - component: {fileID: 1722966565}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2960,7 +2960,7 @@ GameObject:
   - component: {fileID: 1799226339}
   - component: {fileID: 1799226338}
   - component: {fileID: 1799226337}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3466,6 +3466,7 @@ MonoBehaviour:
   roosterPanel: {fileID: 725261603}
   optionsPanel: {fileID: 332615866}
   walletPanel: {fileID: 1958757100}
+  menuMusic: {fileID: 8300000, guid: 3e19adb95732a4e4ebd956ba2d533bda, type: 3}
 --- !u!4 &1956160871
 Transform:
   m_ObjectHideFlags: 0

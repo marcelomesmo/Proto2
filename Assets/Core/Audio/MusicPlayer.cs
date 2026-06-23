@@ -18,7 +18,9 @@ namespace Core.Audio
 
         public void Play(AudioClip clip)
         {
-            if (_source.clip == clip)
+            if (clip == null) return;
+         
+            if (_source.clip == clip && _source.isPlaying)
                 return;
 
             _source.clip = clip;

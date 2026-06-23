@@ -199,6 +199,8 @@ MonoBehaviour:
   areaEffectPoolPrefab: {fileID: 3449227944526234064, guid: 246654140a175d643b2c7f32f547545d, type: 3}
   entityPoolPrefab: {fileID: 8097181172246228889, guid: dc598c4f40620f3429609c4ec76a48d0, type: 3}
   saveManagerPrefab: {fileID: 1241793126905456413, guid: feea5b2578fbc614592ef752ce3d35c4, type: 3}
+  sceneTransitionServicePrefab: {fileID: 9100845930459519522, guid: 38b21b67d61a35241836350aa535d4e3, type: 3}
+  levelRegistry: {fileID: 11400000, guid: beab301f6484575449abc544f8f7bd69, type: 2}
   upgradeDatabase: {fileID: 11400000, guid: 202fcab5cdc2af44ebec4549069b5530, type: 2}
   matchLifecycleHookPrefab: {fileID: 700155614619308366, guid: c18e278d53dd837468d383978f977943, type: 3}
   inputActions: {fileID: -944628639613478452, guid: 5e716bb9195b9eb49a2ccb4c51691dc6, type: 3}

@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Core.Services
 {
+    // Scene-local. Owns all music for this specific level.
+    // Listens to GameController events and calls AudioManager directly.
     public class MenuController : MonoBehaviour
     {
         [Header("Panels")]
@@ -9,11 +11,24 @@ namespace Core.Services
         [SerializeField] private GameObject roosterPanel;
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject walletPanel;
+        
+        [Header("Music")]
+        [SerializeField] private AudioClip menuMusic;
 
+        private AudioManager _audio;
+        
         private void Awake()
         {
             // Later: check save slots here
             ShowMain();
+        }
+
+        public void Start()
+        {
+            _audio = ServiceLocator.Get<AudioManager>();
+            
+            if(_audio)
+                _audio.Music.Play(menuMusic);
         }
 
         // ---------- MAIN MENU ----------
@@ -29,6 +44,13 @@ namespace Core.Services
 
         public void OnPlayGame()
         {
+            if(_audio)
+                _audio.Music.Stop();
+            
+            // TODO: The above stop will result in a brief silence during transition.
+            //      This is intentional (remove if not wanted) and we should add a
+            //      entering-level Music or entering-level SFX here to add flavor later.
+            
             SceneLoader.LoadLevel("Level_01");
         }
 

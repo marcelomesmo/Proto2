@@ -27,7 +27,7 @@ namespace Core.Services
         public MusicPlayer Music { get; private set; }
         
         // Exposed to UI Menu
-        private float _musicVolume = 1f;  // linear (0-1)
+        private float _musicVolume = 0.5f;  // linear (0-1)
         private float _sfxVolume = 1f;  // linear (0-1)
         public float MusicVolume => _musicVolume;
         public float SfxVolume => _sfxVolume;
@@ -51,6 +51,8 @@ namespace Core.Services
 
             Music = gameObject.AddComponent<MusicPlayer>();
             Music.Initialize(musicGroup);
+            
+            ApplyVolumes(); // sync mixer to initial values immediately
         }
         
         #region Playback
@@ -121,12 +123,12 @@ namespace Core.Services
         private void ApplyVolumes()
         {
             // Music affects Music + Ambient
-            audioMixer.SetFloat("MusicVolume", LinearToDb(_musicVolume));
-            audioMixer.SetFloat("AmbientVolume", LinearToDb(_musicVolume));
+            audioMixer.SetFloat("MusicVolume", LinearToDb(_musicVolume * _musicVolume));    // TODO: Triple exponential here if slider still doesnt feel right
+            audioMixer.SetFloat("AmbientVolume", LinearToDb(_musicVolume * _musicVolume));
 
             // SFX affects SFX + UI
-            audioMixer.SetFloat("SfxVolume", LinearToDb(_sfxVolume));
-            audioMixer.SetFloat("UiVolume", LinearToDb(_sfxVolume));
+            audioMixer.SetFloat("SfxVolume", LinearToDb(_sfxVolume * _sfxVolume));
+            audioMixer.SetFloat("UiVolume", LinearToDb(_sfxVolume * _sfxVolume));
         }
 
         private float LinearToDb(float value)
