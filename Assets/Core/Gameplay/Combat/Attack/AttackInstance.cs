@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
 {
-    public readonly struct CombatAmountResult
+    public readonly struct CombatAmountResult<T>
     {
-        public readonly int amount;
+        public readonly T amount;
         public readonly CombatFlags flags;
 
-        public CombatAmountResult(int amount, CombatFlags flags)
+        public CombatAmountResult(T amount, CombatFlags flags)
         {
             this.amount = amount;
             this.flags = flags;
@@ -154,7 +154,7 @@ namespace Core.Gameplay.Combat.Attack
             };
         }
         
-        public CombatAmountResult GetResolvedCombatAmount(
+        public CombatAmountResult<int> GetResolvedCombatAmount(
             AttackResolveContext context)
         {
             float value = 0f;
@@ -221,7 +221,7 @@ namespace Core.Gameplay.Combat.Attack
             //
             //  n. Return final value with resulting flags
             //
-            return new CombatAmountResult(
+            return new CombatAmountResult<int>(
                 amount: Mathf.RoundToInt(value),
                 flags: flags
             );
@@ -272,6 +272,8 @@ namespace Core.Gameplay.Combat.Attack
             return UnityEngine.Random.value < critChance;
         }
 
+        // TODO: Later update this to also use CombatAmountResult<float> and handle flag addition here.
+        //      Remove flag addition from the call in EntityAttackSubsystem (trace back to find).
         private float ResolveCritDamage(AttackResolveContext context, ModifierScope scope)
         {
             float critDamage = 0f;
@@ -292,7 +294,7 @@ namespace Core.Gameplay.Combat.Attack
         //
         //  Defense and Health
         //
-        public CombatAmountResult GetResolvedDefenseAmount(AttackResolveContext context)
+        public CombatAmountResult<int> GetResolvedDefenseAmount(AttackResolveContext context)
         {
             float baseDefense = context.Source.Stats.defense;
             var resolvedScope = ResolveScope();
@@ -312,10 +314,31 @@ namespace Core.Gameplay.Combat.Attack
             
             
             // n. Return final value with resulting flags
-            return new CombatAmountResult(
+            return new CombatAmountResult<int>(
                 amount: Mathf.RoundToInt(resolved),
                 flags: flags
             );
+        }
+        
+        public CombatAmountResult<float> GetResolvedResistanceAmount(AttackResolveContext context)
+        {
+            float baseResistance = context.Source.Stats.resistance;
+            var resolvedScope = ResolveScope();
+
+            float resolved = AttackStatResolver.Resolve(
+                baseValue: baseResistance,
+                attack: Data,
+                statType: AttackStatType.Resistance,
+                scope: resolvedScope,
+                hitTypes: Data.hitTypes,
+                modifiers: context.Modifiers.AttackStatModifiers
+            ) / 100f;   // divided to keep input 0-100
+            
+            CombatFlags flags = CombatFlags.None;
+            if (resolved > 0f)
+                flags |= CombatFlags.Resisted;
+
+            return new CombatAmountResult<float>(resolved, flags);
         }
     }
 }

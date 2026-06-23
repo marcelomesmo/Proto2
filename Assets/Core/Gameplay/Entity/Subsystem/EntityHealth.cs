@@ -116,9 +116,17 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
 
             var resolvedDefense = GetResolvedDefense(payload.attack);
+            var resolvedResistance = GetResolvedResistance(payload.attack);
             
             // 1. Apply damage
-            int mitigatedDamage = Mathf.Max(0, payload.amount - resolvedDefense.amount);
+            int postDefense = Mathf.Max(0, payload.amount - resolvedDefense.amount);
+            int mitigatedDamage = Mathf.RoundToInt(postDefense * (1f - resolvedResistance.amount));
+            
+            /*if(Faction == Faction.Player)
+                Debug.Log("[Castle] Total damage = (dmg:" + payload.amount + 
+                          "[" + payload.attack.Data.hitTypes.ToString() + "] - def:" + resolvedDefense.amount + 
+                          ") * (1 - res:" + resolvedResistance.amount + 
+                          ") = " + mitigatedDamage);*/
             
             // Rebuild payload with merged flags and post-mitigation amount
             // so listeners on OnDamageTaken see the final resolved state.
@@ -128,7 +136,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 amount: mitigatedDamage,
                 effects: payload.effects,
                 source: payload.source,
-                flags: payload.flags | resolvedDefense.flags,
+                flags: payload.flags | resolvedDefense.flags | resolvedResistance.flags,
                 chainDepth: payload.chainDepth
             );
             
@@ -189,10 +197,10 @@ namespace Core.Gameplay.Entity.Subsystem
             }
         }
         
-        private CombatAmountResult GetResolvedDefense(AttackInstance attackInstance)
+        private CombatAmountResult<int> GetResolvedDefense(AttackInstance attackInstance)
         {
             if (attackInstance == null) // Effect's have null attack instances when applied.
-                return new CombatAmountResult(
+                return new CombatAmountResult<int>(
                     amount: Mathf.RoundToInt(Controller.Stats.defense),
                     flags: CombatFlags.None
                 );
@@ -205,6 +213,24 @@ namespace Core.Gameplay.Entity.Subsystem
                 };
 
             return attackInstance.GetResolvedDefenseAmount(context);
+        }
+        
+        private CombatAmountResult<float> GetResolvedResistance(AttackInstance attackInstance)
+        {
+            if (attackInstance == null) // Effect's have null attack instances when applied.
+                return new CombatAmountResult<float>(
+                    amount: Mathf.RoundToInt(Controller.Stats.resistance),
+                    flags: CombatFlags.None
+                );
+            
+            AttackResolveContext context = 
+                new AttackResolveContext 
+                {
+                    Source = this.Controller,
+                    Modifiers = _modifiers
+                };
+
+            return attackInstance.GetResolvedResistanceAmount(context);
         }
 
         // Keep CanBeDamaged() extremely cheap (only boolean checks).

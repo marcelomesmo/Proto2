@@ -712,7 +712,7 @@ namespace Core.Gameplay.Entity.Subsystem
             };
         }
         
-        private CombatAmountResult GetResolvedCombatAmount(AttackInstance attackInstance)
+        private CombatAmountResult<int> GetResolvedCombatAmount(AttackInstance attackInstance)
         {
             AttackResolveContext context = 
                 new AttackResolveContext 

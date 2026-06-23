@@ -53,6 +53,11 @@ namespace Core.VFX
                 floatingText.fontSize = critFontSize;
             else
                 floatingText.fontSize = _originalFontSize;
+            
+            if (payload.HasResisted)
+                floatingText.fontSize = _originalFontSize / 2;  // TODO: add better feedback later
+            else
+                floatingText.fontSize = _originalFontSize;
 
             Initialized = true;
         }

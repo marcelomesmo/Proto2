@@ -48,8 +48,8 @@ namespace Core.Enum
         
         CritChance,
         CritDamage,
-        Health,
-        Defense
+        Defense,
+        Resistance
     }
 
 	public enum AttackVariantCondition
@@ -98,6 +98,7 @@ namespace Core.Enum
     {
         None      = 0,
         Critical  = 1 << 0,
+        Resisted = 1 << 2,
         // Block  = 1 << 1,
         // Resist = 1 << 2,
     }

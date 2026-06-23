@@ -20,10 +20,12 @@ MonoBehaviour:
   amount: 10
   range: 7
   cooldown: 4
-  hitTypes: 0
+  hitTypes: 4
   hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
   castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 1
+  targetSelectionMode: 0
+  targetRequirement: 0
   targetLayers:
     serializedVersion: 2
     m_Bits: 256

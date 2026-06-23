@@ -14,6 +14,7 @@ namespace Core.Gameplay.Entity.Stats
         public float attackPower = 10f;
         public float healingPower = 10f;
         public float defense = 1f;
+        public float resistance = 0f;   // 0 = 0%, 100 = 100%
         public float critChance = 0f;   // 0 = 0%, 100 = 100%
         public float critDamage = 0f;   // 0 = no bonus, 110 = 110% bonus (2.1x total)
         

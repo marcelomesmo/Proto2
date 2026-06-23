@@ -33,5 +33,6 @@ namespace Core.Gameplay.Combat.Attack
         }
         
         public bool IsCritical => (flags & CombatFlags.Critical) != 0;
+        public bool HasResisted => (flags & CombatFlags.Resisted) != 0;
     }
 }
