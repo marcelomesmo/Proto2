@@ -2,12 +2,12 @@ using Core.Services.Manager;
 using Core.VFX;
 using UnityEngine;
 
-namespace Core.Gameplay.Entity.Effects
+namespace Core.Gameplay.Entity.VFX
 {
     public class AfterimageEmitter : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private GameObject afterimagePrefab;
+        [SerializeField] private PooledVFX  afterimagePrefab;
         [SerializeField] private SpriteRenderer sourceRenderer;
         [SerializeField] private float spawnInterval = 0.06f;
     
@@ -38,17 +38,20 @@ namespace Core.Gameplay.Entity.Effects
             if (sourceRenderer.sprite == null)
                 return;
             
-            var obj = VFXPoolManager.Instance.Spawn(afterimagePrefab);
-            var afterimage = obj.GetComponent<AfterimageVFX>();
-
-            afterimage.Initialize(
-                sourceRenderer.sprite,
+            var instance = VFXPoolManager.Instance.Spawn(
+                afterimagePrefab,
                 transform.position,
-                sourceRenderer.flipX,
-                sourceRenderer.flipY,
-                sourceRenderer,
-                afterimagePrefab
-            );
+                Quaternion.identity);
+            
+            if (instance is AfterimageVFX afterimage)
+            {
+                afterimage.Initialize(
+                    sourceRenderer.sprite,
+                    transform.position,
+                    sourceRenderer.flipX,
+                    sourceRenderer.flipY,
+                    sourceRenderer);
+            }
         }
     }
 }

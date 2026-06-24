@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.AreaEffect;
 using Core.Gameplay.Combat.ChainAttack;
+using Core.VFX;
 using UnityEngine;
 
 namespace Core.Gameplay.Combat.Attack
@@ -24,8 +25,8 @@ namespace Core.Gameplay.Combat.Attack
         public float cooldown;
         public HitTypes hitTypes;
         
-        public GameObject hitVFX;
-        public GameObject castVFX;
+        public PooledVFX hitVFX;
+        public PooledVFX castVFX;
         
         [Header("Targeting")]
         public CombatTargetType targetType;

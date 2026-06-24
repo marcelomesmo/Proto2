@@ -21,8 +21,8 @@ MonoBehaviour:
   range: 8
   cooldown: 2
   hitTypes: 4
-  hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
-  castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+  hitVFX: {fileID: 8784488540992764676, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
+  castVFX: {fileID: 68820418738985188, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 1
   targetSelectionMode: 0
   targetRequirement: 0

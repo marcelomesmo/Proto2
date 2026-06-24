@@ -130,6 +130,16 @@ namespace Core.Services.Manager
                 ListPool<AreaEffectInstance>.Release(snapshot);
             }
         }
+        
+        public void Clear()
+        {
+            // Release all active instances first
+            ReleaseAll();
+
+            // Destroy all inactive pooled instances
+            foreach (var kvp in _allPools)
+                kvp.Value.Clear(); // ObjectPool.Clear() destroys all inactive objects via actionOnDestroy
+        }
     
         #region Util Pool Checks
         public int GetPoolSize(GameObject prefab)

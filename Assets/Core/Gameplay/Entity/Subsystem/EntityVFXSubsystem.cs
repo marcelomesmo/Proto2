@@ -28,9 +28,9 @@ namespace Core.Gameplay.Entity.Subsystem
         [SerializeField] private Transform attackCastAnchor;
 
         [Header("VFX Prefabs")]
-        [SerializeField] private GameObject combatTextPopupPrefab;
-        [SerializeField] private GameObject deathVfxPrefab;
-        [SerializeField] private GameObject dustVfxPrefab;
+        [SerializeField] private PooledVFX combatTextPopupPrefab;
+        [SerializeField] private PooledVFX deathVfxPrefab;
+        [SerializeField] private PooledVFX dustVfxPrefab;
         
         [Header("References")]
         public HitFlash hitFlash;
@@ -156,7 +156,7 @@ namespace Core.Gameplay.Entity.Subsystem
         
         #region Tag VFX 
         
-        private readonly Dictionary<GameplayTag, GameObject> _activeTagVfx = new();
+        private readonly Dictionary<GameplayTag, PooledVFX> _activeTagVfx = new();
         
         protected override void HandleTagAdded(GameplayTag tag)
         {
@@ -202,7 +202,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
 
             if (vfx)
-                VFXPoolManager.Instance.Release(tag.vfxPrefab, vfx);
+                vfx.Release(); // PooledVFX handles its own release now
 
             _activeTagVfx.Remove(tag);
         }
@@ -234,29 +234,21 @@ namespace Core.Gameplay.Entity.Subsystem
         #region Spawn VFX Handling
         
         // Stateless VFX spawn (do not require runtime data, are fully defined by the prefab): Hit sparks, dust, death explosion, spawn effect.
-        protected GameObject Spawn(GameObject prefab, Transform anchor, bool isAttached = false)
+        protected PooledVFX Spawn(PooledVFX prefab, Transform anchor, bool isAttached = false)
         {
-            if (!prefab)
-                return null;
-            
-            if (!anchor)
+            if (!prefab || !anchor)
             {
                 Debug.LogWarning(
-                    $"[EntityVFXSubsystem] Missing anchor for VFX '{prefab.name}' on {Controller.name}",
-                    this);
+                    $"[EntityVFXSubsystem] Missing prefab or anchor on {Controller.name}");
                 return null;
             }
 
-            var vfx = VFXPoolManager.Instance.Spawn(prefab);
+            var vfx = VFXPoolManager.Instance.Spawn(prefab, anchor.position, Quaternion.identity);
             if (!vfx)
-            {
-                Debug.LogWarning(
-                    $"[EntityVFXSubsystem] Couldn't create VFX '{prefab.name}' on {Controller.name}",
-                    this);
                 return null;
-            }
             
-            vfx.transform.SetPositionAndRotation(anchor.position, Quaternion.identity);
+            // DEPRECATED: now done at the pool manager
+            //vfx.transform.SetPositionAndRotation(anchor.position, Quaternion.identity);
             
             if (isAttached)
             {
@@ -264,28 +256,21 @@ namespace Core.Gameplay.Entity.Subsystem
                 vfx.transform.localPosition = Vector3.zero;
                 vfx.transform.localRotation = Quaternion.identity;
             }
-            else
-                vfx.transform.SetPositionAndRotation(anchor.position, Quaternion.identity);
-            
-            if (vfx.TryGetComponent(out PooledParticleSystemVFX ps))
-                ps.Initialize(prefab);
 
             return vfx;
         }
 
         private void SpawnCombatPopup(
-            GameObject prefab,
+            PooledVFX prefab,
             Transform anchor,
             CombatPayload payload)
         {
-            if (prefab == null || anchor == null)
+            if (!prefab || !anchor)
                 return;
 
-            var vfx = VFXPoolManager.Instance.Spawn(prefab);
-            vfx.transform.SetPositionAndRotation(anchor.position, Quaternion.identity);
-
-            vfx.GetComponent<FloatingDamageVFX>()
-                .Initialize(payload, prefab);
+            var vfx = VFXPoolManager.Instance.Spawn(prefab, anchor.position, Quaternion.identity);
+            if (vfx is FloatingDamageVFX floatingDamage)
+                floatingDamage.Initialize(payload);
         }
         
         #endregion

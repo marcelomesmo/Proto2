@@ -231,30 +231,12 @@ namespace Core.Services
         {
             Cleanup();
             
-            // TODO:
-            // Later, when introducing:
-            // - multiple Worlds/biomes
-            // - Addressables
-            // - large world-specific asset sets
-            //
-            // we should also CLEAR cached pools here
-            // (not only Release active instances).
-            //
-            // ReleaseAll():
-            // - despawns active runtime objects
-            // - keeps inactive cached instances alive for reuse
-            //
-            // Clear():
-            // - destroys cached pooled instances
-            // - releases asset references
-            // - allows Addressables/world assets to unload correctly
-            //
-            // Otherwise pooled inactive objects may keep old World
-            // assets resident in memory across matches/transitions.
-            //
-            // ProjectilePoolManager.Clear();
-            // EntityPoolManager.Clear();
-            // VFXPoolManager.Clear();
+            // Clear when switching worlds/biomes to free asset memory
+            ClearPools();
+            // TODO: A small optimization we could do, is to only clear when we are actually entering
+            //      a new different level, and not at the exit of every level.
+            //      This would avoid clearing everytime if the Player is only playing the same level
+            //      over and over again.
             
             SceneLoader.LoadMenu();
         }
@@ -267,6 +249,16 @@ namespace Core.Services
             ServiceLocator.Get<EntityPoolManager>()?.ReleaseAll();
             ShutdownCombatRuntime();
             ServiceLocator.Get<AudioManager>()?.ReleaseAll();
+        }
+        
+        private void ClearPools()
+        {
+            ServiceLocator.Get<ProjectilePoolManager>()?.Clear();
+            ServiceLocator.Get<AreaEffectPoolManager>()?.Clear();
+            ServiceLocator.Get<VFXPoolManager>()?.Clear();
+            ServiceLocator.Get<EntityPoolManager>()?.Clear();
+            
+            // TODO: Do we need to clear audio here as well? I don't think so but for future reference check it.
         }
         
         private void ShutdownCombatRuntime()

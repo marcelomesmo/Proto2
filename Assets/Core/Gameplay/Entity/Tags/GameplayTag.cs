@@ -1,3 +1,4 @@
+using Core.VFX;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Tags
@@ -8,7 +9,7 @@ namespace Core.Gameplay.Entity.Tags
         // Nothing here — tag identity comes from the asset instance
         public TagLifetime lifetime;
 
-        public GameObject vfxPrefab;
+        public PooledVFX vfxPrefab;
     }
     
     [System.Serializable]

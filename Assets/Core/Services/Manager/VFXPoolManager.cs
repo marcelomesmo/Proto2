@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Interfaces;
+using Core.VFX;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -10,19 +11,19 @@ namespace Core.Services.Manager
         public static VFXPoolManager Instance { get; private set; }
     
         [System.Serializable]
-        public class VFXPool
+        public class VFXPoolEntry
         {
-            public GameObject vfxPrefab;
+            public PooledVFX  prefab;
             public bool collectionCheck = true;
             public int defaultCapacity = 20;
             public int maxSize = 100;
         }
         [Header("VFX Pools")]
         [Tooltip("List of pools with the vfx prefabs")]
-        public List<VFXPool> vfxPools;
+        public List<VFXPoolEntry> vfxPools;
     
-        private readonly Dictionary<GameObject, IObjectPool<GameObject>> _allPools = new();
-        private Dictionary<GameObject, HashSet<GameObject>> _activeObjects = new();
+        private readonly Dictionary<PooledVFX, IObjectPool<PooledVFX>> _allPools = new();
+        private Dictionary<PooledVFX, HashSet<PooledVFX>> _activeObjects = new();
     
         private int _activeObjectCount; // Custom counter for active objects
 
@@ -36,71 +37,79 @@ namespace Core.Services.Manager
             }
 
             Instance = this;
+            InitializePools();
         }
 
-        public GameObject Spawn(GameObject prefab)
+        private void InitializePools()
         {
-            if (!_allPools.TryGetValue(prefab, out var pool))
+            foreach (var pool in vfxPools)
             {
-                _activeObjects.Add(prefab, new HashSet<GameObject>());
-                
-                pool = new ObjectPool<GameObject>(
-                    createFunc: () => Instantiate(prefab, transform),
+                var prefab = pool.prefab;
+
+                if (prefab == null)
+                {
+                    Debug.LogWarning("[VFXPoolManager] Null prefab entry skipped.");
+                    continue;
+                }
+
+                _activeObjects.Add(prefab, new HashSet<PooledVFX>());
+
+                IObjectPool<PooledVFX> objPool = null;
+
+                objPool = new ObjectPool<PooledVFX>(
+                    createFunc: () =>
+                    {
+                        var instance = Instantiate(prefab, transform);
+                        instance.AssignToPool(objPool);
+                        instance.gameObject.SetActive(false);
+                        return instance;
+                    },
                     actionOnGet: obj =>
                     {
-                        obj.SetActive(true);
-                        
+                        obj.gameObject.SetActive(true);
+                        obj.OnSpawn();
                         _activeObjectCount++;
                         _activeObjects[prefab].Add(obj);
                     },
                     actionOnRelease: obj =>
                     {
-                        if (!obj) return; // <--- CRITICAL GUARD
-                        
-                        obj.SetActive(false);
-                        
+                        obj.gameObject.SetActive(false);
+                        obj.OnDespawn();
                         _activeObjectCount--;
                         _activeObjects[prefab].Remove(obj);
-                    });
+                    },
+                    actionOnDestroy: obj => Destroy(obj.gameObject),
+                    collectionCheck: pool.collectionCheck,
+                    defaultCapacity: pool.defaultCapacity,
+                    maxSize: pool.maxSize
+                );
 
-                _allPools[prefab] = pool;
+                _allPools.Add(prefab, objPool);
             }
-
-            //var vfx = pool.Get();
-            //StartCoroutine(ReleaseAfter(vfx, 0.5f, pool)); // auto-return
-            //return vfx;
-            return pool.Get();
         }
 
-        /*private IEnumerator ReleaseAfter(GameObject obj, float delay, IObjectPool<GameObject> pool)
-    {
-        yield return new WaitForSeconds(delay);
-        pool.Release(obj);
-    }*/
-
-        public void Release(GameObject prefab, GameObject instance)
+        public PooledVFX Spawn(PooledVFX prefab, Vector3 position, Quaternion rotation)
         {
             if (!_allPools.TryGetValue(prefab, out var pool))
-                return;
+            {
+                Debug.LogError($"[VFXPoolManager] No pool for prefab: {prefab.name}");
+                return null;
+            }
 
-            if (!_activeObjects.TryGetValue(prefab, out var activeSet))
-                return;
-
-            if (!activeSet.Contains(instance))
-                return; // already released
-
-            pool.Release(instance);
+            var instance = pool.Get();
+            instance.transform.SetPositionAndRotation(position, rotation);
+            return instance;
         }
     
         public void ReleaseAll()
         {
             foreach (var kvp in _activeObjects)
             {
-                GameObject prefab = kvp.Key;
-                IObjectPool<GameObject> pool = _allPools[prefab];
+                var prefab = kvp.Key;
+                var pool = _allPools[prefab];
 
                 // Copy to avoid modifying collection while iterating
-                var snapshot = ListPool<GameObject>.Get();
+                var snapshot = ListPool<PooledVFX>.Get();
                 snapshot.AddRange(kvp.Value);
 
                 foreach (var obj in snapshot)
@@ -110,28 +119,30 @@ namespace Core.Services.Manager
                 }
 
                 kvp.Value.Clear();
-                ListPool<GameObject>.Release(snapshot);
+                ListPool<PooledVFX>.Release(snapshot);
             }
         }
         
-        #region Util Pool Checks
-        public int GetPoolSize(GameObject prefab)
+        public void Clear()
         {
-            if (_allPools.ContainsKey(prefab)) return 0; // TODO: Figure out how to get the pool.capacity.
-            Debug.Log($"[VFXPoolManager] No pool exists for prefab: {prefab.name}");
-            return 0;
+            // Release all active instances first
+            ReleaseAll();
+
+            // Destroy all inactive pooled instances
+            foreach (var kvp in _allPools)
+                kvp.Value.Clear(); // ObjectPool.Clear() destroys all inactive objects via actionOnDestroy
         }
         
-        public int GetPoolIdle(GameObject prefab)
-        {
-            if (_allPools.TryGetValue(prefab, out var pool)) return pool.CountInactive;
-            Debug.Log($"[VFXPoolManager] No pool exists for prefab: {prefab.name}");
-            return 0;
-        }
+        #region Util Pool Checks
+        public int GetPoolActive() => _activeObjectCount;
 
-        public int GetPoolActive()
+        public int GetPoolIdle(PooledVFX prefab)
         {
-            return _activeObjectCount;
+            if (_allPools.TryGetValue(prefab, out var pool))
+                return pool.CountInactive;
+
+            Debug.LogWarning($"[VFXPoolManager] No pool for prefab: {prefab.name}");
+            return 0;
         }
         #endregion
     }

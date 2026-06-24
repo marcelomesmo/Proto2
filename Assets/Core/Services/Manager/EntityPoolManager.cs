@@ -157,5 +157,15 @@ namespace Core.Services.Manager
                 ListPool<EntityController>.Release(snapshot);
             }
         }
+        
+        public void Clear()
+        {
+            // Release all active instances first
+            ReleaseAll();
+
+            // Destroy all inactive pooled instances
+            foreach (var kvp in _allPools)
+                kvp.Value.Clear(); // ObjectPool.Clear() destroys all inactive objects via actionOnDestroy
+        }
     }
 }

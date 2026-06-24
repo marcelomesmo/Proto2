@@ -14763,9 +14763,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4711859871735304}
+  - component: {fileID: 2323625274922895481}
   - component: {fileID: 198757939829437176}
   - component: {fileID: 199597583013040402}
-  - component: {fileID: 2323625274922895481}
   m_Layer: 0
   m_Name: vfxCast_purple
   m_TagString: Untagged
@@ -14792,6 +14792,18 @@ Transform:
   - {fileID: 4805997401790806}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2323625274922895481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762171864188014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!198 &198757939829437176
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -19683,18 +19695,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &2323625274922895481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762171864188014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!1 &1808930670177518
 GameObject:
   m_ObjectHideFlags: 0

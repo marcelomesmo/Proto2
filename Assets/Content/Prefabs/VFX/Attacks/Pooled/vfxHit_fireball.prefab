@@ -29493,7 +29493,6 @@ GameObject:
   - component: {fileID: 8784488540992764676}
   - component: {fileID: 198147648432052724}
   - component: {fileID: 199952308415211416}
-  - component: {fileID: 6591151691404170059}
   m_Layer: 0
   m_Name: vfxHit_fireball
   m_TagString: Untagged
@@ -34418,18 +34417,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &6591151691404170059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845764070681338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!1 &1950984331986788
 GameObject:
   m_ObjectHideFlags: 0

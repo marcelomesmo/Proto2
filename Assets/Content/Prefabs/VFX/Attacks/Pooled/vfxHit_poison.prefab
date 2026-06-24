@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4252801894676002}
+  - component: {fileID: 2407895168919851467}
   - component: {fileID: 198996790382980346}
   - component: {fileID: 199254261212598812}
-  - component: {fileID: 2407895168919851467}
   m_Layer: 0
   m_Name: vfxHit_poison
   m_TagString: Untagged
@@ -40,6 +40,18 @@ Transform:
   - {fileID: 4108745310128164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2407895168919851467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186752452136346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!198 &198996790382980346
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4932,18 +4944,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &2407895168919851467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186752452136346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!1 &1196508905809446
 GameObject:
   m_ObjectHideFlags: 0

@@ -385,7 +385,7 @@ MonoBehaviour:
   statusEffectHeadAnchor: {fileID: 9144669803801046407}
   statusEffectDamageAnchor: {fileID: 372954542989038702}
   attackCastAnchor: {fileID: 6649618486926925547}
-  combatTextPopupPrefab: {fileID: 767776283547506129, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
+  combatTextPopupPrefab: {fileID: -5634127321225208857, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 4872712992798295579}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Stunned
   m_EditorClassIdentifier: 
   lifetime: 1
-  vfxPrefab: {fileID: 1545806602296978, guid: 9133fc0db617fb940a6e357c18ef7a6b, type: 3}
+  vfxPrefab: {fileID: -5794877086257145517, guid: 9133fc0db617fb940a6e357c18ef7a6b, type: 3}

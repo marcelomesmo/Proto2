@@ -3,36 +3,30 @@ using UnityEngine;
 
 namespace Core.VFX
 {
-    public class PooledParticleSystemVFX : MonoBehaviour
+    public class PooledParticleSystemVFX : PooledVFX
     {
         private ParticleSystem _particleSystem;
         private ParticleSystem[] _childPS;
-        
-        private GameObject _prefab;
 
-        public void Initialize(GameObject prefab)
+        private void Awake()
         {
-            _prefab = prefab;
-            
             _particleSystem = GetComponent<ParticleSystem>();
             if (!_particleSystem)
             {
                 Debug.LogWarning(
-                    $"[PooledParticleSystemVFX] Missing Particle System in '{prefab.name}'",
-                    this);
+                    $"[PooledParticleSystemVFX] Missing ParticleSystem on '{name}'", this);
                 enabled = false;
                 return;
             }
-            
+
             _childPS = GetComponentsInChildren<ParticleSystem>();
         }
-
+        
+        // Called by ParticleSystem Stop Action = Callback
         public void OnParticleSystemStopped()
         {
             // IMPORTANT: Stop Action must be "Callback"
-            if (_prefab == null) 
-                return;
-
+            
             // Stop all child particle systems
             if (_childPS is { Length: > 0 })
             {
@@ -43,10 +37,8 @@ namespace Core.VFX
             }
             
             // Release this vfx
-            VFXPoolManager.Instance.Release(_prefab, gameObject);
+            ReturnToPool();
         }
-        
-        #region Util
 
         // This is external only and not used right now.
         public void Play()
@@ -61,6 +53,10 @@ namespace Core.VFX
             }*/
         }
         
-        #endregion
+        public override void OnDespawn()
+        {
+            if (_particleSystem != null)
+                _particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 }
