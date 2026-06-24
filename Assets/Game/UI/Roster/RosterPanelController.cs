@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Entity.Player;
+using Game.Entity.Player.Progression;
 using UnityEngine;
 
 namespace Game.UI.Roster
@@ -18,6 +19,15 @@ namespace Game.UI.Roster
 
         [Header("UI")]
         [SerializeField] private CharacterTooltip tooltip;
+        
+        [Header("Party Preview")]
+        [SerializeField] private PartyPreviewController partyPreview;
+        [Header("World Selector")]
+        [SerializeField] private LevelSelectorController levelSelector;
+
+        public bool HasCharacterSelected => loadout.CurrentPartySize > 0;
+        public string GetLevelSelectedSceneName => levelSelector.SelectedSceneName;
+        public bool IsCurrentLevelLocked => levelSelector.IsCurrentLevelLocked;
 
         private void Awake()
         {
@@ -33,11 +43,18 @@ namespace Game.UI.Roster
                 btn.Initialize(loadout, this);
             }
         }
+        
+        private void Start()
+        {
+            Refresh();
+        }
 
         public void Refresh()
         {
             foreach (var btn in characterButtons)
                 btn.Refresh();
+            
+            partyPreview?.Refresh();
         }
 
         private void Clear()
@@ -47,12 +64,12 @@ namespace Game.UI.Roster
 
         #region Tooltip
 
-        public void ShowTooltip(CharacterDefinition character)
+        public void ShowTooltip(CharacterDefinition character, CharacterEvolutionData evolutionData)
         {
             if (tooltip == null)
                 return;
 
-            tooltip.Show(character);
+            tooltip.Show(character, evolutionData);
         }
 
         public void HideTooltip()

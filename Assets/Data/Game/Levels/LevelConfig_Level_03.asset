@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bd0d38e31f9cc649ac53143a9d66a8b, type: 3}
-  m_Name: LevelConfig_Level_01
+  m_Name: LevelConfig_Level_03
   m_EditorClassIdentifier: Assembly-CSharp::Core.Level.LevelConfig
-  levelId: level01
-  sceneName: Level_01
-  displayName: World 1
+  levelId: level03
+  sceneName: Level_03
+  displayName: World 3
   exitTransitionStyle: 1
   transitionDuration: 1
-  previewBackground: {fileID: 6358040702757662528, guid: 619e805f28428684b8cc719ac44fa698, type: 3}
+  previewBackground: {fileID: -7381184880430962403, guid: 3cf83879e6ecd294cbccb0e1c8e82455, type: 3}

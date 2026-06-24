@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core.Level;
 using UnityEngine;
@@ -8,15 +7,8 @@ namespace Core.Services
     [CreateAssetMenu(fileName = "LevelRegistry", menuName = "Levels/Level Registry")]
     public class LevelRegistry : ScriptableObject
     {
-        [Serializable]
-        private struct LevelEntry
-        {
-            public string sceneName;
-            public LevelConfig config;
-        }
-        
         [Header("Level List")]
-        [SerializeField] private LevelEntry[] entries;
+        [SerializeField] private LevelConfig[] entries;
 
         private Dictionary<string, LevelConfig> _index;
         
@@ -24,16 +16,16 @@ namespace Core.Services
         {
             _index = new Dictionary<string, LevelConfig>(entries.Length);
 
-            foreach (var entry in entries)
+            foreach (var config in entries)
             {
-                if (string.IsNullOrEmpty(entry.sceneName) || entry.config == null)
+                if (config == null || string.IsNullOrEmpty(config.SceneName))
                 {
-                    Debug.LogWarning("[LevelRegistry] Skipping invalid entry.");
+                    Debug.LogWarning("[LevelRegistry] Skipping invalid or incomplete LevelConfig.");
                     continue;
                 }
 
-                if (!_index.TryAdd(entry.sceneName, entry.config))
-                    Debug.LogWarning($"[LevelRegistry] Duplicate scene name: {entry.sceneName}");
+                if (!_index.TryAdd(config.SceneName, config))
+                    Debug.LogWarning($"[LevelRegistry] Duplicate scene name: {config.SceneName}");
             }
         }
 

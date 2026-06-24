@@ -1,6 +1,7 @@
 using Core.Services;
 using Core.Services.Save;
 using Game.Entity.Player;
+using Game.Entity.Player.Progression;
 using Game.Services.Save;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,8 @@ namespace Game.UI.Roster
         [SerializeField] private Material normalMaterial;
         
         [Header("Config")]
-        [SerializeField] private CharacterDefinition character;
+        [SerializeField] private CharacterDefinition characterDefinition;
+        [SerializeField] private CharacterEvolutionData characterEvolutionData;
         private PlayerLoadoutData _loadout;
         private RosterPanelController _panel;
         private GameSaveManager _saveManager;
@@ -52,8 +54,8 @@ namespace Game.UI.Roster
 
         public void Refresh()
         {
-            bool isUnlocked = _saveManager.IsCharacterUnlocked(character.baseStats.characterId);
-            bool isSelected = _loadout.Contains(character);
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(characterDefinition.baseStats.characterId);
+            bool isSelected = _loadout.Contains(characterDefinition);
 
             if (!isUnlocked)
             {
@@ -64,8 +66,8 @@ namespace Game.UI.Roster
                 return;
             }
 
-            characterName.text = character.name;
-            characterImage.sprite = character.rosterScreenPortrait;
+            characterName.text = characterDefinition.name;
+            characterImage.sprite = characterDefinition.rosterScreenPortrait;
 
             characterImage.material = isSelected ? normalMaterial : grayscaleMaterial;
 
@@ -77,15 +79,15 @@ namespace Game.UI.Roster
         
         private void OnClicked()
         {
-            bool isUnlocked = _saveManager.IsCharacterUnlocked(character.baseStats.characterId);
+            bool isUnlocked = _saveManager.IsCharacterUnlocked(characterDefinition.baseStats.characterId);
             if (!isUnlocked)
                 return;
             
-            if (_loadout.Contains(character))
-                _loadout.RemoveFromParty(character);
+            if (_loadout.Contains(characterDefinition))
+                _loadout.RemoveFromParty(characterDefinition);
             else
             {
-                if (!_loadout.AddToParty(character))
+                if (!_loadout.AddToParty(characterDefinition))
                     return; // party full, or invalid
             }
     
@@ -94,7 +96,7 @@ namespace Game.UI.Roster
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _panel.ShowTooltip(character);
+            _panel.ShowTooltip(characterDefinition, characterEvolutionData);
             
             // edit: this should work now as we changed from generated list to fixed spots.
             // old: this doesnt work as the transform is the same for all the buttons,

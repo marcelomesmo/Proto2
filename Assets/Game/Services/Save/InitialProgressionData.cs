@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Upgrades;
 using UnityEngine;
 
 namespace Game.Services.Save
@@ -10,6 +9,7 @@ namespace Game.Services.Save
     public sealed class InitialProgressionData : ScriptableObject
     {
         public List<string> startingUnlockedCharacters;
+        public List<string> startingUnlockedLevels;
         public int startingGold = 0;
     }
 }

@@ -1,14 +1,16 @@
+using Core.Services;
+using Game.UI.Roster;
 using UnityEngine;
 
-namespace Core.Services
+namespace Game.UI
 {
-    // Scene-local. Owns all music for this specific level.
+    // Scene-local. Owns all music for the main menu.
     // Listens to GameController events and calls AudioManager directly.
-    public class MenuController : MonoBehaviour
+    public class MainMenuController : MonoBehaviour
     {
-        [Header("Panels")]
+        [Header("Main Panels")]
         [SerializeField] private GameObject mainPanel;
-        [SerializeField] private GameObject roosterPanel;
+        [SerializeField] private GameObject rosterPanel;
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject walletPanel;
         
@@ -19,7 +21,7 @@ namespace Core.Services
         
         private void Awake()
         {
-            // Later: check save slots here
+            // Later: check save slots here?
             ShowMain();
         }
 
@@ -38,7 +40,7 @@ namespace Core.Services
             // TODO: Might remove this later and just open the rooster straight ahead.
             
             mainPanel.SetActive(false);
-            roosterPanel.SetActive(true);
+            rosterPanel.SetActive(true);
             walletPanel.SetActive(true);
         }
 
@@ -46,12 +48,30 @@ namespace Core.Services
         {
             if(_audio)
                 _audio.Music.Stop();
-            
             // TODO: The above stop will result in a brief silence during transition.
             //      This is intentional (remove if not wanted) and we should add a
             //      entering-level Music or entering-level SFX here to add flavor later.
+
+            var rosterController = rosterPanel.GetComponentInChildren<RosterPanelController>();
+            if (!rosterController)
+            {
+                Debug.LogError("[MainMenuController] Missing RosterPanelController in rosterPanel");
+                return;
+            }
+
+            if (!rosterController.HasCharacterSelected)
+            {
+                // TODO: play vfx or sfx feedback here when there's no character in party.
+                return;
+            }
+
+            if (rosterController.IsCurrentLevelLocked)
+            {
+                // TODO: play vfx or sfx feedback here when there's not a valid level.
+                return;
+            }
             
-            SceneLoader.LoadLevel("Level_01");
+            SceneLoader.LoadLevel(rosterController.GetLevelSelectedSceneName);
         }
 
         public void OnOptions()

@@ -17,6 +17,7 @@ namespace Game.Services.Save
 
         // Unlocks
         public List<string> unlockedCharacters = new();
+        public List<string> unlockedLevels = new();
         public List<UpgradeProgress> upgrades = new();
 
         // Stats

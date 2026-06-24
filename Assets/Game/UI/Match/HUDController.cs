@@ -1,4 +1,3 @@
-using Core.EventChannels;
 using Core.Services;
 using Game.Enum;
 using Game.EventChannels;
@@ -6,7 +5,7 @@ using Game.Services.Meta;
 using TMPro;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.UI.Match
 {
     public class HUDController : MonoBehaviour
     {

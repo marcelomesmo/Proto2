@@ -147,7 +147,7 @@ namespace Core.Gameplay.Entity.Subsystem
             );
 
             // 2. Raise events
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);  // TODO: Pass flags here in case we want VFX feedback
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);  // TODO: Pass flags here in case we want VFX feedback in the HealthBar
             OnDamageTaken?.Invoke(resolvedPayload);
 
             // 3. Apply Effects

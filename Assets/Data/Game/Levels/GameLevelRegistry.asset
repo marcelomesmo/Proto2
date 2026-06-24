@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameLevelRegistry
   m_EditorClassIdentifier: Assembly-CSharp::Core.Services.LevelRegistry
   entries:
-  - sceneName: MainMenu
-    config: {fileID: 11400000, guid: 134223fba2c0a3e44bb10f94e7453799, type: 2}
-  - sceneName: Level_01
-    config: {fileID: 11400000, guid: bb0cf499be07df5478a1b53b86af75ce, type: 2}
+  - {fileID: 11400000, guid: 134223fba2c0a3e44bb10f94e7453799, type: 2}
+  - {fileID: 11400000, guid: bb0cf499be07df5478a1b53b86af75ce, type: 2}
+  - {fileID: 11400000, guid: 5cfa9234eaa8bb445950a15baae4f174, type: 2}
+  - {fileID: 11400000, guid: 81be510d3fea68b47b521f93bd973d24, type: 2}

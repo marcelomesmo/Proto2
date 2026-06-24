@@ -9,6 +9,7 @@ namespace Game.Entity.Player
     public class CharacterDefinition : ScriptableObject
     {
         public Sprite rosterScreenPortrait;
+        public GameObject previewPrefab;
         public EntityController prefab;
 
         public AttackLoadoutDefinition initialAttackLoadout;   // ← definition, not runtime

@@ -18,6 +18,7 @@ namespace Game.Entity.Player
         public IReadOnlyList<CharacterDefinition> SelectedCharacters =>
             selectedCharacters;
         public int MaxPartySize => maxPartySize;
+        public int CurrentPartySize => selectedCharacters.Count;
 
         public bool CanAdd(CharacterDefinition character)
         {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: C_1_Grass
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
   rosterScreenPortrait: {fileID: 5026090525018443169, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
+  previewPrefab: {fileID: 4607982519050748198, guid: d78b89056fd40164f88bf8a05ff275c6, type: 3}
   prefab: {fileID: 1331891463641475742, guid: d66313583b03f264f8d61c611861bd43, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: 7729e0b4d5924214798ebf0e3c28799f, type: 2}
   baseStats: {fileID: 11400000, guid: 8328b5a28c87bea4984edd4411923083, type: 2}

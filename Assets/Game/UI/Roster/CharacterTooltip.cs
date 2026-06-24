@@ -1,4 +1,5 @@
 using Game.Entity.Player;
+using Game.Entity.Player.Progression;
 using TMPro;
 using UnityEngine;
 
@@ -10,13 +11,13 @@ namespace Game.UI.Roster
         [SerializeField] private TextMeshProUGUI stats;
         [SerializeField] private TextMeshProUGUI attacks;
 
-        public void Show(CharacterDefinition def)
+        public void Show(CharacterDefinition def, CharacterEvolutionData evolutionData)
         {
             gameObject.SetActive(true);
 
             title.text = def.name;
             stats.text = BuildStats(def);
-            attacks.text = BuildAttacks(def);
+            attacks.text = BuildAttacks(def, evolutionData);
 
             // in the future we can pass an anchor if we want to change the ui position
             //transform.position = anchor.position;
@@ -35,13 +36,30 @@ namespace Game.UI.Roster
             //$"Defense: {s.defense}";
         }
 
-        private string BuildAttacks(CharacterDefinition def)
+        private string BuildAttacks(CharacterDefinition def, CharacterEvolutionData evolutionData)
         {
             if (def.initialAttackLoadout == null)
-                return "No attacks";
+                return "Attacks not found";
 
             var text = "";
-            foreach (var atk in def.initialAttackLoadout.Attacks)
+            
+            if (!evolutionData)
+            {
+                // Fallback: Build from base attacks
+                foreach (var atk in def.initialAttackLoadout.Attacks)
+                    text += $"- {atk.displayName}\n{atk.description}\n";
+
+                return text;
+            }
+
+            var attackList = 
+                evolutionData
+                    .stages[evolutionData.MaxStage]
+                    .attackLoadoutOverride
+                    .Attacks;
+            
+            // Build from last stage attacks
+            foreach (var atk in attackList)
                 text += $"- {atk.displayName}\n{atk.description}\n";
 
             return text;

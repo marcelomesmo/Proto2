@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LevelConfig_MainMenu
   m_EditorClassIdentifier: Assembly-CSharp::Core.Level.LevelConfig
   levelId: MainMenu
-  baseMusic: {fileID: 0}
+  sceneName: MainMenu
+  displayName: MainMenu
   exitTransitionStyle: 2
   transitionDuration: 1

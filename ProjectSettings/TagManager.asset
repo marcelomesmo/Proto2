@@ -37,7 +37,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - CharacterPreviewUI
   - TransitionUI
   m_SortingLayers:
   - name: Background

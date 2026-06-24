@@ -42,7 +42,7 @@ namespace Game.Services.Save
                 return;
             }
             
-            // todo; deprecate
+            // TODO: deprecate
             if (Profile.unlockedCharacters.Count == 0 &&
                 Profile.totalMatches == 0)  // is first run
                 ApplyDefaults();
@@ -97,6 +97,11 @@ namespace Game.Services.Save
             {
                 Profile.unlockedCharacters.Add(id);
             }
+            
+            foreach (var id in defaults.startingUnlockedLevels)
+            {
+                Profile.unlockedLevels.Add(id);
+            }
 
             Save();
 
@@ -150,6 +155,26 @@ namespace Game.Services.Save
             Save();
             
             OnCharacterUnlocked?.Invoke(id);
+        }
+
+        // ------------------------------------
+        // Levels
+        // ------------------------------------
+
+        public bool IsLevelUnlocked(string id)
+        {
+            return Profile.unlockedLevels.Contains(id);
+        }
+
+        public void UnlockLevel(string id)
+        {
+            if (Profile.unlockedLevels.Contains(id)) 
+                return;
+            
+            Profile.unlockedLevels.Add(id);
+            Save();
+            
+            //OnCharacterUnlocked?.Invoke(id);
         }
 
         // ------------------------------------

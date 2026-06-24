@@ -2,7 +2,7 @@ using Core.Services;
 using TMPro;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.UI.Match
 {
     public class GameSpeedButton : MonoBehaviour
     {
