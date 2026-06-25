@@ -53,6 +53,10 @@ MonoBehaviour:
     collectionCheck: 0
     defaultCapacity: 5
     maxSize: 5
+  - prefab: {fileID: 1331891463641475742, guid: 2eb501f6480bceb4794f194875ac1a16, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 5
+    maxSize: 5
   - prefab: {fileID: 1331891463641475742, guid: 82ab7d20a1c3bd7408833a25a472c7be, type: 3}
     collectionCheck: 0
     defaultCapacity: 5
@@ -81,11 +85,15 @@ MonoBehaviour:
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100
+  - prefab: {fileID: 5052942017189829625, guid: e84a6bac49e466e48a662b9e01114ae6, type: 3}
+    collectionCheck: 1
+    defaultCapacity: 20
+    maxSize: 100
   - prefab: {fileID: 5052942017189829625, guid: 516f2ce9a39a76c41a3fdccf13943b09, type: 3}
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100
-  - prefab: {fileID: 5052942017189829625, guid: e84a6bac49e466e48a662b9e01114ae6, type: 3}
+  - prefab: {fileID: 5052942017189829625, guid: aa10a127191e99547bd245b9b82a5b01, type: 3}
     collectionCheck: 1
     defaultCapacity: 20
     maxSize: 100
