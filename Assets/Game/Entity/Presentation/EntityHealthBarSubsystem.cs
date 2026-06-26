@@ -80,6 +80,8 @@ namespace Game.Entity.Presentation
             // Reset chip delay when taking damage
             if (_targetFill < _chipFill)
                 _chipTimer = chipDelay;
+            else
+                _chipFill = _targetFill;    // Protects against healing received: 100 -> 20 hp, chip waiting at 100, then heal to 70. tldr: healing always makes chip catch up.
         }
 
         private void AnimateFill()
@@ -118,12 +120,12 @@ namespace Game.Entity.Presentation
             if (!_isVisible)
                 return;
 
-            // Full health → hide
-            if (_targetFill >= 1f)
+            // Full health → hide (this was bypassing the timer and automatically hiding while at full health for any entity Player/Enemy, I commented to avoid it hiding too quick, let the timer handle it)
+            /*if (_targetFill >= 1f)
             {
                 SetVisible(false);
                 return;
-            }
+            }*/
 
             _hideTimer -= Time.deltaTime;
             

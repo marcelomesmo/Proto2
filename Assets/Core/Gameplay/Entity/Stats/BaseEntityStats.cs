@@ -28,7 +28,6 @@ namespace Core.Gameplay.Entity.Stats
     
         [Header("Movement")]
         public float moveSpeed = 2f;
-        public float speedMult = 1f;
         
         [Header("Actions")]
         public float thinkingTime = 1.5f;       // Could maybe rename this to scanInterval since "thinking is an enemy-flavoured word

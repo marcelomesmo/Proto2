@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.Utils.EnemyHealthBarSubsystem
   fillRenderer: {fileID: 5730549695931801347}
   chipRenderer: {fileID: 4472806899902413547}
-  fillSmoothSpeed: 8
-  chipDelay: 0.25
+  fillSmoothSpeed: 4
+  chipDelay: 0.45
   chipSmoothSpeed: 4
   hideAfterSeconds: 100
 --- !u!114 &5629737502117312240
@@ -142,14 +142,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6b8aee3f55b7245a7b73ea22970bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Effects.EntityVFXSubsystem
-  combatTextPopupAnchor: {fileID: 0}
+  combatTextPopupAnchor: {fileID: 8461843516710524155}
   hitAnchor: {fileID: 4365477494171357506}
   deathAnchor: {fileID: 0}
   movementAnchor: {fileID: 0}
   statusEffectHeadAnchor: {fileID: 8461843516710524155}
   statusEffectDamageAnchor: {fileID: 6950481680333085818}
   attackCastAnchor: {fileID: 0}
-  combatTextPopupPrefab: {fileID: 0}
+  combatTextPopupPrefab: {fileID: -5634127321225208857, guid: 130c3179f40934848a75c10dc10b3763, type: 3}
   deathVfxPrefab: {fileID: 0}
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 8365653023187925199}
@@ -552,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 7403033312400257621}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: -1.4375, y: 2.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

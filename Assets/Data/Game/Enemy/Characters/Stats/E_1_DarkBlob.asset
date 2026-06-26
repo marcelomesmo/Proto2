@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148f1d66fc517c74986b61c3ca277228, type: 3}
   m_Name: E_1_DarkBlob
   m_EditorClassIdentifier: 
-  characterId: E_1_OneEye
+  characterId: E_1_DarkBlob
   faction: 2
-  attackPower: 10
-  healingPower: 10
+  attackPower: 2
+  healingPower: 2
   defense: 0
   resistance: 0
   critChance: 0

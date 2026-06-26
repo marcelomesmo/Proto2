@@ -1,3 +1,4 @@
+using Core.Enum;
 using Core.Gameplay.Combat.Modifiers;
 using Core.Gameplay.Entity.Subsystem;
 using UnityEngine;
@@ -43,5 +44,16 @@ namespace Core.Upgrades.Effects
             return context?.Entity?.GetComponent<EntityHealth>() != null &&
                    context.Modifiers != null;
         }
+                
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (modifierPerLevel == null)
+                return;
+
+            for (int i = 0; i < modifierPerLevel.Length; i++)
+                modifierPerLevel[i].statType = AttackStatType.Resistance;
+        }
+#endif
     }
 }
