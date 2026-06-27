@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Enum;
-using Core.Gameplay.Combat.AreaEffect;
+using Core.Gameplay.Combat.AreaAttack;
 using Core.Gameplay.Combat.ChainAttack;
 using Core.VFX;
 using UnityEngine;
@@ -40,14 +40,20 @@ namespace Core.Gameplay.Combat.Attack
         public float fixedAngle;
         
         [Header("Area Effect - Settings")]
-        public AreaEffectData areaEffectData;
+        public AreaAttackData areaAttackData;
         
         [Header("Chain Attack - Additional Settings")]
         public ChainAttackData chainData;
         
         [Header("Side Effects (Buffs/Debuffs)")]
-        [SerializeField] private List<AttackEffectData> effects = new();
+        [SerializeField] private List<StatusEffectData> effects = new();
         
-        public IReadOnlyList<AttackEffectData> Effects => effects;
+        public IReadOnlyList<StatusEffectData> Effects => effects;
+        
+        [Header("Passive / Silent")]
+        [Tooltip("Cast once on init/receive, never in normal loop.")]
+        public bool isPassive;
+        [Tooltip("Suppresses animator trigger.")]
+        public bool castSilently;
     }
 }

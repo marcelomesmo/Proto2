@@ -50,9 +50,9 @@ namespace Core.Gameplay.Entity.Subsystem
             return attack.targetType switch
             {
                 CombatTargetType.Self    => ResolveSelf(),
-                CombatTargetType.Enemies => FindBestEnemy(attack.range, attack.targetSelectionMode, requireLos),
-                CombatTargetType.Allies  => FindBestAlly(attack.range, attack.targetSelectionMode, attack.targetRequirement),
-                CombatTargetType.Any     => FindBestAny(attack.range, attack.targetSelectionMode),
+                CombatTargetType.Enemies => FindBestEnemy(attack.range, attack.targetSelectionMode, requireLos, attack.targetLayers),
+                CombatTargetType.Allies  => FindBestAlly(attack.range, attack.targetSelectionMode, attack.targetRequirement, attack.targetLayers),
+                CombatTargetType.Any     => FindBestAny(attack.range, attack.targetSelectionMode, attack.targetLayers),
                 _                        => null
             };
         }
@@ -63,10 +63,13 @@ namespace Core.Gameplay.Entity.Subsystem
         public EntityController FindBestEnemy(
             float radius,
             TargetSelectionMode selectionMode = TargetSelectionMode.Closest,
-            bool requireLos = false)
+            bool requireLos = false,
+            LayerMask? targetLayers = null)
         {
             GatherCandidates(radius);
             FilterToEnemies(requireLos);
+            if (targetLayers.HasValue)
+                FilterByLayer(targetLayers.Value);
             return SelectBest(_candidateBuffer, selectionMode);
         }
 
@@ -74,21 +77,27 @@ namespace Core.Gameplay.Entity.Subsystem
         public EntityController FindBestAlly(
             float radius,
             TargetSelectionMode selectionMode = TargetSelectionMode.Closest,
-            TargetRequirement requirement = TargetRequirement.None)
+            TargetRequirement requirement = TargetRequirement.None,
+            LayerMask? targetLayers = null)
         {
             GatherCandidates(radius);
             FilterToAllies();
             FilterByRequirement(requirement);
+            if (targetLayers.HasValue)
+                FilterByLayer(targetLayers.Value);
             return SelectBest(_candidateBuffer, selectionMode);
         }
 
         // Finds the best entity of any faction (excluding self) within radius.
         public EntityController FindBestAny(
             float radius,
-            TargetSelectionMode selectionMode = TargetSelectionMode.Closest)
+            TargetSelectionMode selectionMode = TargetSelectionMode.Closest,
+            LayerMask? targetLayers = null)
         {
             GatherCandidates(radius);
             FilterToAny();
+            if (targetLayers.HasValue)
+                FilterByLayer(targetLayers.Value);
             return SelectBest(_candidateBuffer, selectionMode);
         }
 
@@ -198,6 +207,13 @@ namespace Core.Gameplay.Entity.Subsystem
 
                     break;
             }
+        }
+        
+        private void FilterByLayer(LayerMask targetLayers)
+        {
+            _candidateBuffer.RemoveAll(c =>
+                (targetLayers.value & (1 << c.gameObject.layer)) == 0
+            );
         }
         
         #endregion

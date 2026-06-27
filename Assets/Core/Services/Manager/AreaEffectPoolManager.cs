@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.Gameplay.Combat.AreaEffect;
+using Core.Gameplay.Combat.AreaAttack;
 using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -24,8 +24,8 @@ namespace Core.Services.Manager
         public List<AreaEffectPool> areaPools;
 
         // Manage all available pools, located by projectile type (gameObject)
-        private readonly Dictionary<GameObject, IObjectPool<AreaEffectInstance>> _allPools = new();
-        private Dictionary<GameObject, HashSet<AreaEffectInstance>> _activeObjects = new();
+        private readonly Dictionary<GameObject, IObjectPool<AreaAttackInstance>> _allPools = new();
+        private Dictionary<GameObject, HashSet<AreaAttackInstance>> _activeObjects = new();
 
         private int _activeObjectCount; // Custom counter for active objects
     
@@ -48,7 +48,7 @@ namespace Core.Services.Manager
             foreach (var pool in areaPools)
             {
                 var prefab = pool.areaPrefab;
-                var prefabController = prefab.GetComponent<AreaEffectInstance>();
+                var prefabController = prefab.GetComponent<AreaAttackInstance>();
             
                 if (prefabController == null)
                 {
@@ -56,15 +56,15 @@ namespace Core.Services.Manager
                     continue;
                 }
                 
-                _activeObjects.Add(prefab, new HashSet<AreaEffectInstance>());
+                _activeObjects.Add(prefab, new HashSet<AreaAttackInstance>());
 
-                IObjectPool<AreaEffectInstance> objectPool = null;  // IMPORTANT: create pool variable first so createFunc can reference it
+                IObjectPool<AreaAttackInstance> objectPool = null;  // IMPORTANT: create pool variable first so createFunc can reference it
             
-                objectPool = new ObjectPool<AreaEffectInstance>(
+                objectPool = new ObjectPool<AreaAttackInstance>(
                     createFunc: () =>
                     {
                         var objGO = Instantiate(prefab, transform);
-                        var obj = objGO.GetComponent<AreaEffectInstance>();
+                        var obj = objGO.GetComponent<AreaAttackInstance>();
                     
                         obj.AssignToPool(objectPool);    // ← gives projectile its pool reference
                         obj.gameObject.SetActive(false);
@@ -99,7 +99,7 @@ namespace Core.Services.Manager
         }
     
         // Called by WeaponManager to spawn new Projectiles.
-        public AreaEffectInstance Spawn(GameObject prefab)
+        public AreaAttackInstance Spawn(GameObject prefab)
         {
             if (!_allPools.TryGetValue(prefab, out var pool))
             {
@@ -115,10 +115,10 @@ namespace Core.Services.Manager
             foreach (var kvp in _activeObjects)
             {
                 GameObject prefab = kvp.Key;
-                IObjectPool<AreaEffectInstance> pool = _allPools[prefab];
+                IObjectPool<AreaAttackInstance> pool = _allPools[prefab];
 
                 // Copy to avoid modifying collection while iterating
-                var snapshot = ListPool<AreaEffectInstance>.Get();
+                var snapshot = ListPool<AreaAttackInstance>.Get();
                 snapshot.AddRange(kvp.Value);
 
                 foreach (var obj in snapshot)
@@ -127,7 +127,7 @@ namespace Core.Services.Manager
                 }
 
                 kvp.Value.Clear();
-                ListPool<AreaEffectInstance>.Release(snapshot);
+                ListPool<AreaAttackInstance>.Release(snapshot);
             }
         }
         

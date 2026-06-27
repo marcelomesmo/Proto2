@@ -72,11 +72,11 @@ namespace Core.Gameplay.Combat.Attack
 
         public float GetDuration()
         {
-            if (!Data.areaEffectData)
+            if (!Data.areaAttackData)
                 return 0f;
 
             return AttackStatResolver.Resolve(
-                baseValue: Data.areaEffectData.duration,
+                baseValue: Data.areaAttackData.duration,
                 attack: Data,
                 statType: AttackStatType.Duration,
                 scope: ResolveScope(),

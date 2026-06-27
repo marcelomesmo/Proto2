@@ -16,4 +16,5 @@ MonoBehaviour:
   duration: 0.5
   value: 1
   tickInterval: 0
-  vfxPrefab: {fileID: 1545806602296978, guid: 9133fc0db617fb940a6e357c18ef7a6b, type: 3}
+  statModifiers: []
+  tagToApply: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}

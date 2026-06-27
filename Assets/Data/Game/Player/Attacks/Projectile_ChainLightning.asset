@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile_ChainLightning
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
   displayName: Chain Lightning
-  icon: {fileID: 21300000, guid: e592c899b12b70d47816500e8113cb16, type: 3}
+  icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
   description: yeah shocky
   executionMode: 1
   combatActionType: 0
@@ -21,8 +21,8 @@ MonoBehaviour:
   range: 9
   cooldown: 5
   hitTypes: 32
-  hitVFX: {fileID: 1834516428328612, guid: f39c43985f1039b47b3065f46848760e, type: 3}
-  castVFX: {fileID: 1757226974508410, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
+  hitVFX: {fileID: 5884569457804263391, guid: f39c43985f1039b47b3065f46848760e, type: 3}
+  castVFX: {fileID: 2531785783282368670, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
   targetType: 1
   targetSelectionMode: 0
   targetRequirement: 0
@@ -32,7 +32,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5975751646184246127, guid: 45d07bbbb199a1d4f82340842c2122a1, type: 3}
   directionMode: 1
   fixedAngle: 0
-  areaEffectData: {fileID: 0}
+  areaAttackData: {fileID: 0}
   chainData: {fileID: 11400000, guid: 7eb153517332bca4cbfd2ffa36637358, type: 2}
   effects:
   - {fileID: 11400000, guid: 6011d24b8e585f84c8091534a4d4be78, type: 2}
+  isPassive: 0
+  castSilently: 0

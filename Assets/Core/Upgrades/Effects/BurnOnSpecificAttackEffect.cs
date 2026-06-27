@@ -16,7 +16,7 @@ namespace Core.Upgrades.Effects
         [Header("Effect")]
         [Tooltip("Effect per purchased level. Index = level - 1. If shorter than maxLevel, last element is reused.")]
         [SerializeField]
-        private AttackEffectData[] burnEffectPerLevel;
+        private StatusEffectData[] burnEffectPerLevel;
 
         public override void Apply(UpgradeContext context, int level)
         {
@@ -60,7 +60,7 @@ namespace Core.Upgrades.Effects
             attackSubsystem.UnregisterRuntimeEffect(targetAttack, effect);
         }
 
-        private AttackEffectData GetEffectForLevel(int level)
+        private StatusEffectData GetEffectForLevel(int level)
         {
             if (burnEffectPerLevel == null || burnEffectPerLevel.Length == 0)
                 return null;

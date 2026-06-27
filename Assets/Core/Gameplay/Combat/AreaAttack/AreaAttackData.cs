@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.Gameplay.Combat.AreaEffect
+namespace Core.Gameplay.Combat.AreaAttack
 {
     public enum AreaShape
     {
@@ -10,7 +10,7 @@ namespace Core.Gameplay.Combat.AreaEffect
     }
     
     [CreateAssetMenu(menuName = "Combat/Area Effect/Area Effect Data")]
-    public class AreaEffectData : ScriptableObject
+    public class AreaAttackData : ScriptableObject
     {
         [Header("Shape")]
         public AreaShape shape;

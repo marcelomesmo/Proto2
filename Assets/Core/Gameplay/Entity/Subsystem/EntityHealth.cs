@@ -1,6 +1,5 @@
 using System;
 using Core.Enum;
-using Core.Gameplay.Combat;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity.Tags;
 using Core.Interfaces;
@@ -61,8 +60,6 @@ namespace Core.Gameplay.Entity.Subsystem
 
             foreach (var mod in modifiers)
             {
-                Debug.Log("[EntityHealth] Found modifier value: " + mod.value);
-                
                 switch (mod.type)
                 {
                     case ModifierType.Additive:
@@ -107,6 +104,11 @@ namespace Core.Gameplay.Entity.Subsystem
         public void ReceiveHeal(CombatPayload payload)
         {
             ApplyHeal(payload);
+        }
+        
+        public void ReceiveStatusEffect(CombatPayload payload)
+        {
+            ApplyCombatEffects(payload);
         }
 
         private void ApplyDamage(CombatPayload payload)
@@ -176,25 +178,17 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private void ApplyCombatEffects(CombatPayload payload)
         {
+            
             if (payload.effects == null ||
                 payload.effects.Count == 0)
                 return;
 
+            // TODO: make this base in EntityHealth instead
             if (!Controller.TryGetComponent<EntityStatusEffectSubsystem>(
                     out var statusSubsystem))
                 return;
-
-            foreach (var effect in payload.effects)
-            {
-                var instance =
-                    StatusEffectFactory.Create(
-                        effect,
-                        Controller,
-                        payload.source);
-
-                if (instance != null)
-                    statusSubsystem.AddEffect(instance);
-            }
+            
+            statusSubsystem.ApplyEffectsFromPayload(payload);
         }
         
         private CombatAmountResult<int> GetResolvedDefense(AttackInstance attackInstance)

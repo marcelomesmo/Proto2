@@ -32,6 +32,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
-  areaEffectData: {fileID: 11400000, guid: 571be1933087a0f45baaa1a0746936db, type: 2}
+  areaAttackData: {fileID: 11400000, guid: 571be1933087a0f45baaa1a0746936db, type: 2}
   chainData: {fileID: 0}
   effects: []
+  isPassive: 0
+  castSilently: 0

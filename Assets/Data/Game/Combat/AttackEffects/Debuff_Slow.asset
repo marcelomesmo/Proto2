@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df28c4937e96efd4e98c0db025987fbb, type: 3}
   m_Name: Debuff_Slow
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackEffectData
-  effectType: 1
-  duration: 5
-  value: 0.5
-  tickInterval: 1
-  vfxPrefab: {fileID: 1545806602296978, guid: 666fa40e636e15244901fdc325d30793, type: 3}
+  effectType: 2
+  duration: 1
+  value: 1
+  tickInterval: 0
+  statModifiers:
+  - targetAttack: {fileID: 0}
+    statType: 12
+    scope: 0
+    type: 1
+    value: 0.8
+    filterByHitType: 0
+    hitTypes: 0
+  tagToApply: {fileID: 11400000, guid: 14aa06fc0850e6b48a6a39d38000e856, type: 2}

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
+  m_Name: Passive_DamageUp
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackData
+  displayName: Damage Up
+  icon: {fileID: 0}
+  description: Increases damage by x
+  executionMode: 3
+  combatActionType: 2
+  amount: 0
+  range: 0
+  cooldown: 0
+  hitTypes: 0
+  hitVFX: {fileID: 0}
+  castVFX: {fileID: 0}
+  targetType: 0
+  targetSelectionMode: 0
+  targetRequirement: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  projectilePrefab: {fileID: 0}
+  directionMode: 0
+  fixedAngle: 0
+  areaAttackData: {fileID: 0}
+  chainData: {fileID: 0}
+  effects:
+  - {fileID: 11400000, guid: e77c50a1152084446a0a6ea9e581490b, type: 2}
+  isPassive: 1
+  castSilently: 1

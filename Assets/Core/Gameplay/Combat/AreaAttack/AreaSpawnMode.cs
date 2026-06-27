@@ -1,4 +1,4 @@
-namespace Core.Gameplay.Combat.AreaEffect
+namespace Core.Gameplay.Combat.AreaAttack
 {
     public enum AreaSpawnMode
     {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity;
@@ -16,6 +17,21 @@ namespace Game.Entity.Enemy.Subsystem
     [RequireComponent(typeof(EntityPresentationSubsystem))]
     public sealed class EnemyAiBrainSubsystem : EntityBrainSubsystem
     {
+        private readonly struct AppliedPassiveEffect
+        {
+            public readonly EntityController Target;
+            public readonly StatusEffectData Effect;
+
+            public AppliedPassiveEffect(
+                EntityController target,
+                StatusEffectData effect)
+            {
+                Target = target;
+                Effect = effect;
+            }
+        }
+        private readonly List<AppliedPassiveEffect> _appliedPassiveEffects = new();
+        
         private EntityHealth _health;
         private EntityMovement _movement;
         private EntityAttackSubsystem _attackSubsystem;
@@ -51,6 +67,8 @@ namespace Game.Entity.Enemy.Subsystem
             _presentationSubsystem.SetFacing(FacingDirection.Left, force: true);
 
             _health.OnDamageTaken += OnDamageTaken;
+            
+            _attackLoadout.OnLoadoutChanged += OnLoadoutChanged;
         }
         
         protected override void OnDeinitialize()
@@ -58,10 +76,14 @@ namespace Game.Entity.Enemy.Subsystem
             controlEnabled = false;
             StopAllCoroutines();
 
+            RemoveAppliedPassiveEffects();
             ClearTarget();
             
             _health.OnDamageTaken -= OnDamageTaken;
             _health = null;
+            
+            _attackLoadout.OnLoadoutChanged -= OnLoadoutChanged;
+            _attackLoadout = null;
         }
 
         protected override void HandleTagAdded(GameplayTag tag)
@@ -158,6 +180,10 @@ namespace Game.Entity.Enemy.Subsystem
         {
             foreach (var attack in _attackLoadout.Attacks)
             {
+                // Shouldn't recast, is manually cast on Initialize and during Loadout change.
+                if (attack.isPassive)
+                    continue;
+                
                 // This specific attack's cooldown hasn't elapsed yet.
                 if (!_attackSubsystem.CanExecute(attack))
                     continue;
@@ -239,6 +265,103 @@ namespace Game.Entity.Enemy.Subsystem
         }
         
         #endregion
+        
+        
+        //
+        //  Passive skills
+        // 
+        private void OnLoadoutChanged()
+        {
+            // Avoid reapplying the same passives.
+            RemoveAppliedPassiveEffects();
+            
+            // On evolution, re-cast passives for the new loadout.
+            // Active StatModifierEffects from the old passive will OnRemove naturally
+            // when their StatusEffect entry in EntityStatusEffectSubsystem expires or
+            // is cleared — that subsystem should clear on loadout change too.
+            CastPassives();
+        }
+
+        private void CastPassives()
+        {
+            if (_attackLoadout == null || _attackSubsystem == null)
+                return;
+
+            foreach (var attack in _attackLoadout.Attacks)
+            {
+                if (!attack.isPassive)
+                    continue;
+                
+                EntityController target = ResolvePassiveTarget(attack);
+
+                if (!target)
+                    continue;
+                
+                bool executed = _attackSubsystem.TryExecute(
+                    attack,
+                    new AttackContext
+                    {
+                        Target = Controller,
+                        Direction = Vector2.right
+                    });
+
+                if (!executed)
+                    continue;
+
+                TrackAppliedPassiveEffects(attack, target);
+            }
+        }
+        
+        private EntityController ResolvePassiveTarget(AttackData attack)
+        {
+            if (attack.targetType == CombatTargetType.Self)
+                return Controller;
+
+            return _targeting.ResolveAttackTarget(attack);
+        }
+
+        private void TrackAppliedPassiveEffects(
+            AttackData attack,
+            EntityController target)
+        {
+            var effects =
+                _attackSubsystem.GetCombinedEffects(attack);
+
+            if (effects == null)
+                return;
+
+            foreach (var effect in effects)
+            {
+                if (!effect)
+                    continue;
+
+                _appliedPassiveEffects.Add(
+                    new AppliedPassiveEffect(
+                        target,
+                        effect));
+            }
+        }
+
+        private void RemoveAppliedPassiveEffects()
+        {
+            for (int i = _appliedPassiveEffects.Count - 1; i >= 0; i--)
+            {
+                var applied = _appliedPassiveEffects[i];
+
+                if (!applied.Target || !applied.Effect)
+                    continue;
+
+                if (!applied.Target.TryGetComponent(
+                        out EntityStatusEffectSubsystem statusEffects))
+                {
+                    continue;
+                }
+
+                statusEffects.RemoveEffect(applied.Effect);
+            }
+
+            _appliedPassiveEffects.Clear();
+        }
         
         //
         //  Targeting — movement target (CurrentTarget)

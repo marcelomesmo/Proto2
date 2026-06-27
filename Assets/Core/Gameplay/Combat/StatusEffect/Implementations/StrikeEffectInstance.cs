@@ -8,16 +8,17 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
     public class StrikeEffectInstance : StatusEffectInstance
     {
         private readonly EntityController _target;
-        private readonly AttackEffectData _data;
+        private readonly StatusEffectData _data;
         private readonly AttackSource _attackSource;
 
         public StrikeEffectInstance(
             EntityController target,
-            AttackEffectData data,
+            StatusEffectData data,
             AttackSource attackSource)
         {
             _target = target;
             _data = data;
+            SourceData = data;
             _attackSource = attackSource;
             
             RemainingTime = data.duration;

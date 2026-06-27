@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
   modifierPerLevel:
   - targetAttack: {fileID: 0}
-    statType: 2
+    statType: 4
     scope: 2
     type: 0
     value: 2
     filterByHitType: 1
     hitTypes: 16
   - targetAttack: {fileID: 0}
-    statType: 2
+    statType: 4
     scope: 2
     type: 0
     value: 4

@@ -23,7 +23,7 @@ namespace Core.Gameplay.Combat
             // 1. Merge Attack Effects
             // -----------------------------
 
-            var effects = ListPool<AttackEffectData>.Get();
+            var effects = ListPool<StatusEffectData>.Get();
 
             // Base attack effects
             if (attack.Data.Effects != null)
@@ -74,7 +74,7 @@ namespace Core.Gameplay.Combat
             if (previous.attack == null)
                 return default;
 
-            IReadOnlyList<AttackEffectData> effects =
+            IReadOnlyList<StatusEffectData> effects =
                 applyEffectsEveryBounce
                     ? previous.effects
                     : null;

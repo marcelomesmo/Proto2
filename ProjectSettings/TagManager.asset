@@ -17,7 +17,7 @@ TagManager:
   - Environment
   - Player
   - Enemy
-  - 
+  - Player Minion
   - 
   - Interactable
   - OneWayPlatform

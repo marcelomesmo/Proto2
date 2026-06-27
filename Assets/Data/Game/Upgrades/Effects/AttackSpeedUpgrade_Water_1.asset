@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: AttackSpeedUpgrade_Water_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
   modifierPerLevel:
-  - statType: 0
+  - targetAttack: {fileID: 0}
+    statType: 2
     scope: 2
     type: 1
     value: 0.9

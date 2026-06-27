@@ -12,6 +12,11 @@ namespace Core.Gameplay.Combat
             ICombatReceiver receiver,
             CombatPayload payload)
         {
+            // TODO: This becomes the gate to weather we can execute or not, we can remove
+            //      receiver.CanReceiveCombat() checks from impact/area/projectile paths later.
+            if (receiver == null) return;
+            if (!receiver.CanReceiveCombat(payload)) return;
+            
             ExecutePayload(receiver, payload);
 
             ResolveChain(receiver, payload);
@@ -29,6 +34,10 @@ namespace Core.Gameplay.Combat
 
                 case CombatAction.Heal:
                     receiver.ReceiveHeal(payload);
+                    break;
+                
+                case CombatAction.ApplyStatus:
+                    receiver.ReceiveStatusEffect(payload);
                     break;
                 
                 default:

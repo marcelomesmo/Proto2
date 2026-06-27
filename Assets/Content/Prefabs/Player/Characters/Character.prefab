@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1231529135064814292}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: AttackCastAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5961728994900322357}
   - component: {fileID: 929215472986499729}
   - component: {fileID: 9107604326191101921}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: VisualRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,10 +190,13 @@ GameObject:
   - component: {fileID: 70676279472141131}
   - component: {fileID: 1674162360058240182}
   - component: {fileID: 463953744200539111}
+  - component: {fileID: 7446538373206241546}
+  - component: {fileID: 275465228249587221}
   - component: {fileID: 3451244491078341314}
   - component: {fileID: -1624747154161217880}
   - component: {fileID: 7095099258240474993}
-  m_Layer: 8
+  - component: {fileID: 811892628725532764}
+  m_Layer: 10
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,6 +314,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Subsystem.PlayerCharacterBrainSubsystem
   controlEnabled: 0
+--- !u!114 &7446538373206241546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b422a22570a7b42b0e7893b6a9093b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityStatusEffectSubsystem
+--- !u!114 &275465228249587221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7e55df32642354daebb6566449d86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Entity.Subsystem.EntityHealth
 --- !u!114 &3451244491078341314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,3 +397,40 @@ MonoBehaviour:
   evolutionVfxPrefab: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
   levelUpEvent: {fileID: 11400000, guid: 8f0b8dfb2960bfc4183269906b9f649e, type: 2}
   stageUpEvent: {fileID: 11400000, guid: 473df635b2513dc41ba0008b23887f3c, type: 2}
+--- !u!70 &811892628725532764
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178040979343377514}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 0.5}
+  m_Direction: 0

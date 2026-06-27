@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922163bbd89ded84a975a25050ef7381, type: 3}
+  m_Name: C_1_electric_attacks 0
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
+  attacks:
+  - {fileID: 11400000, guid: 00dff2a8842025445b635dcea6a230c9, type: 2}
+  - {fileID: 11400000, guid: fb60ff3e0d13e28448cc60de498631ac, type: 2}
+  - {fileID: 11400000, guid: 0218849db3e55474a8f480037dd7bbdf, type: 2}

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df28c4937e96efd4e98c0db025987fbb, type: 3}
   m_Name: Debuff_Burn
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackEffectData
-  effectType: 2
+  effectType: 1
   duration: 5
   value: 1
   tickInterval: 1
-  vfxPrefab: {fileID: 1545806602296978, guid: f2d22dc5aa071bc43a691dc7f6957fd1, type: 3}
+  statModifiers: []
+  tagToApply: {fileID: 11400000, guid: 26edb4c68d1bf0e43a0d056516031bcd, type: 2}

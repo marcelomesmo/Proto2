@@ -10,11 +10,13 @@ namespace Core.Gameplay.Entity.Movement
             if (!CanRbMove)  // Important to check if rb.simulated is true before moving.
                 return;
 
+            var moveSpeed = GetEffectiveMoveSpeed();
+            
             Vector2 targetPos = new Vector2(target.x, transform.position.y);
        
             Vector2 direction = (targetPos - (Vector2)transform.position).normalized;
 
-            Rb.linearVelocity = new Vector2(direction.x * Controller.Stats.moveSpeed, Rb.linearVelocity.y);
+            Rb.linearVelocity = new Vector2(direction.x * moveSpeed, Rb.linearVelocity.y);
         
             // Animation triggers
             if (!Controller.Animator)
@@ -23,7 +25,7 @@ namespace Core.Gameplay.Entity.Movement
             Controller.Animator.SetBool("isMoving", true);
             Controller.Animator.SetFloat(
                 "velocityX", 
-                Mathf.Abs(Rb.linearVelocity.x) / Controller.Stats.moveSpeed
+                Mathf.Abs(Rb.linearVelocity.x) / moveSpeed
                 );
         }
     }

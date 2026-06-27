@@ -9,5 +9,6 @@ namespace Core.Interfaces
         bool CanReceiveCombat(CombatPayload payload);
         void ReceiveDamage(CombatPayload context);
         void ReceiveHeal(CombatPayload context);
+        void ReceiveStatusEffect(CombatPayload payload);
     }
 }

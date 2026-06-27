@@ -17,16 +17,16 @@ MonoBehaviour:
   attackPower: 3
   healingPower: 10
   defense: 3
+  resistance: 0
   critChance: 5
   critDamage: 100
   combatEntityLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 1792
   aggroRadius: 8
   aggroTolerance: 10
   maxHealth: 100
   moveSpeed: 0
-  speedMult: 1
   thinkingTime: 1.5
   globalCooldown: 0.5
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}

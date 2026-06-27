@@ -9,7 +9,7 @@ namespace Core.Gameplay.Combat.Attack
         public readonly CombatAction action;
         public readonly AttackInstance attack;                             // null for DOT / effect damage
         public readonly int amount;                                 // ALWAYS set
-        public readonly IReadOnlyList<AttackEffectData> effects;        // null for DOT / effect damage
+        public readonly IReadOnlyList<StatusEffectData> effects;        // null for DOT / effect damage
         public readonly AttackSource source;
         public readonly int chainDepth;
         public readonly CombatFlags flags;
@@ -18,7 +18,7 @@ namespace Core.Gameplay.Combat.Attack
             CombatAction action,
             AttackInstance attack,
             int amount,
-            IReadOnlyList<AttackEffectData> effects,
+            IReadOnlyList<StatusEffectData> effects,
             AttackSource source,
             CombatFlags flags = CombatFlags.None,
             int chainDepth = 0)

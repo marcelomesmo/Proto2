@@ -8,13 +8,13 @@ using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Core.Gameplay.Combat.AreaEffect
+namespace Core.Gameplay.Combat.AreaAttack
 {
-    public class AreaEffectInstance : MonoBehaviour
+    public class AreaAttackInstance : MonoBehaviour
     {
         private EntityController _owner;
         
-        private AreaEffectData _data;
+        private AreaAttackData _data;
         private CombatPayload _payload;
         
         private float _lifetimeRemaining;
@@ -25,7 +25,7 @@ namespace Core.Gameplay.Combat.AreaEffect
         private readonly List<Collider2D> _hits = new();
         
         private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
-
+        
         public void Awake()
         {
             visuals = GetComponents<IPoolableVisual>();
@@ -33,7 +33,7 @@ namespace Core.Gameplay.Combat.AreaEffect
 
         public void Initialize(
             EntityController owner,
-            AreaEffectData data,
+            AreaAttackData data,
             CombatPayload payload)
         {
             _owner = owner;
@@ -266,9 +266,9 @@ namespace Core.Gameplay.Combat.AreaEffect
         
         #region Pool
         
-        private IObjectPool<AreaEffectInstance> _objectPool;
+        private IObjectPool<AreaAttackInstance> _objectPool;
         private bool _isReleased;
-        public void AssignToPool(IObjectPool<AreaEffectInstance> objectPool) => _objectPool = objectPool;    
+        public void AssignToPool(IObjectPool<AreaAttackInstance> objectPool) => _objectPool = objectPool;    
         private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
         public void ReturnToPoolSafe() { if(_isReleased) return; ReturnToPool(); }
         

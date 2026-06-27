@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
   modifierPerLevel:
   - targetAttack: {fileID: 11400000, guid: cfd9e19ac2500d046ae967a4c03d77f4, type: 2}
-    statType: 1
+    statType: 3
     scope: 3
     type: 0
     value: 5

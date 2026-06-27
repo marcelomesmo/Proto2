@@ -36,8 +36,7 @@ namespace Core.Gameplay.Entity.Movement
 
             float directionX = Mathf.Sign(dx);
 
-            float speed =
-                Controller.Stats.moveSpeed * SpeedMultiplier;
+            float speed = GetEffectiveMoveSpeed();
 
             Rb.linearVelocity = new Vector2(directionX * speed, 0f);
 

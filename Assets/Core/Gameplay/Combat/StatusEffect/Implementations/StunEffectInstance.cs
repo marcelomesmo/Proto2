@@ -11,24 +11,22 @@ namespace Core.Gameplay.Combat.StatusEffect.Implementations
 
         public StunEffectInstance(
             EntityController target,
-            AttackEffectData data,
-            GameplayTag stunTag)
+            StatusEffectData data)
         {
             _target = target;
-            _stunTag = stunTag;
+            SourceData = data;
+            _stunTag = data.tagToApply;
             RemainingTime = data.duration;
         }
 
         public override void OnApply()
         {
             _target.Tags.AddTag(_stunTag);
-            //_target.SetStun(data.value);
         }
 
         public override void OnRemove()
         {
             _target.Tags.RemoveTag(_stunTag);
-            //_target.SetStun(data.value);
         }
     }
 }

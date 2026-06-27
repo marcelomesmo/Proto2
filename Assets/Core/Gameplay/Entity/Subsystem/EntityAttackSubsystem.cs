@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.Gameplay.Combat;
-using Core.Gameplay.Combat.AreaEffect;
+using Core.Gameplay.Combat.AreaAttack;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Projectile;
 using Core.Gameplay.Entity.Attack;
@@ -26,7 +26,7 @@ namespace Core.Gameplay.Entity.Subsystem
         public IReadOnlyDictionary<AttackData, AttackInstance> Attacks => _attacks;
         private readonly Dictionary<AttackData, AttackInstance> _variantInstances = new();
         
-        private readonly Dictionary<AttackData, List<AttackEffectData>> _runtimeAttackEffects = new();
+        private readonly Dictionary<AttackData, List<StatusEffectData>> _runtimeAttackEffects = new();
         
         // Active Attack State
         public bool IsAttackChanneling => _channeledAttack != null;
@@ -143,8 +143,9 @@ namespace Core.Gameplay.Entity.Subsystem
             if (attack == null)
                 return false;
             
-            // Safeguard to prevent new attacks while performing one attack. Shouldn't be needed if check is properly done in Brain.
-            if (IsAttackInProgress)
+            // IsAttackInProgress Safeguard to prevent new attacks while performing one attack. Shouldn't be needed if check is properly done in Brain.
+            // Is attack is passive we bypass this check.
+            if (IsAttackInProgress && !attack.isPassive)
                 return false;
             
             if (!_attacks.TryGetValue(attack, out var instance))
@@ -160,6 +161,21 @@ namespace Core.Gameplay.Entity.Subsystem
                 instance.GetResolvedAttackVariant(
                     context,
                     this);
+            
+            // Passive attacks need to be Direct
+            if (attack.isPassive &&
+                resolvedAttack.Data.executionMode == AttackExecutionMode.Direct)
+            {
+                ExecuteDirectCast(
+                    resolvedAttack,
+                    context);
+
+                instance.Consume();
+
+                OnAttackExecuted?.Invoke(resolvedAttack);
+
+                return true;
+            }
             
             ExecuteAttack(
                 sourceAttack: instance,
@@ -185,7 +201,7 @@ namespace Core.Gameplay.Entity.Subsystem
             _resolveTimer = attackResolveTimeout;   // TEMP (see below HandleAttackResolveTimeout)
             
             // TODO: Later we should maybe do Controller.Tags.AddTag(attackingTag) and let the PresentationSubsystem handle this?
-            if (Controller.Animator)
+            if (Controller.Animator && !_currentAttack.Data.castSilently)
                 Controller.Animator.SetTrigger("attack");
 
             OnAttackExecuted?.Invoke(executionAttack);
@@ -395,18 +411,18 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private bool SpawnAreaEffect(AttackInstance attack, AttackContext context)
         {
-            if (!attack.Data.areaEffectData)
+            if (!attack.Data.areaAttackData)
             {
                 Debug.LogWarning($"Attack {attack.Data.name} is set to ExecuteMode:AreaEffect but has no AreaEffectData");
                 return false;
             }
             
             // 1. Resolve spawn transform/position
-            var spawnTransform = ResolveAreaSpawnTransform(attack.Data.areaEffectData);
-            var spawnPosition = ResolveAreaSpawnPosition(attack.Data.areaEffectData, context);
+            var spawnTransform = ResolveAreaSpawnTransform(attack.Data.areaAttackData);
+            var spawnPosition = ResolveAreaSpawnPosition(attack.Data.areaAttackData, context);
 
             // 2. Spawn pooled effect
-            var areaEffect = AreaEffectPoolManager.Instance.Spawn(attack.Data.areaEffectData.areaEffectPrefab);
+            var areaEffect = AreaEffectPoolManager.Instance.Spawn(attack.Data.areaAttackData.areaEffectPrefab);
             
             if (!areaEffect)
                 return false;
@@ -422,7 +438,7 @@ namespace Core.Gameplay.Entity.Subsystem
             areaEffect.transform.localScale = Vector3.one;
             
             // 3. Follow owner handling
-            if (attack.Data.areaEffectData.followOwner)
+            if (attack.Data.areaAttackData.followOwner)
             {
                 areaEffect.transform.SetParent(
                     spawnTransform,
@@ -453,12 +469,12 @@ namespace Core.Gameplay.Entity.Subsystem
             // 5. Initialize
             areaEffect.Initialize(
                 owner: _controller,
-                data: attack.Data.areaEffectData,
+                data: attack.Data.areaAttackData,
                 payload: payload
             );
 
             // 6 Begin channeling
-            if (attack.Data.areaEffectData.isChanneled)
+            if (attack.Data.areaAttackData.isChanneled)
             {
                 BeginChanneledAttack(_currentAttack);
                 return true;
@@ -508,7 +524,7 @@ namespace Core.Gameplay.Entity.Subsystem
             EndChanneledAttack();
         }
         
-        private Transform ResolveAreaSpawnTransform(AreaEffectData data)
+        private Transform ResolveAreaSpawnTransform(AreaAttackData data)
         {
             if (_presentation && _presentation.CastAnchor)
                 return _presentation.CastAnchor;
@@ -517,7 +533,7 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         
         private Vector3 ResolveAreaSpawnPosition(
-            AreaEffectData data,
+            AreaAttackData data,
             AttackContext context)
         {
             var origin = ResolveAreaSpawnTransform(data);
@@ -730,14 +746,14 @@ namespace Core.Gameplay.Entity.Subsystem
 
         public void RegisterRuntimeEffect(
             AttackData attack,
-            AttackEffectData effect)
+            StatusEffectData effect)
         {
             if (attack == null || effect == null)
                 return;
 
             if (!_runtimeAttackEffects.TryGetValue(attack, out var list))
             {
-                list = new List<AttackEffectData>();
+                list = new List<StatusEffectData>();
                 _runtimeAttackEffects.Add(attack, list);
             }
 
@@ -747,7 +763,7 @@ namespace Core.Gameplay.Entity.Subsystem
 
         public void UnregisterRuntimeEffect(
             AttackData attack,
-            AttackEffectData effect)
+            StatusEffectData effect)
         {
             if (attack == null || effect == null)
                 return;
@@ -761,12 +777,12 @@ namespace Core.Gameplay.Entity.Subsystem
                 _runtimeAttackEffects.Remove(attack);
         }
 
-        public IReadOnlyList<AttackEffectData> GetCombinedEffects(AttackData attack)
+        public IReadOnlyList<StatusEffectData> GetCombinedEffects(AttackData attack)
         {
             if (!_runtimeAttackEffects.TryGetValue(attack, out var extra))
                 return attack.Effects;
 
-            var combined = new List<AttackEffectData>(
+            var combined = new List<StatusEffectData>(
                 attack.Effects.Count + extra.Count);
 
             combined.AddRange(attack.Effects);

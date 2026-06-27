@@ -1,3 +1,4 @@
+using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.StatusEffect;
 using Core.Gameplay.Combat.StatusEffect.Implementations;
@@ -8,7 +9,7 @@ namespace Core.Gameplay.Combat
     public static class StatusEffectFactory
     {
         public static StatusEffectInstance Create(
-            AttackEffectData effect,
+            StatusEffectData effect,
             EntityController target,
             AttackSource source)
         {
@@ -18,20 +19,17 @@ namespace Core.Gameplay.Combat
                     new BurnEffectInstance(
                         target,
                         effect,
-                        source,
-                        target.Stats.burnTag),
+                        source),
 
                 StatusEffectType.Stun =>
                     new StunEffectInstance(
                         target,
-                        effect,
-                        target.Stats.stunTag),
-
-                StatusEffectType.Slow =>
-                    new SlowEffectInstance(
-                        target,
-                        effect,
-                        target.Stats.slowTag),
+                        effect),
+                
+                StatusEffectType.StatModifier =>
+                    new StatModifierEffectInstance(
+                        target, 
+                        effect),
 
                 _ => null
             };

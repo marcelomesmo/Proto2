@@ -49,7 +49,9 @@ namespace Core.Enum
         CritChance,
         CritDamage,
         Defense,
-        Resistance
+        Resistance,
+        
+        MoveSpeed,
     }
 
 	public enum AttackVariantCondition
@@ -101,6 +103,14 @@ namespace Core.Enum
         Resisted = 1 << 2,
         // Block  = 1 << 1,
         // Resist = 1 << 2,
+    }
+    
+    public enum StatusEffectType
+    {
+        Stun,
+        Burn,
+        StatModifier,   // applies AttackStatModifiers for duration
+        // extensible
     }
     
     /*

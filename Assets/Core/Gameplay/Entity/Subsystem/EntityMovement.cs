@@ -1,7 +1,11 @@
+using Core.Enum;
+using Core.Gameplay.Combat;
+using Core.Gameplay.Entity.Stats;
 using UnityEngine;
 
 namespace Core.Gameplay.Entity.Subsystem
 {
+    [RequireComponent(typeof(EntityModifierSubsystem))]
     public abstract class EntityMovement: BaseSubsystem
     {
         protected Rigidbody2D Rb;
@@ -11,7 +15,8 @@ namespace Core.Gameplay.Entity.Subsystem
         // Is the entity currently sitting on a surface?
         public bool IsGrounded { get; protected set; }
         
-        protected float SpeedMultiplier = 1f;
+        private EntityModifierSubsystem _modifiers;
+        private BaseEntityStats _stats;
         
         protected void Awake()
         {
@@ -31,6 +36,13 @@ namespace Core.Gameplay.Entity.Subsystem
             Rb.angularVelocity = 0f;
 
             Col.enabled = true;
+            
+            if (Controller.Stats)
+                _stats = Controller.Stats;
+            else
+                Debug.LogError("[EntityAttackSubsystem] requires Stats!");
+            
+            _modifiers = GetComponent<EntityModifierSubsystem>();
         }
 
         protected override void OnDeinitialize()
@@ -52,9 +64,21 @@ namespace Core.Gameplay.Entity.Subsystem
 
         public virtual void UpdateJumpState() { }
 
-        public void SetSpeedMultiplier(float multiplier)
+        protected float GetEffectiveMoveSpeed()
         {
-            SpeedMultiplier = multiplier;
+            if (_modifiers == null)
+                return _stats.moveSpeed;
+
+            var resolvedMovement = AttackStatResolver.Resolve(
+                baseValue: _stats.moveSpeed,
+                attack: null,           // no specific attack context
+                statType: AttackStatType.MoveSpeed,
+                scope: ModifierScope.All,
+                hitTypes: HitTypes.None,
+                modifiers: _modifiers.AttackStatModifiers  // see note
+            );
+            
+            return resolvedMovement;
         }
 
         public virtual void Stop()
