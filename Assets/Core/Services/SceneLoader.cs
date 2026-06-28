@@ -162,6 +162,11 @@ namespace Core.Services
 
             op.allowSceneActivation = true;
             yield return null; // one frame for scene to settle
+            
+            // Always reset timescale before any scene transition.
+            // Handles: paused exit, speed multiplier carry-over, any other timeScale state.
+            // Last thing we do before the next scene is loaded.
+            GameTimeService.ForceResetSpeed();
         }
     }
 }

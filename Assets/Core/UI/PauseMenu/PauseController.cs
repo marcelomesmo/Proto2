@@ -107,7 +107,8 @@ namespace Core.UI.PauseMenu
 
         public void QuitToMenu()
         {
-            PauseService.Resume(); // restores input + time
+            // Do NOT resume anymore — keep paused so systems freeze during transition
+            //PauseService.Resume(); // restores input + time
             pauseRoot.SetActive(false);
             
             ServiceLocator

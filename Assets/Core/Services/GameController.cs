@@ -11,17 +11,8 @@ namespace Core.Services
 {
     public class GameController : MonoBehaviour
     {
-        [Header("Game Speed")]
-        [SerializeField] private float[] speedSteps = { 1f, 2f, 4f };
-        
         [Header("Match Stats")]
         [SerializeField] private MatchStatsProvider matchStatsProvider;
-        
-        private int _currentSpeedIndex;
-        private bool _isPaused;
-        
-        public float CurrentGameSpeed => speedSteps[_currentSpeedIndex];
-        public bool IsPaused => _isPaused;
         
         public MatchStats MatchStats { get; private set; }
         public MatchRuntime MatchRuntime { get; private set; }
@@ -39,6 +30,8 @@ namespace Core.Services
         // Called explicitly by GameBootstrapper
         public void Initialize()
         {
+            GameTimeService.Initialize();
+            
             MatchRuntime = new MatchRuntime();
 
             MatchStats = matchStatsProvider != null
@@ -51,8 +44,6 @@ namespace Core.Services
             UpgradeManager.Initialize(
                 ServiceLocator.Get<ISaveManager>(),
                 ServiceLocator.Get<IUpgradeDatabase>());
-            
-            SetGameSpeed(1f);
         }
         
         // --------------------------------------------------
@@ -63,7 +54,9 @@ namespace Core.Services
         
         public void StartMatch()
         {
-            _isPaused = false;
+            GameTimeService.ResetSpeed();
+            PauseService.Resume();
+            
             MatchRuntime.BeginMatch();
             MatchStats.OnMatchStart();
             UpgradeRuntimeManager.OnMatchStart();
@@ -78,106 +71,26 @@ namespace Core.Services
         private void EndMatch()
         {
             MatchRuntime.EndMatch();
-            
             ShutdownCombatRuntime();
-            
             MatchStats.OnMatchEnd();
             UpgradeRuntimeManager.OnMatchEnd();
+            
             ServiceLocator.Get<ISaveManager>().OnMatchEnd();
         }
         
         private void Update()
         {
-            if (_isPaused)
+            if (!CanTickMatch)
                 return;
-            
-            // Update Game Controller
-
-            if (MatchRuntime == null)
-                return;
-            
-            /*
-             * Above or:
-                 bool CanTickMatch =>
-                 MatchRuntime != null &&
-                 !_isPaused &&
-                 MatchRuntime.IsRunning;
-             */
 
             MatchRuntime.Tick(Time.deltaTime);
             MatchStats.OnMatchTimeUpdated(MatchRuntime.ElapsedTime);
         }
         
         private bool CanTickMatch =>
-            !_isPaused && MatchRuntime.IsRunning;
-        
-        #endregion
-        
-        // --------------------------------------------------
-        // Game Speed
-        // --------------------------------------------------
-        
-        #region Game Speed
-
-        public void CycleGameSpeed()
-        {
-            if (_isPaused)
-                return;
-            
-            _currentSpeedIndex = (_currentSpeedIndex + 1) % speedSteps.Length;
-            ApplyGameSpeed();
-        }
-
-        public void SetGameSpeed(float speed)
-        {
-            for (int i = 0; i < speedSteps.Length; i++)
-            {
-                if (Mathf.Approximately(speedSteps[i], speed))
-                {
-                    _currentSpeedIndex = i;
-                    ApplyGameSpeed();
-                    return;
-                }
-            }
-
-            Debug.LogWarning($"[GameController] Unsupported game speed: {speed}");
-        }
-
-        private void ApplyGameSpeed()
-        {
-            float speed = speedSteps[_currentSpeedIndex];
-
-            Time.timeScale = speed;
-            Time.fixedDeltaTime = 0.02f * speed;
-
-            //Debug.Log($"[GameController] Game speed set to {speed}x");
-        }
-
-        #endregion
-        
-        // --------------------------------------------------
-        // Pause Control
-        // --------------------------------------------------
-        
-        #region Pause Control
-
-        public void PauseGame()
-        {
-            if (_isPaused)
-                return;
-
-            _isPaused = true;
-            Time.timeScale = 0f;
-        }
-
-        public void ResumeGame()
-        {
-            if (!_isPaused)
-                return;
-
-            _isPaused = false;
-            ApplyGameSpeed();
-        }
+            MatchRuntime != null &&
+            MatchRuntime.IsRunning &&
+            !PauseService.IsPaused;
         
         #endregion
         
@@ -187,20 +100,9 @@ namespace Core.Services
         
         #region End of Match Flow
         
-        public void OnGameDefeat()
-        {
-            StartCoroutine(GameEndRoutine(MatchEndReason.Defeat));
-        }
-        
-        public void OnGameVictory()
-        {
-            StartCoroutine(GameEndRoutine(MatchEndReason.Victory));
-        }
-        
-        public void OnGameQuit()
-        {
-            StartCoroutine(GameEndRoutine(MatchEndReason.Quit));
-        }
+        public void OnGameDefeat() => StartCoroutine(GameEndRoutine(MatchEndReason.Defeat));
+        public void OnGameVictory() => StartCoroutine(GameEndRoutine(MatchEndReason.Victory));
+        public void OnGameQuit() => StartCoroutine(GameEndRoutine(MatchEndReason.Quit));
         
         private IEnumerator GameEndRoutine(MatchEndReason reason)
         {
@@ -218,9 +120,9 @@ namespace Core.Services
             }
             
             if (delay > 0f)
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSecondsRealtime(delay);
             
-            PauseGame();
+            PauseService.Pause();
 
             ServiceLocator
                 .Get<IMatchLifecycleHandler>()
@@ -230,22 +132,18 @@ namespace Core.Services
         public void ExitMatch()
         {
             Cleanup();
-            
             // Clear when switching worlds/biomes to free asset memory
             ClearPools();
             // TODO: A small optimization we could do, is to only clear when we are actually entering
             //      a new different level, and not at the exit of every level.
             //      This would avoid clearing everytime if the Player is only playing the same level
             //      over and over again.
-            
             SceneLoader.LoadMenu();
         }
         
         private void Cleanup()
         {
-            SetGameSpeed(1f);
-            _isPaused = false;
-
+            // Release while still paused — systems are frozen
             ServiceLocator.Get<EntityPoolManager>()?.ReleaseAll();
             ShutdownCombatRuntime();
             ServiceLocator.Get<AudioManager>()?.ReleaseAll();

@@ -16,7 +16,7 @@ namespace Game.UI.Match
 
         public void OnClick()
         {
-            ServiceLocator.Get<GameController>().CycleGameSpeed();
+            GameTimeService.CycleSpeed();
             UpdateLabel();
         }
 

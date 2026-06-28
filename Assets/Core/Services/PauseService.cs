@@ -11,23 +11,26 @@ namespace Core.Services
             if (IsPaused) return;
             
             IsPaused = true;
+            GameTimeService.Pause();
             
-            ServiceLocator.Get<GameController>().PauseGame();
             InputMapController.DisableGameplay();
-            
+            // Only for games that hide cursor during gameplay.
             //Cursor.visible = true;
             //Cursor.lockState = CursorLockMode.None;
         }
 
         public static void Resume()
         {
-            if (!IsPaused) return;
+            if (!IsPaused)
+            {
+                Debug.LogWarning("[PauseService] Trying to Resume game with game already running.");
+                return;
+            }
             
             IsPaused = false;
+            GameTimeService.Apply();
             
-            ServiceLocator.Get<GameController>().ResumeGame();
             InputMapController.EnableGameplay();
-            
             // Only for games that hide cursor during gameplay.
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;

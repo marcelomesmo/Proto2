@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: a3ef668db9b7e274798c21a197a118ea
+guid: b18676e592d8c73449346e98d0582e17
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5874191412814057638
-    second: pinto-raio-idle_0
+      213: -1560909296113521333
+    second: zeuphor-idle_0
   - first:
-      213: -950435839353613806
-    second: pinto-raio-idle_1
+      213: 4636706826615639925
+    second: zeuphor-idle_1
   - first:
-      213: -8160957291845291948
-    second: pinto-raio-idle_2
+      213: 9024573017309097008
+    second: zeuphor-idle_2
   - first:
-      213: -4921184348465868945
-    second: pinto-raio-idle_3
+      213: 6150044474147769746
+    second: zeuphor-idle_3
   - first:
-      213: 5790615099602992047
-    second: pinto-raio-idle_4
+      213: -7789718639413042995
+    second: zeuphor-idle_4
   - first:
-      213: -3254673424453830444
-    second: pinto-raio-idle_5
+      213: -5195111340053985088
+    second: zeuphor-idle_5
   - first:
-      213: -1895014948638707655
-    second: pinto-raio-idle_6
+      213: -7613714951852393500
+    second: zeuphor-idle_6
   - first:
-      213: -8467752843624270313
-    second: pinto-raio-idle_7
+      213: -6739289421380308023
+    second: zeuphor-idle_7
   - first:
-      213: 8544149812005662745
-    second: pinto-raio-idle_8
+      213: 88675466586909954
+    second: zeuphor-idle_8
   - first:
-      213: -3146001859172420657
-    second: pinto-raio-idle_9
+      213: -480793877573923784
+    second: zeuphor-idle_9
   - first:
-      213: 3921566991859363072
-    second: pinto-raio-idle_10
+      213: -824316929040166948
+    second: zeuphor-idle_10
   - first:
-      213: -1657033763338359378
-    second: pinto-raio-idle_11
+      213: -4469646453959090149
+    second: zeuphor-idle_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -159,13 +159,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pinto-raio-idle_0
+      name: zeuphor-idle_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 48
-        height: 48
+        y: 160
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,42 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5f6198680eaa7ea0800000000000000
-      internalID: -5874191412814057638
+      spriteID: b4d6c86e349865ae0800000000000000
+      internalID: -1560909296113521333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_1
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 144
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2121785c3af5fc2f0800000000000000
-      internalID: -950435839353613806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-idle_2
+      name: zeuphor-idle_1
       rect:
         serializedVersion: 2
         x: 96
-        y: 144
-        width: 48
-        height: 48
+        y: 160
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +196,64 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4507d68e4947ebe80800000000000000
-      internalID: -8160957291845291948
+      spriteID: 57fcd00ea44e85040800000000000000
+      internalID: 4636706826615639925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_3
+      name: zeuphor-idle_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 96
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03ca8425859bd3d70800000000000000
+      internalID: 9024573017309097008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeuphor-idle_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 160
+        width: 96
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d8e6a6dd8595550800000000000000
+      internalID: 6150044474147769746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeuphor-idle_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
-        width: 48
-        height: 48
+        y: 80
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,42 +262,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f6fca7b98e074bbb0800000000000000
-      internalID: -4921184348465868945
+      spriteID: dc0eb8d4b2c55e390800000000000000
+      internalID: -7789718639413042995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_4
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 96
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fab79dac0c56c5050800000000000000
-      internalID: 5790615099602992047
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-idle_5
+      name: zeuphor-idle_5
       rect:
         serializedVersion: 2
         x: 96
-        y: 96
-        width: 48
-        height: 48
+        y: 80
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,20 +284,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d87683b3c315d2d0800000000000000
-      internalID: -3254673424453830444
+      spriteID: 0c88a77d2c147e7b0800000000000000
+      internalID: -5195111340053985088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_6
+      name: zeuphor-idle_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 48
-        height: 48
+        x: 192
+        y: 80
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,20 +306,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 930b556c1fd83b5e0800000000000000
-      internalID: -1895014948638707655
+      spriteID: 4ebf1c92796a65690800000000000000
+      internalID: -7613714951852393500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_7
+      name: zeuphor-idle_7
       rect:
         serializedVersion: 2
-        x: 48
-        y: 48
-        width: 48
-        height: 48
+        x: 288
+        y: 80
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,42 +328,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 716b8fd17af7c7a80800000000000000
-      internalID: -8467752843624270313
+      spriteID: 9c334104afb3972a0800000000000000
+      internalID: -6739289421380308023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_8
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 48
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 91071543cfae29670800000000000000
-      internalID: 8544149812005662745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-idle_9
+      name: zeuphor-idle_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,42 +350,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc33f413af72754d0800000000000000
-      internalID: -3146001859172420657
+      spriteID: 20d6436fdd90b3100800000000000000
+      internalID: 88675466586909954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-idle_10
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00daca8d6643c6630800000000000000
-      internalID: 3921566991859363072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-idle_11
+      name: zeuphor-idle_9
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 48
-        height: 48
+        width: 96
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -416,8 +372,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ead636352980109e0800000000000000
-      internalID: -1657033763338359378
+      spriteID: 83c06050480e359f0800000000000000
+      internalID: -480793877573923784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeuphor-idle_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdf4836de107f84f0800000000000000
+      internalID: -824316929040166948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeuphor-idle_11
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b102f283b30a8f1c0800000000000000
+      internalID: -4469646453959090149
       vertices: []
       indices: 
       edges: []
@@ -426,7 +426,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b643e85976cec644aa9c5a2c53c667e6
+    spriteID: f0657381e46c943499e2dc2094e24813
     internalID: 0
     vertices: []
     indices: 
@@ -436,20 +436,20 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":4.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":3.0},"gridSpriteSize":{"x":96.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      pinto-raio-idle_0: -5874191412814057638
-      pinto-raio-idle_1: -950435839353613806
-      pinto-raio-idle_10: 3921566991859363072
-      pinto-raio-idle_11: -1657033763338359378
-      pinto-raio-idle_2: -8160957291845291948
-      pinto-raio-idle_3: -4921184348465868945
-      pinto-raio-idle_4: 5790615099602992047
-      pinto-raio-idle_5: -3254673424453830444
-      pinto-raio-idle_6: -1895014948638707655
-      pinto-raio-idle_7: -8467752843624270313
-      pinto-raio-idle_8: 8544149812005662745
-      pinto-raio-idle_9: -3146001859172420657
+      zeuphor-idle_0: -1560909296113521333
+      zeuphor-idle_1: 4636706826615639925
+      zeuphor-idle_10: -824316929040166948
+      zeuphor-idle_11: -4469646453959090149
+      zeuphor-idle_2: 9024573017309097008
+      zeuphor-idle_3: 6150044474147769746
+      zeuphor-idle_4: -7789718639413042995
+      zeuphor-idle_5: -5195111340053985088
+      zeuphor-idle_6: -7613714951852393500
+      zeuphor-idle_7: -6739289421380308023
+      zeuphor-idle_8: 88675466586909954
+      zeuphor-idle_9: -480793877573923784
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

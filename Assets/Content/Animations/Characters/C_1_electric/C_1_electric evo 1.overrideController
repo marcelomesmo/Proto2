@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: C_1_electric evo 1
+  m_Controller: {fileID: 9100000, guid: 2ae99002dea3af6418787205cc3c3a10, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: eab98c7476079c04eb0fccd6b3a0499a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 569f2b1149251864ebff038ff1f5a7e4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 47060683480a61a40ab8af0f6cd9de63, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a6a955b9b0aec0648a512ba80935e11f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ae979a65daa7b804f8c3548e8b3361c7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c1f33a8b1eb4f3f42a11859ffcf7d764, type: 2}

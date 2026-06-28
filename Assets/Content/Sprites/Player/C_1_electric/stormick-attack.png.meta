@@ -1,82 +1,70 @@
 fileFormatVersion: 2
-guid: e4ba1f1f6171adc4ea0248f5aa959f80
+guid: 590f8cdac3e287548935e474dda6adff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5799177324894650257
-    second: pinto-raio-attack_0
+      213: 6519401352645702962
+    second: stormick-attack_0
   - first:
-      213: -2045344493271931140
-    second: pinto-raio-attack_1
+      213: 5156616981537195300
+    second: stormick-attack_1
   - first:
-      213: 2626345782435899722
-    second: pinto-raio-attack_2
+      213: -2457435293227656723
+    second: stormick-attack_2
   - first:
-      213: 4793798388463244802
-    second: pinto-raio-attack_3
+      213: -5357672506338649614
+    second: stormick-attack_3
   - first:
-      213: 7606941067715105613
-    second: pinto-raio-attack_4
+      213: 5133579756570465876
+    second: stormick-attack_4
   - first:
-      213: -3228722415131375646
-    second: pinto-raio-attack_5
+      213: 3745489781430884134
+    second: stormick-attack_5
   - first:
-      213: -8467830263958716528
-    second: pinto-raio-attack_6
+      213: -2701572593553254861
+    second: stormick-attack_6
   - first:
-      213: -1122639208774806888
-    second: pinto-raio-attack_7
+      213: -4752495240579121246
+    second: stormick-attack_7
   - first:
-      213: 3832317800209334165
-    second: pinto-raio-attack_8
+      213: 4425410335094544360
+    second: stormick-attack_8
   - first:
-      213: -2569731160774862072
-    second: pinto-raio-attack_9
+      213: -345957375199688158
+    second: stormick-attack_9
   - first:
-      213: -5365422352432521324
-    second: pinto-raio-attack_10
+      213: -8055511168580363438
+    second: stormick-attack_10
   - first:
-      213: -9153700206393254391
-    second: pinto-raio-attack_11
+      213: 7877364048038079296
+    second: stormick-attack_11
   - first:
-      213: -436864868095086829
-    second: pinto-raio-attack_12
+      213: 4613524661980251204
+    second: stormick-attack_12
   - first:
-      213: -7974045686164547917
-    second: pinto-raio-attack_13
+      213: -9135622570992337605
+    second: stormick-attack_13
   - first:
-      213: 1515058426004513904
-    second: pinto-raio-attack_14
+      213: 48301632292998710
+    second: stormick-attack_14
   - first:
-      213: -1556686472761886626
-    second: pinto-raio-attack_15
+      213: 1234041819822469478
+    second: stormick-attack_15
   - first:
-      213: 6974429557818748705
-    second: pinto-raio-attack_16
+      213: -4240813681677346275
+    second: stormick-attack_16
   - first:
-      213: -1836448407675607810
-    second: pinto-raio-attack_17
+      213: 861448379377221805
+    second: stormick-attack_17
   - first:
-      213: 5566943766608485047
-    second: pinto-raio-attack_18
+      213: 1878637974554279940
+    second: stormick-attack_18
   - first:
-      213: -2244839546779543605
-    second: pinto-raio-attack_19
+      213: 8778262221151022339
+    second: stormick-attack_19
   - first:
-      213: 643865820565433857
-    second: pinto-raio-attack_20
-  - first:
-      213: -5983780909352195609
-    second: pinto-raio-attack_21
-  - first:
-      213: 7620453558327722397
-    second: pinto-raio-attack_22
-  - first:
-      213: -5284212317930904458
-    second: pinto-raio-attack_23
-  - first:
-      213: -7079834217958830523
-    second: pinto-raio-attack_24
+      213: -6111936090083036906
+    second: stormick-attack_20
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -198,13 +186,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pinto-raio-attack_0
+      name: stormick-attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +201,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f608728c2fe258fa0800000000000000
-      internalID: -5799177324894650257
+      spriteID: 235f5ac2df0997a50800000000000000
+      internalID: 6519401352645702962
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_1
+      name: stormick-attack_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 192
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,20 +223,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cf6a933250a7d93e0800000000000000
-      internalID: -2045344493271931140
+      spriteID: 4258543e2dbff8740800000000000000
+      internalID: 5156616981537195300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_2
+      name: stormick-attack_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 192
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +245,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a49ef6bf297a27420800000000000000
-      internalID: 2626345782435899722
+      spriteID: de958a0fe9f65edd0800000000000000
+      internalID: -2457435293227656723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_3
+      name: stormick-attack_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 192
         y: 192
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +267,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20611355c3ef68240800000000000000
-      internalID: 4793798388463244802
+      spriteID: 2f9deccdd39b5a5b0800000000000000
+      internalID: -5357672506338649614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_4
+      name: stormick-attack_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 456d488f6932e3740800000000000000
+      internalID: 5133579756570465876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stormick-attack_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 48
-        height: 48
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,20 +311,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d435d780998419960800000000000000
-      internalID: 7606941067715105613
+      spriteID: 6271b0c9c17aaf330800000000000000
+      internalID: 3745489781430884134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_5
+      name: stormick-attack_6
       rect:
         serializedVersion: 2
-        x: 48
-        y: 144
-        width: 48
-        height: 48
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,20 +333,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2e7c0c7e1164133d0800000000000000
-      internalID: -3228722415131375646
+      spriteID: 336d35a2a06128ad0800000000000000
+      internalID: -2701572593553254861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_6
+      name: stormick-attack_7
       rect:
         serializedVersion: 2
-        x: 96
-        y: 144
-        width: 48
-        height: 48
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -345,20 +355,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 09f307a4d393c7a80800000000000000
-      internalID: -8467830263958716528
+      spriteID: 2affb8c22cebb0eb0800000000000000
+      internalID: -4752495240579121246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_7
+      name: stormick-attack_8
       rect:
         serializedVersion: 2
-        x: 144
-        y: 144
-        width: 48
-        height: 48
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -367,20 +377,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8925d0e66959b60f0800000000000000
-      internalID: -1122639208774806888
+      spriteID: 8e717a0c0473a6d30800000000000000
+      internalID: 4425410335094544360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_8
+      name: stormick-attack_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 48
-        height: 48
+        x: 256
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -389,86 +399,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 59f32eb1cb02f2530800000000000000
-      internalID: 3832317800209334165
+      spriteID: 22acbc7a999e23bf0800000000000000
+      internalID: -345957375199688158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_9
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 96
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 80b13c1df1b765cd0800000000000000
-      internalID: -2569731160774862072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-attack_10
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 96
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49f91553cc03a85b0800000000000000
-      internalID: -5365422352432521324
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-attack_11
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 96
-        width: 48
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 90e9281292687f080800000000000000
-      internalID: -9153700206393254391
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pinto-raio-attack_12
+      name: stormick-attack_10
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 48
-        height: 48
+        y: 64
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -477,20 +421,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 31f285297b1ffe9f0800000000000000
-      internalID: -436864868095086829
+      spriteID: 25b5398a543153090800000000000000
+      internalID: -8055511168580363438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_13
+      name: stormick-attack_11
       rect:
         serializedVersion: 2
-        x: 48
-        y: 48
-        width: 48
-        height: 48
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -499,20 +443,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b61d6d52bf765190800000000000000
-      internalID: -7974045686164547917
+      spriteID: 04b2eb99dd4025d60800000000000000
+      internalID: 7877364048038079296
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_14
+      name: stormick-attack_12
       rect:
         serializedVersion: 2
-        x: 96
-        y: 48
-        width: 48
-        height: 48
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -521,20 +465,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07426ff7c91960510800000000000000
-      internalID: 1515058426004513904
+      spriteID: 44446df8c38860040800000000000000
+      internalID: 4613524661980251204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_15
+      name: stormick-attack_13
       rect:
         serializedVersion: 2
-        x: 144
-        y: 48
-        width: 48
-        height: 48
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -543,52 +487,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e583f5496e9856ae0800000000000000
-      internalID: -1556686472761886626
+      spriteID: b3df5fd9cafb73180800000000000000
+      internalID: -9135622570992337605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_16
+      name: stormick-attack_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e45e2241a9ba000800000000000000
+      internalID: 48301632292998710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stormick-attack_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1a5101ec6a9525c0800000000000000
+      internalID: -4240813681677346275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stormick-attack_15
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 12f65c01bb62ac060800000000000000
-      internalID: 6974429557818748705
+      spriteID: a03eec5160b991348837cf6e2b4f1b9f
+      internalID: 1234041819822469478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pinto-raio-attack_17
+      name: stormick-attack_17
       rect:
         serializedVersion: 2
-        x: 48
+        x: 128
         y: 0
-        width: 48
-        height: 48
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef4e92437ef9386e0800000000000000
-      internalID: -1836448407675607810
+      spriteID: a6fe2e5d94f38d74fbe3ebd58197d8cd
+      internalID: 861448379377221805
       vertices: []
       indices: 
       edges: []
@@ -597,7 +585,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e4b6e262040517e4ebba01cc237f1290
+    spriteID: bf1186222e6cecc4a907517e94728533
     internalID: 0
     vertices: []
     indices: 
@@ -607,26 +595,26 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":5.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":4.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      pinto-raio-attack_0: -5799177324894650257
-      pinto-raio-attack_1: -2045344493271931140
-      pinto-raio-attack_10: -5365422352432521324
-      pinto-raio-attack_11: -9153700206393254391
-      pinto-raio-attack_12: -436864868095086829
-      pinto-raio-attack_13: -7974045686164547917
-      pinto-raio-attack_14: 1515058426004513904
-      pinto-raio-attack_15: -1556686472761886626
-      pinto-raio-attack_16: 6974429557818748705
-      pinto-raio-attack_17: -1836448407675607810
-      pinto-raio-attack_2: 2626345782435899722
-      pinto-raio-attack_3: 4793798388463244802
-      pinto-raio-attack_4: 7606941067715105613
-      pinto-raio-attack_5: -3228722415131375646
-      pinto-raio-attack_6: -8467830263958716528
-      pinto-raio-attack_7: -1122639208774806888
-      pinto-raio-attack_8: 3832317800209334165
-      pinto-raio-attack_9: -2569731160774862072
+      stormick-attack_0: 6519401352645702962
+      stormick-attack_1: 5156616981537195300
+      stormick-attack_10: -8055511168580363438
+      stormick-attack_11: 7877364048038079296
+      stormick-attack_12: 4613524661980251204
+      stormick-attack_13: -9135622570992337605
+      stormick-attack_14: 48301632292998710
+      stormick-attack_15: 1234041819822469478
+      stormick-attack_16: -4240813681677346275
+      stormick-attack_17: 861448379377221805
+      stormick-attack_2: -2457435293227656723
+      stormick-attack_3: -5357672506338649614
+      stormick-attack_4: 5133579756570465876
+      stormick-attack_5: 3745489781430884134
+      stormick-attack_6: -2701572593553254861
+      stormick-attack_7: -4752495240579121246
+      stormick-attack_8: 4425410335094544360
+      stormick-attack_9: -345957375199688158
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
