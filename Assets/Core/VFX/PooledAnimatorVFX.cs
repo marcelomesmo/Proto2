@@ -47,6 +47,7 @@ namespace Core.VFX
         // Called by VFXAutoRelease StateMachineBehaviour
         public void OnAnimationFinished()
         {
+            if (!_playing) return; // guard against double-release
             _playing = false;
             ReturnToPool();
         }

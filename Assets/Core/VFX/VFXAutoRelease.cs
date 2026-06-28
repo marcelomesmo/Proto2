@@ -6,7 +6,7 @@ namespace Core.VFX
     // Required for all PooledAnimatorVFX, otherwise they won't be released.
     public class VFXAutoRelease : StateMachineBehaviour
     {
-        public override void OnStateExit(
+        public override void OnStateEnter(
             Animator animator,
             AnimatorStateInfo stateInfo,
             int layerIndex)
