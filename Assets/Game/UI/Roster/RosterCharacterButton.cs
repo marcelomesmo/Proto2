@@ -66,7 +66,7 @@ namespace Game.UI.Roster
                 return;
             }
 
-            characterName.text = characterDefinition.name;
+            characterName.text = characterEvolutionData.stages[0].displayName;
             characterImage.sprite = characterDefinition.rosterScreenPortrait;
 
             characterImage.material = isSelected ? normalMaterial : grayscaleMaterial;

@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2745923112398810367, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3613274592269315532, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -91,6 +95,10 @@ PrefabInstance:
     - target: {fileID: 4318268104879652713, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
       propertyPath: m_Name
       value: E_1_OneEye_Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619709844988399949, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5537539291508507723, guid: 6b8c1e560f16f2b4cbcb5a627762f342, type: 3}
       propertyPath: attackCastAnchor

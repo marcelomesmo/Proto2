@@ -15,7 +15,7 @@ namespace Game.UI.Roster
         {
             gameObject.SetActive(true);
 
-            title.text = def.name;
+            title.text = evolutionData.stages[0].displayName;
             stats.text = BuildStats(def);
             attacks.text = BuildAttacks(def, evolutionData);
 

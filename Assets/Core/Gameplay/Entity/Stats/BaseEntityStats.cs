@@ -8,6 +8,7 @@ namespace Core.Gameplay.Entity.Stats
     {
         [Header("Definition")]
         public string characterId;
+        public string displayName;
         public Faction faction;
     
         [Header("Combat Stats")]

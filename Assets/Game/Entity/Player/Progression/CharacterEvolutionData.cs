@@ -18,7 +18,8 @@ namespace Game.Entity.Player.Progression
             [Tooltip("Level required to reach this stage")]
             public int requiredLevel;
 
-            [Header("Presentation")]
+            [Header("Presentation")] 
+            public string displayName;
             public Sprite portraitOverride;
             public Sprite spriteOverride;
             public RuntimeAnimatorController animatorOverride;
