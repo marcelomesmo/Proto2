@@ -17,6 +17,6 @@ MonoBehaviour:
     statType: 9
     scope: 0
     type: 0
-    value: 100
+    value: 20
     filterByHitType: 0
     hitTypes: 0

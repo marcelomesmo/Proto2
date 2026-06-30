@@ -66,13 +66,13 @@ namespace Game.UI.Upgrades
 
         private void HandleGoldChanged(int gold)
         {
-            Refresh();
+            RefreshNodes();
         }
         
         public void Refresh()
         {
-            foreach (var btn in upgradeButtons)
-                btn.Refresh();
+            RefreshNodes();
+            RefreshConnections();
         }
 
         public void ShowTooltip(Core.Upgrades.UpgradeDefinition def, int currentLevel, RectTransform nodePosition)
@@ -94,6 +94,17 @@ namespace Game.UI.Upgrades
         {
             _upgradeManager.ResetUpgrades();
             Refresh();
+        }
+        
+        private void RefreshNodes()
+        {
+            foreach (var btn in upgradeButtons)
+                btn.Refresh();
+        }
+
+        private void RefreshConnections()
+        {
+            connections?.RefreshConnectionStates();
         }
     }
 }

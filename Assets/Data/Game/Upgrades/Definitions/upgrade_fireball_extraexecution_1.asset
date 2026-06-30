@@ -20,10 +20,10 @@ MonoBehaviour:
   upgradeUnlockRule:
     mode: 0
     requirements:
-    - upgrade: {fileID: 11400000, guid: e968b9801dc374845873ea98de262094, type: 2}
+    - upgrade: {fileID: 11400000, guid: aaa5d62f804cdc641aec4a7c0a2b08e3, type: 2}
       requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
-  - '[Fireball] shoots 2 additional times.'
+  - '[Fireball] shoots 1 additional times.'
   effects:
   - {fileID: 11400000, guid: 0b98e2a2abb899247b0a84a6aa710be6, type: 2}

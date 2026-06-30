@@ -3,6 +3,7 @@ using Core.Services;
 using Core.Services.Meta;
 using Core.Services.Save;
 using Core.Upgrades;
+using Game.Enum;
 using Game.Services.Save;
 using TMPro;
 using UnityEngine;
@@ -93,16 +94,16 @@ namespace Game.UI.Upgrades
         // 
         private void OnClicked()
         {
-            if (_upgradeManager.TryPurchaseUpgrade(upgrade.upgradeId))
-            {
-                Refresh();
+            if (!_upgradeManager.TryPurchaseUpgrade(upgrade.upgradeId))
+                return;
             
-                // Force refresh tooltip
-                _treePanel.RefreshTooltip(
-                    upgrade, 
-                    _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
-                    _rectTransform);
-            }
+            //_treePanel.Refresh(); // Don't need since TryPurchaseUpgrade always invoke OnUpgradeLevelChanged
+            
+            // Force refresh tooltip
+            _treePanel.RefreshTooltip(
+                upgrade, 
+                _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
+                _rectTransform);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -123,6 +124,44 @@ namespace Game.UI.Upgrades
             levelText.text = "";
             bgPurchased.SetActive(false);
             iconMaxed.SetActive(false);
+        }
+        
+        //
+        //  Node State
+        //
+        public bool IsPurchased
+        {
+            get
+            {
+                if (upgrade == null || _upgradeManager == null)
+                    return false;
+
+                return _upgradeManager.GetUpgradeLevel(upgrade.upgradeId) >= 1;
+            }
+        }
+
+        public UpgradeNodeState CurrentState
+        {
+            get
+            {
+                if (upgrade == null || _upgradeManager == null)
+                    return UpgradeNodeState.Locked;
+
+                return _upgradeManager.GetState(upgrade.upgradeId);
+            }
+        }
+
+        public UpgradeConnectionState GetIncomingConnectionState()
+        {
+            if (IsPurchased)
+                return UpgradeConnectionState.Purchased;
+
+            return CurrentState switch
+            {
+                UpgradeNodeState.Available => UpgradeConnectionState.Available,
+                UpgradeNodeState.Affordable => UpgradeConnectionState.Available,
+                _ => UpgradeConnectionState.Inactive
+            };
         }
     }
 }

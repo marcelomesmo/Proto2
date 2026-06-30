@@ -20,8 +20,8 @@ MonoBehaviour:
   upgradeUnlockRule:
     mode: 0
     requirements:
-    - upgrade: {fileID: 11400000, guid: 8d985bbf80419b941adfe76d6bca7bec, type: 2}
-      requiredLevel: 3
+    - upgrade: {fileID: 11400000, guid: 9776d3c86026b734a9eb0e46471e16aa, type: 2}
+      requiredLevel: 1
   levelCosts: 010000000200000003000000
   levelDescriptions:
   - Fire Damage +10%

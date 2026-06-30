@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Experience Bonus
   description: Increases EXP received.
   icon: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
-  maxLevel: 2
+  maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:

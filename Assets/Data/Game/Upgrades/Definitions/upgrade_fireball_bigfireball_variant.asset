@@ -20,7 +20,7 @@ MonoBehaviour:
   upgradeUnlockRule:
     mode: 0
     requirements:
-    - upgrade: {fileID: 11400000, guid: e968b9801dc374845873ea98de262094, type: 2}
+    - upgrade: {fileID: 11400000, guid: 5d081057f5b5d5b44b0c81e1a5749cd3, type: 2}
       requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
