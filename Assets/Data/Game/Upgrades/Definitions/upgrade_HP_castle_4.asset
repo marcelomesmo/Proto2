@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_10expbonus
+  m_Name: upgrade_HP_castle_4
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: xp_bonus
-  displayName: Experience Bonus
-  description: Increases experience received.
-  icon: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
-  maxLevel: 2
-  levelCosts: 0000000064000000
+  upgradeId: hp_castle_4
+  displayName: Stronger Walls
+  description: Increase Crystal Health
+  icon: {fileID: 0}
+  maxLevel: 1
+  upgradeUnlockRule:
+    mode: 0
+    requirements:
+    - upgrade: {fileID: 11400000, guid: b3bc6409920e6ad4aa47c975ac63aa33, type: 2}
+      requiredLevel: 1
+  levelCosts: 01000000
   levelDescriptions:
-  - Increase experience by 10%.
-  - Increase experience by 20%.
+  - Crystal HP +20
   effects:
-  - {fileID: 11400000, guid: 907455a0ccd02034e9c1a40b858f5623, type: 2}
+  - {fileID: 11400000, guid: 5869d30fc1bdd234596018aeb5e119be, type: 2}

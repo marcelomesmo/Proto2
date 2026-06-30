@@ -71,10 +71,10 @@ namespace Core.Camera
             readTexture = new Texture2D(width, height, TextureFormat.RGBA32, false);
             frameBuffer = new byte[width * height * 4];
 
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
             foreach (GameObject obj in objectsToHide)
                 obj.SetActive(false);
 
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
             StartCoroutine(InitializeWindowNextFrame(width, height));
 #endif
         }

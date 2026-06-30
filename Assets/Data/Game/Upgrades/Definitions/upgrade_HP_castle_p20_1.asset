@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
+  m_Name: upgrade_HP_castle_p20_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
+  upgradeId: hp_castle_p20_1
+  displayName: Stronger Walls
+  description: Increase Crystal Health
+  icon: {fileID: 0}
+  maxLevel: 1
+  upgradeUnlockRule:
+    mode: 0
+    requirements:
+    - upgrade: {fileID: 11400000, guid: ce09c20b29c38af46b6c2f280e045b2c, type: 2}
+      requiredLevel: 1
+    - upgrade: {fileID: 11400000, guid: e4416f069f873a24bb5332c7b6b82fc7, type: 2}
+      requiredLevel: 1
+  levelCosts: 0100000001000000010000000100000001000000
+  levelDescriptions:
+  - HP +10%
+  - HP +20%
+  - HP +30%
+  - HP +40%
+  - HP +50%
+  effects:
+  - {fileID: 11400000, guid: 6b1d9e26d20c5bc40a29711f6225a3f0, type: 2}

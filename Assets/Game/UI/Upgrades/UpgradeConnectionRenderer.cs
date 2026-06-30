@@ -6,7 +6,12 @@ namespace Game.UI.Upgrades
 {
     public sealed class UpgradeConnectionRenderer : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private RectTransform connectionPrefab;
+        
+        [Header("Positioning")]
+        [SerializeField] private float extraPadding = 0.25f;
+        
         private readonly List<RectTransform> _connections = new();
         
         public void Build(List<UpgradeNode> nodes)
@@ -85,8 +90,6 @@ namespace Game.UI.Upgrades
                     Mathf.Min(
                         from.rect.width,
                         from.rect.height) * 0.5f;
-
-                const float extraPadding = 1.25f;
 
                 start += normalized * nodeSizePadding * extraPadding;
                 end -= normalized * nodeSizePadding * extraPadding;

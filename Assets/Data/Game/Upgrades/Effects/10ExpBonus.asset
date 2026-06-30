@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94fd577a5e818a4995ec406d6326af0, type: 3}
   m_Name: 10ExpBonus
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.ExperienceBonusEffect
-  bonusMultiplier: 0.1
+  multiplierPerLevel:
+  - 1.1

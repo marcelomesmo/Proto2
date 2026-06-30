@@ -11,8 +11,13 @@ namespace Game.UI
 
         [Header("Buttons/Tabs")] 
         [SerializeField] private Button rosterButton;
-
         [SerializeField] private Button upgradesButton;
+        
+        [Header("Visuals")]
+        [SerializeField] private Material grayscaleMaterial;
+        [SerializeField] private Material normalMaterial;
+        [SerializeField] private Image rosterIcon;
+        [SerializeField] private Image upgradeIcon;
 
         private void Awake()
         {
@@ -25,13 +30,17 @@ namespace Game.UI
         private void ShowRoster()
         {
             rosterPanel.SetActive(true);
+            rosterIcon.material = normalMaterial;
             upgradePanel.SetActive(false);
+            upgradeIcon.material = grayscaleMaterial;
         }
 
         private void ShowUpgrades()
         {
             rosterPanel.SetActive(false);
+            rosterIcon.material = grayscaleMaterial;
             upgradePanel.SetActive(true);
+            upgradeIcon.material = normalMaterial;
         }
     }
 }

@@ -17,6 +17,13 @@ MonoBehaviour:
     statType: 10
     scope: 0
     type: 1
+    value: 1.1
+    filterByHitType: 0
+    hitTypes: 0
+  - targetAttack: {fileID: 0}
+    statType: 10
+    scope: 0
+    type: 1
     value: 1.2
     filterByHitType: 0
     hitTypes: 0

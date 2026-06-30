@@ -20,3 +20,17 @@ MonoBehaviour:
     value: 1
     filterByHitType: 0
     hitTypes: 0
+  - targetAttack: {fileID: 0}
+    statType: 0
+    scope: 0
+    type: 0
+    value: 2
+    filterByHitType: 0
+    hitTypes: 0
+  - targetAttack: {fileID: 0}
+    statType: 0
+    scope: 0
+    type: 0
+    value: 5
+    filterByHitType: 0
+    hitTypes: 0

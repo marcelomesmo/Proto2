@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_defense_plus2_1
+  m_Name: upgrade_damage_all_3
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: defense_plus_2_1
-  displayName: Defense Bonus
-  description: 'Increases defense by '
-  icon: {fileID: 21300000, guid: b066c869b51f9384fa8ac9cce36b4648, type: 3}
+  upgradeId: damage_global_3
+  displayName: Damage Up
+  description: Increase all damage by 1.
+  icon: {fileID: -1270652384455538060, guid: e8c838ad0005adf43b1da7e39e913f4b, type: 3}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 7bb0681ba55301148a3d83beb11699f5, type: 2}
+      requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
-  - Increase Defense by 2.
+  - All DMG +1
   effects:
-  - {fileID: 11400000, guid: 8e524f7081eb1f742a591b7eb0bfb26b, type: 2}
+  - {fileID: 11400000, guid: ee13b228318718041bb92ac5c0811df9, type: 2}

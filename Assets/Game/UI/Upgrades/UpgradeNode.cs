@@ -23,10 +23,10 @@ namespace Game.UI.Upgrades
         [SerializeField] private Button button;
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI levelText;
-        [SerializeField] private TextMeshProUGUI costText;
-        [SerializeField] private Image costIcon;
+        [SerializeField] private GameObject iconMaxed;
 
         [Header("Visuals")]
+        [SerializeField] private GameObject bgPurchased;
         [SerializeField] private Material grayscaleMaterial;
         [SerializeField] private Material normalMaterial;
 
@@ -58,10 +58,13 @@ namespace Game.UI.Upgrades
             if (upgrade == null || _save == null || _upgradeManager == null)
                 return;
 
+            ApplyDefaults();
+
             int level = _upgradeManager.GetUpgradeLevel(upgrade.upgradeId);
-            levelText.text = $"{level} / {upgrade.maxLevel}";
+            if(level >= 1) bgPurchased.SetActive(true);
+            int maxLevel = upgrade.maxLevel;
             
-            icon.sprite = upgrade.icon;
+            //icon.sprite = upgrade.icon;
             icon.material = normalMaterial;//level > 0 ? normalMaterial : grayscaleMaterial;
             
             var state = _upgradeManager.GetState(upgrade.upgradeId);
@@ -70,20 +73,16 @@ namespace Game.UI.Upgrades
             {
                 case UpgradeNodeState.Locked:
                     button.interactable = false;
-                    costText.text = "locked";
-                    costIcon.enabled = false;
                     icon.material = grayscaleMaterial;
                     break;
                 case UpgradeNodeState.Affordable:
                 case UpgradeNodeState.Available:
-                    int cost = _upgradeManager.GetNextUpgradeCost(upgrade.upgradeId);
-                    costText.text = cost.ToString();
-                    costIcon.enabled = true;
+                    if(maxLevel > 1) levelText.text = $"{level} / {maxLevel}";
+                    // cant interact if out of coins
                     button.interactable = _upgradeManager.CanPurchaseUpgrade(upgrade.upgradeId);
                     break;
                 case UpgradeNodeState.Maxed:
-                    costText.text = "";
-                    costIcon.enabled = false;   // Hide cost icon as well
+                    iconMaxed.SetActive(true);
                     button.interactable = false;
                     break;
             }
@@ -117,6 +116,13 @@ namespace Game.UI.Upgrades
         public void OnPointerExit(PointerEventData eventData)
         {
             _treePanel.HideTooltip();
+        }
+
+        private void ApplyDefaults()
+        {
+            levelText.text = "";
+            bgPurchased.SetActive(false);
+            iconMaxed.SetActive(false);
         }
     }
 }
