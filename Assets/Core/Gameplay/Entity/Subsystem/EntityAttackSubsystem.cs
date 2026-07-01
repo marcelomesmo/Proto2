@@ -99,7 +99,8 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             if (tag == Controller.Stats.deadTag ||
                 tag == Controller.Stats.matchEndedTag ||
-                tag == Controller.Stats.stunTag)
+                tag == Controller.Stats.stunTag ||
+                tag == Controller.Stats.knockbackTag)
             {
                 CancelAnyAttackSequence();
             }

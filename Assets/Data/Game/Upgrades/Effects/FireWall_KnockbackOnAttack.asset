@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fb7d839944611a4d8b4eb87b4db4fd0, type: 3}
-  m_Name: BurnOnSpecificAttackEffect
+  m_Name: FireWall_KnockbackOnAttack
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.BurnOnSpecificAttackEffect
-  targetAttack: {fileID: 11400000, guid: 51b0f66cbeabe8f43bfbe0cd5529418f, type: 2}
-  burnEffectPerLevel:
-  - {fileID: 11400000, guid: d4eb017719ad271408f7ed20fffeecc5, type: 2}
+  targetAttack: {fileID: 11400000, guid: d3f8e3e34c0722a4bba064e22e404fbd, type: 2}
+  statusEffectPerLevel:
+  - {fileID: 11400000, guid: fd392f0f9e250b840939cbbbf4643319, type: 2}

@@ -118,6 +118,7 @@ namespace Core.Gameplay.Entity
         public bool IsStunned => Tags.HasTag(Stats.stunTag);
         public bool IsSlowed => Tags.HasTag(Stats.slowTag);
         public bool IsBurning => Tags.HasTag(Stats.burnTag);
+        public bool IsKnockbacked => Tags.HasTag(Stats.knockbackTag);
         //public bool IsFrozen => ;
         //public bool IsEnraged => ;
         // Resilient, accessor must be defensive since it's queried from other entities. Correct approach for pooled entities.

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df28c4937e96efd4e98c0db025987fbb, type: 3}
+  m_Name: Debuff_Knockback
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackEffectData
+  effectType: 3
+  duration: 0.25
+  isPermanent: 0
+  value: 1
+  tickInterval: 0
+  statModifiers: []
+  tagToApply: {fileID: 11400000, guid: 19e6202321f95134aa38e2a383301515, type: 2}

@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Core.Upgrades.Effects
 {
     [CreateAssetMenu(
-        fileName = "BurnOnSpecificAttackEffect",
-        menuName = "Upgrades/Effects/Burn On Attack")]
-    public sealed class BurnOnSpecificAttackEffect : UpgradeEffect
+        fileName = "StatusEffectOnSpecificAttackEffect",
+        menuName = "Upgrades/Effects/StatusEffect On Attack")]
+    public sealed class StatusEffectOnSpecificAttack : UpgradeEffect
     {
         [Header("Target")]
         [SerializeField]
@@ -16,7 +16,7 @@ namespace Core.Upgrades.Effects
         [Header("Effect")]
         [Tooltip("Effect per purchased level. Index = level - 1. If shorter than maxLevel, last element is reused.")]
         [SerializeField]
-        private StatusEffectData[] burnEffectPerLevel;
+        private StatusEffectData[] statusEffectPerLevel;
 
         public override void Apply(UpgradeContext context, int level)
         {
@@ -62,11 +62,11 @@ namespace Core.Upgrades.Effects
 
         private StatusEffectData GetEffectForLevel(int level)
         {
-            if (burnEffectPerLevel == null || burnEffectPerLevel.Length == 0)
+            if (statusEffectPerLevel == null || statusEffectPerLevel.Length == 0)
                 return null;
 
-            int idx = Mathf.Clamp(level - 1, 0, burnEffectPerLevel.Length - 1);
-            return burnEffectPerLevel[idx];
+            int idx = Mathf.Clamp(level - 1, 0, statusEffectPerLevel.Length - 1);
+            return statusEffectPerLevel[idx];
         }
     }
 }

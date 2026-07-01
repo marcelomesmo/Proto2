@@ -110,6 +110,7 @@ namespace Core.Enum
         Stun,
         Burn,
         StatModifier,   // applies AttackStatModifiers for duration
+        Knockback,
         // extensible
     }
     

@@ -19,10 +19,28 @@ namespace Core.Gameplay.Entity.Movement
             Rb.freezeRotation = true;
         }
         
+        protected override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+
+            if (!CanRbMove)
+                return;
+
+            // Hard-lock Y to lane after velocity has been applied.
+            Rb.position = new Vector2(Rb.position.x, _laneY);
+        }
+        
         public override void MoveTo(Vector2 target)
         {
             if (!CanRbMove)  // Important to check if rb.simulated is true before moving.
                 return;
+            
+            // Knockback has priority over normal movement.
+            if (IsKnockbackActive)
+            {
+                SetLocomotionVelocity(Vector2.zero);
+                return;
+            }
             
             // Only move along X
             float dx = target.x - Rb.position.x;
@@ -35,15 +53,9 @@ namespace Core.Gameplay.Entity.Movement
             }
 
             float directionX = Mathf.Sign(dx);
-
             float speed = GetEffectiveMoveSpeed();
 
-            Rb.linearVelocity = new Vector2(directionX * speed, 0f);
-
-            // Hard-lock Y to lane to avoid drift
-            Rb.position = new Vector2(Rb.position.x, _laneY);
-
-            Vector2 toTarget = (target - Rb.position).normalized;
+            SetLocomotionVelocity(new Vector2(directionX * speed, 0f));
 
             if (!Controller.Animator)
                 return;
@@ -58,10 +70,27 @@ namespace Core.Gameplay.Entity.Movement
         public override void Stop()
         {
             base.Stop();
-
-            // Ensure we never accumulate Y drift
-            Rb.linearVelocity = new Vector2(0f, 0f);
+            
             Rb.position = new Vector2(Rb.position.x, _laneY);
+        }
+        
+        protected override Vector2 ConstrainLocomotionVelocity(Vector2 velocity)
+        {
+            return new Vector2(velocity.x, 0f);
+        }
+
+        protected override Vector2 ConstrainFinalVelocity(Vector2 velocity)
+        {
+            return new Vector2(velocity.x, 0f);
+        }
+
+        protected override Vector2 ConstrainKnockbackVelocity(Vector2 velocity)
+        {
+            if (Mathf.Abs(velocity.x) < 0.001f)
+                return Vector2.zero;
+
+            // Preserve knockback magnitude, but force it onto the lane axis.
+            return new Vector2(Mathf.Sign(velocity.x) * velocity.magnitude, 0f);
         }
     }
 }

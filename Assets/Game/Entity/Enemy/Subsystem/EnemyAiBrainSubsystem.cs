@@ -99,7 +99,7 @@ namespace Game.Entity.Enemy.Subsystem
             {
                 controlEnabled = false;
                 StopAllCoroutines();
-                _movement.Stop();
+                _movement.CancelAllMotion();
             }
         }
 
@@ -129,6 +129,9 @@ namespace Game.Entity.Enemy.Subsystem
                 return; // <--- THIS blocks attack/move before spawn finished!
             }
             
+            if (_movement.IsKnockbackActive)    // block attacks during knockback
+                return;
+
             // A sequence is mid-execution — don't start anything new and don't move.
             if (_attackSubsystem.IsAttackInProgress)
             {

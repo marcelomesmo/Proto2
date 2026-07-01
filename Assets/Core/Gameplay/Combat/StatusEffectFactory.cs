@@ -31,6 +31,12 @@ namespace Core.Gameplay.Combat
                         target, 
                         effect),
 
+                StatusEffectType.Knockback =>
+                    new KnockbackEffectInstance(
+                        target,
+                        effect,
+                        source),
+                
                 _ => null
             };
         }

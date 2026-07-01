@@ -43,5 +43,6 @@ namespace Core.Gameplay.Entity.Stats
         public GameplayTag stunTag;
         public GameplayTag slowTag;
         public GameplayTag burnTag;
+        public GameplayTag knockbackTag;
     }
 }

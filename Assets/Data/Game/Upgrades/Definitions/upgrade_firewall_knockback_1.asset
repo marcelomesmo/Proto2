@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
-  m_Name: upgrade_firebreath_duration_1
+  m_Name: upgrade_firewall_knockback_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: duration_firebreath_1
-  displayName: Longer Flames
-  description: Increase Flamethrower duration by 100%.
-  icon: {fileID: 21300000, guid: aeb31def086466745b570d082197ee1f, type: 3}
+  upgradeId: firewall_knockback_1
+  displayName: knock
+  description: knock add
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
-    - upgrade: {fileID: 11400000, guid: c96f0f70ed28f434e8c8cc0d9fe70fb2, type: 2}
+    - upgrade: {fileID: 11400000, guid: f8fff59e6c8ca7f4ba37debd6e0ac68e, type: 2}
       requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
-  - Increase Flamethrower duration by 2 sec
+  - '[FireWall] now Knockback targets hit.'
   effects:
-  - {fileID: 11400000, guid: c5464f778caa4cd46b0005a2173ec5d7, type: 2}
+  - {fileID: 11400000, guid: 590c89c45843bca4eba8c5fe1ab09729, type: 2}

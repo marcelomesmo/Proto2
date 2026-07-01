@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11983ad37ebf4464eab975f7a1c9b4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Audio.GameMusicBinder
-  baseMusic: {fileID: 8300000, guid: 5833894e2899f1840ac04193ca462e39, type: 3}
+  baseMusic: {fileID: 8300000, guid: 3e19adb95732a4e4ebd956ba2d533bda, type: 3}
   victoryMusic: {fileID: 8300000, guid: 5833894e2899f1840ac04193ca462e39, type: 3}
   defeatMusic: {fileID: 8300000, guid: 5833894e2899f1840ac04193ca462e39, type: 3}
   bossMusic1: {fileID: 0}
@@ -1066,7 +1066,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 804.4418, y: -372}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &340560846
 MonoBehaviour:
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 79dc3a4dc5b4dd8429cb79333a686461, type: 3}
+  m_Sprite: {fileID: -30250066, guid: aadf943aff7310448ae133ca3b91f934, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1697,7 +1697,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420034}
-  - component: {fileID: 519420033}
   - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
@@ -1742,8 +1741,8 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.096296296
-    width: 1.1927084
+    y: 0.05648148
+    width: 1.1541667
     height: 0.3333333
   near clip plane: 0.1
   far clip plane: 5000
@@ -1782,23 +1781,6 @@ Transform:
   - {fileID: 1895323944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 3015cca3ee7cb4049aa1b45cb14b9bed, type: 2}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,12 @@ namespace Game.Entity.Enemy
                 // do something? vfx
                 //Debug.Log("[EnemyController] is slowed.");
             }
+            
+            if (tag == Stats.knockbackTag)
+            {
+                // do something? vfx
+                //Debug.Log("[EnemyController] is slowed.");
+            }
         }
 
         private void OnDeath()

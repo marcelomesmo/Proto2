@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 8116977225347113644}
   - component: {fileID: -4031705745224464293}
   m_Layer: 10
-  m_Name: AOE_Flamethrower
+  m_Name: AOE_FireBreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

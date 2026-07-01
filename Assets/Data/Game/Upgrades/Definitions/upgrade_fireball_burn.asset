@@ -24,6 +24,6 @@ MonoBehaviour:
       requiredLevel: 1
   levelCosts: 64000000
   levelDescriptions:
-  - 'Fireball: Burn deals 10 damage.'
+  - '[Fireball] now applies Burn.\nBurn deals 10 damage.'
   effects:
   - {fileID: 11400000, guid: 92f47557e02d9d242ae96cad945a1e7d, type: 2}

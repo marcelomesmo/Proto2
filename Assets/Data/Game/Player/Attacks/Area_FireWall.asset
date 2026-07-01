@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daa875a723c3d3b48b0d53179c971376, type: 3}
-  m_Name: Projectile_Fireball
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackData
-  displayName: Fireball
-  icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
-  description: shots fireball lol
-  executionMode: 1
+  m_Name: Area_FireWall
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Combat.AttackData
+  displayName: FireWall
+  icon: {fileID: 21300000, guid: 51dcbb3542a768b49ac5942bd2a0c8bb, type: 3}
+  description: dalsin attack
+  executionMode: 2
   combatActionType: 0
   amount: 2
-  range: 8
-  cooldown: 2
+  range: 10
+  cooldown: 10
   hitTypes: 4
   hitVFX: {fileID: 8784488540992764676, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
   castVFX: {fileID: 68820418738985188, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
@@ -29,12 +29,11 @@ MonoBehaviour:
   targetLayers:
     serializedVersion: 2
     m_Bits: 512
-  projectilePrefab: {fileID: 5975751646184246127, guid: 03ca94d99f22e6f4c9f0f7febdfefe60, type: 3}
+  projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
-  areaAttackData: {fileID: 0}
+  areaAttackData: {fileID: 11400000, guid: 73ad4e27fea09174e96f9ea758b1e290, type: 2}
   chainData: {fileID: 0}
-  effects:
-  - {fileID: 11400000, guid: fd392f0f9e250b840939cbbbf4643319, type: 2}
+  effects: []
   isPassive: 0
   castSilently: 0

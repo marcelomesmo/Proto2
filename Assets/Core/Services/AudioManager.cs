@@ -70,7 +70,6 @@ namespace Core.Services
             _sfxVolume = _settingsSave.Data.sfxVolume;
             
             ApplyVolumes(); // sync mixer to initial values immediately
-            
         }
         
         #region Playback
