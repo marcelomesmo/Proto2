@@ -55,5 +55,10 @@ namespace Core.Gameplay.Combat.Attack
         public bool isPassive;
         [Tooltip("Suppresses animator trigger.")]
         public bool castSilently;
+        
+        [Header("Variant Info")]
+        [Tooltip("If this AttackData is a variant (e.g. replaces another attack via AttackVariantModifier), " +
+                 "set its original attack here so stat modifiers targeting the base attack still apply.")]
+        public AttackData baseAttack;
     }
 }

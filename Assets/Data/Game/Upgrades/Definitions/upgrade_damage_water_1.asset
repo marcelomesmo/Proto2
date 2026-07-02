@@ -16,14 +16,12 @@ MonoBehaviour:
   displayName: Water Synergy
   description: Increase all [Water] damage by 1.
   icon: {fileID: 0}
-  maxLevel: 3
+  maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements: []
-  levelCosts: 0a000000320000004b000000
+  levelCosts: 0a000000
   levelDescriptions:
   - Water Damage +1
-  - Water Damage +2
-  - Water Damage +3
   effects:
   - {fileID: 11400000, guid: 6281978df34bdc449bb74393265a04d1, type: 2}

@@ -4898,7 +4898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementBehavior: {fileID: 11400000, guid: 6f1be6635b182864eab7bd27bdb84c76, type: 2}
-  impactBehavior: {fileID: 11400000, guid: d591a32577cec6c42bcb17c3c5164604, type: 2}
+  impactBehavior: {fileID: 11400000, guid: b1ded3af330611540bc4d6aa44b6cce4, type: 2}
   lifetimePolicy: 0
 --- !u!114 &7584578272276083235
 MonoBehaviour:

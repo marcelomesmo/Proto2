@@ -36,13 +36,13 @@ namespace Core.Upgrades.Database
                 if (upgrade == null)
                     continue;
 
-                if (string.IsNullOrWhiteSpace(upgrade.upgradeId))
+                if (string.IsNullOrWhiteSpace(upgrade.UpgradeId))
                 {
                     Debug.LogWarning($"[UpgradeDatabase] Upgrade '{upgrade.name}' has empty upgradeId.", this);
                     continue;
                 }
 
-                _map[upgrade.upgradeId] = upgrade;
+                _map[upgrade.UpgradeId] = upgrade;
             }
         }
 

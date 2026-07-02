@@ -211,7 +211,7 @@ namespace Core.Services.Meta
                 return false;
 
             return GetUpgradeLevel(
-                       requirement.Upgrade.upgradeId)
+                       requirement.Upgrade.UpgradeId)
                    >= requirement.RequiredLevel;
         }
         

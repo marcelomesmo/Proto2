@@ -14,16 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectData
   shape: 1
   circleRadius: 0
-  boxSize: {x: 10, y: 1}
+  boxSize: {x: 6, y: 0.5}
   coneAngle: 0
   coneRadius: 0
-  duration: 3
-  tickInterval: 1
+  duration: 1
+  tickInterval: 0.5
   isChanneled: 1
-  hitLayers:
-    serializedVersion: 2
-    m_Bits: 512
   spawnMode: 2
   forwardOffset: 0
   areaEffectPrefab: {fileID: 4099829488905969600, guid: d5980aefddf298c4c9e6cf847b9b670a, type: 3}
   followOwner: 0
+  fadeOutDuration: 0

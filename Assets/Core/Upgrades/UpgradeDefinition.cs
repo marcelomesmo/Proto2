@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Upgrades.Effects;
+using Core.Util;
 using UnityEngine;
 
 namespace Core.Upgrades
@@ -10,10 +11,9 @@ namespace Core.Upgrades
     public class UpgradeDefinition : ScriptableObject
     {
         [Header("Identity")]
-        public string upgradeId;
+        [SerializeField] [ReadOnly] private string upgradeId;
+        public string UpgradeId => upgradeId;
         public string displayName;
-        public string description;
-        public Sprite icon;
         
         [Header("Progression")]
         public int maxLevel = 5;
@@ -23,16 +23,13 @@ namespace Core.Upgrades
         public UpgradeUnlockRule UnlockRule => upgradeUnlockRule;
         
         [Tooltip("Cost per level (index = level - 1)")]
-        [SerializeField]
-        private int[] levelCosts;
+        [SerializeField] private int[] levelCosts;
 
         [Tooltip("Description per level (index = level - 1)")]
-        [SerializeField]
-        private string[] levelDescriptions;
+        [SerializeField] private string[] levelDescriptions;
         
         [Header("Effects")]
-        [SerializeField]
-        private List<UpgradeEffect> effects = new();
+        [SerializeField] private List<UpgradeEffect> effects = new();
         public IReadOnlyList<UpgradeEffect> Effects => effects;
         
         // --------------------
@@ -65,6 +62,26 @@ namespace Core.Upgrades
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            //
+            //  ID definition
+            //
+            // Target prefix to remove
+            string prefixToRemove = "upgrade_";
+            string targetId = name;
+
+            // Check if the file name begins with the prefix
+            if (targetId.StartsWith(prefixToRemove))
+            {
+                // Cut off the prefix and keep the rest
+                targetId = targetId.Substring(prefixToRemove.Length);
+            }
+
+            // Only update the field if it actually changed to prevent constant dirtying
+            if (upgradeId != targetId)
+            {
+                upgradeId = targetId;
+            }
+            
             //
             //  Level Cost check
             //

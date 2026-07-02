@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7953450324278154018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2770861773781595454}
+  - component: {fileID: 3449227944526234064}
+  m_Layer: 0
+  m_Name: AreaPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2770861773781595454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953450324278154018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3449227944526234064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953450324278154018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4c1089172544c4690ffdccac7506de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Services.Manager.AreaEffectPoolManager
+  areaPools:
+  - areaPrefab: {fileID: 4099829488905969600, guid: 6d9b86b6e3347fd4fbb0767c7d1205b8, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: d5980aefddf298c4c9e6cf847b9b670a, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: 0ab42955580603040a5c4a15a7066930, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: b755eeb21814dbe449723945b60c7d23, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10
+  - areaPrefab: {fileID: 4099829488905969600, guid: b3c407a1dd3962c4b8ea5a77332894f1, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 0
+    maxSize: 10

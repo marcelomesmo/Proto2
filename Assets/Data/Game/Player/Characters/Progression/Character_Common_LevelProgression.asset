@@ -14,17 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Progression.CharacterProgressionData
   xpThresholds: 0000000002000000050000000a0000000c0000000f00000014000000
   statGains:
-  - attackPower: 1
-    defense: 1
-  - attackPower: 1
+  - attackPower: 0
+    healingPower: 0
     defense: 0
   - attackPower: 0
-    defense: 0
-  - attackPower: 0
-    defense: 0
-  - attackPower: 1
+    healingPower: 0
     defense: 0
   - attackPower: 2
-    defense: 0
-  - attackPower: 1
+    healingPower: 2
     defense: 1
+  - attackPower: 0
+    healingPower: 0
+    defense: 0
+  - attackPower: 0
+    healingPower: 0
+    defense: 0
+  - attackPower: 0
+    healingPower: 0
+    defense: 0
+  - attackPower: 0
+    healingPower: 0
+    defense: 0

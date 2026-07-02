@@ -61,14 +61,14 @@ namespace Game.UI.Upgrades
 
             ApplyDefaults();
 
-            int level = _upgradeManager.GetUpgradeLevel(upgrade.upgradeId);
+            int level = _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId);
             if(level >= 1) bgPurchased.SetActive(true);
             int maxLevel = upgrade.maxLevel;
             
             //icon.sprite = upgrade.icon;
             icon.material = normalMaterial;//level > 0 ? normalMaterial : grayscaleMaterial;
             
-            var state = _upgradeManager.GetState(upgrade.upgradeId);
+            var state = _upgradeManager.GetState(upgrade.UpgradeId);
 
             switch(state)
             {
@@ -80,7 +80,7 @@ namespace Game.UI.Upgrades
                 case UpgradeNodeState.Available:
                     if(maxLevel > 1) levelText.text = $"{level} / {maxLevel}";
                     // cant interact if out of coins
-                    button.interactable = _upgradeManager.CanPurchaseUpgrade(upgrade.upgradeId);
+                    button.interactable = _upgradeManager.CanPurchaseUpgrade(upgrade.UpgradeId);
                     break;
                 case UpgradeNodeState.Maxed:
                     iconMaxed.SetActive(true);
@@ -94,7 +94,7 @@ namespace Game.UI.Upgrades
         // 
         private void OnClicked()
         {
-            if (!_upgradeManager.TryPurchaseUpgrade(upgrade.upgradeId))
+            if (!_upgradeManager.TryPurchaseUpgrade(upgrade.UpgradeId))
                 return;
             
             //_treePanel.Refresh(); // Don't need since TryPurchaseUpgrade always invoke OnUpgradeLevelChanged
@@ -102,7 +102,7 @@ namespace Game.UI.Upgrades
             // Force refresh tooltip
             _treePanel.RefreshTooltip(
                 upgrade, 
-                _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
+                _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId), 
                 _rectTransform);
         }
 
@@ -110,7 +110,7 @@ namespace Game.UI.Upgrades
         {
             _treePanel.ShowTooltip(
                 upgrade, 
-                _upgradeManager.GetUpgradeLevel(upgrade.upgradeId), 
+                _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId), 
                 _rectTransform);
         }
 
@@ -136,7 +136,7 @@ namespace Game.UI.Upgrades
                 if (upgrade == null || _upgradeManager == null)
                     return false;
 
-                return _upgradeManager.GetUpgradeLevel(upgrade.upgradeId) >= 1;
+                return _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId) >= 1;
             }
         }
 
@@ -147,7 +147,7 @@ namespace Game.UI.Upgrades
                 if (upgrade == null || _upgradeManager == null)
                     return UpgradeNodeState.Locked;
 
-                return _upgradeManager.GetState(upgrade.upgradeId);
+                return _upgradeManager.GetState(upgrade.UpgradeId);
             }
         }
 

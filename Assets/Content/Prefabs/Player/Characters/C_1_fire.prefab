@@ -23,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 929215472986499729, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1237965632, guid: 593a57a48385b8e44863a50afed691e7, type: 3}
+      objectReference: {fileID: 676704794, guid: 9fdf479be1543ff4f83f33fc71a147c2, type: 3}
     - target: {fileID: 929215472986499729, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 9107604326191101921, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: c1ab549a20f2c914c9b95d792374ddc8, type: 2}
+      objectReference: {fileID: 22100000, guid: 199a2254f9bc60a41930789d3a91650c, type: 2}
     - target: {fileID: 9178040979343377514, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_Name
       value: C_1_fire

@@ -22,7 +22,7 @@ MonoBehaviour:
   cooldown: 5
   hitTypes: 32
   hitVFX: {fileID: 5884569457804263391, guid: f39c43985f1039b47b3065f46848760e, type: 3}
-  castVFX: {fileID: 2531785783282368670, guid: 244f87a37ba29b741848d41f7591bc93, type: 3}
+  castVFX: {fileID: 0}
   targetType: 1
   targetSelectionMode: 0
   targetRequirement: 0

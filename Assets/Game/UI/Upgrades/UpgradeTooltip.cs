@@ -40,6 +40,13 @@ namespace Game.UI.Upgrades
             else
                 cost.text = "Maxed";
             
+            // Force update to adapt to size
+            title.ForceMeshUpdate();
+            description.ForceMeshUpdate();
+            cost.ForceMeshUpdate();
+
+            Canvas.ForceUpdateCanvases();
+            
             // Rebuild after text changes to capture tooltip size properly. Specially useful if later we make dynamic sizes.
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rect);
 

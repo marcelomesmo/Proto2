@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fireball_BurnOnAttack
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.BurnOnSpecificAttackEffect
   targetAttack: {fileID: 11400000, guid: 51b0f66cbeabe8f43bfbe0cd5529418f, type: 2}
-  debuffEffectPerLevel:
+  statusEffectPerLevel:
   - {fileID: 11400000, guid: d4eb017719ad271408f7ed20fffeecc5, type: 2}

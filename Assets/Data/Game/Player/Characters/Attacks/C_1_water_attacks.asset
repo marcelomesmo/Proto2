@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: C_1_water_attacks
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackLoadoutDefinition
   attacks:
-  - {fileID: 11400000, guid: 8a0774b11ce16574ca474bec2bb1d62d, type: 2}
+  - {fileID: 11400000, guid: 5fbccae24c56a8547a96b1cfdcf27655, type: 2}

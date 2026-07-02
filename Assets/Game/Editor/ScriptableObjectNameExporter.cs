@@ -11,7 +11,7 @@ namespace Game.Editor
 {
     public static class ScriptableObjectNameExporter
     {
-        [MenuItem("Tools/Export/Copy Selected ScriptableObject Names")]
+        [MenuItem("Game/Tools.Export/Copy Selected ScriptableObject Names")]
         private static void CopySelectedScriptableObjectNames()
         {
             var scriptableObjects = Selection.objects
@@ -31,7 +31,7 @@ namespace Game.Editor
             Debug.Log($"Copied {scriptableObjects.Count} ScriptableObject names to clipboard.");
         }
 
-        [MenuItem("Tools/Export/Export ScriptableObject Names From Selection")]
+        [MenuItem("Game/Tools.Export/Export ScriptableObject Names From Selection")]
         private static void ExportScriptableObjectNamesFromSelection()
         {
             var scriptableObjects = GetScriptableObjectsFromSelection();
