@@ -34,7 +34,6 @@ MonoBehaviour:
   fixedAngle: 0
   areaAttackData: {fileID: 0}
   chainData: {fileID: 0}
-  effects:
-  - {fileID: 11400000, guid: fd392f0f9e250b840939cbbbf4643319, type: 2}
+  effects: []
   isPassive: 0
   castSilently: 0

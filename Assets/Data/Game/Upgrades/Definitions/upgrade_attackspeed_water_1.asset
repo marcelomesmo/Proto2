@@ -15,8 +15,11 @@ MonoBehaviour:
   upgradeId: attackspeed_water_1
   displayName: Faster Bubbles
   description: Increase Water attack speed by 10%.
-  icon: {fileID: 21300000, guid: 7184252199212cf4a9288a2a2d70dee1, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
+  upgradeUnlockRule:
+    mode: 0
+    requirements: []
   levelCosts: 01000000
   levelDescriptions:
   - '[Water] Attack Speed +10%'

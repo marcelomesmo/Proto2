@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: fireball_bigfireball_variant
   displayName: Bigger Fireball
   description: '[FireBall] 3rd cast becomes Bigger Fireball'
-  icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 5d081057f5b5d5b44b0c81e1a5749cd3, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 96000000
   levelDescriptions:
   - '[FireBall] 3rd cast becomes Bigger Fireball'
   effects:

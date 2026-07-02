@@ -2,6 +2,7 @@ using Core.Enum;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Combat.Projectile.Impact;
 using Core.Gameplay.Combat.Projectile.Movement;
+using Core.Gameplay.Entity;
 using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -44,6 +45,7 @@ namespace Core.Gameplay.Combat.Projectile
         private AttackSource _attackSource;
         private CombatPayload _payload;
         private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
+        private EntityController _target;
         
         public void Awake()
         {
@@ -53,7 +55,7 @@ namespace Core.Gameplay.Combat.Projectile
             visuals = GetComponents<IPoolableVisual>();
         }
 
-        public void Configure(ProjectileContext context, AttackSource source, CombatPayload payload)
+        public void Configure(ProjectileContext context, AttackSource source, CombatPayload payload, EntityController target)
         {
             if (source == null || source.targetFilter == null)
             {
@@ -67,6 +69,7 @@ namespace Core.Gameplay.Combat.Projectile
             _ownerFaction = context.faction;
             _attackSource = source;
             _payload = payload;
+            _target = target;
             
             _remainingHits = impactBehavior.GetMaxTargets(context);
 
@@ -88,7 +91,13 @@ namespace Core.Gameplay.Combat.Projectile
                 // Ensure we have a context
                 if (_movementContext == null && movementBehavior)
                     _movementContext = movementBehavior.CreateContext();
-
+                
+                // TODO: Have targets added to projectiles
+                if (_movementContext is IProjectileTargetReceiver targetReceiver)
+                {
+                    targetReceiver.SetTarget(_target.transform);
+                }
+                
                 _movementContext?.Initialize(rb, _direction, _range);
                 _initializedThisLife = true;
             }

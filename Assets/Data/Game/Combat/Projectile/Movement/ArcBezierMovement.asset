@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5484465b23035a44b8d15df5057211c, type: 3}
   m_Name: ArcBezierMovement
   m_EditorClassIdentifier: 
+  physicsMode: 1
   speed: 15
-  fixedRange: 5
   travelTime: 1
   arcHeight: 1.5

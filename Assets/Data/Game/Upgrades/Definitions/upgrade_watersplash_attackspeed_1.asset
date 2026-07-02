@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeId: attackspeed_watersplash_1
   displayName: Faster Fast Bubbles
   description: Increase [Water Splash] attack speed by 10%.
-  icon: {fileID: 21300000, guid: 03e6f50b7a998ed46a4c3f9f8cb0855e, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

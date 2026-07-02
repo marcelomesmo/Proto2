@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: resistance_all_10p
   displayName: Resistance to All damage
   description: 'Increases Resistance by10% '
-  icon: {fileID: 21300000, guid: f9fdbb78149b97549afa65f0b3557e9e, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 0ec403ac4f05354458eb1c900f774876, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 64000000
   levelDescriptions:
   - Increase Resistance to All Damage by 10%
   effects:

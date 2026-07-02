@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeId: fireball_extraexecution_1
   displayName: Fireball x3
   description: '[FireBall] shoots extra projectiles.'
-  icon: {fileID: 21300000, guid: e8a68fd17ce42174e9b24babd0ae6629, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

@@ -22,7 +22,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: b3bc6409920e6ad4aa47c975ac63aa33, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 4b000000
   levelDescriptions:
   - Crystal HP +20
   effects:

@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeId: 100critdamage_1
   displayName: CritDamage Bonus
   description: 'Increases crit damage by '
-  icon: {fileID: 21300000, guid: 098dafe51c34c254286ed83a925ed4d5, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

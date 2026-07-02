@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: resistance_water_20p
   displayName: Resistance to Fire
   description: 'Increases Resistance to Fire by 20% '
-  icon: {fileID: 21300000, guid: f9fdbb78149b97549afa65f0b3557e9e, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: e4416f069f873a24bb5332c7b6b82fc7, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 4b000000
   levelDescriptions:
   - Increase Resistance to Water by 20%
   effects:

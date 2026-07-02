@@ -22,7 +22,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: c98b2e1e33f8abb4a804130d2d25810e, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 46000000
   levelDescriptions:
   - All CRIT DMG +20%
   effects:

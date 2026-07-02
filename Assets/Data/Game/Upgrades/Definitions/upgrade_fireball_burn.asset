@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: fireball_burn
   displayName: Burn
   description: '[Fireball] now apply a Burn effect.'
-  icon: {fileID: 21300000, guid: 63b30c77b2de31d4398b65d935f4713c, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 59d03ff91380c4b41b1bddcb8368b604, type: 2}
       requiredLevel: 1
-  levelCosts: 64000000
+  levelCosts: fa000000
   levelDescriptions:
   - '[Fireball] now applies Burn.\nBurn deals 10 damage.'
   effects:

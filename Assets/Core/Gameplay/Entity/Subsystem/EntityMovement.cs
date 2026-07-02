@@ -133,7 +133,13 @@ namespace Core.Gameplay.Entity.Subsystem
 
         public virtual void Stop()
         {
-            Rb.linearVelocity = Vector2.zero;
+            _locomotionVelocity = Vector2.zero;
+            
+            // Important:
+            // Stop should not cancel knockback, but it should immediately stop
+            // normal locomotion so AI range checks don't overshoot/oscillate.
+            if (!_knockbackActive && Rb != null && Rb.simulated)
+                Rb.linearVelocity = ConstrainFinalVelocity(Vector2.zero);
             
             if (Controller.IsDead) return;
             

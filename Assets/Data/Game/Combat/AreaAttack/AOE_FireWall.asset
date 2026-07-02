@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectData
   shape: 1
   circleRadius: 0
-  boxSize: {x: 2, y: 3}
+  boxSize: {x: 0.5, y: 1}
   coneAngle: 0
   coneRadius: 0
   duration: 3

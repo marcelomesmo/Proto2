@@ -402,7 +402,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 source: combatSource
             );
             
-            projectile.Configure(CreateProjectileContext(attack), combatSource, payload);
+            projectile.Configure(CreateProjectileContext(attack), combatSource, payload, _pendingContext.Target);
             projectile.Launch(angle);
         }
         

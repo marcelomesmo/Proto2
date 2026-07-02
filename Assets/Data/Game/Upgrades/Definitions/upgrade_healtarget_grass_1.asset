@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeId: healtarget_grass_1
   displayName: Healing Rain
   description: Increase healing by
-  icon: {fileID: 21300000, guid: 0e7966e8857d9da42bd7ac9668f85ce2, type: 3}
+  icon: {fileID: 0}
   maxLevel: 2
   upgradeUnlockRule:
     mode: 0

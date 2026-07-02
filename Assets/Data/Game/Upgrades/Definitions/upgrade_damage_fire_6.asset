@@ -24,7 +24,7 @@ MonoBehaviour:
       requiredLevel: 1
     - upgrade: {fileID: 11400000, guid: e968b9801dc374845873ea98de262094, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 4b000000
   levelDescriptions:
   - Fire Damage +1
   effects:

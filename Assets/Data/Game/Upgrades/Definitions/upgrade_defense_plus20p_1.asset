@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: defense_plus_20p_1
   displayName: Defense Bonus
   description: 'Increases defense by '
-  icon: {fileID: 21300000, guid: b066c869b51f9384fa8ac9cce36b4648, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: eb960012fc3e10541b44d7641e4d1d95, type: 2}
       requiredLevel: 1
-  levelCosts: 0100000001000000
+  levelCosts: c8000000c2010000
   levelDescriptions:
   - Increase total Defense by 10%
   - Increase total Defense by 20%

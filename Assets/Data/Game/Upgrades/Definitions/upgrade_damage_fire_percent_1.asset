@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: damage_fire_percent_1
   displayName: Fire Synergy Advanced
   description: Increase all [Fire] damage by 10%.
-  icon: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
+  icon: {fileID: 0}
   maxLevel: 3
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 9776d3c86026b734a9eb0e46471e16aa, type: 2}
       requiredLevel: 1
-  levelCosts: 010000000200000003000000
+  levelCosts: 64000000960000005e010000
   levelDescriptions:
   - Fire Damage +10%
   - Fire Damage +20%

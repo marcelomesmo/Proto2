@@ -22,9 +22,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: ce09c20b29c38af46b6c2f280e045b2c, type: 2}
       requiredLevel: 1
-    - upgrade: {fileID: 11400000, guid: e4416f069f873a24bb5332c7b6b82fc7, type: 2}
-      requiredLevel: 1
-  levelCosts: 0100000001000000010000000100000001000000
+  levelCosts: 32000000960000005e010000f4010000ee020000
   levelDescriptions:
   - HP +10%
   - HP +20%

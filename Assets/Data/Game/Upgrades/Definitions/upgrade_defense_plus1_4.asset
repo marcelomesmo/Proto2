@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: defense_plus1_4
   displayName: Defense Bonus
   description: Increases Crystal Defense
-  icon: {fileID: 21300000, guid: b066c869b51f9384fa8ac9cce36b4648, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 462281bd693a7444c8a5852c064926d0, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 96000000
   levelDescriptions:
   - DEF +1
   effects:

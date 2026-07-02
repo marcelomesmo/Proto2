@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeId: damage_grass_1
   displayName: Grass Synergy
   description: Increase all [Grass] damage by 1.
-  icon: {fileID: 21300000, guid: 313eb4d0157f6ec418d857892d7b44ad, type: 3}
+  icon: {fileID: 0}
   maxLevel: 3
   upgradeUnlockRule:
     mode: 0

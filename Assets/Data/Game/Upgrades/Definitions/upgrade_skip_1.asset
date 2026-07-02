@@ -15,14 +15,14 @@ MonoBehaviour:
   upgradeId: skip_1
   displayName: Skip
   description: 
-  icon: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
+  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 77862dde42a03834abb1561c9fbf7623, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: fa000000
   levelDescriptions:
   - Skip 20 Waves
   effects: []
