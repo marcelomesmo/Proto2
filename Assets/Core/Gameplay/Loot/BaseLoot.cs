@@ -1,4 +1,3 @@
-using Core.EventChannels;
 using Core.Interfaces;
 using UnityEngine;
 

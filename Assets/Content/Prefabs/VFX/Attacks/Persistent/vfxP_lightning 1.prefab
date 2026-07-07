@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4188949689305288}
   - component: {fileID: 198930930339914078}
   - component: {fileID: 199247809506806486}
+  - component: {fileID: 606268678516122989}
   m_Layer: 0
   m_Name: vfxP_lightning 1
   m_TagString: Untagged
@@ -4912,6 +4913,18 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &606268678516122989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428542714614976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e765018cb31283e4f944b058f4e1fbe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.VFX.PooledParticleSystemVFX
 --- !u!1 &1847786199651890
 GameObject:
   m_ObjectHideFlags: 0

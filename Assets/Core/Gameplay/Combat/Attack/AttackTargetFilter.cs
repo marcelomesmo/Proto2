@@ -45,13 +45,15 @@ namespace Core.Gameplay.Combat.Attack
             switch (targetType)
             {
                 case CombatTargetType.Allies:
-                    return source.sourceEntity.IsAlly(target);
+                    return source.faction == target.Stats.faction;  // Same as comment below.
 
                 case CombatTargetType.Enemies:
-                    return source.sourceEntity.IsEnemy(target);
+                    return source.faction != target.Stats.faction;
+                        // source.sourceEntity.IsEnemy(target); // We can't delegate this to sourceEntity as we were doing before, as the owner can be dead when the projectile hits target. i.e. we can't rely on a living EntityController as source, it needs to be a snapshot.
 
                 case CombatTargetType.Self:
-                    return source.sourceEntity == target;
+                    return source.sourceEntity != null &&   // Safeguard in case the entity dies the frame it casts?
+                           source.sourceEntity == target;
 
                 case CombatTargetType.Any:
                     return true;

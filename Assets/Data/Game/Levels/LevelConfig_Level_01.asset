@@ -17,4 +17,4 @@ MonoBehaviour:
   displayName: World 1
   exitTransitionStyle: 1
   transitionDuration: 1
-  previewBackground: {fileID: 6358040702757662528, guid: 619e805f28428684b8cc719ac44fa698, type: 3}
+  previewBackground: {fileID: 21300000, guid: 5224b576c63dac64e9764e611f22e954, type: 3}

@@ -36,7 +36,7 @@ namespace Game.UI.Upgrades
             description.text = def.GetEffectDescriptionForNextLevel(currentLevel);
 
             if (currentLevel < def.maxLevel)
-                cost.text = $"Cost: {TMPIcons.Currency} {def.GetCostForLevel(currentLevel + 1)}";
+                cost.text = $"<color=grey>Cost: {TMPIcons.Currency} {def.GetCostForLevel(currentLevel + 1)}</color>";
             else
                 cost.text = "Maxed";
             

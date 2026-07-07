@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: chainlightning_bounces_1
   displayName: More Lights
-  description: '[Chain Lightning] bounces to 2 additional enemies.'
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: a30501d80ad082247b7fd4743794b177, type: 2}
+      requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
   - '[Chain Lightning] +2 Bounces'

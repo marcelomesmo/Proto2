@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: C_1_Fire_stats
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Stats.CharacterStats
   characterId: C_1_Fire
-  displayName: 
+  displayName: Apollo
   faction: 1
   attackPower: 1
   healingPower: 10

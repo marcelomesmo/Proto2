@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74279498b4127544bb3c14db3523b34, type: 3}
+  m_Name: ThunderBolt_Variant
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackVariantModifierEffect
+  modifierPerLevel:
+  - sourceAttack: {fileID: 11400000, guid: 021fcb6a1b4701c43b46b055c95e917d, type: 2}
+    replacementAttack: {fileID: 11400000, guid: f46bdcabaa0d13849b1f3b84fd20160b, type: 2}
+    condition: 0
+    conditionValue: 5
+    priority: 1

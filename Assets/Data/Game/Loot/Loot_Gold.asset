@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Loot_Gold
   m_EditorClassIdentifier: Assembly-CSharp::Game.Loot.GameLootSO
   displayName: Gold
-  icon: {fileID: 6660783624410144326, guid: 9c779a4c1432be148bd4af7b73033570, type: 3}
+  icon: {fileID: 2107215887564933441, guid: aadf943aff7310448ae133ca3b91f934, type: 3}
   contribution: 1
   worldPrefab: {fileID: 5766373616286450283, guid: 1d67f7d2378ab7144b09e68e8977f67f, type: 3}
   physicsMode: 1

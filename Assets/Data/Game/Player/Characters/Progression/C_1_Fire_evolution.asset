@@ -15,18 +15,21 @@ MonoBehaviour:
   stages:
   - stage: 0
     requiredLevel: 0
+    displayName: Apollo
     portraitOverride: {fileID: -190135029210641338, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
     spriteOverride: {fileID: -689054024, guid: f9f0a4c7773e7484d833a498de3a8482, type: 3}
     animatorOverride: {fileID: 22100000, guid: c1ab549a20f2c914c9b95d792374ddc8, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}
   - stage: 1
     requiredLevel: 3
+    displayName: 
     portraitOverride: {fileID: 0}
     spriteOverride: {fileID: -1560991571, guid: 7d5b714bca88df44bb4596034e8cf7b3, type: 3}
     animatorOverride: {fileID: 22100000, guid: 199a2254f9bc60a41930789d3a91650c, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 93a001b1596c21c4bb9b82133b88bcdb, type: 2}
   - stage: 2
     requiredLevel: 7
+    displayName: 
     portraitOverride: {fileID: 0}
     spriteOverride: {fileID: 43162582, guid: f11b64923c0b8744cb944f1b4e6fa36d, type: 3}
     animatorOverride: {fileID: 22100000, guid: 2e31cd803b3dffd42aae5aef5a699c19, type: 2}

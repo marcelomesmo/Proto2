@@ -208,9 +208,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 240
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,9 +230,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 256
+        y: 240
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,9 +252,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 256
+        y: 240
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,9 +274,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 240
-        y: 256
+        y: 240
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,10 +295,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 320
+        y: 240
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -317,10 +317,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_5
       rect:
         serializedVersion: 2
-        x: 80
-        y: 192
+        x: 0
+        y: 160
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_6
       rect:
         serializedVersion: 2
-        x: 160
-        y: 192
+        x: 80
+        y: 160
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -361,10 +361,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_7
       rect:
         serializedVersion: 2
-        x: 240
-        y: 192
+        x: 160
+        y: 160
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,10 +383,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 240
+        y: 160
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,10 +405,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_9
       rect:
         serializedVersion: 2
-        x: 80
-        y: 128
+        x: 320
+        y: 160
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,10 +427,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_10
       rect:
         serializedVersion: 2
-        x: 160
-        y: 128
+        x: 0
+        y: 80
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_11
       rect:
         serializedVersion: 2
-        x: 240
-        y: 128
+        x: 80
+        y: 80
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,10 +471,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 160
+        y: 80
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,10 +493,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_13
       rect:
         serializedVersion: 2
-        x: 80
-        y: 64
+        x: 240
+        y: 80
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -515,10 +515,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_14
       rect:
         serializedVersion: 2
-        x: 160
-        y: 64
+        x: 320
+        y: 80
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -537,10 +537,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_15
       rect:
         serializedVersion: 2
-        x: 240
-        y: 64
+        x: 0
+        y: 0
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,10 +559,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_16
       rect:
         serializedVersion: 2
-        x: 0
+        x: 80
         y: 0
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -581,10 +581,10 @@ TextureImporter:
       name: gato-apollo-stage-2-attack_17
       rect:
         serializedVersion: 2
-        x: 80
+        x: 160
         y: 0
         width: 80
-        height: 64
+        height: 80
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -613,7 +613,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":5.0},"gridSpriteSize":{"x":80.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":4.0},"gridSpriteSize":{"x":80.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       gato-apollo-stage-2-attack_0: -2539916179848194931
       gato-apollo-stage-2-attack_1: -4043343064612283105

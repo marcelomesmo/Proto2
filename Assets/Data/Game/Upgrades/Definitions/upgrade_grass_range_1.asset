@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
   m_Name: upgrade_grass_range_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: range_grass_1
+  upgradeId: grass_range_1
   displayName: Longer Branches
-  description: Increase Grass attacks range by 1.
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 36bae5c7441bc55478ac398a5dc33291, type: 2}
+      requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
   - Increase Grass attacks range by 1.

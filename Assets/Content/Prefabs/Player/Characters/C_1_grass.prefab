@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: evolutionData
       value: 
       objectReference: {fileID: 11400000, guid: ebbc029eaec0d9646b5572320294449c, type: 2}
+    - target: {fileID: 811892628725532764, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 929215472986499729, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_Sprite
       value: 

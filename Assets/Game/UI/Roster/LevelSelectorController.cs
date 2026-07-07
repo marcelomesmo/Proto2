@@ -55,8 +55,10 @@ namespace Game.UI.Roster
         private void UpdateDisplay()
         {
             bool locked = IsCurrentLevelLocked;
-            levelNameText.text = levels[_currentIndex].DisplayName;
-            //levelNameText.text = locked ? "???" : levels[_currentIndex].DisplayName;
+            //levelNameText.text = levels[_currentIndex].DisplayName;
+            string levelName = levels[_currentIndex].DisplayName;
+            
+            levelNameText.text = locked ? $"<color=grey>{levelName}" : $"<color=white>{levelName}";
             
             if (previewBackground != null)
                 previewBackground.sprite = levels[_currentIndex].PreviewBackground;

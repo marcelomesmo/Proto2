@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0689cd75e11c7e94fb764a280a36bf02, type: 3}
   m_Name: C_1_Water
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
-  rosterScreenPortrait: {fileID: 1989722942000415948, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
+  rosterScreenPortrait: {fileID: -568728072, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
   previewPrefab: {fileID: 4607982519050748198, guid: d3a7c87fc25a75c49affd913f1c15cea, type: 3}
   prefab: {fileID: 1331891463641475742, guid: 5ccb61fcbe0ec454dbf14a6a6b8978ad, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: 3fcd0fde1e404e9489341ad8ea7b3fb7, type: 2}

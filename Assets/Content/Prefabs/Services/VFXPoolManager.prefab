@@ -125,3 +125,19 @@ MonoBehaviour:
     collectionCheck: 0
     defaultCapacity: 20
     maxSize: 100
+  - prefab: {fileID: 4248778644541204264, guid: 755717a57c735ad4bb743634988a8314, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - prefab: {fileID: -2199128453566793349, guid: ead2eb1ec6d8ee54fa5d36c7f5e30eef, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - prefab: {fileID: 7240489800546813200, guid: d90bd113623bf5542af04c3ac95d8cce, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100
+  - prefab: {fileID: -1355195955893115825, guid: 8ac491110cbea7f42ba8ad7e569da42a, type: 3}
+    collectionCheck: 0
+    defaultCapacity: 20
+    maxSize: 100

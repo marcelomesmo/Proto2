@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70e5c062ee6c8c41b5816f8a4b3048f, type: 3}
+  m_Name: Electric_CritChance_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.Effects.AttackStatModifierEffect
+  modifierPerLevel:
+  - targetAttack: {fileID: 0}
+    statType: 8
+    scope: 0
+    type: 0
+    value: 2
+    filterByHitType: 1
+    hitTypes: 32
+  - targetAttack: {fileID: 0}
+    statType: 8
+    scope: 0
+    type: 0
+    value: 5
+    filterByHitType: 1
+    hitTypes: 32
+  - targetAttack: {fileID: 0}
+    statType: 8
+    scope: 0
+    type: 0
+    value: 7
+    filterByHitType: 1
+    hitTypes: 32

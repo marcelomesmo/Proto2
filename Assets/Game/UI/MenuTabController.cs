@@ -18,6 +18,8 @@ namespace Game.UI
         [SerializeField] private Material normalMaterial;
         [SerializeField] private Image rosterIcon;
         [SerializeField] private Image upgradeIcon;
+        [SerializeField] private Sprite darkBg;
+        [SerializeField] private Sprite normalBg;
 
         private void Awake()
         {
@@ -31,16 +33,20 @@ namespace Game.UI
         {
             rosterPanel.SetActive(true);
             rosterIcon.material = normalMaterial;
+            rosterButton.image.sprite = normalBg;
             upgradePanel.SetActive(false);
             upgradeIcon.material = grayscaleMaterial;
+            upgradesButton.image.sprite = darkBg;
         }
 
         private void ShowUpgrades()
         {
             rosterPanel.SetActive(false);
             rosterIcon.material = grayscaleMaterial;
+            rosterButton.image.sprite = darkBg;
             upgradePanel.SetActive(true);
             upgradeIcon.material = normalMaterial;
+            upgradesButton.image.sprite = normalBg;
         }
     }
 }

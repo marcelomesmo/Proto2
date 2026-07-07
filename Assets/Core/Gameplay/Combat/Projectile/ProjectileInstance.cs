@@ -4,6 +4,8 @@ using Core.Gameplay.Combat.Projectile.Impact;
 using Core.Gameplay.Combat.Projectile.Movement;
 using Core.Gameplay.Entity;
 using Core.Interfaces;
+using Core.Services.Manager;
+using Core.VFX;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -15,6 +17,10 @@ namespace Core.Gameplay.Combat.Projectile
         public ProjectileMovement movementBehavior;
         public ProjectileImpact impactBehavior;
         [SerializeField] private ProjectileLifetimePolicy lifetimePolicy = ProjectileLifetimePolicy.DespawnOnLastHit;
+        
+        [Header("VFX")]
+        [SerializeField] private PooledVFX trailPrefab;
+        private PooledParticleSystemVFX _activeTrail;
         
         //[Header("VFX")]
         //[SerializeField] protected TrailRenderer trailVFXPrefab;
@@ -164,6 +170,17 @@ namespace Core.Gameplay.Combat.Projectile
 
             // Important: do not call _movementContext.Initialize here to avoid ordering
             // issues with pools—defer to FixedUpdate first tick which will call Initialize.
+            
+            if (trailPrefab)
+            {
+                var spawned = VFXPoolManager.Instance.Spawn(trailPrefab, transform.position, transform.rotation);
+                _activeTrail = spawned as PooledParticleSystemVFX;
+
+                if (_activeTrail)
+                    _activeTrail.transform.SetParent(transform, true);
+                else
+                    Debug.LogWarning($"[ProjectileInstance] trailPrefab on '{name}' is not a PooledParticleSystemVFX.", this);
+            }
         }
     
         private void OnTriggerEnter2D(Collider2D other)
@@ -224,7 +241,8 @@ namespace Core.Gameplay.Combat.Projectile
         private IObjectPool<ProjectileInstance> _objectPool;
         private bool _isReleased;
         public void AssignToPool(IObjectPool<ProjectileInstance> objectPool) => _objectPool = objectPool;    
-        private void ReturnToPool() { _isReleased = true; _objectPool.Release(this); }
+        private void ReturnToPool() { _isReleased = true;
+            DetachTrail(); _objectPool.Release(this); }
         
         #endregion
     
@@ -273,11 +291,21 @@ namespace Core.Gameplay.Combat.Projectile
             _initializedThisLife = false;
             _hasLaunched = false;
 
-            // disable emission
+            // disable emission of vfx that lives with the projectile
             foreach (var visual in visuals)
                 visual?.OnDespawn();
-
+            
             _remainingHits = 0;
+        }
+        
+        private void DetachTrail()
+        {
+            if (!_activeTrail)
+                return;
+            
+            _activeTrail.transform.SetParent(VFXPoolManager.Instance.transform, true);
+            _activeTrail.StopEmitting();
+            _activeTrail = null;
         }
 
         #endregion

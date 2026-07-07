@@ -62,13 +62,14 @@ namespace Core.Camera
 
         private POINT dragStartMousePos;
         private RECT dragStartWindowRect;
-
+        
         void Start()
         {
             bool supported =
                 Application.platform == RuntimePlatform.WindowsPlayer;
 
-            gameObject.SetActive(supported);
+            // Do this in case we want to hide in non-Desktop builds
+            //gameObject.SetActive(supported);
         }
 
         public void OnPointerDown(PointerEventData eventData)

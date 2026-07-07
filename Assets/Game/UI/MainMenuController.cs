@@ -98,7 +98,8 @@ namespace Game.UI
 
         private void ShowMain()
         {
-            mainPanel.SetActive(true);
+            // not for this game
+            //mainPanel.SetActive(true);
             optionsPanel.SetActive(false);
         }
     }

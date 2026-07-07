@@ -1,0 +1,649 @@
+fileFormatVersion: 2
+guid: b183750cd9bda14478d6af41f6de260a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8201717101623181941
+    second: gato-apollo-stage-3-attack-sheet_0
+  - first:
+      213: 3474062915546494598
+    second: gato-apollo-stage-3-attack-sheet_1
+  - first:
+      213: 206106867097203386
+    second: gato-apollo-stage-3-attack-sheet_2
+  - first:
+      213: -5641034784353669679
+    second: gato-apollo-stage-3-attack-sheet_3
+  - first:
+      213: -3944631023031247364
+    second: gato-apollo-stage-3-attack-sheet_4
+  - first:
+      213: 8807368885700649608
+    second: gato-apollo-stage-3-attack-sheet_5
+  - first:
+      213: 8184715313456452559
+    second: gato-apollo-stage-3-attack-sheet_6
+  - first:
+      213: -6468919260307090656
+    second: gato-apollo-stage-3-attack-sheet_7
+  - first:
+      213: 4862848170055998469
+    second: gato-apollo-stage-3-attack-sheet_8
+  - first:
+      213: -483976642158693412
+    second: gato-apollo-stage-3-attack-sheet_9
+  - first:
+      213: -8188825573515565798
+    second: gato-apollo-stage-3-attack-sheet_10
+  - first:
+      213: 1058176005086054299
+    second: gato-apollo-stage-3-attack-sheet_11
+  - first:
+      213: -4454998018052759378
+    second: gato-apollo-stage-3-attack-sheet_12
+  - first:
+      213: -5920201400410871602
+    second: gato-apollo-stage-3-attack-sheet_13
+  - first:
+      213: 4408851805792324211
+    second: gato-apollo-stage-3-attack-sheet_14
+  - first:
+      213: -8659365052463777269
+    second: gato-apollo-stage-3-attack-sheet_15
+  - first:
+      213: -4208542333677959896
+    second: gato-apollo-stage-3-attack-sheet_16
+  - first:
+      213: -3688808770364433028
+    second: gato-apollo-stage-3-attack-sheet_17
+  - first:
+      213: 3102916218860623638
+    second: gato-apollo-stage-3-attack-sheet_18
+  - first:
+      213: 607553539901646488
+    second: gato-apollo-stage-3-attack-sheet_19
+  - first:
+      213: 6362758636604051300
+    second: gato-apollo-stage-3-attack-sheet_20
+  - first:
+      213: 6778423611844744490
+    second: gato-apollo-stage-3-attack-sheet_21
+  - first:
+      213: -3933382301182170858
+    second: gato-apollo-stage-3-attack-sheet_22
+  - first:
+      213: -3915971932695779352
+    second: gato-apollo-stage-3-attack-sheet_23
+  - first:
+      213: -6649285518914466299
+    second: gato-apollo-stage-3-attack-sheet_24
+  - first:
+      213: -4845982558184240919
+    second: gato-apollo-stage-3-attack-sheet_25
+  - first:
+      213: 6991453010407044847
+    second: gato-apollo-stage-3-attack-sheet_26
+  - first:
+      213: -8265088354792947508
+    second: gato-apollo-stage-3-attack-sheet_27
+  - first:
+      213: 7341709197221353214
+    second: gato-apollo-stage-3-attack-sheet_28
+  - first:
+      213: -3326784631233292203
+    second: gato-apollo-stage-3-attack-sheet_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 336
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5720f76df3a52d170800000000000000
+      internalID: 8201717101623181941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_1
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 336
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686b188b0d9563030800000000000000
+      internalID: 3474062915546494598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_2
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 336
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab2f8178a1d3cd200800000000000000
+      internalID: 206106867097203386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 336
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dd2af840c407b1b0800000000000000
+      internalID: -5641034784353669679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 336
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd9c3eebfad149c0800000000000000
+      internalID: -3944631023031247364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 882e30e865f0a3a70800000000000000
+      internalID: 8807368885700649608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 224
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc3954e8633f59170800000000000000
+      internalID: 8184715313456452559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 224
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02396b0e438c936a0800000000000000
+      internalID: -6468919260307090656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 224
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50c98dc65ae4c7340800000000000000
+      internalID: 4862848170055998469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 224
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd37b84eec19849f0800000000000000
+      internalID: -483976642158693412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1568f2f6827b5e80800000000000000
+      internalID: -8188825573515565798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 112
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b970ffc58756fae00800000000000000
+      internalID: 1058176005086054299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_12
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 112
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea065eaf7eaac22c0800000000000000
+      internalID: -4454998018052759378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_13
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 112
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec86db1613837dda0800000000000000
+      internalID: -5920201400410871602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_14
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 112
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37a4797bb536f2d30800000000000000
+      internalID: 4408851805792324211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0af6733d51c3d780800000000000000
+      internalID: -8659365052463777269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8258eea9b014895c0800000000000000
+      internalID: -4208542333677959896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gato-apollo-stage-3-attack-sheet_17
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 112
+        height: 112
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d151ea7f7beccc0800000000000000
+      internalID: -3688808770364433028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d7e3b59c066beae41a119987434df0a2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":4.0},"gridSpriteSize":{"x":112.0,"y":112.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      gato-apollo-stage-3-attack-sheet_0: 8201717101623181941
+      gato-apollo-stage-3-attack-sheet_1: 3474062915546494598
+      gato-apollo-stage-3-attack-sheet_10: -8188825573515565798
+      gato-apollo-stage-3-attack-sheet_11: 1058176005086054299
+      gato-apollo-stage-3-attack-sheet_12: -4454998018052759378
+      gato-apollo-stage-3-attack-sheet_13: -5920201400410871602
+      gato-apollo-stage-3-attack-sheet_14: 4408851805792324211
+      gato-apollo-stage-3-attack-sheet_15: -8659365052463777269
+      gato-apollo-stage-3-attack-sheet_16: -4208542333677959896
+      gato-apollo-stage-3-attack-sheet_17: -3688808770364433028
+      gato-apollo-stage-3-attack-sheet_2: 206106867097203386
+      gato-apollo-stage-3-attack-sheet_3: -5641034784353669679
+      gato-apollo-stage-3-attack-sheet_4: -3944631023031247364
+      gato-apollo-stage-3-attack-sheet_5: 8807368885700649608
+      gato-apollo-stage-3-attack-sheet_6: 8184715313456452559
+      gato-apollo-stage-3-attack-sheet_7: -6468919260307090656
+      gato-apollo-stage-3-attack-sheet_8: 4862848170055998469
+      gato-apollo-stage-3-attack-sheet_9: -483976642158693412
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

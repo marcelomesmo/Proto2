@@ -329,7 +329,7 @@ namespace Core.Gameplay.Entity.Subsystem
             
 #if UNITY_EDITOR
             Debug.LogError(
-                $"[Attack] Attack '{_currentAttack.Data.name}' on '{name}' never resolved.\n" +
+                $"[Attack] Attack '{_currentAttack.Data.name}' from '{name}' cast on '{_pendingContext.Target}' never resolved.\n" +
                 $"Did you forget the OnAttackHit animation event?",
                 this);
 #endif

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: healtarget_grass_1
   displayName: Healing Rain
-  description: Increase healing by
-  icon: {fileID: 0}
   maxLevel: 2
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: d2cd644e24322f54fa8e528642e0ffe4, type: 2}
+      requiredLevel: 1
   levelCosts: 0100000001000000
   levelDescriptions:
   - Increase Healing heal by 10.

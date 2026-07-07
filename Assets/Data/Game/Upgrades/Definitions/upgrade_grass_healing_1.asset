@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: grass_healing_1
   displayName: restoring waves
-  description: '[Healing] now heals Castle for +10'
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 071ffe988da3de04aa1b07836e9c5c5c, type: 2}
+      requiredLevel: 1
   levelCosts: 01000000
   levelDescriptions:
   - '[Healing] +10'

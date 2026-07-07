@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2358792129828448379}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.625, y: 0.25, z: 0}
+  m_LocalPosition: {x: -0.625, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1003431903, guid: 02af970915de1244eb78dff58207aedf, type: 3}
+  m_Sprite: {fileID: 1376727974, guid: e4ba1f1f6171adc4ea0248f5aa959f80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
   dustVfxPrefab: {fileID: 0}
   hitFlash: {fileID: 0}
   cameraShakeEvent: {fileID: 0}
-  levelUpVfxPrefab: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+  levelUpVfxPrefab: {fileID: 100006, guid: 70ce3b399ff726a49916da1f1a21f6a8, type: 3}
   evolutionVfxPrefab: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
   levelUpEvent: {fileID: 11400000, guid: 8f0b8dfb2960bfc4183269906b9f649e, type: 2}
   stageUpEvent: {fileID: 11400000, guid: 473df635b2513dc41ba0008b23887f3c, type: 2}
@@ -427,7 +427,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

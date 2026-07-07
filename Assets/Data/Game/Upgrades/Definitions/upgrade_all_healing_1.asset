@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
+  m_Name: upgrade_all_healing_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
+  upgradeId: all_healing_1
+  displayName: Sniper
+  maxLevel: 1
+  upgradeUnlockRule:
+    mode: 0
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 3a59bc4963805d14dadb9bef93e69e4c, type: 2}
+      requiredLevel: 1
+  levelCosts: 0a000000
+  levelDescriptions:
+  - All Healing +10%
+  effects:
+  - {fileID: 11400000, guid: ee06be0792702204a91fe2d86438ad93, type: 2}

@@ -16,9 +16,7 @@ MonoBehaviour:
   - C_1_Fire
   - C_1_Grass
   - C_1_Water
-  - C_2_Fire
-  - C_2_Water
   - C_1_Electric
   startingUnlockedLevels:
   - level01
-  startingGold: 10000
+  startingGold: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
+  m_Name: upgrade_damage_water_3
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
+  upgradeId: damage_water_3
+  displayName: Water Synergy
+  maxLevel: 3
+  upgradeUnlockRule:
+    mode: 0
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 5cfeb07d46536ac42bfeb70256e53f7b, type: 2}
+      requiredLevel: 1
+  levelCosts: 0a000000
+  levelDescriptions:
+  - Water Damage +1
+  effects:
+  - {fileID: 11400000, guid: 6281978df34bdc449bb74393265a04d1, type: 2}

@@ -1,3 +1,4 @@
+using System;
 using Game.Enum;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ namespace Game.UI.Upgrades
         [SerializeField] private Image image;
 
         [Header("Visuals")] 
+        [SerializeField] private Sprite activeSprite;
+        [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private Color inactiveColor = new Color32(105, 73, 43, 255); // brown
         [SerializeField] private Color availableColor = new Color32(90, 190, 255, 255); // blue
         [SerializeField] private Color purchasedColor = new Color32(90, 190, 255, 255); // blue
@@ -59,23 +62,25 @@ namespace Game.UI.Upgrades
             switch (state)
             {
                 case UpgradeConnectionState.Inactive:
-                    ApplyVisual(inactiveColor);
+                    ApplyVisual(inactiveColor, inactiveSprite);
                     break;
 
                 case UpgradeConnectionState.Available:
-                    ApplyVisual(availableColor);
+                    ApplyVisual(availableColor, activeSprite);
                     break;
                 
                 case UpgradeConnectionState.Purchased:
-                    ApplyVisual(purchasedColor);
+                    ApplyVisual(purchasedColor, activeSprite);
                     break;
             }
         }
 
         private void ApplyVisual(
-            Color color)
+            Color color, Sprite sprite) // Can instead do a struct ConnectionVisual{ Sprite, Color} later, if we grow this
         {
-            //image.material = material;
+            if(sprite != null)
+                image.sprite = sprite;
+    
             image.color = color;
         }
     }

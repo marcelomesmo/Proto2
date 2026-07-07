@@ -24,6 +24,7 @@ namespace Game.UI.Roster
         [SerializeField] private Sprite lockedPortrait;
         [SerializeField] private Material grayscaleMaterial;
         [SerializeField] private Material normalMaterial;
+        [SerializeField] private Image background;
         
         [Header("Config")]
         [SerializeField] private CharacterDefinition characterDefinition;
@@ -61,7 +62,7 @@ namespace Game.UI.Roster
             {
                 characterName.text = "???";
                 characterImage.sprite = lockedPortrait;
-                characterImage.material = normalMaterial;
+                characterImage.material = grayscaleMaterial;
                 button.interactable = false;
                 return;
             }
@@ -69,7 +70,9 @@ namespace Game.UI.Roster
             characterName.text = characterEvolutionData.stages[0].displayName;
             characterImage.sprite = characterDefinition.rosterScreenPortrait;
 
-            characterImage.material = isSelected ? normalMaterial : grayscaleMaterial;
+            characterImage.material = normalMaterial;
+            
+            background.color = isSelected ? Color.white : Color.gray;
 
             if (selectedOverlay != null)
                 selectedOverlay.enabled = isSelected;

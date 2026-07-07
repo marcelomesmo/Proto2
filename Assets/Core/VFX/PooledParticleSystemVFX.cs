@@ -1,4 +1,3 @@
-using Core.Services.Manager;
 using UnityEngine;
 
 namespace Core.VFX
@@ -51,6 +50,14 @@ namespace Core.VFX
                 ps.Clear(true);
                 ps.Play(true);
             }*/
+        }
+        
+        // Stops new emission but lets already-spawned particles finish naturally.
+        // Requires Stop Action = Callback so OnParticleSystemStopped fires once actually finished.
+        public void StopEmitting()
+        {
+            if (_particleSystem != null)
+                _particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
         
         public override void OnDespawn()
