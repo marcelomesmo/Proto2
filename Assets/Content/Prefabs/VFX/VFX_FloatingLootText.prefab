@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 21605244428125924, guid: ea4179ba609564f33b822e1be581b321, type: 2}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,10 +106,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 999
+  m_text: <sprite name=Resources_0>+999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ea4179ba609564f33b822e1be581b321, type: 2}
-  m_sharedMaterial: {fileID: 21605244428125924, guid: ea4179ba609564f33b822e1be581b321, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -125,7 +125,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 54e73d14557a6c241933cb65561d7920, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 3
+  m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -190,9 +190,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6873050831551389960}
-  - component: {fileID: -5634127321225208857}
+  - component: {fileID: -6776330772853998326}
   m_Layer: 9
-  m_Name: VFX_FloatingCombatText
+  m_Name: VFX_FloatingLootText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ Transform:
   - {fileID: 4198380290454909952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5634127321225208857
+--- !u!114 &-6776330772853998326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,46 +223,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 767776283547506129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba32b0d8b07e24e419fca28494e70a20, type: 3}
+  m_Script: {fileID: 11500000, guid: 23e7e6c4c568ed5478b619c470bb8b15, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingDamage
-  lifetime: 1
-  floatVelocity: {x: 0.1, y: 1.5, z: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Game.VFX.FloatingLootVFX
+  lifetime: 0.5
+  floatVelocity: {x: 0, y: 0.5, z: 0}
   alphaOverLifetime:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.116455086
-      outSlope: -0.116455086
+      inSlope: 0
+      outSlope: -1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.19065437
-    - serializedVersion: 3
-      time: 0.68409044
-      value: 0.75934017
-      inSlope: -1.3777293
-      outSlope: -1.3777293
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -2.4036632
-      outSlope: -2.4036632
-      tangentMode: 34
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   floatingText: {fileID: 3420167116019846742}
-  damageColor: {r: 1, g: 1, b: 1, a: 0}
-  healingColor: {r: 0.057491798, g: 0.6981132, b: 0, a: 0}
-  resistColor: {r: 0, g: 0.41368356, b: 0.78616345, a: 0}
-  critFontSize: 8
+  goldLootColor: {r: 1, g: 1, b: 1, a: 0}

@@ -1,4 +1,6 @@
+using System;
 using Core.Gameplay.Loot;
+using Game.Enum;
 using Game.EventChannels;
 using UnityEngine;
 
@@ -12,36 +14,53 @@ namespace Game.Loot
     {
         [Header("Game-Specific Broadcast")]
         [SerializeField] private LootCollectedEventChannelSO OnGameLootCollected;
-
+        
+        public event Action<GameLoot, LootCollectionSource> GameLootCollected;
+        
         private GameLootSO _gameLootData;
-
-        private void Awake()
+        
+        public LootType LootType => _gameLootData ? _gameLootData.lootType : LootType.Unknown;
+        public int LootValue => RuntimeContribution;
+        public Sprite LootIcon => _gameLootData ? _gameLootData.icon : null;
+        
+        public override void Initialize(LootSO data, int contribution)
         {
-            base.Awake();
-            
-            // Cache the game-specific loot data
-            _gameLootData = lootData as GameLootSO;
-            
+            base.Initialize(data, contribution);
+            CacheGameLootData();
+        }
+
+        private void CacheGameLootData()
+        {
+            _gameLootData = LootData as GameLootSO;
+
             if (_gameLootData == null)
             {
-                Debug.LogError($"[GameLoot] LootData must be a GameLootSO! Current type: {lootData?.GetType().Name}", this);
+                Debug.LogError(
+                    $"[GameLoot] LootData must be a GameLootSO. Current type: {LootData?.GetType().Name ?? "null"}",
+                    this
+                );
             }
         }
-        
-        // Override Collect to raise game-specific event with loot type.
-        // Calls base.Collect() to maintain core loot behavior (UI updates, etc.)
-        public override void Collect()
+
+        protected override void OnCollected(LootCollectionSource source)
         {
-            base.Collect();
-            
+            base.OnCollected(source);
+
             if (_gameLootData)
             {
-                // Raise game-specific event with type information
-                OnGameLootCollected?.RaiseEvent(_gameLootData.lootType, _gameLootData.contribution);
+                GameLootCollected?.Invoke(this, source);
+                
+                OnGameLootCollected?.RaiseEvent(
+                    _gameLootData.lootType,
+                    RuntimeContribution
+                );
             }
             else
             {
-                Debug.LogWarning($"[GameLoot] GameLootSO is null, skipping game-specific event.", this);
+                Debug.LogWarning(
+                    "[GameLoot] GameLootSO is null, skipping game-specific event.",
+                    this
+                );
             }
         }
     }

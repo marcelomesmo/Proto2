@@ -16,4 +16,6 @@ MonoBehaviour:
   - loot: {fileID: 11400000, guid: 3fe7ae5ccc06c2c4885c7111d084844e, type: 2}
     dropChance: 1
     minAmount: 1
-    maxAmount: 3
+    maxAmount: 1
+    minContribution: 1
+    maxContribution: 3

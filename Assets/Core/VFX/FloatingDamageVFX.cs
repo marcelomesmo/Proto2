@@ -19,6 +19,7 @@ namespace Core.VFX
         [Header("Visuals")]
         [SerializeField] private Color damageColor;
         [SerializeField] private Color healingColor;
+        [SerializeField] private Color resistColor;
         [SerializeField] private float critFontSize;
 
         private Color _originalColor;
@@ -33,6 +34,7 @@ namespace Core.VFX
         public void Initialize(CombatPayload payload)
         {
             floatingText.text = payload.amount.ToString();
+            floatingText.fontSize = _originalFontSize;
             
             floatingText.color = payload.action switch
             {
@@ -43,13 +45,12 @@ namespace Core.VFX
 
             if (payload.IsCritical)
                 floatingText.fontSize = critFontSize;
-            else
-                floatingText.fontSize = _originalFontSize;
-            
+
             if (payload.HasResisted)
+            {
                 floatingText.fontSize = _originalFontSize / 2;  // TODO: add better feedback later
-            else
-                floatingText.fontSize = _originalFontSize;
+                floatingText.color = resistColor;
+            }
         }
 
         protected override void OnUpdate()

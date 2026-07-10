@@ -9,15 +9,29 @@ namespace Core.Gameplay.Loot
         [Header("Loot")]
         public string displayName;
         public Sprite icon;
-        public int contribution;
+        public int defaultContribution;     // TODO: Deprecate this later if we end up never using it
         
         [Header("World Representation")]
         public BaseLoot worldPrefab;
      
-        [Header("Loot behavior")]
+        [Header("Movement")]
         public LootPhysicsMode physicsMode = LootPhysicsMode.Lane;
+        
+        [Header("Collection")]
+        public LootCollectionMode collectionMode = LootCollectionMode.CollisionAndMagnet;
+        
+        [Tooltip("Delay before loot becomes collectable when it does not wait for a ground bounce.")]
+        [Min(0f)]
+        public float collectableDelay = 0.75f;
+       
+        [Header("Magnet")]
+        [Tooltip("For CollectionMode.Magnet only.")]
+        [Min(0.01f)]
         public float baseMagnetSpeed = 6f;
-        public float magnetStartDelay = 0.75f;
+        [Min(0.001f)]
+        public float magnetArrivalDistance = 0.05f;
+        
+        [Header("Bounce")]
         public bool enableBounce;
         public float bounceImpulse = 6f;
         public LayerMask groundMask;

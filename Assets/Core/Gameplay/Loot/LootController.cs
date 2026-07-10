@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Core.Enum;
 using Core.Interfaces;
 using PrimeTween;
@@ -13,35 +14,66 @@ namespace Core.Gameplay.Loot
         public enum State
         {
             Launching,
-            Idle,
+            Collectable,
             Magnetized,
             Collected
         }
         
         private Rigidbody2D _rb;
+        private LootSO _lootData;
         private State _state;
         
-        private LootSO _lootData;
-        private Tween _magnetTween;
+        private Coroutine _collectableDelayRoutine;
         
+        private Tween _magnetTween;
+
+        public event Action CollectableBecameAvailable;
+        public event Action MagnetStarted;
         public event Action MagnetArrived;
+
+        public State CurrentState => _state;
+        public bool HasBecomeCollectable { get; private set; }
+        public bool IsCollectable => _state == State.Collectable;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
 
+        private void OnEnable()
+        {
+            
+            // Do not initialize from OnEnable.
+            // BaseLoot owns data initialization and calls Initialize(lootData).
+            //
+            // This avoids script execution order problems where LootController.OnEnable
+            // could run before BaseLoot.OnEnable assigns loot data.
+        }
+        
+        private void OnDisable()
+        {
+            StopCollectableDelay();
+            
+            if (_magnetTween.isAlive)
+                _magnetTween.Stop();
+        }
+
         public void Initialize(LootSO lootData)
         {
             _lootData = lootData;
-        }
+            
+#if UNITY_EDITOR
+            Debug.Assert(_rb != null, $"{name}: Rigidbody2D missing.", this);
+            Debug.Assert(_lootData != null, $"{name}: LootData not initialized.", this);
+#endif
+            
+            StopCollectableDelay();
 
-        private void OnEnable()
-        {
+            HasBecomeCollectable = false;
             _state = State.Launching;
             
-            Debug.Assert(_rb != null, $"{name}: Rigidbody2D missing");
-            Debug.Assert(_lootData != null, $"{name}: LootData not initialized");
+            if (!_rb)
+                return;
             
             _rb.simulated = true;
             _rb.linearVelocity = Vector2.zero;
@@ -49,12 +81,6 @@ namespace Core.Gameplay.Loot
             
             _rb.gravityScale = 
                 _lootData.physicsMode == LootPhysicsMode.Platformer ? 2f : 0f;
-        }
-        
-        private void OnDisable()
-        {
-            if (_magnetTween.isAlive)
-                _magnetTween.Stop();
         }
 
         // -------------------------
@@ -64,10 +90,20 @@ namespace Core.Gameplay.Loot
         // Launch loot with an arc. DirectionBias: -1 (left), 0 (neutral), +1 (right)
         public void Launch(Vector2 directionBias, float horizontalForce, float verticalForce)
         {
-#if UNITY_EDITOR
-            if (_lootData == null)
-                Debug.LogError($"{name}: LootController.Initialize was not called.");
-#endif
+            if (!_lootData)
+            {
+                Debug.LogError($"{name}: LootController.Initialize was not called before Launch.", this);
+                return;
+            }
+
+            if (!_rb)
+            {
+                Debug.LogError($"{name}: Rigidbody2D missing.", this);
+                return;
+            }
+
+            if (_state != State.Launching)
+                return;
             
             Vector2 impulse = new(
                 directionBias.x * horizontalForce,
@@ -76,19 +112,53 @@ namespace Core.Gameplay.Loot
 
             _rb.AddForce(impulse, ForceMode2D.Impulse);
             
-            // If no bounce is expected, settle automatically
-            if (_lootData.physicsMode != LootPhysicsMode.Platformer || !_lootData.enableBounce)
-            {
-                Invoke(nameof(SetIdle), _lootData.magnetStartDelay);
-            }
+            bool waitsForPlatformerBounce =
+                _lootData.physicsMode == LootPhysicsMode.Platformer &&
+                _lootData.enableBounce;
+            
+            if (!waitsForPlatformerBounce)
+                BeginCollectableDelay(_lootData.collectableDelay);
         }
         
-        private void SetIdle()
+        private void BeginCollectableDelay(float delay)
         {
-            if (_state != State.Launching)
+            StopCollectableDelay();
+
+            if (delay <= 0f)
+            {
+                SetCollectable();
+                return;
+            }
+
+            _collectableDelayRoutine = StartCoroutine(SetCollectableAfterDelay(delay));
+        }
+        
+        private IEnumerator SetCollectableAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            _collectableDelayRoutine = null;
+            SetCollectable();
+        }
+
+        private void StopCollectableDelay()
+        {
+            if (_collectableDelayRoutine == null)
                 return;
 
-            _state = State.Idle;
+            StopCoroutine(_collectableDelayRoutine);
+            _collectableDelayRoutine = null;
+        }
+        
+        private void SetCollectable()
+        {
+            if (_state != State.Launching && _state != State.Magnetized)
+                return;
+
+            HasBecomeCollectable = true;
+            _state = State.Collectable;
+
+            CollectableBecameAvailable?.Invoke();
         }
 
         // -------------------------
@@ -97,6 +167,9 @@ namespace Core.Gameplay.Loot
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (!_lootData)
+                return;
+            
             if (_state != State.Launching)
                 return;
 
@@ -110,26 +183,42 @@ namespace Core.Gameplay.Loot
                 return;                                                             // Prevents bouncing in: walls, enemies, loot, triggers, decorations...
             
             _rb.AddForce(Vector2.up * _lootData.bounceImpulse, ForceMode2D.Impulse);
-            _state = State.Idle;
+            
+            SetCollectable();
         }
         
         // -------------------------
         // Magnet
         // -------------------------
         
-        public void TryBeginMagnet(Transform target, float speedMultiplier)
+        public bool TryBeginMagnet(Transform target, float speedMultiplier)
         {
-            if (_state != State.Idle)
-                return;
+            if (!_lootData.collectionMode.AllowsMagnetCollection())
+                return false;
+
+            if (_state != State.Collectable)
+                return false;
 
             _state = State.Magnetized;
+            
             _rb.simulated = false;
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
             
             float distance = Vector2.Distance(transform.position, target.position);
-            float duration = distance / (_lootData.baseMagnetSpeed * speedMultiplier);
-            //float duration =
-            //    _lootData.magnetDuration / Mathf.Max(0.01f, speedMultiplier);
+            
+            float speed = _lootData.baseMagnetSpeed * Mathf.Max(0.01f, speedMultiplier);
+            float duration = distance / Mathf.Max(0.01f, speed);
 
+            if (_magnetTween.isAlive)
+                _magnetTween.Stop();
+            
+            if (duration <= 0f)
+            {
+                MagnetArrived?.Invoke();
+                return true;
+            }
+            
             _magnetTween = Tween.Position(
                 transform,
                 target.position,
@@ -137,12 +226,30 @@ namespace Core.Gameplay.Loot
                 Ease.InQuad
             ).OnComplete(() =>
             {
-                _state = State.Collected;
                 MagnetArrived?.Invoke();
-                
-                // todo: replace with pool later?
-                Destroy(gameObject);
             });
+            
+            MagnetStarted?.Invoke();
+
+            return true;
+        }
+        
+        // -------------------------
+        // Collection finalization
+        // -------------------------
+
+        public void MarkCollected()
+        {
+            StopCollectableDelay();
+
+            if (_magnetTween.isAlive)
+                _magnetTween.Stop();
+            
+            _state = State.Collected;
+
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+            _rb.simulated = false;
         }
     }
 }

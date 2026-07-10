@@ -28,12 +28,15 @@ namespace Core.VFX
         public override void OnSpawn()
         {
             base.OnSpawn();
+            
             Timer = lifetime;
             Active = true;
         }
 
         public override void OnDespawn()
         {
+            base.OnDespawn();
+            
             Active = false;
             Timer = 0f;
         }

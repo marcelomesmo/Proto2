@@ -21,7 +21,7 @@ MonoBehaviour:
   range: 8
   cooldown: 2
   hitTypes: 4
-  hitVFX: {fileID: 8784488540992764676, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
+  hitVFX: {fileID: 0}
   castVFX: {fileID: 0}
   targetType: 1
   targetSelectionMode: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   effects: []
   isPassive: 0
   castSilently: 0
+  baseAttack: {fileID: 0}

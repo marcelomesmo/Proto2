@@ -13,7 +13,7 @@ namespace Core.Gameplay.Loot
             if (parentScript)
                 parentScript.FinishCollect();
             else
-                Debug.LogWarning("ParentScript reference not set on CollectableAnimationEventRelay!");
+                Debug.LogWarning("[LootAnimationEventRelay] ParentScript reference not set on CollectableAnimationEventRelay!");
         }
     }
 }

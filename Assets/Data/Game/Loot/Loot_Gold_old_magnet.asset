@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df183a403b437c9468586d604a15b76b, type: 3}
-  m_Name: Loot_Gold
+  m_Name: Loot_Gold_old_magnet
   m_EditorClassIdentifier: Assembly-CSharp::Game.Loot.GameLootSO
   displayName: Gold
   icon: {fileID: 2107215887564933441, guid: aadf943aff7310448ae133ca3b91f934, type: 3}
-  defaultContribution: 1
+  contribution: 1
   worldPrefab: {fileID: 5766373616286450283, guid: 1d67f7d2378ab7144b09e68e8977f67f, type: 3}
   physicsMode: 1
-  collectionMode: 3
-  collectableDelay: 0.25
-  baseMagnetSpeed: 0.01
-  magnetArrivalDistance: 0.001
+  collectionMode: 0
+  collectableDelay: 0.75
+  baseMagnetSpeed: 12
+  magnetArrivalDistance: 0.05
   enableBounce: 0
   bounceImpulse: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 0
-  horizontalForce: 0
-  verticalForce: 0
+  horizontalForce: 1
+  verticalForce: 3
   lootType: 0

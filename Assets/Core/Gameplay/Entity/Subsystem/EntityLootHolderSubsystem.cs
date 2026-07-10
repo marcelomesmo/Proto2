@@ -32,51 +32,90 @@ namespace Core.Gameplay.Entity.Subsystem
         
         protected override void HandleTagAdded(GameplayTag tag)
         {
-            if (tag == Controller.Stats.deadTag)
-            {
-                if (_lootRolled)
-                    return;
+            if (tag != Controller.Stats.deadTag)
+                return;
 
-                _lootRolled = true;
-                RollAndSpawnLoot();
-            }
+            if (_lootRolled)
+                return;
+
+            _lootRolled = true;
+            RollAndSpawnLoot();
         }
 
         private void RollAndSpawnLoot()
         {
+            if (!lootTable)
+            {
+                Debug.LogWarning($"[{nameof(EntityLootHolderSubsystem)}] No loot table assigned.", this);
+                return;
+            }
+            
+            if (lootTable.entries == null)
+                return;
+            
             foreach (var entry in lootTable.entries)
             {
+                if (!entry.loot)
+                    continue;
+                
                 if (_rngController.NextFloat() > entry.dropChance)
                     continue;
 
+                // Roll amount of items
                 int amount = _rngController.NextInt(entry.minAmount, entry.maxAmount + 1);
+                
+                int minContribution = entry.minContribution;
+                int maxContribution = entry.maxContribution;
 
                 for (int i = 0; i < amount; i++)
-                    SpawnCollectable(entry.loot);
+                {
+                    // Roll per item contribution (e.g. Gold loot contributes between 5 and 9 gold).
+                    int contribution = _rngController.NextInt(
+                        minContribution,
+                        maxContribution + 1
+                    );
+                    
+                    SpawnCollectable(entry.loot, contribution);
+                }
             }
         }
         
-        private void SpawnCollectable(LootSO loot)
+        private void SpawnCollectable(LootSO loot, int contribution)
         {
             //Debug.Log("Spawning resource " + resource.displayName);
 
+            if (!loot.worldPrefab)
+            {
+                Debug.LogError($"[{nameof(EntityLootHolderSubsystem)}] Loot '{loot.name}' has no world prefab.", this);
+                return;
+            }
+            
             Vector2 start = transform.position;
 
             BaseLoot spawned = Instantiate(loot.worldPrefab, start, Quaternion.identity);
-            if (!spawned) return;
             
-            LootController lootController = spawned.GetComponent<LootController>();
-            if (!lootController)
+            if (!spawned) 
+                return;
+            
+            spawned.Initialize(loot, contribution);
+            
+            if (!spawned.TryGetComponent(out LootController lootController))
             {
-                Debug.LogError("Loot prefab missing LootController");
+                Debug.LogError($"Loot prefab '{spawned.name}' is missing LootController.", spawned);
+                Destroy(spawned.gameObject);
                 return;
             }
+            
             float spread = 0.6f; // tweak
             float bias = (_rngController.NextBool() ? -1f : 1f) * spread;
             
             Vector2 directionBias = new Vector2(bias, 1f);
             
-            lootController.Launch(directionBias, spawned.lootData.horizontalForce, spawned.lootData.verticalForce);
+            lootController.Launch(
+                directionBias,
+                loot.horizontalForce,
+                loot.verticalForce
+            );
         }
     }
 }

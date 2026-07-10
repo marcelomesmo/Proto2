@@ -25,9 +25,7 @@ namespace Core.Gameplay.Entity.Subsystem
             for (int i = 0; i < count; i++)
             {
                 if (_lootBuffer[i].TryGetComponent(out IMagnetizableLoot loot))
-                {
                     loot.TryBeginMagnet(transform, magnetSpeedMultiplier);
-                }
             }
         }
         
