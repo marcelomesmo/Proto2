@@ -15,19 +15,25 @@ MonoBehaviour:
   stages:
   - stage: 0
     requiredLevel: 0
-    portraitOverride: {fileID: 5026090525018443169, guid: 7ba3020842a231b4d8a066ca1ec3d44c, type: 3}
-    spriteOverride: {fileID: -1684165034, guid: 4346e3489e642134da43d1281306008b, type: 3}
+    displayName: Pluto
+    displayDescription: Guardian of the Crystal Forest. Savior of trees.
+    portraitOverride: {fileID: 0}
+    spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 9299c6d01e89dde478d797406cd84311, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7729e0b4d5924214798ebf0e3c28799f, type: 2}
   - stage: 1
     requiredLevel: 3
+    displayName: 
+    displayDescription: 
     portraitOverride: {fileID: 0}
-    spriteOverride: {fileID: -1106886602, guid: e74dde0734cb2784ab3805021f5748ed, type: 3}
+    spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 74218a578a391f644a001648de1a2907, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: ab16a0b8658627c448211ee8c6e04b73, type: 2}
   - stage: 2
     requiredLevel: 7
+    displayName: 
+    displayDescription: 
     portraitOverride: {fileID: 0}
-    spriteOverride: {fileID: 1521481277, guid: 2dfcf31e428a7eb4ca964bbb1f738499, type: 3}
+    spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 11685ee7c8c62184fa265e20547d96cd, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: af1594a3d04c723499e1023790b25bf1, type: 2}

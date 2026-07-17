@@ -17,9 +17,9 @@ MonoBehaviour:
   description: aeeae ggrass leaf
   executionMode: 1
   combatActionType: 0
-  amount: 2
-  range: 8
-  cooldown: 3
+  amount: 3
+  range: 4
+  cooldown: 4
   hitTypes: 16
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}

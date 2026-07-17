@@ -51,6 +51,12 @@ namespace Game.UI.Upgrades
             Refresh();
         }
         
+        // It is also worth hiding the tooltip when a currently hovered node disappears, particularly when resetting upgrades
+        private void OnDisable()
+        {
+            _treePanel?.HideTooltip();
+        }
+        
         //
         //  State handling
         //
@@ -59,11 +65,22 @@ namespace Game.UI.Upgrades
             if (upgrade == null || _save == null || _upgradeManager == null)
                 return;
 
+            // Visibility
+            bool shouldBeVisible = IsRevealed;
+
+            if (gameObject.activeSelf != shouldBeVisible)
+                gameObject.SetActive(shouldBeVisible);
+
+            if (!shouldBeVisible)
+                return;
+            
             ApplyDefaults();
 
             int level = _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId);
-            if(level >= 1) bgPurchased.SetActive(true);
             int maxLevel = upgrade.maxLevel;
+            
+            if (level >= 1) 
+                bgPurchased.SetActive(true);
             
             //icon.sprite = upgrade.icon;
             icon.material = normalMaterial;//level > 0 ? normalMaterial : grayscaleMaterial;
@@ -73,15 +90,19 @@ namespace Game.UI.Upgrades
             switch(state)
             {
                 case UpgradeNodeState.Locked:
+                    // This normally cannot occur while revealed, unless a purchased
+                    // upgrade later becomes locked due to some external rule.
                     button.interactable = false;
                     icon.material = grayscaleMaterial;
                     break;
+                
                 case UpgradeNodeState.Affordable:
                 case UpgradeNodeState.Available:
                     if(maxLevel > 1) levelText.text = $"{level} / {maxLevel}";
                     // cant interact if out of coins
                     button.interactable = _upgradeManager.CanPurchaseUpgrade(upgrade.UpgradeId);
                     break;
+                
                 case UpgradeNodeState.Maxed:
                     iconMaxed.SetActive(true);
                     button.interactable = false;
@@ -137,6 +158,24 @@ namespace Game.UI.Upgrades
                     return false;
 
                 return _upgradeManager.GetUpgradeLevel(upgrade.UpgradeId) >= 1;
+            }
+        }
+        
+        public bool IsRevealed
+        {
+            get
+            {
+                if (upgrade == null || _upgradeManager == null)
+                    return false;
+
+                // Once purchased, the node remains revealed permanently.
+                if (_upgradeManager.GetUpgradeLevel(upgrade.UpgradeId) > 0)
+                    return true;
+
+                // Available and Affordable are both progression-unlocked.
+                return _upgradeManager.GetState(upgrade.UpgradeId) is
+                    UpgradeNodeState.Available or
+                    UpgradeNodeState.Affordable;
             }
         }
 

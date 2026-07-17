@@ -66,7 +66,7 @@ namespace Game.UI.Upgrades
                     break;
 
                 case UpgradeConnectionState.Available:
-                    ApplyVisual(availableColor, activeSprite);
+                    ApplyVisual(availableColor, inactiveSprite);
                     break;
                 
                 case UpgradeConnectionState.Purchased:

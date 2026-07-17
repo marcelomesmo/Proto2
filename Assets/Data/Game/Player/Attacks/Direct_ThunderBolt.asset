@@ -17,9 +17,9 @@ MonoBehaviour:
   description: shots thunderbolt lol
   executionMode: 3
   combatActionType: 0
-  amount: 2
-  range: 10
-  cooldown: 4
+  amount: 4
+  range: 5
+  cooldown: 5
   hitTypes: 32
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}

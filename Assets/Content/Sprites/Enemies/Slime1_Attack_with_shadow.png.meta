@@ -1,0 +1,693 @@
+fileFormatVersion: 2
+guid: 5687666e9b25aeb4eb641a95567f4125
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7805651503555588312
+    second: Slime1_Attack_with_shadow_0
+  - first:
+      213: -7321279784800729530
+    second: Slime1_Attack_with_shadow_1
+  - first:
+      213: 3510706502969017690
+    second: Slime1_Attack_with_shadow_2
+  - first:
+      213: 7143320205277930514
+    second: Slime1_Attack_with_shadow_3
+  - first:
+      213: -6083965429483905588
+    second: Slime1_Attack_with_shadow_4
+  - first:
+      213: 4383382143752402240
+    second: Slime1_Attack_with_shadow_5
+  - first:
+      213: 4831445584062161421
+    second: Slime1_Attack_with_shadow_6
+  - first:
+      213: 1248206025874506834
+    second: Slime1_Attack_with_shadow_7
+  - first:
+      213: 4016281899362717815
+    second: Slime1_Attack_with_shadow_8
+  - first:
+      213: 8207415870853122390
+    second: Slime1_Attack_with_shadow_9
+  - first:
+      213: 584895581410353491
+    second: Slime1_Attack_with_shadow_10
+  - first:
+      213: 24028012168690428
+    second: Slime1_Attack_with_shadow_11
+  - first:
+      213: 6635940080419753855
+    second: Slime1_Attack_with_shadow_12
+  - first:
+      213: -7923270055728786915
+    second: Slime1_Attack_with_shadow_13
+  - first:
+      213: 1399196715792163933
+    second: Slime1_Attack_with_shadow_14
+  - first:
+      213: -7504434132302213203
+    second: Slime1_Attack_with_shadow_15
+  - first:
+      213: -6285104844264124156
+    second: Slime1_Attack_with_shadow_16
+  - first:
+      213: 6886003706180592840
+    second: Slime1_Attack_with_shadow_17
+  - first:
+      213: -362716803677633236
+    second: Slime1_Attack_with_shadow_18
+  - first:
+      213: -7463213729076132145
+    second: Slime1_Attack_with_shadow_19
+  - first:
+      213: -406511632901105586
+    second: Slime1_Attack_with_shadow_20
+  - first:
+      213: -4635834275776092033
+    second: Slime1_Attack_with_shadow_21
+  - first:
+      213: 986106091595395471
+    second: Slime1_Attack_with_shadow_22
+  - first:
+      213: -5192374182526898846
+    second: Slime1_Attack_with_shadow_23
+  - first:
+      213: -2092141015134705464
+    second: Slime1_Attack_with_shadow_24
+  - first:
+      213: 8775594532268298160
+    second: Slime1_Attack_with_shadow_25
+  - first:
+      213: -3444697852586642062
+    second: Slime1_Attack_with_shadow_26
+  - first:
+      213: -1642963902028563237
+    second: Slime1_Attack_with_shadow_27
+  - first:
+      213: -2554877927682985722
+    second: Slime1_Attack_with_shadow_28
+  - first:
+      213: -3859175481597114998
+    second: Slime1_Attack_with_shadow_29
+  - first:
+      213: 3933886095459770835
+    second: Slime1_Attack_with_shadow_30
+  - first:
+      213: -7492565761197936166
+    second: Slime1_Attack_with_shadow_31
+  - first:
+      213: -5382375694112454190
+    second: Slime1_Attack_with_shadow_32
+  - first:
+      213: -1249471394561887231
+    second: Slime1_Attack_with_shadow_33
+  - first:
+      213: -3986990830797543799
+    second: Slime1_Attack_with_shadow_34
+  - first:
+      213: 9058135659893041468
+    second: Slime1_Attack_with_shadow_35
+  - first:
+      213: -3397813504984165077
+    second: Slime1_Attack_with_shadow_36
+  - first:
+      213: 2126844977740172842
+    second: Slime1_Attack_with_shadow_37
+  - first:
+      213: 5972140025827781622
+    second: Slime1_Attack_with_shadow_38
+  - first:
+      213: -5080665820648499943
+    second: Slime1_Attack_with_shadow_39
+  - first:
+      213: -1622997503895604465
+    second: Slime1_Attack_with_shadow_40
+  - first:
+      213: -8665511010462879266
+    second: Slime1_Attack_with_shadow_41
+  - first:
+      213: 4052038598437381070
+    second: Slime1_Attack_with_shadow_42
+  - first:
+      213: -1982827267343096519
+    second: Slime1_Attack_with_shadow_43
+  - first:
+      213: 7653688086209067637
+    second: Slime1_Attack_with_shadow_44
+  - first:
+      213: 7468182277324577435
+    second: Slime1_Attack_with_shadow_45
+  - first:
+      213: 6442151410329204666
+    second: Slime1_Attack_with_shadow_46
+  - first:
+      213: -8104994330764469101
+    second: Slime1_Attack_with_shadow_47
+  - first:
+      213: -1431731876897383036
+    second: Slime1_Attack_with_shadow_48
+  - first:
+      213: 7492979208176952965
+    second: Slime1_Attack_with_shadow_49
+  - first:
+      213: 655661748316337519
+    second: Slime1_Attack_with_shadow_50
+  - first:
+      213: 2019787396164728922
+    second: Slime1_Attack_with_shadow_51
+  - first:
+      213: 893322661211811366
+    second: Slime1_Attack_with_shadow_52
+  - first:
+      213: -8249536032691642872
+    second: Slime1_Attack_with_shadow_53
+  - first:
+      213: -4502323443154249457
+    second: Slime1_Attack_with_shadow_54
+  - first:
+      213: 2357066401889078060
+    second: Slime1_Attack_with_shadow_55
+  - first:
+      213: 3478505855067281688
+    second: Slime1_Attack_with_shadow_56
+  - first:
+      213: -6102968016631033422
+    second: Slime1_Attack_with_shadow_57
+  - first:
+      213: -6438426324926986397
+    second: Slime1_Attack_with_shadow_58
+  - first:
+      213: 6615792827053165831
+    second: Slime1_Attack_with_shadow_59
+  - first:
+      213: 4653189329561692226
+    second: Slime1_Attack_with_shadow_60
+  - first:
+      213: 1271652750717456742
+    second: Slime1_Attack_with_shadow_61
+  - first:
+      213: 8520186268302517375
+    second: Slime1_Attack_with_shadow_62
+  - first:
+      213: -7954205918333488810
+    second: Slime1_Attack_with_shadow_63
+  - first:
+      213: 5847554564573328952
+    second: Slime1_Attack_with_shadow_64
+  - first:
+      213: -8430864624834941634
+    second: Slime1_Attack_with_shadow_65
+  - first:
+      213: 5371089481120604819
+    second: Slime1_Attack_with_shadow_66
+  - first:
+      213: -1343656749049171241
+    second: Slime1_Attack_with_shadow_67
+  - first:
+      213: -2241073452025676059
+    second: Slime1_Attack_with_shadow_68
+  - first:
+      213: 6082912092601362573
+    second: Slime1_Attack_with_shadow_69
+  - first:
+      213: 6524850247417639512
+    second: Slime1_Attack_with_shadow_70
+  - first:
+      213: 8461867961567655142
+    second: Slime1_Attack_with_shadow_71
+  - first:
+      213: -673640372166702488
+    second: Slime1_Attack_with_shadow_72
+  - first:
+      213: -7975837452983862902
+    second: Slime1_Attack_with_shadow_73
+  - first:
+      213: 6241079335071152701
+    second: Slime1_Attack_with_shadow_74
+  - first:
+      213: 1442294248125866637
+    second: Slime1_Attack_with_shadow_75
+  - first:
+      213: 1361613519621789046
+    second: Slime1_Attack_with_shadow_76
+  - first:
+      213: 211298390483149975
+    second: Slime1_Attack_with_shadow_77
+  - first:
+      213: 916226435783522205
+    second: Slime1_Attack_with_shadow_78
+  - first:
+      213: -2608744175087395347
+    second: Slime1_Attack_with_shadow_79
+  - first:
+      213: -2851229238915521077
+    second: Slime1_Attack_with_shadow_80
+  - first:
+      213: 4965148471862971179
+    second: Slime1_Attack_with_shadow_81
+  - first:
+      213: 7825948791901692105
+    second: Slime1_Attack_with_shadow_82
+  - first:
+      213: -7624809350187913354
+    second: Slime1_Attack_with_shadow_83
+  - first:
+      213: 3518958503173216470
+    second: Slime1_Attack_with_shadow_84
+  - first:
+      213: -8632735829071702994
+    second: Slime1_Attack_with_shadow_85
+  - first:
+      213: -7349275048833675410
+    second: Slime1_Attack_with_shadow_86
+  - first:
+      213: -1997503006898513856
+    second: Slime1_Attack_with_shadow_87
+  - first:
+      213: -8893936774393628527
+    second: Slime1_Attack_with_shadow_88
+  - first:
+      213: 7820241711256357983
+    second: Slime1_Attack_with_shadow_89
+  - first:
+      213: -4849363277217149766
+    second: Slime1_Attack_with_shadow_90
+  - first:
+      213: 7567713230679455340
+    second: Slime1_Attack_with_shadow_91
+  - first:
+      213: 7134611392874976925
+    second: Slime1_Attack_with_shadow_92
+  - first:
+      213: -855258105587438110
+    second: Slime1_Attack_with_shadow_93
+  - first:
+      213: 8642524109122884625
+    second: Slime1_Attack_with_shadow_94
+  - first:
+      213: 929285575566148712
+    second: Slime1_Attack_with_shadow_95
+  - first:
+      213: -6546558186476689101
+    second: Slime1_Attack_with_shadow_96
+  - first:
+      213: 1840268745548400065
+    second: Slime1_Attack_with_shadow_97
+  - first:
+      213: -3547759990769028040
+    second: Slime1_Attack_with_shadow_98
+  - first:
+      213: -3790252335436470509
+    second: Slime1_Attack_with_shadow_99
+  - first:
+      213: 563796196770281038
+    second: Slime1_Attack_with_shadow_100
+  - first:
+      213: 7723767390542506083
+    second: Slime1_Attack_with_shadow_101
+  - first:
+      213: -2524146929474963271
+    second: Slime1_Attack_with_shadow_102
+  - first:
+      213: -388473390907547512
+    second: Slime1_Attack_with_shadow_103
+  - first:
+      213: -8153214261745955360
+    second: Slime1_Attack_with_shadow_104
+  - first:
+      213: -1942145939667797766
+    second: Slime1_Attack_with_shadow_105
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82f431a4051cca390800000000000000
+      internalID: -7805651503555588312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64644b553d6956a90800000000000000
+      internalID: -7321279784800729530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a554f14c6f888b030800000000000000
+      internalID: 3510706502969017690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214267831eb222360800000000000000
+      internalID: 7143320205277930514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccddad51da9619ba0800000000000000
+      internalID: -6083965429483905588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 045f629e5d6e4dc30800000000000000
+      internalID: 4383382143752402240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d02a7ad192ebc0340800000000000000
+      internalID: 4831445584062161421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25480ca64c4825110800000000000000
+      internalID: 1248206025874506834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7709859bb13bcb730800000000000000
+      internalID: 4016281899362717815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Attack_with_shadow_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6598a12ff3996e170800000000000000
+      internalID: 8207415870853122390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 205fdc35a567269468628786b8469965
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":2.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Slime1_Attack_with_shadow_0: -7805651503555588312
+      Slime1_Attack_with_shadow_1: -7321279784800729530
+      Slime1_Attack_with_shadow_2: 3510706502969017690
+      Slime1_Attack_with_shadow_3: 7143320205277930514
+      Slime1_Attack_with_shadow_4: -6083965429483905588
+      Slime1_Attack_with_shadow_5: 4383382143752402240
+      Slime1_Attack_with_shadow_6: 4831445584062161421
+      Slime1_Attack_with_shadow_7: 1248206025874506834
+      Slime1_Attack_with_shadow_8: 4016281899362717815
+      Slime1_Attack_with_shadow_9: 8207415870853122390
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

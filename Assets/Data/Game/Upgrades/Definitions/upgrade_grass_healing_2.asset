@@ -22,7 +22,7 @@ MonoBehaviour:
       requiredLevel: 1
   levelCosts: 0100000001000000
   levelDescriptions:
-  - '[Healing] +10'
-  - '[Healing] +10'
+  - '[Grass] skills [Healing] +20'
+  - '[Grass] skills [Healing] +100'
   effects:
   - {fileID: 11400000, guid: 519cb195cd5c9b048afe42b7844aeeff, type: 2}

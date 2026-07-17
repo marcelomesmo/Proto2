@@ -8,6 +8,7 @@ namespace Game.UI.Roster
     public class CharacterTooltip : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI stats;
         [SerializeField] private TextMeshProUGUI attacks;
 
@@ -16,8 +17,11 @@ namespace Game.UI.Roster
             gameObject.SetActive(true);
 
             title.text = evolutionData.stages[0].displayName;
-            stats.text = BuildStats(def);
-            attacks.text = BuildAttacks(def, evolutionData);
+            description.text = evolutionData.stages[0].displayDescription;
+            if(stats)
+                stats.text = BuildStats(def);
+            if(attacks)
+                attacks.text = BuildAttacks(def, evolutionData);
 
             // in the future we can pass an anchor if we want to change the ui position
             //transform.position = anchor.position;

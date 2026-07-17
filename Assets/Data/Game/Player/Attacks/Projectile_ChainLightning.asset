@@ -17,9 +17,9 @@ MonoBehaviour:
   description: yeah shocky
   executionMode: 1
   combatActionType: 0
-  amount: 2
-  range: 9
-  cooldown: 5
+  amount: 1
+  range: 6
+  cooldown: 6
   hitTypes: 32
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}

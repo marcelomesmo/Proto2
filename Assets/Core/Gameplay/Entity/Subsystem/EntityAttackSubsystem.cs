@@ -341,46 +341,87 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private void ShootProjectile(AttackInstance attack, AttackContext context)
         {
+            // 1. Resolve the actual projectile origin first.
+            // Spawn at CastAnchor when available.
+            var spawnTransform =
+                _presentation && _presentation.CastAnchor
+                    ? _presentation.CastAnchor
+                    : transform;
+            Vector2 spawnPosition = spawnTransform.position;
+
+            // 2. Resolve the final projectile direction.
+            Vector2 launchDirection;
+
+            switch (attack.Data.directionMode)
+            {
+                case ProjectileDirectionMode.UseAttackDirection:
+                {
+                    // A targeted projectile must calculate its direction from
+                    // its actual spawn point, not from the entity root.
+                    if (context.Target)
+                    {
+                        Vector2 targetPosition =
+                            context.Target.transform.position;
+
+                        launchDirection =
+                            targetPosition - spawnPosition;
+                    }
+                    else
+                    {
+                        // Preserve the Brain-provided direction for blind or
+                        // otherwise targetless attacks.
+                        launchDirection = context.Direction;
+                    }
+
+                    break;
+                }
+
+                case ProjectileDirectionMode.FixedAngle:
+                {
+                    float radians =
+                        attack.Data.fixedAngle * Mathf.Deg2Rad;
+
+                    launchDirection = new Vector2(
+                        Mathf.Cos(radians),
+                        Mathf.Sin(radians)
+                    );
+
+                    break;
+                }
+
+                case ProjectileDirectionMode.HorizontalFacing:
+                default:
+                {
+                    // CastAnchor is already rotated by the presentation subsystem.
+                    launchDirection = spawnTransform.right;
+                    break;
+                }
+            }
+            
             if (context.Direction.sqrMagnitude < 0.0001f)
             {
                 Debug.LogWarning(
                     $"[EntityAttackSubsystem] Invalid projectile direction on {Controller.name}",
                     this);
             }
-
-            // 1. Resolve the correct angle and direction.
-            float angle;
-            switch (attack.Data.directionMode)
-            {
-                case ProjectileDirectionMode.UseAttackDirection:
-                    angle = Mathf.Atan2(context.Direction.y, context.Direction.x) * Mathf.Rad2Deg;
-                    break;
-
-                case ProjectileDirectionMode.FixedAngle:
-                    angle = attack.Data.fixedAngle;
-                    break;
-
-                case ProjectileDirectionMode.HorizontalFacing:
-                default:
-                    angle = context.Direction.x < 0 ? 180f : 0f;
-                    break;
-            }
-
-            // 2. Spawn pooled projectile
-            var projectile = ProjectilePoolManager.Instance.Spawn(attack.Data.projectilePrefab);
             
-            // Spawn at CastAnchor when available.
-            var spawnTransform =
-                _presentation && _presentation.CastAnchor
-                    ? _presentation.CastAnchor
-                    : transform;
+            launchDirection.Normalize();
+
+            float angle =
+                Mathf.Atan2(
+                    launchDirection.y,
+                    launchDirection.x
+                ) * Mathf.Rad2Deg;
+
+            // 3. Spawn pooled projectile
+            var projectile = ProjectilePoolManager.Instance.Spawn(attack.Data.projectilePrefab);
 
             projectile.transform.SetPositionAndRotation(
-                spawnTransform.position,
+                spawnPosition,              // Adjusted to match shift caused by CastAnchor
                 spawnTransform.rotation
             );
             
-            // 4. Damage source
+            // 4. Construct the combat data.
             var targetFilter = BuildAttackTargetFilter(attack.Data);
             
             var combatSource = new AttackSource(

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Entity.Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ namespace Game.UI.Roster
         [Header("Rendering")]
         [SerializeField] private Camera previewCamera;
         [SerializeField] private int slotResolution = 256;
+        [SerializeField] private TMP_Text partyCountText;
 
         [Header("Slots")]
         [SerializeField] private RawImage previewDisplay;
@@ -20,12 +22,15 @@ namespace Game.UI.Roster
 
         private RenderTexture _renderTexture;
         private readonly List<GameObject> _activePreviewInstances = new();
+
+        private int _maxSlots;
+        private int _selectedSlots;
         
         private void Awake()
         {
-            int maxSlots = loadout.MaxPartySize;
-            ValidateSlotSetup(maxSlots);
-            BuildRenderTexture(maxSlots);
+            _maxSlots = loadout.MaxPartySize;
+            ValidateSlotSetup(_maxSlots);
+            BuildRenderTexture(_maxSlots);
             previewDisplay.enabled = true;
         }
         
@@ -86,6 +91,14 @@ namespace Game.UI.Roster
                 
                 _activePreviewInstances.Add(instance);
             }
+            
+            _selectedSlots = characters.Count;
+            partyCountText.text = $"Party [{_selectedSlots}/{_maxSlots}]";
+            if (_selectedSlots == 0)
+                partyCountText.color = Color.darkGray;
+            else
+                partyCountText.color = Color.white;
+
         }
         
         // --------------------------------------------------

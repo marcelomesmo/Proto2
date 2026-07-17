@@ -20,6 +20,7 @@ namespace Game.Entity.Player.Progression
 
             [Header("Presentation")] 
             public string displayName;
+            public string displayDescription;
             public Sprite portraitOverride;
             public Sprite spriteOverride;
             public RuntimeAnimatorController animatorOverride;

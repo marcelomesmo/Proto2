@@ -17,7 +17,9 @@ MonoBehaviour:
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
-    requirements: []
+    requirements:
+    - upgrade: {fileID: 11400000, guid: 1cebb93cc3bbc8645bd5d457d12f93da, type: 2}
+      requiredLevel: 1
   levelCosts: 0a000000
   levelDescriptions:
   - '[ThunderBolt] now hits for x1.5 DMG'

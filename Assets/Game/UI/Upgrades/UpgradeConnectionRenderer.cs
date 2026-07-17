@@ -181,15 +181,43 @@ namespace Game.UI.Upgrades
             {
                 if (binding.View == null)
                     continue;
-
-                if (binding.ChildNode == null)
+                
+#if UNITY_EDITOR
+                // Keep the complete tree visible while editing the layout.
+                if (!Application.isPlaying)
                 {
+                    binding.View.gameObject.SetActive(true);
                     binding.View.SetState(UpgradeConnectionState.Inactive);
                     continue;
                 }
+#endif
+                bool shouldBeVisible =
+                    binding.ParentNode != null &&
+                    binding.ChildNode != null &&
+                    binding.ParentNode.IsRevealed &&
+                    binding.ChildNode.IsRevealed;
 
-                binding.View.SetState(
-                    binding.ChildNode.GetIncomingConnectionState());
+                if (binding.View.gameObject.activeSelf != shouldBeVisible)
+                    binding.View.gameObject.SetActive(shouldBeVisible);
+
+                if (!shouldBeVisible)
+                    continue;
+                
+                /*if (binding.ChildNode == null)
+                {
+                    binding.View.SetState(UpgradeConnectionState.Inactive);
+                    continue;
+                }*/
+
+                UpgradeConnectionState state =
+                    binding.ParentNode.IsPurchased &&
+                    binding.ChildNode.IsPurchased
+                        ? UpgradeConnectionState.Purchased
+                        : UpgradeConnectionState.Available;
+
+                binding.View.SetState(state);
+                //binding.View.SetState(
+                //    binding.ChildNode.GetIncomingConnectionState());
             }
         }
 
@@ -265,8 +293,8 @@ namespace Game.UI.Upgrades
                         ChildNode = toNode
                     });
 
-                view.SetState(
-                    toNode.GetIncomingConnectionState());
+                //view.SetState(
+                //    toNode.GetIncomingConnectionState());
             }
             
             //connection.sizeDelta =

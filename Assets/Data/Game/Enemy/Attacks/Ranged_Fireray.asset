@@ -18,18 +18,23 @@ MonoBehaviour:
   executionMode: 2
   combatActionType: 0
   amount: 5
-  range: 6
+  range: 3
   cooldown: 15
   hitTypes: 4
-  hitVFX: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
-  castVFX: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+  hitVFX: {fileID: 8784488540992764676, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
+  castVFX: {fileID: 68820418738985188, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
   targetType: 1
+  targetSelectionMode: 0
+  targetRequirement: 0
   targetLayers:
     serializedVersion: 2
     m_Bits: 256
   projectilePrefab: {fileID: 0}
   directionMode: 1
   fixedAngle: 0
-  areaEffectData: {fileID: 11400000, guid: 72893af0a41f619468963d26e8a2ffea, type: 2}
+  areaAttackData: {fileID: 0}
   chainData: {fileID: 0}
   effects: []
+  isPassive: 0
+  castSilently: 0
+  baseAttack: {fileID: 0}

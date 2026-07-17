@@ -4,6 +4,14 @@ using System;
 
 namespace Core.Camera
 {
+    
+    /// <summary>
+    ///
+    ///             DEPRECATED
+    ///
+    ///
+    /// 
+    /// </summary>
     public class TransparentGame : MonoBehaviour
     {
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
