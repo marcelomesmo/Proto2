@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0689cd75e11c7e94fb764a280a36bf02, type: 3}
   m_Name: E_1_slime
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
-  characterId: E_1_slime
-  portrait: {fileID: 21300000, guid: 3609fa9a2bc4bb4488cd1b1796e88f94, type: 3}
+  rosterScreenPortrait: {fileID: 0}
+  previewPrefab: {fileID: 0}
   prefab: {fileID: 5052942017189829625, guid: e10bd4fca61af894ca8bf4694154d714, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: 980cb2fc81a01da449f618f13847ee9f, type: 2}
-  baseStats: {fileID: 11400000, guid: e081888cb8388f84cbc55e68be753833, type: 2}
+  baseStats: {fileID: 11400000, guid: 58e297e8e34d69e4bb84821100c7367f, type: 2}

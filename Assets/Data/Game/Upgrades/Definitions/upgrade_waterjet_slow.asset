@@ -22,6 +22,6 @@ MonoBehaviour:
       requiredLevel: 1
   levelCosts: fa000000
   levelDescriptions:
-  - '[WaterJet] now applies Slow.'
+  - '[WaterJet] now applies Slow'
   effects:
   - {fileID: 11400000, guid: e746a8b0bd56f7d46baeb37ea4071582, type: 2}

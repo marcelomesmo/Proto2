@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: fireball_bigfireball_variant
   displayName: Bigger Fireball
-  description: '[FireBall] 3rd cast becomes Bigger Fireball'
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
@@ -24,6 +22,6 @@ MonoBehaviour:
       requiredLevel: 1
   levelCosts: 96000000
   levelDescriptions:
-  - '[FireBall] 3rd cast becomes Bigger Fireball'
+  - '[FireBall] 3rd cast becomes [Bigger Fireball]'
   effects:
   - {fileID: 11400000, guid: 0d3fe251946a94a4fb89fb4487c9b6fb, type: 2}

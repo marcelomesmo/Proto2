@@ -13,9 +13,23 @@ MonoBehaviour:
   m_Name: BaseCastleStats
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Stats.CastleStats
   characterId: Castle
+  displayName: 
   faction: 1
-  maxHealth: 120
+  attackPower: 0
+  healingPower: 0
+  defense: 0
+  resistance: 0
+  critChance: 0
+  critDamage: 0
+  combatEntityLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  aggroRadius: 8
+  aggroTolerance: 10
+  maxHealth: 50
   moveSpeed: 0
+  thinkingTime: 1.5
+  globalCooldown: 0.5
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
   spawnFinishedTag: {fileID: 11400000, guid: 89f3d546c6eebda408a411e9a7ce422b, type: 2}
   matchEndedTag: {fileID: 0}
@@ -23,6 +37,6 @@ MonoBehaviour:
   stunTag: {fileID: 0}
   slowTag: {fileID: 0}
   burnTag: {fileID: 0}
+  knockbackTag: {fileID: 0}
   lootBonus: 1
   expBonus: 1
-  initialTimer: 0

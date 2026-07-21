@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_damage_fire_6
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: damage_fire_6
-  displayName: Fire Synergy 6
-  description: Increase all [Fire] damage by 1
-  icon: {fileID: 0}
+  displayName: Fire Synergy VI
   maxLevel: 1
   upgradeUnlockRule:
     mode: 1

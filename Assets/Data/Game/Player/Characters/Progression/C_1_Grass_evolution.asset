@@ -22,7 +22,7 @@ MonoBehaviour:
     animatorOverride: {fileID: 22100000, guid: 9299c6d01e89dde478d797406cd84311, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7729e0b4d5924214798ebf0e3c28799f, type: 2}
   - stage: 1
-    requiredLevel: 3
+    requiredLevel: 5
     displayName: 
     displayDescription: 
     portraitOverride: {fileID: 0}
@@ -30,7 +30,7 @@ MonoBehaviour:
     animatorOverride: {fileID: 22100000, guid: 74218a578a391f644a001648de1a2907, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: ab16a0b8658627c448211ee8c6e04b73, type: 2}
   - stage: 2
-    requiredLevel: 7
+    requiredLevel: 15
     displayName: 
     displayDescription: 
     portraitOverride: {fileID: 0}

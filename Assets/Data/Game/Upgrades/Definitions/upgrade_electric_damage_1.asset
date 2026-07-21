@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_electric_damage_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_damage_1
-  displayName: E
+  displayName: Electric Synergy I
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

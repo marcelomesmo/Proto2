@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 3a59bc4963805d14dadb9bef93e69e4c, type: 2}
       requiredLevel: 1
-  levelCosts: 0100000001000000
+  levelCosts: 3200000064000000
   levelDescriptions:
   - '[Grass] skills [Healing] +20'
   - '[Grass] skills [Healing] +100'

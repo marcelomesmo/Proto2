@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
   m_Name: upgrade_damage_all_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: damage_global_1
-  displayName: Damage Up
-  description: Increase all damage by 1.
-  icon: {fileID: 0}
+  upgradeId: damage_all_1
+  displayName: Damage Up I
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

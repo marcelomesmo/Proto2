@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: upgrade_waterbubble_damage_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: waterbubble_damage_2
-  displayName: Bubbles
+  displayName: '[WaterBubble] Synergy II'
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 1d1a2f5305f7dc54f922db646d8fbef2, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 32000000
   levelDescriptions:
   - <color=grey>Increases</color> [Bubbles] DMG +1
   effects:

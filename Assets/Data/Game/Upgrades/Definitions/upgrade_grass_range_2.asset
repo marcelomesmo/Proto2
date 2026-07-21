@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 2744c721e8078b9439f28d50d7fffebf, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 46000000
   levelDescriptions:
   - Increase Grass attacks range by 1.
   effects:

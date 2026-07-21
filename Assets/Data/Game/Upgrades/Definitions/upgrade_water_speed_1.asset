@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 5cfeb07d46536ac42bfeb70256e53f7b, type: 2}
       requiredLevel: 2
-  levelCosts: 01000000
+  levelCosts: 4b000000
   levelDescriptions:
   - '[Water] Attack Speed +10%'
   effects:

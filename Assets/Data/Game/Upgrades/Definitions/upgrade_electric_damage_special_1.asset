@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: upgrade_electric_damage_special_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_damage_special_1
-  displayName: E
+  displayName: Electric Synergy Advanced
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 3c6745c099f447b49b9bec57fbeae3b3, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 96000000
   levelDescriptions:
-  - Electric Damage +1 and CritChance +2%
+  - Electric DMG +1 and CritChance +2%
   effects:
   - {fileID: 11400000, guid: cb6435a89b9bcd64d98ce25aa84e91c1, type: 2}
   - {fileID: 11400000, guid: abb6e3403ca501744b059fb5d888ed32, type: 2}

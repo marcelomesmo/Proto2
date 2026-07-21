@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e7e6c4c568ed5478b619c470bb8b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.VFX.FloatingLootVFX
-  lifetime: 0.5
+  lifetime: 1
   floatVelocity: {x: 0, y: 0.5, z: 0}
   alphaOverLifetime:
     serializedVersion: 2

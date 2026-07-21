@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
   m_Name: upgrade_area_speed_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: proj_speed_1
-  displayName: Sniper
+  upgradeId: area_speed_1
+  displayName: Fast Blast
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: fe985a7be48c75e419c52e7158f60fe9, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 4b000000
   levelDescriptions:
-  - All Speed +1
+  - AoE AtkSpeed +1
   effects:
   - {fileID: 11400000, guid: 2e845dfbe9bef3143aa99e434d3f58c3, type: 2}

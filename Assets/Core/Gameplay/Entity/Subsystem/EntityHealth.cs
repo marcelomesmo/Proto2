@@ -231,6 +231,9 @@ namespace Core.Gameplay.Entity.Subsystem
         // Heavy checks (animations, raycasts, slow queries) should be avoided there.
         public bool CanReceiveCombat(CombatPayload payload)
         {
+            if (Controller == null || Controller.IsReleased || Controller.Stats == null) // Indicators that the receiver is no longer valid.
+                return false;
+            
             if (Controller.IsDead &&
                 payload.action != CombatAction.Revive)
                 return false;

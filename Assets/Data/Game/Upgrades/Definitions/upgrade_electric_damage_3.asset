@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: upgrade_electric_damage_3
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_damage_3
-  displayName: E
+  displayName: Electric Synergy III
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: b4fc6114680979243a8efd23ea135c8c, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 32000000
   levelDescriptions:
   - Electric Damage +1
   effects:

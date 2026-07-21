@@ -22,7 +22,7 @@ MonoBehaviour:
     animatorOverride: {fileID: 22100000, guid: b6fa20c262ea36b40b7c0669d7980289, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 4ff62da2157107445ad3ab9e192a912e, type: 2}
   - stage: 1
-    requiredLevel: 3
+    requiredLevel: 5
     displayName: Stormick
     displayDescription: 
     portraitOverride: {fileID: 0}
@@ -30,7 +30,7 @@ MonoBehaviour:
     animatorOverride: {fileID: 22100000, guid: d5273c0b304d9674f9d343005e4326d5, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 5bbc7a01a1f6d6042af3210aa1bac55d, type: 2}
   - stage: 2
-    requiredLevel: 7
+    requiredLevel: 15
     displayName: Zeuphor
     displayDescription: 
     portraitOverride: {fileID: 0}

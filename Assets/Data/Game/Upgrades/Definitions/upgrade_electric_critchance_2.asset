@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: upgrade_electric_critchance_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_critchance_2
-  displayName: E
-  maxLevel: 2
+  displayName: Blasting Lights II
+  maxLevel: 3
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 16df478a2e448ec4c8bbd4996a777098, type: 2}
       requiredLevel: 1
-  levelCosts: 0a0000000a0000000a000000
+  levelCosts: 140000002800000046000000
   levelDescriptions:
-  - Electric CRITC +2
-  - Electric CRITC +4
-  - Electric CRITC +7
+  - Electric CRITCHANCE +2%
+  - Electric CRITCHANCE +4%
+  - Electric CRITCHANCE +7%
   effects:
   - {fileID: 11400000, guid: abb6e3403ca501744b059fb5d888ed32, type: 2}

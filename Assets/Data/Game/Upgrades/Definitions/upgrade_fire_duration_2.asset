@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: fire_duration_2
   displayName: Longer Flames 2
-  description: 'Increase '
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
@@ -24,7 +22,7 @@ MonoBehaviour:
       requiredLevel: 1
     - upgrade: {fileID: 11400000, guid: e9d3708c7a9c4a94594fec18085f6640, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 78000000
   levelDescriptions:
   - Increase [Fire] effects duration by 1 sec.
   effects:

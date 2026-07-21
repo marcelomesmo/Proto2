@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_damage_water_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: damage_water_2
-  displayName: Water Synergy
-  description: Increase all [Water] damage by 1.
-  icon: {fileID: 0}
+  displayName: Water Synergy II
   maxLevel: 3
   upgradeUnlockRule:
     mode: 0

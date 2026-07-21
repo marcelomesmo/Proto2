@@ -19,7 +19,7 @@ MonoBehaviour:
   combatActionType: 0
   amount: 3
   range: 4
-  cooldown: 4
+  cooldown: 3
   hitTypes: 16
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}

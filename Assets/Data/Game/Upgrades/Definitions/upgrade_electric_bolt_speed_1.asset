@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: upgrade_electric_bolt_speed_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_bolt_speed_1
-  displayName: E
+  displayName: Thor's Fury
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: a684665d2192a764dbd079547a54cf60, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 64000000
   levelDescriptions:
   - Bolt CD -10%
   effects:

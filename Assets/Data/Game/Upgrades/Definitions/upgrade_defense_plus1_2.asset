@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_defense_plus1_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: defense_plus1_2
-  displayName: Defense Bonus
-  description: Increases Crystal Defense
-  icon: {fileID: 0}
+  displayName: Defense Bonus 2
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

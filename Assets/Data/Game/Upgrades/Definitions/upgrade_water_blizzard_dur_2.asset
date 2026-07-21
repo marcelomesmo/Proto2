@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: upgrade_water_blizzard_dur_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: water_blizzard_dur_2
-  displayName: Bubbles
+  displayName: Longer Winters 2
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 4a1a9c7ad3eb7924f877191e64a437cf, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 3200000078000000
   levelDescriptions:
-  - '[Blizzard] ATK SPD +1'
+  - '[Blizzard] lasts +1 sec'
+  - '[Blizzard] lasts +2 sec'
   effects:
   - {fileID: 11400000, guid: 71a1655d7fb219b43a72e6781ca6e7eb, type: 2}

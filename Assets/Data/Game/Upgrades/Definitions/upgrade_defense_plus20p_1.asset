@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
   m_Name: upgrade_defense_plus20p_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: defense_plus_20p_1
-  displayName: Defense Bonus
-  description: 'Increases defense by '
-  icon: {fileID: 0}
+  upgradeId: defense_plus20p_1
+  displayName: Defense Bonus Advanced
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

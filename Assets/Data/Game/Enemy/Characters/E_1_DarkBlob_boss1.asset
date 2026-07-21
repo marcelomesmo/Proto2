@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0689cd75e11c7e94fb764a280a36bf02, type: 3}
-  m_Name: E_1_DarkBlob
+  m_Name: E_1_DarkBlob_boss1
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
   rosterScreenPortrait: {fileID: 0}
   previewPrefab: {fileID: 0}

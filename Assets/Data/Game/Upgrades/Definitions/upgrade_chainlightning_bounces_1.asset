@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: a30501d80ad082247b7fd4743794b177, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 96000000
   levelDescriptions:
   - '[Chain Lightning] +2 Bounces'
   effects:

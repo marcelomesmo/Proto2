@@ -170,8 +170,15 @@ namespace Game.Entity.Enemy.Subsystem
         // 
         private void OnDamageTaken(CombatPayload payload)
         {
-            if (payload.source.sourceEntity != null)
-                SetAggroTarget(payload.source.sourceEntity);
+            EntityController attacker =
+                payload.source?.sourceEntity;
+
+            if (!attacker)
+                return;
+
+            TrySetAggroTarget(
+                attacker,
+                requireLos: false);
         }
         
         //
@@ -273,6 +280,9 @@ namespace Game.Entity.Enemy.Subsystem
         //
         //  Passive skills
         // 
+        
+        #region Passive skills
+        
         private void OnLoadoutChanged()
         {
             // Avoid reapplying the same passives.
@@ -366,6 +376,8 @@ namespace Game.Entity.Enemy.Subsystem
             _appliedPassiveEffects.Clear();
         }
         
+        #endregion
+        
         //
         //  Targeting — movement target (CurrentTarget)
         //
@@ -386,22 +398,35 @@ namespace Game.Entity.Enemy.Subsystem
                 requireLos: true);
             
             if (best)
-                SetAggroTarget(best);
+                TrySetAggroTarget(best);
         }
         
-        private void SetAggroTarget(EntityController target)
+        private bool TrySetAggroTarget(
+            EntityController target,
+            bool requireLos = false)
         {
-            if (target == null || target.IsDead)
-                return;
+            float reactionRange =
+                _stats.aggroRadius +
+                _stats.aggroTolerance;
+
+            if (!_targeting.IsValidAggroTarget(
+                    target,
+                    reactionRange,
+                    requireLos))
+            {
+                return false;
+            }
             
             CurrentAggroTarget = target;
             
-            // Space enemies out so they don't all converge on the exact same pixel.
+            // Space enemies out so they don't all converge on the exact same position.
             float direction = transform.position.x > CurrentAggroTarget.transform.position.x 
                 ? 1f 
                 : -1f;
             
             _positionOffset = Random.Range(0.5f, 1f) * direction; // Will space them out based on which side they spawn
+
+            return true;
         }
         
         private void ClearTarget()

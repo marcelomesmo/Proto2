@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34718aac815b84c99231ce7998e2fc, type: 3}
   m_Name: upgrade_firebreath_duration_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
-  upgradeId: duration_firebreath_1
-  displayName: Longer Flames
-  description: Increase Flamethrower duration by 100%.
-  icon: {fileID: 0}
+  upgradeId: firebreath_duration_1
+  displayName: Lasting Flames
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: c96f0f70ed28f434e8c8cc0d9fe70fb2, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 4b000000
   levelDescriptions:
   - Increase Flamethrower duration by 2 sec
   effects:

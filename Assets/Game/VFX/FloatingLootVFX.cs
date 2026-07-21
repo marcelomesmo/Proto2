@@ -72,7 +72,7 @@ namespace Game.VFX
                     break;
             }
             
-            floatingText.text = $"{iconText}+{loot.LootValue}";
+            floatingText.text = $"{iconText}{loot.LootValue}";
             floatingText.color = textColor;
             
             _initialized = true;

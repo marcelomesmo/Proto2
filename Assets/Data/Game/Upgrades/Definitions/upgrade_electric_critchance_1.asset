@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_electric_critchance_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_critchance_1
-  displayName: E
+  displayName: Blasting Lights I
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
@@ -22,6 +22,6 @@ MonoBehaviour:
       requiredLevel: 1
   levelCosts: 0a000000
   levelDescriptions:
-  - Electric CRITC +1
+  - Electric CRITCHANCE +1%
   effects:
   - {fileID: 11400000, guid: abb6e3403ca501744b059fb5d888ed32, type: 2}

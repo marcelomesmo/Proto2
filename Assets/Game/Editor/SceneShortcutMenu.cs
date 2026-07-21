@@ -8,12 +8,21 @@ namespace Game.Editor
 {
     public static class SceneShortcutMenu
     {
+        private const string SplashScreenScenePath =
+            "Assets/Scenes/SplashScreen.unity";
+        
         private const string MainMenuScenePath =
             "Assets/Scenes/MainMenu.unity";
 
         private const string LevelScenePath =
             "Assets/Scenes/Levels/Level_01.unity";
 
+        [MenuItem("Game/Open Scene/Splash Screen")]
+        public static void OpenSplashScreen()
+        {
+            OpenScene(SplashScreenScenePath);
+        }
+        
         [MenuItem("Game/Open Scene/Main Menu")]
         public static void OpenMainMenu()
         {

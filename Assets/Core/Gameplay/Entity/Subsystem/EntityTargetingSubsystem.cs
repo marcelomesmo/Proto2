@@ -316,6 +316,62 @@ namespace Core.Gameplay.Entity.Subsystem
         }
         
         //
+        //  Validation
+        //
+        
+        public bool IsValidAggroTarget(
+            EntityController candidate,
+            float maximumRange,
+            bool requireLos = false)
+        {
+            if (!candidate)
+                return false;
+
+            if (candidate == Controller)
+                return false;
+
+            if (candidate.IsReleased || candidate.IsDead)
+                return false;
+
+            if (!candidate.Stats)
+                return false;
+
+            if (!candidate.TryGetComponent<EntityHealth>(out _))
+                return false;
+
+            // The entity must belong to one of this entity's permitted
+            // combat layers.
+            int candidateLayerMask = 1 << candidate.gameObject.layer;
+
+            if ((_entityFilter.layerMask.value & candidateLayerMask) == 0)
+                return false;
+
+            // Aggro targets must be enemies.
+            if (!Controller.IsEnemy(candidate))
+                return false;
+
+            if (maximumRange >= 0f)
+            {
+                float distanceSq =
+                    (candidate.transform.position -
+                     Controller.transform.position).sqrMagnitude;
+
+                if (distanceSq > maximumRange * maximumRange)
+                    return false;
+            }
+
+            if (requireLos &&
+                !HasLineOfSight(
+                    Controller.transform.position,
+                    candidate.transform.position))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        
+        //
         //  Editor
         //
  

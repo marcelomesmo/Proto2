@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 9b11fb72e1d50b14984bbffc0f40c28f, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 64000000
   levelDescriptions:
   - '[Bubbles] now hit 3 nearby targets.'
   effects:

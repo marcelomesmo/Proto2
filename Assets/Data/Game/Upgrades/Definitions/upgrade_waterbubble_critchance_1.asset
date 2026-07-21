@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 956b5f2abd9848148acdf459da76c518, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 32000000
   levelDescriptions:
   - '[Bubbles] CRIT CHANCE +2%'
   effects:

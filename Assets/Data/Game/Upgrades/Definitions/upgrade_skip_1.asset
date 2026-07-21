@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: skip_1
   displayName: Skip
-  description: 
-  icon: {fileID: 0}
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: 77862dde42a03834abb1561c9fbf7623, type: 2}
       requiredLevel: 1
-  levelCosts: fa000000
+  levelCosts: 00000000
   levelDescriptions:
-  - Skip 20 Waves
+  - 'Skip 20 Waves [TBD]'
   effects: []

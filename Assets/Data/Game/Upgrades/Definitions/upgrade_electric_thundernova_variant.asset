@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: upgrade_electric_thundernova_variant
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: electric_thundernova_variant
-  displayName: ThunderNova
+  displayName: '[ThunderNova]'
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 148f1d66fc517c74986b61c3ca277228, type: 3}
-  m_Name: E_1_DarkBlob
+  m_Name: E_1_Slime_stats
   m_EditorClassIdentifier: 
-  characterId: E_1_DarkBlob
+  characterId: E_1_Slime
   displayName: 
   faction: 2
-  attackPower: 2
+  attackPower: 0
   healingPower: 0
   defense: 0
   resistance: 0
@@ -26,8 +26,8 @@ MonoBehaviour:
     m_Bits: 768
   aggroRadius: 25
   aggroTolerance: 25
-  maxHealth: 15
-  moveSpeed: 0.5
+  maxHealth: 12
+  moveSpeed: 1
   thinkingTime: 1.5
   globalCooldown: 0.5
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}
@@ -37,6 +37,6 @@ MonoBehaviour:
   stunTag: {fileID: 11400000, guid: 6de5edce556ade8479788b5112e26012, type: 2}
   slowTag: {fileID: 11400000, guid: 14aa06fc0850e6b48a6a39d38000e856, type: 2}
   burnTag: {fileID: 11400000, guid: 26edb4c68d1bf0e43a0d056516031bcd, type: 2}
-  knockbackTag: {fileID: 0}
+  knockbackTag: {fileID: 11400000, guid: 19e6202321f95134aa38e2a383301515, type: 2}
   movementType: 1
   xpReward: 1

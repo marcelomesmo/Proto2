@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba32b0d8b07e24e419fca28494e70a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingDamage
-  lifetime: 1
+  lifetime: 1.25
   floatVelocity: {x: 0.1, y: 1.5, z: 0}
   alphaOverLifetime:
     serializedVersion: 2

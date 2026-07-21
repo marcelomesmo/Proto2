@@ -20,7 +20,7 @@ MonoBehaviour:
     requirements:
     - upgrade: {fileID: 11400000, guid: 40f5b04ad418c4644a8141b6b79565aa, type: 2}
       requiredLevel: 1
-  levelCosts: 0a000000
+  levelCosts: 19000000
   levelDescriptions:
   - All Range +1
   effects:

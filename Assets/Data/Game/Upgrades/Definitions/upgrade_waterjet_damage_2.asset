@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: upgrade_waterjet_damage_2
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: waterjet_damage_2
-  displayName: Bubbles
+  displayName: '[WaterJet]'
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements:
     - upgrade: {fileID: 11400000, guid: e75abe3ea5d683340a8a1163119fa4b6, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 32000000
   levelDescriptions:
   - '[WaterJet] DMG +1'
   effects:

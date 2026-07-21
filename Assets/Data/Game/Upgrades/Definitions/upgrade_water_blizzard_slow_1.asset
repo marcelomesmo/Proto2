@@ -22,7 +22,7 @@ MonoBehaviour:
       requiredLevel: 1
     - upgrade: {fileID: 11400000, guid: 8ab2d765b70456845b6c0e1586384415, type: 2}
       requiredLevel: 1
-  levelCosts: 01000000
+  levelCosts: 4b000000
   levelDescriptions:
   - '[Blizzard] Damage +1'
   effects:
