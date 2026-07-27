@@ -18,7 +18,7 @@ MonoBehaviour:
   upgradeUnlockRule:
     mode: 0
     requirements: []
-  levelCosts: 0a000000
+  levelCosts: 05000000
   levelDescriptions:
   - Water Damage +1
   effects:

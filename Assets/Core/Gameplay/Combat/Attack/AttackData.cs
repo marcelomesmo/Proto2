@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Audio.Data;
 using Core.Enum;
 using Core.Gameplay.Combat.AreaAttack;
 using Core.Gameplay.Combat.ChainAttack;
@@ -27,6 +28,9 @@ namespace Core.Gameplay.Combat.Attack
         
         public PooledVFX hitVFX;
         public PooledVFX castVFX;
+        
+        public AudioEvent hitSFX;
+        public AudioEvent castSFX;
         
         [Header("Targeting")]
         public CombatTargetType targetType;

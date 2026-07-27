@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Buff_SpeedUp_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackEffectData
   effectType: 2
-  duration: 10
+  duration: 5
   isPermanent: 0
   value: 0
   tickInterval: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
     value: 0.1
     filterByHitType: 0
     hitTypes: 0
-  tagToApply: {fileID: 0}
+  tagToApply: {fileID: 11400000, guid: 6b8d4134648ac5648b780a6e561bf3a1, type: 2}

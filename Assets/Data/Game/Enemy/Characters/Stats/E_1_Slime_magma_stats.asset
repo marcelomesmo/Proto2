@@ -27,7 +27,7 @@ MonoBehaviour:
   aggroRadius: 25
   aggroTolerance: 25
   maxHealth: 12
-  moveSpeed: 1
+  moveSpeed: 0.75
   thinkingTime: 1.5
   globalCooldown: 0.5
   invulnerableTag: {fileID: 11400000, guid: bebf1dbc5e067c7439e2c4e581dd7505, type: 2}

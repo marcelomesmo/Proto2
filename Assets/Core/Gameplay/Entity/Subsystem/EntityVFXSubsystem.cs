@@ -3,6 +3,7 @@ using Core.Enum;
 using Core.EventChannels;
 using Core.Gameplay.Combat.Attack;
 using Core.Gameplay.Entity.Tags;
+using Core.Services;
 using Core.Services.Manager;
 using Core.VFX;
 using UnityEngine;
@@ -58,8 +59,11 @@ namespace Core.Gameplay.Entity.Subsystem
             //health.Died += OnDied;
             
             _attackSubsystem = Controller.GetComponent<EntityAttackSubsystem>();
-            if(_attackSubsystem)
-                _attackSubsystem.OnAttackExecuted += HandleAttackExecuted;
+            if (_attackSubsystem)
+            {
+                _attackSubsystem.OnAttackStarted += HandleAttackStarted;
+                _attackSubsystem.OnAttackResolved += HandleAttackResolved;
+            }
         }
         
         protected override void OnDeinitialize()
@@ -69,9 +73,12 @@ namespace Core.Gameplay.Entity.Subsystem
             _healthSubsystem.OnDamageTaken -= HandleDamageTaken;
             _healthSubsystem.OnHealingTaken -= HandleHealingTaken;
             _healthSubsystem = null;
-            
-            if(_attackSubsystem)
-                _attackSubsystem.OnAttackExecuted -= HandleAttackExecuted;
+
+            if (_attackSubsystem)
+            {
+                _attackSubsystem.OnAttackStarted -= HandleAttackStarted;
+                _attackSubsystem.OnAttackResolved -= HandleAttackResolved;
+            }
             _attackSubsystem = null;
         }
 
@@ -126,7 +133,7 @@ namespace Core.Gameplay.Entity.Subsystem
             }
         }
         
-        private void HandleAttackExecuted(AttackInstance attack)
+        private void HandleAttackStarted(AttackInstance attack)
         {
             if(attack.Data == null)
                 return;
@@ -135,6 +142,23 @@ namespace Core.Gameplay.Entity.Subsystem
                 return;
             
             Spawn(attack.Data.castVFX, attackCastAnchor);
+        }
+        
+        private void HandleAttackResolved(AttackInstance attack)
+        {
+            if(attack.Data == null)
+                return;
+
+            PlayAudio(attack.Data);
+        }
+
+        // TODO: Later move this to an EntitySFXSubsystem instead
+        private void PlayAudio(AttackData data)
+        {
+            if (data.castSFX == null)
+                return;
+            
+            AudioManager.Instance.Play(data.castSFX, transform.position);
         }
         
         #endregion

@@ -1,3 +1,4 @@
+using Core.Gameplay.Entity;
 using UnityEngine;
 
 namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
@@ -48,7 +49,8 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
             private enum Phase
             {
                 Rise,
-                Home
+                Home,
+                FlyForward
             }
 
             private readonly float _homeSpeed;
@@ -66,6 +68,7 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 
             private Vector2 _initialForward;
             private Vector2 _currentDirection;
+            private EntityController _targetEntity;
             private Vector2 _lastKnownTargetPosition;
             private bool _hasLastKnownTargetPosition;
 
@@ -98,6 +101,10 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
                     _lastKnownTargetPosition = GetTargetPosition();
                     _hasLastKnownTargetPosition = true;
                 }
+                
+                _targetEntity = target
+                    ? target.GetComponentInParent<EntityController>()
+                    : null;
             }
 
             public override void Initialize(
@@ -137,6 +144,10 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
                     case Phase.Home:
                         MoveHome(rb, direction, dt);
                         break;
+                    
+                    case Phase.FlyForward:
+                        MoveForward(rb, direction, dt);
+                        break;
                 }
             }
 
@@ -172,15 +183,35 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
 
             private void MoveHome(Rigidbody2D rb, Vector2 fallbackDirection, float dt)
             {
+                // Once the target becomes invalid, stop homing permanently.
                 if (!TryGetTargetPosition(rb, fallbackDirection, out Vector2 targetPosition))
+                {
+                    _phase = Phase.FlyForward;
+
+                    MoveForward(
+                        rb,
+                        fallbackDirection,
+                        dt);
+
                     return;
+                }
 
                 Vector2 toTarget = targetPosition - rb.position;
                 float distance = toTarget.magnitude;
 
+                // The projectile has reached the target's current or
+                // last-known position without producing an impact.
                 if (distance <= 0.0001f)
                 {
-                    rb.MovePosition(targetPosition);
+                    // Do not remain parked here.
+                    _phase = Phase.FlyForward;
+                    
+                    MoveForward(
+                        rb,
+                        fallbackDirection,
+                        dt);
+                    
+                    //rb.MovePosition(targetPosition);
                     return;
                 }
 
@@ -212,7 +243,18 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
                 if (distance <= stepDistance + _arrivalSnapDistance)
                 {
                     rb.MovePosition(targetPosition);
-                    RotateToDirection(rb, desiredDirection);
+                    
+                    // Preserve the final direction of the homing arc.
+                    // The projectile will continue along this direction.
+                    _currentDirection = desiredDirection;
+
+                    RotateToDirection(rb, _currentDirection);
+                    
+                    // Normally, the target collider should process the impact during
+                    // this physics step. If it does not, continue forward next tick
+                    // instead of remaining stationary.
+                    _phase = Phase.FlyForward;
+                    
                     return;
                 }
 
@@ -224,6 +266,39 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
                 RotateToDirection(rb, _currentDirection);
             }
 
+            private void MoveForward(
+                Rigidbody2D rb,
+                Vector2 fallbackDirection,
+                float dt)
+            {
+                Vector2 travelDirection =
+                    _currentDirection;
+
+                if (travelDirection.sqrMagnitude <= 0.0001f)
+                {
+                    travelDirection =
+                        fallbackDirection.sqrMagnitude > 0.0001f
+                            ? fallbackDirection.normalized
+                            : _initialForward;
+                }
+
+                if (travelDirection.sqrMagnitude <= 0.0001f)
+                    return;
+
+                _currentDirection =
+                    travelDirection.normalized;
+
+                Vector2 nextPosition =
+                    rb.position +
+                    _currentDirection * (_homeSpeed * dt);
+
+                rb.MovePosition(nextPosition);
+
+                RotateToDirection(
+                    rb,
+                    _currentDirection);
+            }
+            
             private bool TryGetDesiredDirection(
                 Rigidbody2D rb,
                 Vector2 fallbackDirection,
@@ -248,20 +323,25 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
                 Vector2 fallbackDirection,
                 out Vector2 targetPosition)
             {
-                if (_target != null)
+                if (HasLiveTarget())
                 {
                     targetPosition = GetTargetPosition();
+                    
                     _lastKnownTargetPosition = targetPosition;
                     _hasLastKnownTargetPosition = true;
+                    
                     return true;
                 }
 
+                // The target died or disappeared.
+                // Finish the arc toward its last valid position.
                 if (_hasLastKnownTargetPosition)
                 {
                     targetPosition = _lastKnownTargetPosition;
                     return true;
                 }
 
+                // No target position was ever available.
                 if (fallbackDirection.sqrMagnitude > 0.0001f)
                 {
                     targetPosition = rb.position + fallbackDirection.normalized * 100f;
@@ -275,6 +355,28 @@ namespace Core.Gameplay.Combat.Projectile.Movement.Implementations
             private Vector2 GetTargetPosition()
             {
                 return (Vector2)_target.position + _targetOffset;
+            }
+            
+            private bool HasLiveTarget()
+            {
+                /*
+                 * This handles all three relevant cases:
+
+                    Destroyed target.
+                    Pooled or deactivated target.
+                    Dead target that remains active for its death animation.
+                 */
+                
+                if (!_target)
+                    return false;
+
+                if (!_target.gameObject.activeInHierarchy)
+                    return false;
+
+                if (_targetEntity && _targetEntity.IsDead)
+                    return false;
+
+                return true;
             }
 
             private static Vector2 GetInitialForward(Vector2 direction)

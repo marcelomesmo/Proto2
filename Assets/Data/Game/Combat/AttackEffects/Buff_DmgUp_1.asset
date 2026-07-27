@@ -25,4 +25,4 @@ MonoBehaviour:
     value: 10
     filterByHitType: 0
     hitTypes: 0
-  tagToApply: {fileID: 0}
+  tagToApply: {fileID: 11400000, guid: 13ebf4978563bed4487174c5eecba311, type: 2}

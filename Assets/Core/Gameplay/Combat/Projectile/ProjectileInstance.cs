@@ -101,7 +101,10 @@ namespace Core.Gameplay.Combat.Projectile
                 // TODO: Have targets added to projectiles
                 if (_movementContext is IProjectileTargetReceiver targetReceiver)
                 {
-                    targetReceiver.SetTarget(_target.transform);
+                    targetReceiver.SetTarget(
+                        _target
+                            ? _target.transform
+                            : null);
                 }
                 
                 _movementContext?.Initialize(rb, _direction, _range);
@@ -241,8 +244,11 @@ namespace Core.Gameplay.Combat.Projectile
         private IObjectPool<ProjectileInstance> _objectPool;
         private bool _isReleased;
         public void AssignToPool(IObjectPool<ProjectileInstance> objectPool) => _objectPool = objectPool;    
-        private void ReturnToPool() { _isReleased = true;
-            DetachTrail(); _objectPool.Release(this); }
+        private void ReturnToPool() { 
+            _isReleased = true;
+            DetachTrail(); 
+            _objectPool.Release(this); 
+        }
         
         #endregion
     

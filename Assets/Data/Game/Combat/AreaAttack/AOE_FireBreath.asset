@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4706f7c1ad77cf249a7e87aa8d9326ef, type: 3}
+  m_Name: AOE_FireBreath
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.AreaEffect.AreaEffectData
+  shape: 2
+  circleRadius: 0
+  boxSize: {x: 0, y: 0}
+  coneAngle: 120
+  coneRadius: 3
+  duration: 5
+  tickInterval: 1
+  isChanneled: 1
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  spawnMode: 2
+  forwardOffset: 0
+  areaEffectPrefab: {fileID: 4099829488905969600, guid: d43d225cced34574d9b4b68187f0c79d, type: 3}
+  followOwner: 1
+  fadeOutDuration: 0

@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: 
   faction: 1
   attackPower: 1
-  healingPower: 10
+  healingPower: 1
   defense: 1
   resistance: 0
   critChance: 5

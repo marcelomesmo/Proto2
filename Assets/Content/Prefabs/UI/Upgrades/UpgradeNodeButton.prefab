@@ -598,6 +598,7 @@ MonoBehaviour:
   bgPurchased: {fileID: 1474455860877789979}
   grayscaleMaterial: {fileID: 2100000, guid: e2950abd30c7304468821ad30c600a54, type: 2}
   normalMaterial: {fileID: 2100000, guid: 72ad9f050fb2c9e43994091110e9ce6e, type: 2}
+  upgradePurchased: {fileID: 11400000, guid: 09afdba5ccd06c54f90b02ce60ba245e, type: 2}
 --- !u!114 &7199338271720147400
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,10 +15,10 @@ namespace Game.UI.CharacterHUD
 
         public void SetLevel(int level)
         {
-            levelText.text = level.ToString();
+            levelText.text = "Lvl. " + level.ToString();
 
-            if (level == 0)
-                levelText.text = "";
+            //if (level == 0)
+            //    levelText.text = "";
         }
 
         public void SetStage(int stage)

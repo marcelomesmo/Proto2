@@ -17,12 +17,16 @@ namespace Game.Entity.Player.Subsystem
     
         protected override void OnInitialize()
         {
+            base.OnInitialize();
+            
             levelUpEvent.OnEventRaised += PlayLevelUpVfx;
             stageUpEvent.OnEventRaised += PlayStageUpVfx;
         }
         
         protected override void OnDeinitialize()
         {
+            base.OnDeinitialize();
+            
             levelUpEvent.OnEventRaised -= PlayLevelUpVfx;
             stageUpEvent.OnEventRaised -= PlayStageUpVfx;
         }

@@ -17,7 +17,7 @@ MonoBehaviour:
     requiredLevel: 0
     displayName: Chickolt
     displayDescription: 'Pock! Pock! *beaks in high voltage* '
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -36922474833775500, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: b6fa20c262ea36b40b7c0669d7980289, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 4ff62da2157107445ad3ab9e192a912e, type: 2}
@@ -25,7 +25,7 @@ MonoBehaviour:
     requiredLevel: 5
     displayName: Stormick
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -36922474833775500, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: d5273c0b304d9674f9d343005e4326d5, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 5bbc7a01a1f6d6042af3210aa1bac55d, type: 2}
@@ -33,7 +33,7 @@ MonoBehaviour:
     requiredLevel: 15
     displayName: Zeuphor
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -36922474833775500, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 5b9f6c09a77598a4a9d5ddd66c5ffbba, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7f2ce9c1e26e95b4fbffc67b3d229c50, type: 2}

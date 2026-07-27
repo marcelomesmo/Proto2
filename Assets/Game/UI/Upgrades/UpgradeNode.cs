@@ -1,3 +1,4 @@
+using Core.Audio.Data;
 using Core.Enum;
 using Core.Services;
 using Core.Services.Meta;
@@ -31,6 +32,9 @@ namespace Game.UI.Upgrades
         [SerializeField] private Material grayscaleMaterial;
         [SerializeField] private Material normalMaterial;
 
+        [Header("SFX")]
+        [SerializeField] private AudioEvent upgradePurchasedSFX;
+        
         private UpgradeTreePanel _treePanel;
         private GameSaveManager _save;
         private UpgradeManager _upgradeManager;
@@ -119,6 +123,9 @@ namespace Game.UI.Upgrades
                 return;
             
             //_treePanel.Refresh(); // Don't need since TryPurchaseUpgrade always invoke OnUpgradeLevelChanged
+            
+            // SFX, should this be here?
+            AudioManager.Instance.Play(upgradePurchasedSFX);
             
             // Force refresh tooltip
             _treePanel.RefreshTooltip(

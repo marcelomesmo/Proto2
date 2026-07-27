@@ -18,7 +18,7 @@ MonoBehaviour:
     displayName: Apollo
     displayDescription: Apollo of the Flame, loyal to the old descendants of the
       Crystal.
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -2258755098361695858, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: c1ab549a20f2c914c9b95d792374ddc8, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}
@@ -26,7 +26,7 @@ MonoBehaviour:
     requiredLevel: 5
     displayName: 
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -2258755098361695858, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 199a2254f9bc60a41930789d3a91650c, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 93a001b1596c21c4bb9b82133b88bcdb, type: 2}
@@ -34,7 +34,7 @@ MonoBehaviour:
     requiredLevel: 15
     displayName: 
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -2258755098361695858, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 2e31cd803b3dffd42aae5aef5a699c19, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 05d76a17b93380447be064baf4912c7b, type: 2}

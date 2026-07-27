@@ -49,7 +49,8 @@ namespace Core.Gameplay.Entity.Subsystem
         private Vector2 _boxSize = new(3f, 0.5f);
         //private AttackTargetFilter _targetFilter;
 
-        public event Action<AttackInstance> OnAttackExecuted;
+        public event Action<AttackInstance> OnAttackStarted;
+        public event Action<AttackInstance> OnAttackResolved;
         
         protected override void OnInitialize()
         {
@@ -173,7 +174,7 @@ namespace Core.Gameplay.Entity.Subsystem
 
                 instance.Consume();
 
-                OnAttackExecuted?.Invoke(resolvedAttack);
+                OnAttackStarted?.Invoke(resolvedAttack);
 
                 return true;
             }
@@ -205,7 +206,7 @@ namespace Core.Gameplay.Entity.Subsystem
             if (Controller.Animator && !_currentAttack.Data.castSilently)
                 Controller.Animator.SetTrigger("attack");
 
-            OnAttackExecuted?.Invoke(executionAttack);
+            OnAttackStarted?.Invoke(executionAttack);
         }
 
         // Called via animation event
@@ -235,6 +236,8 @@ namespace Core.Gameplay.Entity.Subsystem
                     ExecuteDirectCast(_currentAttack, _pendingContext);
                     break;
             }
+            
+            OnAttackResolved?.Invoke(_currentAttack);
             
             _waitingForResolve = false;             // TEMP (see below HandleAttackResolveTimeout)
             
@@ -398,11 +401,13 @@ namespace Core.Gameplay.Entity.Subsystem
                 }
             }
             
-            if (context.Direction.sqrMagnitude < 0.0001f)
+            if (launchDirection.sqrMagnitude < 0.0001f)
             {
                 Debug.LogWarning(
                     $"[EntityAttackSubsystem] Invalid projectile direction on {Controller.name}",
                     this);
+                
+                return;
             }
             
             launchDirection.Normalize();

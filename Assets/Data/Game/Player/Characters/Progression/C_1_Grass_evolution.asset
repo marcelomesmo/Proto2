@@ -17,7 +17,7 @@ MonoBehaviour:
     requiredLevel: 0
     displayName: Pluto
     displayDescription: Guardian of the Crystal Forest. Savior of trees.
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: 1447128006, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 9299c6d01e89dde478d797406cd84311, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7729e0b4d5924214798ebf0e3c28799f, type: 2}
@@ -25,7 +25,7 @@ MonoBehaviour:
     requiredLevel: 5
     displayName: 
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: 1447128006, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 74218a578a391f644a001648de1a2907, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: ab16a0b8658627c448211ee8c6e04b73, type: 2}
@@ -33,7 +33,7 @@ MonoBehaviour:
     requiredLevel: 15
     displayName: 
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: 1447128006, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 11685ee7c8c62184fa265e20547d96cd, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: af1594a3d04c723499e1023790b25bf1, type: 2}

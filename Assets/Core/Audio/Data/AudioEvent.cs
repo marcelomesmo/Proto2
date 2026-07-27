@@ -15,6 +15,7 @@ namespace Core.Audio.Data
     public class AudioEvent : ScriptableObject
     {
         [Header("Source")]
+        public AudioClip clip;
         public AudioClipSet clipSet;
         
         [Header("Routing")]

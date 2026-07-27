@@ -18,11 +18,13 @@ MonoBehaviour:
   executionMode: 2
   combatActionType: 0
   amount: 2
-  range: 6
+  range: 4
   cooldown: 4
   hitTypes: 8
   hitVFX: {fileID: 0}
   castVFX: {fileID: 0}
+  hitSFX: {fileID: 0}
+  castSFX: {fileID: 11400000, guid: 7a5c48d2c9d0f314db222f5679872a49, type: 2}
   targetType: 1
   targetSelectionMode: 1
   targetRequirement: 0

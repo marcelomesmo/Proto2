@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Direct_ThunderBolt
   m_EditorClassIdentifier: Assembly-CSharp::Core.Gameplay.Combat.Attack.AttackData
   displayName: Thunder Bolt
-  icon: {fileID: 21300000, guid: 21df9195ed43b004394e6d7913b03149, type: 3}
+  icon: {fileID: 21300000, guid: c0c621637e6ca054cb6f00c56255ade7, type: 3}
   description: shots thunderbolt lol
   executionMode: 3
   combatActionType: 0
@@ -21,8 +21,10 @@ MonoBehaviour:
   range: 5
   cooldown: 4
   hitTypes: 32
-  hitVFX: {fileID: 0}
+  hitVFX: {fileID: 7038631395232066884, guid: f87e19af9ca560640922bee6b006f0a9, type: 3}
   castVFX: {fileID: 0}
+  hitSFX: {fileID: 0}
+  castSFX: {fileID: 11400000, guid: 6fd1e7fc6f2645346ac5effd7130f502, type: 2}
   targetType: 1
   targetSelectionMode: 2
   targetRequirement: 0

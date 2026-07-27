@@ -69,29 +69,50 @@ namespace Core.Services
             _musicVolume = _settingsSave.Data.musicVolume;
             _sfxVolume = _settingsSave.Data.sfxVolume;
             
+            // Do not call AudioMixer.SetFloat from Awake.
+        }
+
+        private void Start()
+        {
             ApplyVolumes(); // sync mixer to initial values immediately
         }
         
         #region Playback
         
+        public void Play(AudioEvent audioEvent)
+        {
+            PlayInternal(audioEvent, null);
+        }
+
         public void Play(AudioEvent audioEvent, Vector3 worldPosition)
+        {
+            PlayInternal(audioEvent, worldPosition);
+        }
+        
+        private void PlayInternal(AudioEvent audioEvent, Vector3? worldPosition)
         {
             if (audioEvent == null)
                 return;
 
-            AudioClip clip = audioEvent.clipSet?.GetRandom();
-            if (clip == null)
-                return;
+            AudioClip clip = audioEvent.clip;   // Try grabbing simple clip first
 
+            if (clip == null)
+            {
+                clip = audioEvent.clipSet?.GetRandom(); // Then try grabbing from clip set if simple is empty
+            }
+            
+            if (clip == null)   // break if failed to grab any clip
+                return;
+            
             AudioSource source = _poolManager.Get();
 
-            source.transform.position = GetFlattenedPosition(worldPosition);
+            //source.transform.position = GetFlattenedPosition(worldPosition);
             source.clip = clip;
             source.outputAudioMixerGroup = ResolveBus(audioEvent.bus, audioEvent.mixerGroup);
 
-            source.volume =
+            source.volume = Mathf.Clamp01(
                 audioEvent.volume +
-                Random.Range(-audioEvent.volumeRandomness, audioEvent.volumeRandomness);
+                Random.Range(-audioEvent.volumeRandomness, audioEvent.volumeRandomness));
 
             source.pitch =
                 audioEvent.pitch +
@@ -102,6 +123,27 @@ namespace Core.Services
             source.maxDistance = audioEvent.maxDistance;
             source.priority = audioEvent.priority;
 
+            // A meaningful position is required only when spatialization is used.
+            if (source.spatialBlend > 0f)
+            {
+                if (!worldPosition.HasValue)
+                {
+                    Debug.LogError(
+                        $"[AudioManager] Positional AudioEvent '{audioEvent.name}' " +
+                        "was played without a world position.");
+
+                    _poolManager.Release(source);
+                    return;
+                }
+
+                source.transform.position = GetFlattenedPosition(worldPosition.Value);
+            }
+            else
+            {
+                // Optional: reset pooled source position for clean state.
+                source.transform.localPosition = Vector3.zero;
+            }
+            
             source.Play();
 
             StartCoroutine(ReturnWhenFinished(source));
@@ -168,9 +210,22 @@ namespace Core.Services
         {
             if (!settings.ignoreVerticalDistance)
                 return emitterPos;
+            
+            if (!_listener)
+            {
+                Debug.LogWarning(
+                    "[AudioManager] No AudioListener has been bound. " +
+                    "Using the original emitter position.");
 
+                return emitterPos;
+            }
+            
             Vector3 listenerPos = _listener.transform.position;
-            return new Vector3(emitterPos.x, listenerPos.y, listenerPos.z);
+            
+            return new Vector3(
+                emitterPos.x, 
+                listenerPos.y, 
+                listenerPos.z);
         }
         
         private System.Collections.IEnumerator ReturnWhenFinished(AudioSource source)

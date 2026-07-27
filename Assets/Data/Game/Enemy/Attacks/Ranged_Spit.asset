@@ -23,6 +23,8 @@ MonoBehaviour:
   hitTypes: 4
   hitVFX: {fileID: 8784488540992764676, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
   castVFX: {fileID: 68820418738985188, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
+  hitSFX: {fileID: 0}
+  castSFX: {fileID: 11400000, guid: b9d3c10ed8b3316478636662c3982e87, type: 2}
   targetType: 1
   targetSelectionMode: 0
   targetRequirement: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: upgrade_grass_damage_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.Upgrades.UpgradeDefinition
   upgradeId: grass_damage_1
-  displayName: Grass Synergy
+  displayName: Grass Synergy I
   maxLevel: 1
   upgradeUnlockRule:
     mode: 0
     requirements: []
-  levelCosts: 0a000000
+  levelCosts: 05000000
   levelDescriptions:
   - Grass Damage +1
   effects:
