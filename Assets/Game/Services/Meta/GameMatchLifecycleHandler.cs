@@ -82,16 +82,42 @@ namespace Game.Services.Meta
             // Intentionally empty for now.
             // Later: difficulty progression, choose mutators, seed RNG, etc.
 
-            if (gameController.MatchStats is not GameMatchStats stats)
+            if (_sceneController == null)
             {
-                Debug.LogError(
-                    $"Expected GameMatchStats but got: " +
-                    $"{gameController.MatchStats?.GetType()}");
-
+                Debug.LogError("[GameMatchLifecycleHandler] Scene controller not found.");
                 return;
             }
+            
+            switch (reason)
+            {
+                case MatchEndReason.Defeat:
+                    _sceneController.HandleDefeat();
+                    break;
+                
+                case MatchEndReason.Victory:
+                {
+                    if (gameController.MatchStats is not GameMatchStats stats)
+                    {
+                        Debug.LogError(
+                            $"Expected GameMatchStats but got: " +
+                            $"{gameController.MatchStats?.GetType()}");
 
-            _sceneController.EndOfLevelPanel.Show(reason, stats, gameController.MatchRuntime.ElapsedTime);
+                        return;
+                    }
+
+                    _sceneController.HandleVictory(
+                        stats,
+                        gameController.MatchRuntime.ElapsedTime);
+
+                    break;
+                }
+
+                case MatchEndReason.Quit:
+                    break;
+            }
+
+            // No lifecycle handler no longer decides that every result shows the same panel. That's now a GameScene decision.
+            //_sceneController.EndOfLevelPanel.Show(reason, stats, gameController.MatchRuntime.ElapsedTime);
         }
 
         public float HandleMatchEndStarted(GameController gameController, MatchEndReason reason)
@@ -101,15 +127,25 @@ namespace Game.Services.Meta
             // Start fanfare, screen shake, boss dissolve
             // Spawn chest, etc
             // All handled by PlayVictorySequence and PlayDefeatSequence implementations.
-
+            if (_sceneController == null)
+            {
+                Debug.LogError("[GameMatchLifecycleHandler] Scene controller not found.");
+                return 0f;
+            }
+            
+            // Stop scene gameplay immediately.
+            _sceneController.BeginAttemptEnd(reason);
+            
             switch (reason)
             {
                 case MatchEndReason.Victory:
                     PlayVictorySequence();
                     return victorySequenceDuration;
+                
                 case MatchEndReason.Defeat:
                     PlayEndSequence();
                     return defeatSequenceDuration;
+                
                 case MatchEndReason.Quit:
                 default:
                     return 0f;
@@ -128,13 +164,11 @@ namespace Game.Services.Meta
             Debug.Log("[GameMatchLifecycleHandler] Playing Defeat Sequence");
         }
 
-        public void ConfirmExit()
+        public void QuitGame()
         {
             UnbindPresentation();
-            
-            ServiceLocator
-                .Get<GameController>()
-                ?.ExitMatch();
+
+            Application.Quit();
         }
         
         private void BindPresentation()
@@ -142,8 +176,8 @@ namespace Game.Services.Meta
             if (_sceneController.EndOfLevelPanel == null)
                 return;
 
-            _sceneController.EndOfLevelPanel.QuitClicked -= ConfirmExit;
-            _sceneController.EndOfLevelPanel.QuitClicked += ConfirmExit;
+            _sceneController.EndOfLevelPanel.QuitClicked -= QuitGame;
+            _sceneController.EndOfLevelPanel.QuitClicked += QuitGame;
         }
         
         private void UnbindPresentation()
@@ -151,7 +185,7 @@ namespace Game.Services.Meta
             if (_sceneController.EndOfLevelPanel == null)
                 return;
 
-            _sceneController.EndOfLevelPanel.QuitClicked -= ConfirmExit;
+            _sceneController.EndOfLevelPanel.QuitClicked -= QuitGame;
         }
     }
 }

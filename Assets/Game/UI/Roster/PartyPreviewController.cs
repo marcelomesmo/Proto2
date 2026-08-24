@@ -56,7 +56,7 @@ namespace Game.UI.Roster
         {
             ClearPreviews();
 
-            var characters = loadout.SelectedCharacters;
+            var characters = loadout.PartySlots;
 
             for (int i = 0; i < slotAnchors.Count; i++)
             {

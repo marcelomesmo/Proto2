@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace Game.UI.Roster
 {
+    // DEPRECATED CLASS
     public class RosterCharacterButton : MonoBehaviour,
         IPointerEnterHandler,
         IPointerExitHandler
@@ -86,13 +87,15 @@ namespace Game.UI.Roster
             if (!isUnlocked)
                 return;
             
+            // DEPRECATED
+            /*
             if (_loadout.Contains(characterDefinition))
                 _loadout.RemoveFromParty(characterDefinition);
             else
             {
                 if (!_loadout.AddToParty(characterDefinition))
                     return; // party full, or invalid
-            }
+            }*/
     
             _panel.Refresh();
         }

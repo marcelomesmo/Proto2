@@ -15,7 +15,7 @@ namespace Game.Editor
             "Assets/Scenes/MainMenu.unity";
 
         private const string LevelScenePath =
-            "Assets/Scenes/Levels/Level_01.unity";
+            "Assets/Scenes/Levels/GameScene.unity";
 
         [MenuItem("Game/Open Scene/Splash Screen")]
         public static void OpenSplashScreen()

@@ -11,7 +11,7 @@ namespace Core.Services
     {
         private static MonoBehaviour _runner;
         
-        private static string _pendingScene;
+        private static string _pendingScene;    // TODO: Check this as nothing is assigning it's value.
 
         // Must be called once (from Bootstrapper)
         public static void Initialize(MonoBehaviour coroutineRunner)
@@ -34,6 +34,11 @@ namespace Core.Services
                 LoadSceneAsync("MainMenu", onProgress);
             else
                 LoadLevel("MainMenu");
+        }
+        
+        public static void LoadGameScene(Action<float> onProgress = null)
+        {
+            LoadSceneAsync("GameScene", onProgress);
         }
 
         // LoadLevel — unchanged signature, internally now reads LevelConfig

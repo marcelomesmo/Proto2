@@ -261,7 +261,7 @@ MonoBehaviour:
   fillSmoothSpeed: 8
   chipDelay: 0.25
   chipSmoothSpeed: 4
-  hideAfterSeconds: 2.5
+  hideAfterSeconds: 5
 --- !u!114 &-1255696515498329439
 MonoBehaviour:
   m_ObjectHideFlags: 0

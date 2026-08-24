@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace Game.Services.Binders
 {
+    //
+    // DEPRECATED
+    //
+    // Can later be used for isolated game modes where one spawner == complete match
+    //
     public sealed class SpawnerGameControllerBinder : MonoBehaviour
     {
         [SerializeField] private EntitySpawnerRuntimeController spawner;

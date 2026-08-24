@@ -9,100 +9,62 @@ namespace Game.UI.Match
 {
     public class HUDController : MonoBehaviour
     {
-        [Header("Loot Collected Channel")]
-        [SerializeField] private LootCollectedEventChannelSO lootCollectedEventChannel;
-        
-        [Header("Loot - Gold")]
-        [SerializeField] private TextMeshProUGUI lootGoldText;
-        private int _totalGold = 0;
+        [Header("Progression")]
+        [SerializeField] private StageRuntimeController stageRuntime;
         
         [Header("Stats")]
         [SerializeField] private TextMeshProUGUI killText;
-        [SerializeField] private TextMeshProUGUI wavesText;
+        //[SerializeField] private TextMeshProUGUI wavesText; // DEPRECATED
         [SerializeField] private TextMeshProUGUI matchTimer;
-        
-        //[Header("Stats")]
-        //[SerializeField] private TextMeshProUGUI healthText;
-        //[SerializeField] private IntIntEventChannelSO healthEventChannel;
-        //[SerializeField] private UIProgressBar healthBar;
+        [SerializeField] private TextMeshProUGUI stageLevelText;
 
         /* Boilerplate for Event Channel */
         private void OnEnable()
         {
-            lootCollectedEventChannel.OnEventRaised += HandleLootCollected;
-            //healthEventChannel.OnEventRaised += UpdateHealthDisplay;
+            var gameController = ServiceLocator.Get<GameController>();
 
-            var gameController = ServiceLocator
-                .Get<GameController>();
-
-            if (gameController.MatchStats is not GameMatchStats gameStats) return;
+            if (gameController.MatchStats is GameMatchStats gameStats)
+            {
+                gameStats.OnEnemiesKilledChanged += UpdateKillCounter;
+                //gameStats.OnWaveStartedChanged += UpdateWaveCounter;
+                gameStats.OnMatchTimeChanged += UpdateMatchClock;
+            }
             
-            gameStats
-                .OnEnemiesKilledChanged += UpdateKillCounter;
-            gameStats.
-                OnWaveStartedChanged += UpdateWaveCounter;
-            gameStats
-                .OnMatchTimeChanged += UpdateMatchClock;
+            if (stageRuntime != null)
+                stageRuntime.OnLevelStarted += UpdateStageDisplay;
         }
 
         private void OnDisable()
         {
-            lootCollectedEventChannel.OnEventRaised -= HandleLootCollected;
-            //healthEventChannel.OnEventRaised -= UpdateHealthDisplay;
-            
             var gameController = ServiceLocator
                 .Get<GameController>();
 
-            if (gameController.MatchStats is not GameMatchStats gameStats) return;
+            if (gameController.MatchStats is GameMatchStats gameStats)
+            {
+                gameStats.OnEnemiesKilledChanged -= UpdateKillCounter;
+                //gameStats.OnWaveStartedChanged -= UpdateWaveCounter;
+                gameStats.OnMatchTimeChanged -= UpdateMatchClock;
+            }
             
-            gameStats
-                .OnEnemiesKilledChanged -= UpdateKillCounter;
-            gameStats.
-                OnWaveStartedChanged -= UpdateWaveCounter;
-            gameStats
-                .OnMatchTimeChanged -= UpdateMatchClock;
+            if (stageRuntime != null)
+                stageRuntime.OnLevelStarted -= UpdateStageDisplay;
         }
         /* End of Boilerplate */
-        
-        private void HandleLootCollected(LootCollectedPayload payload)
-        {
-            // payload.lootType tells you what was collected
-            // payload.amount tells you how much
-        
-            switch (payload.lootType)
-            {
-                case LootType.Gold:
-                    UpdateGoldDisplay(payload.amount);
-                    break;
-                
-                case LootType.Unknown:
-                    Debug.LogWarning("[HUDController] Received loot of type: " + payload.lootType + ". Was expecting different?");
-                    break;
-                
-                // etc.
-            }
-        }
-
-        private void UpdateGoldDisplay(int amount)
-        {
-            _totalGold += amount;
-            lootGoldText.text = $"{_totalGold}";
-        }
-    
-        private void UpdateHealthDisplay(int currHealth, int maxHealth)
-        {
-            //healthText.text = $"{currHealth} / {maxHealth}";
-            //healthBar.SetProgress(currHealth / (float)maxHealth);
-        }
         
         private void UpdateKillCounter(int count)
         {
             killText.text = count.ToString();
         }
         
-        private void UpdateWaveCounter(int count)
+        // DEPRECATED
+        //private void UpdateWaveCounter(int count)
+        //{
+        //    wavesText.text = count.ToString();
+        //}
+        
+        private void UpdateStageDisplay(int stageIndex, int levelIndex)
         {
-            wavesText.text = count.ToString();
+            stageLevelText.text = $"Stage {stageIndex + 1}-{levelIndex + 1}";
         }
         
         private void UpdateMatchClock(float time)

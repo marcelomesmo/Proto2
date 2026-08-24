@@ -18,7 +18,7 @@ MonoBehaviour:
   executionMode: 2
   combatActionType: 0
   amount: 2
-  range: 10
+  range: 5
   cooldown: 10
   hitTypes: 4
   hitVFX: {fileID: 0}
@@ -26,7 +26,7 @@ MonoBehaviour:
   hitSFX: {fileID: 0}
   castSFX: {fileID: 11400000, guid: baf333a0bcea8db47a0267d865715056, type: 2}
   targetType: 1
-  targetSelectionMode: 1
+  targetSelectionMode: 0
   targetRequirement: 0
   targetLayers:
     serializedVersion: 2

@@ -12,6 +12,6 @@ namespace Core.Services.Meta
         float HandleMatchEndStarted(GameController gameController, MatchEndReason reason);
         void HandleMatchEnded(GameController gameController, MatchEndReason reason);
         
-        void ConfirmExit();
+        void QuitGame();
     }
 }

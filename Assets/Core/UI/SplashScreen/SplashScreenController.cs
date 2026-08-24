@@ -44,7 +44,7 @@ namespace Core.UI.SplashScreen
                 yield return null;
             }
 
-            SceneLoader.LoadMenu();
+            SceneLoader.LoadGameScene();
         }
     }
 }

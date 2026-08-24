@@ -160,9 +160,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 34
-        height: 39
+        y: 128
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: vfx-lighting bolt_1
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
-        width: 34
-        height: 39
+        x: 48
+        y: 128
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: vfx-lighting bolt_2
       rect:
         serializedVersion: 2
-        x: 68
-        y: 0
-        width: 34
-        height: 39
+        x: 96
+        y: 128
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: vfx-lighting bolt_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 0
-        width: 34
-        height: 39
+        x: 144
+        y: 128
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: vfx-lighting bolt_4
       rect:
         serializedVersion: 2
-        x: 136
+        x: 0
         y: 0
-        width: 34
-        height: 39
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: vfx-lighting bolt_5
       rect:
         serializedVersion: 2
-        x: 170
+        x: 48
         y: 0
-        width: 34
-        height: 39
+        width: 48
+        height: 128
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -283,6 +283,28 @@ TextureImporter:
       bones: []
       spriteID: e0790ebfed1e41dd0800000000000000
       internalID: -2516137943968475378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx-lighting bolt_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 128
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b2200beff771d4a8f56c7cd130928e
+      internalID: -228216023
       vertices: []
       indices: 
       edges: []
@@ -301,7 +323,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":34.0,"y":39.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":2.0},"gridSpriteSize":{"x":48.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       vfx-lighting bolt_0: -1668115706587808983
       vfx-lighting bolt_1: -6457189828862477168
@@ -309,6 +331,7 @@ TextureImporter:
       vfx-lighting bolt_3: 9022538580199250982
       vfx-lighting bolt_4: 7641489021567869786
       vfx-lighting bolt_5: -2516137943968475378
+      vfx-lighting bolt_6: -228216023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

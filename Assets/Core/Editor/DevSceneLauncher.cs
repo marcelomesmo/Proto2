@@ -26,7 +26,7 @@ namespace Core.Editor
         public static void PlayFromLevel()
         {
             EditorApplication.isPlaying = false;
-            EditorSceneManager.OpenScene("Assets/Scenes/Levels/Level_01.unity");
+            EditorSceneManager.OpenScene("Assets/Scenes/Levels/GameScene.unity");
             EditorApplication.isPlaying = true;
         }
     }

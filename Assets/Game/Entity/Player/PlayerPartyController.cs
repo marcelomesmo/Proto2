@@ -5,7 +5,6 @@ using Core.Services;
 using Core.Services.Manager;
 using Core.Services.Meta;
 using Core.Upgrades;
-using Game.UI.CharacterHUD;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -17,8 +16,6 @@ namespace Game.Entity.Player
         
         [SerializeField] private PlayerLoadoutData loadout;
         [SerializeField] private Transform[] spawnPoints;
-        
-        [SerializeField] private CharacterHUDController characterHUD;
         
         private EntityController _castle;
         private PlayerCastleController _castleController;
@@ -46,8 +43,6 @@ namespace Game.Entity.Player
             SpawnParty();
 
             ApplyUpgradesToParty();
-            
-            InitializeHUD();
         }
 
         private void SpawnCastle()
@@ -81,10 +76,25 @@ namespace Game.Entity.Player
 
         private void SpawnParty()
         {
-            for (int i = 0; i < loadout.SelectedCharacters.Count; i++)
+            IReadOnlyList<CharacterDefinition> partySlots = loadout.PartySlots;
+            
+            // Small spawn-point sanity-check
+            int slotCount = Mathf.Min(partySlots.Count, spawnPoints.Length);
+            
+            for (int i = 0; i < slotCount; i++)
             {
-                var def = loadout.SelectedCharacters[i];
+                var def = partySlots[i];
+                if (def == null)
+                    continue;
+                
                 var spawn = spawnPoints[i];
+
+                if (spawn == null)
+                {
+                    Debug.LogError($"[PlayerPartyController] Spawn point {i} is not assigned.", this);
+
+                    continue;
+                }
 
                 SpawnCharacter(def, spawn);
             }
@@ -159,22 +169,13 @@ namespace Game.Entity.Player
         }
         
         #endregion
-        
-        private void InitializeHUD()
-        {
-            if (!characterHUD)
-            {
-                Debug.LogWarning("[PlayerPartyController] No CharacterHUDController assigned.");
-                return;
-            }
-
-            characterHUD.Initialize(_activeEntities);
-        }
 
         public void OnDefeat()
         {
             DisablePartyCombat();
-            Despawn();
+            
+            // Notify the controller
+            ServiceLocator.Get<GameController>()?.OnGameDefeat();
         }
         private void DisablePartyCombat()
         {
@@ -187,7 +188,23 @@ namespace Game.Entity.Player
                 // TODO: Add Animation play here (for character defeat, if any).
             }
         }
-        private void Despawn()
+        public void EndAttempt()
+        {
+            if (_castleController != null)
+            {
+                _castleController.CastleDestroyed -= OnDefeat;
+            }
+
+            //characterHUD?.Clear();
+            
+            _activeEntities.Clear();
+
+            _castle = null;
+            _castleController = null;
+
+            _initialized = false;
+        }
+        /*private void Despawn()
         {
             EntityPoolManager.Instance.Despawn(_castle);
             
@@ -218,7 +235,7 @@ namespace Game.Entity.Player
             // TODO: Move this outside of here when we do MatchStats and/or the end screen.
             // End of Level -> Defeat
             ServiceLocator.Get<GameController>().OnGameDefeat();
-        }
+        }*/
         
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()

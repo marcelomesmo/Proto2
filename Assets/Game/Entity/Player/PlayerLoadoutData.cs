@@ -1,58 +1,137 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Entity.Player
 {
     //
-    //  Represents the current selected party loadout.
+    //  Runtime representation of the currently equipped party.
     //
-    //  Built during run-time.
+    //  Persistent slot state is owned by GameSave and PartyManager.
     //
     [CreateAssetMenu(fileName = "Player Loadout", menuName = "Game/Player Loadout")]
     public class PlayerLoadoutData : ScriptableObject
     {
         [Header("Party")]
-        [SerializeField] private int maxPartySize = 5;
-        [SerializeField] private List<CharacterDefinition> selectedCharacters;
-
-        public IReadOnlyList<CharacterDefinition> SelectedCharacters =>
-            selectedCharacters;
+        [SerializeField, Min(1)] private int maxPartySize = 3;
+        
+        private CharacterDefinition[] _partySlots;
+        
         public int MaxPartySize => maxPartySize;
-        public int CurrentPartySize => selectedCharacters.Count;
+        
+        public IReadOnlyList<CharacterDefinition> PartySlots =>
+            _partySlots ??
+            throw new InvalidOperationException("[PlayerLoadoutData] Loadout has not been initialized.");
 
-        public bool CanAdd(CharacterDefinition character)
+        public int CurrentPartySize
         {
+            get
+            {
+                EnsureInitialized();
+
+                int count = 0;
+
+                foreach (CharacterDefinition character in _partySlots)
+                {
+                    if (character != null)
+                        count++;
+                }
+
+                return count;
+            }
+        }
+        
+        public void Initialize()
+        {
+            _partySlots =
+                new CharacterDefinition[maxPartySize];
+        }
+        
+        public CharacterDefinition GetCharacterAt(int slotIndex)
+        {
+            EnsureInitialized();
+            ValidateSlotIndex(slotIndex);
+
+            return _partySlots[slotIndex];
+        }
+        
+        public bool TryAssignToSlot(
+            int slotIndex,
+            CharacterDefinition character)
+        {
+            EnsureInitialized();
+
             if (character == null)
                 return false;
 
-            if (selectedCharacters.Contains(character))
+            if (!IsValidSlotIndex(slotIndex))
                 return false;
 
-            return selectedCharacters.Count < maxPartySize;
+            if (_partySlots[slotIndex] != null)
+                return false;
+
+            if (Contains(character))
+                return false;
+
+            _partySlots[slotIndex] = character;
+            return true;
         }
         
-        public bool AddToParty(CharacterDefinition character)
+        public bool TryRemoveFromSlot(int slotIndex)
         {
-            if (!CanAdd(character))
+            EnsureInitialized();
+
+            if (!IsValidSlotIndex(slotIndex))
                 return false;
 
-            selectedCharacters.Add(character);
+            if (_partySlots[slotIndex] == null)
+                return false;
+
+            _partySlots[slotIndex] = null;
             return true;
         }
 
-        public void RemoveFromParty(CharacterDefinition character)
-        {
-            selectedCharacters.Remove(character);
-        }
-
-        public void ClearParty()
-        {
-            selectedCharacters.Clear();
-        }
-        
         public bool Contains(CharacterDefinition character)
         {
-            return selectedCharacters.Contains(character);
+            EnsureInitialized();
+
+            if (character == null)
+                return false;
+
+            foreach (CharacterDefinition assigned in _partySlots)
+            {
+                if (assigned == character)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private void EnsureInitialized()
+        {
+            if (_partySlots == null)
+            {
+                throw new InvalidOperationException(
+                    "[PlayerLoadoutData] Loadout has not been initialized.");
+            }
+        }
+        
+        private bool IsValidSlotIndex(int slotIndex)
+        {
+            return slotIndex >= 0 &&
+                   slotIndex < _partySlots.Length;
+        }
+
+        private void ValidateSlotIndex(int slotIndex)
+        {
+            if (!IsValidSlotIndex(slotIndex))
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(slotIndex),
+                    slotIndex,
+                    $"Party slot must be between 0 and " +
+                    $"{_partySlots.Length - 1}.");
+            }
         }
     }
 }

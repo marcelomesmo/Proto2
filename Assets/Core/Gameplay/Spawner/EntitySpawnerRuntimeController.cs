@@ -24,7 +24,7 @@ namespace Core.Gameplay.Spawner
         [SerializeField] private EntitySpawnerData spawnData;
 
         [Header("Trigger Settings")]
-        [SerializeField] private bool spawnOnGameStart = true;
+        [SerializeField] private bool spawnOnGameStart = false;
         [SerializeField] private float spawnStartDelay;
         [SerializeField] private bool triggerMatchEndOnCompletion = true;
         
@@ -81,6 +81,64 @@ namespace Core.Gameplay.Spawner
         public int CurrentWaveNumber => CurrentWaveIndex + 1;
         
         public EntitySpawnerData SpawnData => spawnData;
+
+        // Used in externals when spawnOnGameStart = false.
+        public void StartSpawner()
+        {
+            if (spawnData == null)
+            {
+                Debug.LogError("[EntitySpawnerRuntimeController] Cannot start: SpawnData is null.", this);
+                return;
+            }
+
+            if (spawnData.TotalWaveCount <= 0)
+            {
+                Debug.LogWarning("[EntitySpawnerRuntimeController] Cannot start: SpawnData contains no waves.", this);
+                return;
+            }
+
+            ResetSpawnerInternal();
+
+            if (useProximityTrigger)
+            {
+                _state = SpawnerState.Waiting;
+                return;
+            }
+
+            _startDelayTimer.Start(spawnStartDelay);
+            _state = SpawnerState.Ready;
+        }
+        
+        public void ResetSpawnerState()
+        {
+            _state = SpawnerState.Waiting;
+
+            ResetSpawnerInternal();
+        }
+        
+        public void StopSpawner()
+        {
+            _state = SpawnerState.Stopped;
+        }
+        
+        public bool TrySetSpawnData(EntitySpawnerData data)
+        {
+            if (data == null)
+            {
+                Debug.LogError("[EntitySpawnerRuntimeController] Cannot assign null SpawnData.", this);
+                return false;
+            }
+
+            if (_state != SpawnerState.Stopped)
+            {
+                Debug.LogError("[EntitySpawnerRuntimeController] SpawnData can only be changed while the spawner is stopped.", this);
+                return false;
+            }
+
+            spawnData = data;
+
+            return true;
+        }
         
         // --------------------------------------------------
         // Events
@@ -102,17 +160,16 @@ namespace Core.Gameplay.Spawner
             _refreshTimer = new CooldownTimer();
             _spawnTimer = new CooldownTimer();
             _waveDurationTimer = new CooldownTimer();
+            
+            ResetSpawnerInternal();
+            
+            _state = SpawnerState.Stopped;
         }
         
         private void Start()
         {
-            ResetSpawnerInternal();
-
-            if (spawnOnGameStart)
-            {
-                _startDelayTimer.Start(spawnStartDelay);
-                _state = SpawnerState.Ready;
-            }
+            if (spawnOnGameStart && _state == SpawnerState.Stopped)
+                StartSpawner();
         }
         
         private void Update()
@@ -362,8 +419,8 @@ namespace Core.Gameplay.Spawner
         private void ResetSpawnerInternal()
         {
             _currentWaveIndex = 0;
-            
             _aliveEnemies = 0;
+            _proximityTriggered = false;
             
             ResetWaveRuntime();
         }
@@ -378,7 +435,7 @@ namespace Core.Gameplay.Spawner
         
         private void OnAllWavesCompleted()
         {
-            _state = SpawnerState.Waiting;
+            _state = SpawnerState.Stopped;
             
             OnAllWavesCompletedSignal?.Invoke();
 
@@ -454,6 +511,7 @@ namespace Core.Gameplay.Spawner
         
         private enum SpawnerState
         {
+            Stopped,
             Waiting,    // Waiting for trigger or initial state
             Ready,      // Ready to start spawn countdown
             Spawning,   // Currently spawning
