@@ -9,7 +9,7 @@ namespace Core.Gameplay.Entity.Spawn
         public readonly BaseEntityStats Stats;
         public readonly AttackLoadoutDefinition AttackLoadout;
         public readonly GameObject Owner;          // Optional (player, spawner, system)
-        public readonly int Level;                 // Optional, but future-proof
+        public readonly int Level;                 // Optional (e.g. spawn scaling for enemies), but future-proof
         public readonly float PowerMultiplier;     // For buffs / scaling
 
         public SpawnContext(

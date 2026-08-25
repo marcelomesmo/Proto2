@@ -145,6 +145,52 @@ namespace Game.Services.Save
                 .Contains(id);
         }
         
+        public int GetCharacterXp(string characterId)
+        {
+            if (string.IsNullOrWhiteSpace(characterId))
+                return 0;
+
+            foreach (CharacterProgressSaveData progress in Profile.characterProgress)
+            {
+                if (progress.characterId == characterId)
+                    return progress.xp;
+            }
+
+            return 0;
+        }
+
+        public void SetCharacterXp(string characterId, int xp)
+        {
+            if (string.IsNullOrWhiteSpace(characterId))
+                return;
+
+            xp = Mathf.Max(0, xp);
+
+            foreach (CharacterProgressSaveData progress in Profile.characterProgress)
+            {
+                if (progress.characterId != characterId)
+                    continue;
+
+                if (progress.xp == xp)
+                    return;
+
+                progress.xp = xp;
+                Save();
+
+                return;
+            }
+
+            // In case it's a new entry
+            Profile.characterProgress.Add(
+                new CharacterProgressSaveData
+                {
+                    characterId = characterId,
+                    xp = xp
+                });
+
+            Save();
+        }
+        
         // ------------------------------------
         // Levels
         // ------------------------------------

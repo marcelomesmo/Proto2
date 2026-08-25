@@ -19,9 +19,7 @@ namespace Game.Entity.Player
         
         public int MaxPartySize => maxPartySize;
         
-        public IReadOnlyList<CharacterDefinition> PartySlots =>
-            _partySlots ??
-            throw new InvalidOperationException("[PlayerLoadoutData] Loadout has not been initialized.");
+        public IReadOnlyList<CharacterDefinition> PartySlots => _partySlots ?? throw new InvalidOperationException("[PlayerLoadoutData] Loadout has not been initialized.");
 
         public int CurrentPartySize
         {
@@ -43,8 +41,7 @@ namespace Game.Entity.Player
         
         public void Initialize()
         {
-            _partySlots =
-                new CharacterDefinition[maxPartySize];
+            _partySlots = new CharacterDefinition[maxPartySize];
         }
         
         public CharacterDefinition GetCharacterAt(int slotIndex)
@@ -111,8 +108,7 @@ namespace Game.Entity.Player
         {
             if (_partySlots == null)
             {
-                throw new InvalidOperationException(
-                    "[PlayerLoadoutData] Loadout has not been initialized.");
+                throw new InvalidOperationException("[PlayerLoadoutData] Loadout has not been initialized.");
             }
         }
         
@@ -126,11 +122,7 @@ namespace Game.Entity.Player
         {
             if (!IsValidSlotIndex(slotIndex))
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(slotIndex),
-                    slotIndex,
-                    $"Party slot must be between 0 and " +
-                    $"{_partySlots.Length - 1}.");
+                throw new ArgumentOutOfRangeException(nameof(slotIndex), slotIndex, $"Party slot must be between 0 and {_partySlots.Length - 1}.");
             }
         }
     }

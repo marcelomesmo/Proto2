@@ -10,9 +10,13 @@ namespace Game.Services.Save
         SlotLocked,
 
         CharacterLocked,
+        CharacterAlreadyUnlocked,
         CharacterAlreadyAssigned,
         CharacterNotAssigned,
-
+        CharacterResting,
+        
+        InsufficientGold,
+        
         PartyAlreadyConfigured,
         PartyFull,
         LastCharacterRequired

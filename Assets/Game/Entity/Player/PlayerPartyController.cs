@@ -4,7 +4,11 @@ using Core.Gameplay.Entity.Spawn;
 using Core.Services;
 using Core.Services.Manager;
 using Core.Services.Meta;
+using Core.Services.Save;
 using Core.Upgrades;
+using Game.Entity.Player.Subsystem;
+using Game.Services.Meta;
+using Game.Services.Save;
 using UnityEngine;
 
 namespace Game.Entity.Player
@@ -20,7 +24,10 @@ namespace Game.Entity.Player
         private EntityController _castle;
         private PlayerCastleController _castleController;
         
-        private readonly List<EntityController> _activeEntities = new();
+        private EntityController[] _slotEntities;   // High-confidence reference to party slots
+        private PartyManager _partyManager;
+        
+        private readonly List<EntityController> _activeEntities = new();    // Low-confidence reference (compact list for operations that apply to every active character)
         public IReadOnlyList<EntityController> ActiveEntities => _activeEntities;
 
         public PlayerLoadoutData Loadout => loadout;
@@ -39,6 +46,8 @@ namespace Game.Entity.Player
             
             _initialized = true;
             
+            _slotEntities = new EntityController[loadout.MaxPartySize];
+
             SpawnCastle();
             SpawnParty();
 
@@ -81,27 +90,42 @@ namespace Game.Entity.Player
             // Small spawn-point sanity-check
             int slotCount = Mathf.Min(partySlots.Count, spawnPoints.Length);
             
-            for (int i = 0; i < slotCount; i++)
+            for (int slotIndex = 0; slotIndex < slotCount; slotIndex++)
             {
-                var def = partySlots[i];
-                if (def == null)
+                var definition = partySlots[slotIndex];
+                if (definition == null)
                     continue;
                 
-                var spawn = spawnPoints[i];
-
-                if (spawn == null)
+                var spawnPoint = spawnPoints[slotIndex];
+                if (spawnPoint == null)
                 {
-                    Debug.LogError($"[PlayerPartyController] Spawn point {i} is not assigned.", this);
-
+                    Debug.LogError($"[PlayerPartyController] Spawn point {slotIndex} is not assigned.", this);
                     continue;
                 }
 
-                SpawnCharacter(def, spawn);
+                EntityController entity = SpawnCharacterEntity(definition, spawnPoint);
+
+                if (entity == null)
+                    continue;
+
+                _slotEntities[slotIndex] = entity;
+                _activeEntities.Add(entity);
             }
         }
         
         public void SpawnCharacter(CharacterDefinition definition, Transform spawnPoint)
         {
+            EntityController entity = SpawnCharacterEntity(definition, spawnPoint);
+
+            if (entity != null)
+                _activeEntities.Add(entity);
+        }
+        
+        private EntityController SpawnCharacterEntity(CharacterDefinition definition, Transform spawnPoint)
+        {
+            if (definition == null || spawnPoint == null)
+                return null;
+            
             var context = new SpawnContext(
                 stats: definition.baseStats,
                 attackLoadout: definition.initialAttackLoadout,
@@ -117,8 +141,56 @@ namespace Game.Entity.Player
                 context
             );
 
-            _activeEntities.Add(entity);
+            if (entity == null)
+                return null;
+            
+            // Restore saved state for this unit
+            RestoreCharacterProgression(entity, definition);
+
+            return entity;
         }
+        
+        private void OnDestroy()
+        {
+            UnbindPartyManager();
+        }
+        
+        #region Characters Initialize
+        
+        private void RestoreCharacterProgression(
+            EntityController entity,
+            CharacterDefinition definition)
+        {
+            if (entity == null || definition == null || definition.baseStats == null)
+                return;
+
+            var saveManager = ServiceLocator.Get<ISaveManager>() as GameSaveManager;
+
+            if (saveManager == null)
+            {
+                Debug.LogError("[PlayerPartyController] GameSaveManager service not found.", this);
+                return;
+            }
+
+            string characterId = definition.baseStats.characterId;
+
+            // Load saved data
+            int savedXp = saveManager.GetCharacterXp(characterId);
+
+            // Restore level
+            if (!entity.TryGetComponent(out CharacterLevelSubsystem levelSubsystem))
+                return;
+            
+            levelSubsystem.RestoreProgression(savedXp);
+
+            // Restore evolution
+            if (!entity.TryGetComponent(out CharacterEvolutionSubsystem evolutionSubsystem))
+                return;
+            
+            evolutionSubsystem.RestoreForLevel(levelSubsystem.Level);
+        }
+        
+        #endregion
         
         #region Upgrades Initialize
         
@@ -168,6 +240,20 @@ namespace Game.Entity.Player
             }
         }
         
+        // Apply Upgrades to Characters joining the Party
+        private void ApplyCurrentUpgradesToEntity(EntityController entity)
+        {
+            if (entity == null)
+                return;
+
+            UpgradeRuntimeManager upgradeManager = ServiceLocator.Get<GameController>()?.UpgradeRuntimeManager;
+
+            if (upgradeManager == null)
+                return;
+
+            ApplyUpgradesToEntity(entity, upgradeManager);
+        }
+        
         #endregion
 
         public void OnDefeat()
@@ -198,44 +284,82 @@ namespace Game.Entity.Player
             //characterHUD?.Clear();
             
             _activeEntities.Clear();
+            
+            _slotEntities = null;
 
             _castle = null;
             _castleController = null;
 
             _initialized = false;
         }
-        /*private void Despawn()
+        
+        public void BindPartyManager(PartyManager partyManager)
         {
-            EntityPoolManager.Instance.Despawn(_castle);
-            
-            _activeEntities.RemoveAll(e => e == null);
-            
-            foreach (var entity in _activeEntities)
+            if (_partyManager == partyManager)
+                return;
+
+            UnbindPartyManager();
+
+            _partyManager = partyManager;
+
+            if (_partyManager != null)
+                _partyManager.OnPartySlotChanged += HandlePartySlotChanged;
+        }
+
+        private void UnbindPartyManager()
+        {
+            if (_partyManager == null)
+                return;
+
+            _partyManager.OnPartySlotChanged -= HandlePartySlotChanged;
+
+            _partyManager = null;
+        }
+        
+        private void HandlePartySlotChanged(int slotIndex, CharacterDefinition definition)
+        {
+            // The persistent/runtime loadout can change even before an attempt exists (e.g. FTUE selection).
+            // In that case normal Initialize() will spawn the correct party.
+            if (!_initialized)
+                return;
+
+            if (_slotEntities == null || slotIndex < 0 || slotIndex >= _slotEntities.Length)
             {
-                if (!entity)
-                    continue;
-            
-                EntityPoolManager.Instance.Despawn(entity);
+                Debug.LogError($"[PlayerPartyController] Invalid runtime party slot {slotIndex}.", this);
+                return;
             }
 
-            // Clear Entity references
-            _activeEntities.Clear();
-            
-            // Clear Castle references
-            if (_castleController != null)
+            if (slotIndex >= spawnPoints.Length || spawnPoints[slotIndex] == null)
             {
-                _castleController.CastleDestroyed -= OnDefeat;
-                _castleController = null;
+                Debug.LogError($"[PlayerPartyController] Missing spawn point for party slot {slotIndex}.", this);
+                return;
             }
-            _castle = null;
-            
-            // Allow the next Party to be initialized in further matches.
-            _initialized = false;
-            
-            // TODO: Move this outside of here when we do MatchStats and/or the end screen.
-            // End of Level -> Defeat
-            ServiceLocator.Get<GameController>().OnGameDefeat();
-        }*/
+
+            EntityController previousEntity = _slotEntities[slotIndex];
+
+            if (previousEntity != null)
+            {
+                _activeEntities.Remove(previousEntity);
+
+                EntityPoolManager.Instance.Despawn(previousEntity);
+
+                _slotEntities[slotIndex] = null;
+            }
+
+            if (definition == null)
+                return;
+
+            EntityController replacement = SpawnCharacterEntity(definition, spawnPoints[slotIndex]);
+
+            if (replacement == null)
+                return;
+
+            _slotEntities[slotIndex] = replacement;
+
+            _activeEntities.Add(replacement);
+
+            ApplyCurrentUpgradesToEntity(replacement);
+        }
         
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()

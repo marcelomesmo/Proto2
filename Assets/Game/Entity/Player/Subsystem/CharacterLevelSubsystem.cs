@@ -31,6 +31,7 @@ namespace Game.Entity.Player.Subsystem
 
         public int Level => _currentLevel;
         public int XP => _currentXp;
+        public CharacterLevelUpData LevelUpData => levelUpData;
 
         public event Action<int> OnLevelUp;
 
@@ -39,9 +40,7 @@ namespace Game.Entity.Player.Subsystem
             _stats = Controller.Stats as CharacterStats;
             if (!_stats)
             {
-                Debug.LogError(
-                    $"[CharacterLevelSubsystem] Requires CharacterStats on {Controller.name}",
-                    this);
+                Debug.LogError($"[CharacterLevelSubsystem] Requires CharacterStats on {Controller.name}", this);
                 enabled = false;
                 return;
             }
@@ -49,9 +48,7 @@ namespace Game.Entity.Player.Subsystem
             _modifiers = Controller.GetComponent<EntityModifierSubsystem>();
             if (!_modifiers)
             {
-                Debug.LogError(
-                    $"[CharacterLevelSubsystem] Requires EntityModifierSubsystem on {Controller.name}",
-                    this);
+                Debug.LogError($"[CharacterLevelSubsystem] Requires EntityModifierSubsystem on {Controller.name}", this);
                 enabled = false;
                 return;
             }
@@ -130,13 +127,16 @@ namespace Game.Entity.Player.Subsystem
 
             return result;
         }
+        
+        // --------------------------------------------------
+        // Level up
+        // --------------------------------------------------
 
         private void TryLevelUp()
         {
             while (_currentLevel < levelUpData.MaxLevel)
             {
-                int requiredXp =
-                    levelUpData.GetXpForLevel(_currentLevel + 1);
+                int requiredXp = levelUpData.GetXpForLevel(_currentLevel + 1);
 
                 if (_currentXp < requiredXp)
                     break;
@@ -144,7 +144,7 @@ namespace Game.Entity.Player.Subsystem
                 PerformLevelUp();
             }
         }
-
+        
         private void PerformLevelUp()
         {
             int oldLevel = _currentLevel;
@@ -171,6 +171,32 @@ namespace Game.Entity.Player.Subsystem
             _stats.attackPower += gain.attackPower;
             _stats.healingPower += gain.healingPower;
             _stats.defense += gain.defense;
+        }
+        
+        // --------------------------------------------------
+        // Restore Progress from Save
+        // --------------------------------------------------
+        
+        public void RestoreProgression(int xp)
+        {
+            if (_stats == null || levelUpData == null)
+            {
+                Debug.LogError("[CharacterLevelSubsystem] Cannot restore progression before the subsystem has been initialized.", this);
+                return;
+            }
+
+            _currentXp = Mathf.Max(0, xp);
+            _currentLevel = levelUpData.GetLevelForXp(_currentXp);
+            _xpRemainder = 0f;
+
+            // Stats is a fresh runtime clone on every spawn,
+            // so rebuild all accumulated per-level gains from baseline.
+            for (int level = 1; level <= _currentLevel; level++)
+            {
+                ApplyStatGain(level);
+            }
+            
+            // This method is silent, so we do not call TryLevelUp or any event that can trigger feedback.
         }
     }
 }

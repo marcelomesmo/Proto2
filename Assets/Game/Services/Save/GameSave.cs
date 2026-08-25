@@ -40,6 +40,9 @@ namespace Game.Services.Save
             }
         };
         
+        // Character progression
+        public List<CharacterProgressSaveData> characterProgress = new();
+        
         // Stats
         public int totalMatches;
         public int totalWins;
@@ -67,5 +70,12 @@ namespace Game.Services.Save
     {
         public bool unlocked;
         public string characterId = string.Empty;
+    }
+    
+    [Serializable]
+    public sealed class CharacterProgressSaveData
+    {
+        public string characterId;
+        public int xp;
     }
 }

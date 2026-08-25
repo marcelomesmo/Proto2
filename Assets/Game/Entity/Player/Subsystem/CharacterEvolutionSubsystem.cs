@@ -112,5 +112,25 @@ namespace Game.Entity.Player.Subsystem
         {
             return Controller.Stats.characterId;
         }
+        
+        public void RestoreForLevel(int level)
+        {
+            if (evolutionData == null)
+                return;
+
+            int targetStage = evolutionData.GetStageForLevel(level);
+
+            if (!evolutionData.TryGetStage(targetStage, out CharacterEvolutionData.EvolutionStage stageData))
+            {
+                Debug.LogError($"[CharacterEvolutionSubsystem] Missing stage {targetStage} data.", this);
+                return;
+            }
+
+            _currentStage = targetStage;
+
+            ApplyStage(stageData);
+            
+            // This is a silent method to restore state on new session, so we do not call PerformStageUp or gameplay feedback here.
+        }
     }
 }

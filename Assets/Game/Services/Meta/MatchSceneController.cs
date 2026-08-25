@@ -8,6 +8,7 @@ using Core.Services.Save;
 using Game.Entity.Player;
 using Game.Services.Save;
 using Game.UI.Match;
+using Game.UI.Party;
 using Game.UI.Roster;
 using UnityEngine;
 
@@ -57,6 +58,9 @@ namespace Game.Services.Meta
       
         [Header("Gameplay Presentation")]
         [SerializeField] private GameObject gameplayPresentationRoot;
+        
+        [Header("Game Menu")]
+        [SerializeField] private PartyPanelController partyPanel;
         
         [Tooltip("Optional delay before starting match (e.g., for fade-in).")]
         [SerializeField] private float startDelaySeconds = 0f;
@@ -135,16 +139,23 @@ namespace Game.Services.Meta
             //      ↓
             // Runtime PlayerLoadoutData
             //
-            _partyManager = new PartyManager(
-                _saveManager,
-                loadout,
-                characterDatabase);
+            _partyManager = new PartyManager(_saveManager, loadout, characterDatabase);
             
             if (!_partyManager.Initialize())
             {
                 Debug.LogError("[MatchSceneController] Failed to initialize party state.", this);
                 yield break;
             }
+            
+            playerParty.BindPartyManager(_partyManager);
+            
+            if (partyPanel == null)
+            {
+                Debug.LogError("[MatchSceneController] Missing PartyPanelController reference.", this);
+                yield break;
+            }
+
+            partyPanel.Initialize(_partyManager, _saveManager);
             
             if (!stageRuntime.Initialize(_saveManager))
             {

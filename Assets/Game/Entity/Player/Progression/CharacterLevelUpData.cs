@@ -3,9 +3,7 @@ using UnityEngine;
 
 namespace Game.Entity.Player.Progression
 {
-    [CreateAssetMenu(
-        fileName = "CharacterLevelUpData",
-        menuName = "Game/Character/Level Up Data")]
+    [CreateAssetMenu(fileName = "CharacterLevelUpData", menuName = "Game/Character/Level Up Data")]
     public sealed class CharacterLevelUpData : ScriptableObject
     {
         [Header("Leveling")]
@@ -39,6 +37,28 @@ namespace Game.Entity.Player.Progression
                 Debug.LogWarning(
                     $"[CharacterProgressionData] statGains and xpThresholds length mismatch",
                     this);
+        }
+        
+        // ------------------
+        // External Util
+        // ------------------
+        
+        public int GetLevelForXp(int xp)
+        {
+            if (xpThresholds == null || xpThresholds.Length == 0)
+                return 0;
+
+            int level = 0;
+
+            for (int i = 1; i < xpThresholds.Length; i++)
+            {
+                if (xp < xpThresholds[i])
+                    break;
+
+                level = i;
+            }
+
+            return level;
         }
     }
 
