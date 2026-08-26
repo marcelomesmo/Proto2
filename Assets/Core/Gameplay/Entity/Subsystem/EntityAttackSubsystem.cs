@@ -48,6 +48,10 @@ namespace Core.Gameplay.Entity.Subsystem
         
         private Vector2 _boxSize = new(3f, 0.5f);
         //private AttackTargetFilter _targetFilter;
+        
+        // Track owned AreaEffect
+        private readonly HashSet<AreaAttackInstance> _activeAreaEffects = new();
+        private AreaAttackInstance _activeChanneledAreaEffect;
 
         public event Action<AttackInstance> OnAttackStarted;
         public event Action<AttackInstance> OnAttackResolved;
@@ -80,11 +84,19 @@ namespace Core.Gameplay.Entity.Subsystem
 
         protected override void OnDeinitialize()
         {
+            // avoid lingering area effects
+            CancelAnyAttackSequence();
+            EndAllOwnedAreaEffects();
             // avoid lingering coroutine
             if (_extraExecutionRoutine != null)
             {
                 StopCoroutine(_extraExecutionRoutine);
                 _extraExecutionRoutine = null;
+            }
+            // unsubscribes
+            if (_attackLoadout != null)
+            {
+                _attackLoadout.OnLoadoutChanged -= RebuildAttackInstances;
             }
             // Q: is it better to do this here or let HandleAttackResolveTimeout resolve?
             _sourceAttack = null;
@@ -99,10 +111,19 @@ namespace Core.Gameplay.Entity.Subsystem
         protected override void HandleTagAdded(GameplayTag tag)
         {
             if (tag == Controller.Stats.deadTag ||
-                tag == Controller.Stats.matchEndedTag ||
-                tag == Controller.Stats.stunTag ||
+                tag == Controller.Stats.matchEndedTag)
+            {
+                // Interrupt both channel and any lingering AreaEffects.
+                CancelAnyAttackSequence();
+                EndAllOwnedAreaEffects();
+                return;
+            }
+            
+            if (tag == Controller.Stats.stunTag ||
                 tag == Controller.Stats.knockbackTag)
             {
+                // Interrupt the character's current cast/channel,
+                // but already-created non-channeled AreaEffects remain.
                 CancelAnyAttackSequence();
             }
         }
@@ -514,26 +535,30 @@ namespace Core.Gameplay.Entity.Subsystem
             );
 
             // 5. Initialize
-            areaEffect.Initialize(
+            areaEffect.Configure(
                 owner: _controller,
                 data: attack.Data.areaAttackData,
                 payload: payload
             );
+            
+            RegisterAreaEffect(areaEffect);
 
             // 6 Begin channeling
             if (attack.Data.areaAttackData.isChanneled)
             {
-                BeginChanneledAttack(_currentAttack);
+                BeginChanneledAttack(_currentAttack, areaEffect);
                 return true;
             }
 
             return false;
         }
         
-        private void BeginChanneledAttack(AttackInstance attack)
+        private void BeginChanneledAttack(AttackInstance attack, AreaAttackInstance areaEffect)
         {
             _channeledAttack = attack;
             _channeledAttackTimer = attack.GetDuration();
+            
+            _activeChanneledAreaEffect = areaEffect;
 
             //
             //  Lock movement/brain-facing
@@ -556,6 +581,7 @@ namespace Core.Gameplay.Entity.Subsystem
                 _presentation.LockFacing(false);
 
             _channeledAttack = null;
+            _activeChanneledAreaEffect = null;
             
             _sourceAttack = null;
             _currentAttack = null;
@@ -567,6 +593,14 @@ namespace Core.Gameplay.Entity.Subsystem
         {
             if (_channeledAttack == null)
                 return;
+            
+            AreaAttackInstance areaEffect = _activeChanneledAreaEffect;
+            _activeChanneledAreaEffect = null;
+
+            if (areaEffect != null && !areaEffect.IsReleased)
+            {
+                areaEffect.Interrupt();
+            }
 
             EndChanneledAttack();
         }
@@ -579,9 +613,7 @@ namespace Core.Gameplay.Entity.Subsystem
             return transform;
         }
         
-        private Vector3 ResolveAreaSpawnPosition(
-            AreaAttackData data,
-            AttackContext context)
+        private Vector3 ResolveAreaSpawnPosition(AreaAttackData data, AttackContext context)
         {
             var origin = ResolveAreaSpawnTransform(data);
 
@@ -607,6 +639,57 @@ namespace Core.Gameplay.Entity.Subsystem
 
                 default:
                     return origin.position;
+            }
+        }
+        
+        private void RegisterAreaEffect(AreaAttackInstance areaEffect)
+        {
+            if (areaEffect == null)
+                return;
+
+            if (!_activeAreaEffects.Add(areaEffect))
+                return;
+
+            areaEffect.Released += HandleAreaEffectReleased;
+        }
+
+        private void HandleAreaEffectReleased(AreaAttackInstance areaEffect)
+        {
+            if (areaEffect == null)
+                return;
+
+            areaEffect.Released -= HandleAreaEffectReleased;
+
+            _activeAreaEffects.Remove(areaEffect);
+
+            if (_activeChanneledAreaEffect == areaEffect)
+            {
+                _activeChanneledAreaEffect = null;
+            }
+        }
+        
+        // This method is used to end all AreaEffect when the caster leaves combat.
+        private void EndAllOwnedAreaEffects()
+        {
+            if (_activeAreaEffects.Count == 0)
+                return;
+
+            // Interrupt() eventually causes Released, which modifies _activeAreaEffects.
+            // Iterate over a snapshot.
+            var snapshot = new List<AreaAttackInstance>(_activeAreaEffects);
+
+            _activeAreaEffects.Clear();
+            _activeChanneledAreaEffect = null;
+
+            foreach (AreaAttackInstance areaEffect in snapshot)
+            {
+                if (areaEffect == null)
+                    continue;
+
+                areaEffect.Released -= HandleAreaEffectReleased;
+
+                if (!areaEffect.IsReleased)
+                    areaEffect.Interrupt();
             }
         }
         

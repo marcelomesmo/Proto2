@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core.Enum;
@@ -26,15 +27,14 @@ namespace Core.Gameplay.Combat.AreaAttack
         
         private IPoolableVisual[] visuals;      // Audio, VFX, Lights, etc.
         
+        public event Action<AreaAttackInstance> Released;
+        
         public void Awake()
         {
             visuals = GetComponents<IPoolableVisual>();
         }
 
-        public void Initialize(
-            EntityController owner,
-            AreaAttackData data,
-            CombatPayload payload)
+        public void Configure(EntityController owner, AreaAttackData data, CombatPayload payload)
         {
             _owner = owner;
             _data = data;
@@ -53,11 +53,10 @@ namespace Core.Gameplay.Combat.AreaAttack
             if (_isReleased)
                 return;
             
+            // DEPRECATED: now correct ownership is: AreaEffect doesnt pool it's owner every frame, owner sets lifetime of area effect.
             // 1. Owner death handling
-            if (!_isEnding && _owner && _owner.IsDead)
-            {
-                HandleOwnerDeath();
-            }
+            //if (!_isEnding && _owner && _owner.IsDead)
+            //    HandleOwnerDeath();
             
             // If ending, skip ticking logic
             if (_isEnding)
@@ -227,14 +226,24 @@ namespace Core.Gameplay.Combat.AreaAttack
             return angle <= halfAngleDeg;
         }
         
-        
         // Owner lifecycle
-        private void HandleOwnerDeath()
+        public bool IsReleased => _isReleased;
+
+        public void Interrupt()
+        {
+            if (_isReleased || _isEnding)
+                return;
+
+            BeginEndSequence();
+        }
+        
+        // DEPRECATED
+        /*private void HandleOwnerDeath()
         {
             // Other sequencing can be added here.
             
             BeginEndSequence();
-        }
+        }*/
         
         // End / fade logic
         private void BeginEndSequence()
@@ -289,6 +298,9 @@ namespace Core.Gameplay.Combat.AreaAttack
         // Called by pool on Release (actionOnRelease)
         public void OnDespawn()
         {
+            Released?.Invoke(this);
+            Released = null;
+            
             _hits.Clear();
             
             _owner = null;
