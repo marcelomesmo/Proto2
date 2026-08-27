@@ -16,6 +16,9 @@ namespace Game.UI.Party
 
         [Header("Occupied")]
         [SerializeField] private Image portraitImage;
+        [SerializeField] private TextMeshProUGUI characterNameText;
+        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private Image xpBarFill;
 
         [Header("Selection")]
         [SerializeField] private GameObject selectedHighlight;
@@ -47,7 +50,7 @@ namespace Game.UI.Party
             _slotIndex = slotIndex;
         }
 
-        public void SetState(bool unlocked, bool occupied, Sprite portrait, bool selected, string actionLabel)
+        public void SetState(bool unlocked, bool occupied, Sprite portrait, string characterName, int level, float xpProgress, bool selected, string actionLabel)
         {
             lockedRoot.SetActive(!unlocked);
             emptyRoot.SetActive(unlocked && !occupied);
@@ -59,6 +62,13 @@ namespace Game.UI.Party
                 portraitImage.gameObject.SetActive(unlocked && occupied && portrait != null);   // Hide when not assigned
             }
 
+            if (occupied)
+            {
+                characterNameText.text = characterName;
+                levelText.text = $"Lv. {level}";
+                xpBarFill.fillAmount = Mathf.Clamp01(xpProgress);
+            }
+            
             selectedHighlight.SetActive(unlocked && selected);
             
             // Retreat Button

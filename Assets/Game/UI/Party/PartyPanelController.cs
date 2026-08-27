@@ -1,6 +1,7 @@
 using System;
 using Game.Entity.Player;
 using Game.Entity.Player.Progression.Util;
+using Game.Entity.Player.Subsystem;
 using Game.Services.Meta;
 using Game.Services.Save;
 using UnityEngine;
@@ -321,7 +322,25 @@ namespace Game.UI.Party
 
                 bool occupied = character != null;
 
-                Sprite portrait = occupied ? CharacterPortraitResolver.GetPortrait(character, _saveManager) : null;
+                Sprite portrait = null;
+                string characterName = string.Empty;
+                int level = 0;
+                float xpProgress = 0f;
+                
+                if (occupied)
+                {
+                    portrait = CharacterPortraitResolver.GetPortrait(character, _saveManager);
+
+                    characterName = character.baseStats != null ? character.baseStats.displayName : string.Empty;
+
+                    if (character.baseStats != null && character.prefab != null && character.prefab.TryGetComponent(out CharacterLevelSubsystem levelSubsystem) && levelSubsystem.LevelUpData != null)
+                    {
+                        string characterId = character.baseStats.characterId;
+                        int xp = _saveManager.GetCharacterXp(characterId);
+                        level = levelSubsystem.LevelUpData.GetLevelForXp(xp);
+                        xpProgress = levelSubsystem.LevelUpData.GetLevelProgress(xp);
+                    }
+                }
                
                 bool selected = _selectedSlotIndex == slotIndex;
                 string actionLabel = null;
@@ -330,7 +349,7 @@ namespace Game.UI.Party
                     actionLabel = occupied ? "Switch?" : "Send to Battle";
                 }
                 
-                view.SetState(unlocked, occupied, portrait, _selectedSlotIndex == slotIndex, actionLabel);
+                view.SetState(unlocked, occupied, portrait, characterName, level, xpProgress, _selectedSlotIndex == slotIndex, actionLabel);
             }
         }
 

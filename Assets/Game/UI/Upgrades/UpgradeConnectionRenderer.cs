@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using Core.Enum;
-using Core.Services;
-using Core.Services.Meta;
 using Core.Upgrades;
 using Game.Enum;
 using UnityEngine;

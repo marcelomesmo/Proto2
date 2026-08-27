@@ -1,9 +1,8 @@
 using Core.Services;
-using Game.Enum;
-using Game.EventChannels;
 using Game.Services.Meta;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI.Match
 {
@@ -17,6 +16,7 @@ namespace Game.UI.Match
         //[SerializeField] private TextMeshProUGUI wavesText; // DEPRECATED
         [SerializeField] private TextMeshProUGUI matchTimer;
         [SerializeField] private TextMeshProUGUI stageLevelText;
+        [SerializeField] private Image stageLevelProgress;
 
         /* Boilerplate for Event Channel */
         private void OnEnable()
@@ -29,9 +29,12 @@ namespace Game.UI.Match
                 //gameStats.OnWaveStartedChanged += UpdateWaveCounter;
                 gameStats.OnMatchTimeChanged += UpdateMatchClock;
             }
-            
+
             if (stageRuntime != null)
+            {
                 stageRuntime.OnLevelStarted += UpdateStageDisplay;
+                stageRuntime.OnLevelProgressChanged += UpdateStageProgress;
+            }
         }
 
         private void OnDisable()
@@ -45,9 +48,12 @@ namespace Game.UI.Match
                 //gameStats.OnWaveStartedChanged -= UpdateWaveCounter;
                 gameStats.OnMatchTimeChanged -= UpdateMatchClock;
             }
-            
+
             if (stageRuntime != null)
+            {
                 stageRuntime.OnLevelStarted -= UpdateStageDisplay;
+                stageRuntime.OnLevelProgressChanged -= UpdateStageProgress;
+            }
         }
         /* End of Boilerplate */
         
@@ -65,6 +71,11 @@ namespace Game.UI.Match
         private void UpdateStageDisplay(int stageIndex, int levelIndex)
         {
             stageLevelText.text = $"Stage {stageIndex + 1}-{levelIndex + 1}";
+        }
+        
+        private void UpdateStageProgress(float progress)
+        {
+            stageLevelProgress.fillAmount = Mathf.Clamp01(progress);
         }
         
         private void UpdateMatchClock(float time)

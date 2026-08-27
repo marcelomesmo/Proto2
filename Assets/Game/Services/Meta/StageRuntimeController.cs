@@ -69,6 +69,7 @@ namespace Game.Services.Meta
         public event Action<int, int> OnLevelStarted;
         public event Action<int, int> OnLevelCompleted;
         public event Action<int, int> OnProgressionChanged;
+        public event Action<float> OnLevelProgressChanged;  // per-Wave progress
         
         // --------------------------------------------------
         // Internal access
@@ -135,6 +136,9 @@ namespace Game.Services.Meta
                 Debug.LogError($"[StageRuntimeController] Could not configure Stage {CurrentStageNumber}, Level {CurrentLevelNumber}.", this);
                 return;
             }
+            
+            // New Level starts with empty progress.
+            OnLevelProgressChanged?.Invoke(0f);
 
             spawner.StartSpawner();
 
@@ -159,6 +163,21 @@ namespace Game.Services.Meta
 
             OnLevelCompleted?.Invoke(completedStageIndex, completedLevelIndex);
         }
+        
+        private void HandleWaveStarted(int waveIndex)
+        {
+            int totalWaves = CurrentLevelData.TotalWaveCount;
+
+            if (totalWaves <= 0)
+            {
+                OnLevelProgressChanged?.Invoke(0f);
+                return;
+            }
+
+            float progress = (waveIndex + 1f) / totalWaves;
+
+            OnLevelProgressChanged?.Invoke(progress);
+        }
 
         // --------------------------------------------------
         // Spawner Binding
@@ -168,6 +187,9 @@ namespace Game.Services.Meta
         {
             spawner.OnAllWavesCompletedSignal -= HandleSpawnerCompleted;
             spawner.OnAllWavesCompletedSignal += HandleSpawnerCompleted;
+            
+            spawner.OnWaveStartedSignal -= HandleWaveStarted;
+            spawner.OnWaveStartedSignal += HandleWaveStarted;
         }
 
         private void UnbindSpawner()
@@ -176,6 +198,7 @@ namespace Game.Services.Meta
                 return;
 
             spawner.OnAllWavesCompletedSignal -= HandleSpawnerCompleted;
+            spawner.OnWaveStartedSignal -= HandleWaveStarted;
         }
 
         // --------------------------------------------------
