@@ -24,17 +24,17 @@ MonoBehaviour:
     attackLoadoutOverride: {fileID: 11400000, guid: f969870d7e578354990802de29fc9a63, type: 2}
   - stage: 1
     requiredLevel: 5
-    displayName: 
+    displayName: Apollonim
     displayDescription: 
-    portraitOverride: {fileID: -2258755098361695858, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
+    portraitOverride: {fileID: -36922474833775500, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 199a2254f9bc60a41930789d3a91650c, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 93a001b1596c21c4bb9b82133b88bcdb, type: 2}
   - stage: 2
     requiredLevel: 15
-    displayName: 
+    displayName: Apollonimare
     displayDescription: 
-    portraitOverride: {fileID: -2258755098361695858, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
+    portraitOverride: {fileID: 1447128006, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 2e31cd803b3dffd42aae5aef5a699c19, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 05d76a17b93380447be064baf4912c7b, type: 2}

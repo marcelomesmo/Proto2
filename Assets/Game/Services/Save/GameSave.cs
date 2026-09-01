@@ -30,12 +30,12 @@ namespace Game.Services.Save
             },
             new()
             {
-                unlocked = false,
+                unlocked = true,                // TODO: Change this when we implement slot unlocks.
                 characterId = string.Empty
             },
             new()
             {
-                unlocked = false,
+                unlocked = true,
                 characterId = string.Empty
             }
         };

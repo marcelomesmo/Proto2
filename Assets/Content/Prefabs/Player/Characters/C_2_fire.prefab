@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 929215472986499729, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1012309169, guid: d5d5509e5aa8b5c4d8d58d5a8c438a69, type: 3}
+      objectReference: {fileID: -3142547290203711072, guid: f8f0e45ff51e3b04cac85831654dcc21, type: 3}
     - target: {fileID: 3451244491078341314, guid: b741dcafa5acd2d4d85c70d5b510257c, type: 3}
       propertyPath: levelUpData
       value: 

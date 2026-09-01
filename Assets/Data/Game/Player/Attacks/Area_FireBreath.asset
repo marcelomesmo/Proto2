@@ -18,7 +18,7 @@ MonoBehaviour:
   executionMode: 2
   combatActionType: 0
   amount: 2
-  range: 4
+  range: 2
   cooldown: 10
   hitTypes: 4
   hitVFX: {fileID: 0}

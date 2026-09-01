@@ -5,6 +5,9 @@ namespace Game.Audio
 {
     public class MatchMusicHandler : MonoBehaviour
     {
+        [Header("Character Selection Music")]
+        [SerializeField] private AudioClip introMusic;
+        
         [Header("Match Music")]
         [SerializeField] private AudioClip baseMusic;
         [SerializeField] private AudioClip victoryMusic;
@@ -26,6 +29,9 @@ namespace Game.Audio
             _game.OnMatchStarted += HandleMatchStarted;
             _game.OnMatchVictory += HandleMatchVictory;
             _game.OnMatchDefeat  += HandleMatchDefeat;
+            
+            if(introMusic != null)
+                _audio.Music.Play(introMusic);
         }
 
         private void OnDestroy()
@@ -49,6 +55,8 @@ namespace Game.Audio
 
         private void HandleMatchStarted()
         {
+            _audio.Music.Stop();
+            
             if (baseMusic != null)
                 _audio.Music.Play(baseMusic);
         }

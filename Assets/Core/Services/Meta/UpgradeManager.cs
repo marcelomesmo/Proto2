@@ -24,12 +24,11 @@ namespace Core.Services.Meta
         //      and whether we want to move UpgradeCurrency to ISaveManager or create IUpgradeCurrencyProvider and inject in UpgradeManager.Initialize.
         private GameSaveManager _saveManager;
         private IUpgradeDatabase _database;
+        private UpgradeRuntimeManager _runtimeManager;
         
         public event Action<string, int> OnUpgradeLevelChanged;
         
-        public void Initialize(
-            ISaveManager saveManager,
-            IUpgradeDatabase database)
+        public void Initialize(ISaveManager saveManager, IUpgradeDatabase database, UpgradeRuntimeManager runtimeManager)
         {
             if (saveManager == null)
                 throw new ArgumentNullException(nameof(saveManager));
@@ -37,8 +36,12 @@ namespace Core.Services.Meta
             if (database == null)
                 throw new ArgumentNullException(nameof(database));
             
+            if (runtimeManager == null)
+                throw new ArgumentNullException(nameof(runtimeManager));
+            
             _saveManager = saveManager as GameSaveManager;
             _database = database;
+            _runtimeManager = runtimeManager;
         }
         
         //  ----------------------
@@ -128,6 +131,10 @@ namespace Core.Services.Meta
             progress.level = nextLevel;
             
             _saveManager.Save();
+            
+            _runtimeManager.SetUpgradeLevel(
+                definition,
+                progress.level);
 
             OnUpgradeLevelChanged?.Invoke(
                 upgradeId,
@@ -218,7 +225,7 @@ namespace Core.Services.Meta
         //
         //  Upgrade Tree refund
         //
-        public int CalculateUpgradeRefund()
+        /*public int CalculateUpgradeRefund()
         {
             int refund = 0;
 
@@ -244,6 +251,6 @@ namespace Core.Services.Meta
             _saveManager.Profile.upgrades.Clear();
 
             _saveManager.Save();
-        }
+        }*/
     }
 }

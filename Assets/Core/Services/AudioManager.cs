@@ -34,7 +34,7 @@ namespace Core.Services
         
         // Exposed to UI Menu
         private float _musicVolume = 0.5f;  // linear (0-1)
-        private float _sfxVolume = 1f;  // linear (0-1)
+        private float _sfxVolume = 0.5f;  // linear (0-1)
         public float MusicVolume => _musicVolume;
         public float SfxVolume => _sfxVolume;
         

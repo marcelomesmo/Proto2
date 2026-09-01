@@ -69,11 +69,10 @@ namespace Game.UI.Party
                 xpBarFill.fillAmount = Mathf.Clamp01(xpProgress);
             }
             
-            selectedHighlight.SetActive(unlocked && selected);
-            
-            // Retreat Button
+            bool showSelection = unlocked && selected;
             bool showAction = unlocked && selected && !string.IsNullOrEmpty(actionLabel);
-
+            
+            selectedHighlight.SetActive(showSelection);
             slotActionRoot.SetActive(showAction);
 
             if (showAction)

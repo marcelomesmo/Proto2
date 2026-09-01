@@ -17,39 +17,26 @@ MonoBehaviour:
   defaultWaveDuration: 10
   waves:
   - entities:
-    - {fileID: 11400000, guid: 6a4703aaa7392844987cc970cb7c7368, type: 2}
-    waveId: wave_1
-    isBossWave: 0
-    overrideWaveDuration: 5
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 991416c9904d59742a20993f36ec535b, type: 2}
-    waveId: wave_1
-    isBossWave: 0
-    overrideWaveDuration: 5
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    waveId: wave_1
-    isBossWave: 0
-    overrideWaveDuration: 5
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    waveId: wave_2
-    isBossWave: 0
-    overrideWaveDuration: 5
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_6
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    waveId: wave_1
     isBossWave: 0
     overrideWaveDuration: -1
     killAllRequired: 0
   - entities:
     - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
     - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    waveId: wave_2
+    isBossWave: 0
+    overrideWaveDuration: -1
+    killAllRequired: 0
+  - entities:
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     waveId: wave_3
     isBossWave: 0
     overrideWaveDuration: -1
@@ -62,10 +49,7 @@ MonoBehaviour:
     overrideWaveDuration: -1
     killAllRequired: 0
   - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
     waveId: wave_5
     isBossWave: 0
     overrideWaveDuration: -1
@@ -73,20 +57,13 @@ MonoBehaviour:
   - entities:
     - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
     - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     waveId: wave_6
     isBossWave: 0
     overrideWaveDuration: -1
     killAllRequired: 0
   - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_5
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     waveId: wave_7
@@ -94,39 +71,17 @@ MonoBehaviour:
     overrideWaveDuration: -1
     killAllRequired: 0
   - entities:
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
+    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     waveId: wave_8
     isBossWave: 0
     overrideWaveDuration: -1
     killAllRequired: 0
   - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_6
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
     - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
+    waveId: wave_9
     isBossWave: 0
     overrideWaveDuration: -1
     killAllRequired: 0
@@ -136,202 +91,3 @@ MonoBehaviour:
     isBossWave: 1
     overrideWaveDuration: -1
     killAllRequired: 1
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 9bd24a2e0e0777e45a8458db66e4b4f7, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e9b30e896980aee4caf1eb09f2a9ace2, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: e9b30e896980aee4caf1eb09f2a9ace2, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e9b30e896980aee4caf1eb09f2a9ace2, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: e9b30e896980aee4caf1eb09f2a9ace2, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 9bd24a2e0e0777e45a8458db66e4b4f7, type: 2}
-    - {fileID: 11400000, guid: 9bd24a2e0e0777e45a8458db66e4b4f7, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    - {fileID: 11400000, guid: 3d7a36f14b1d4744b8b65a851437f788, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e19a10fd1956cca43b1fc9a9ad375836, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: 3bc6f520c13b9bc47b183b33ea4b1684, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0
-  - entities:
-    - {fileID: 11400000, guid: e9b30e896980aee4caf1eb09f2a9ace2, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    - {fileID: 11400000, guid: e1b09a27dd590e64a997963f5a71df27, type: 2}
-    waveId: wave_11
-    isBossWave: 0
-    overrideWaveDuration: -1
-    killAllRequired: 0

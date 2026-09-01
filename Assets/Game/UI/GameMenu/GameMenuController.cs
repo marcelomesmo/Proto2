@@ -16,11 +16,14 @@ namespace Game.UI.GameMenu
         [Header("Menu")]
         [SerializeField] private GameObject menuRoot;
 
-        [Header("Content")]
+        [Header("Content Tab")]
         [SerializeField] private GameObject charactersRoot;
         [SerializeField] private GameObject upgradesRoot;
         [SerializeField] private GameObject settingsRoot;
 
+        [Header("New Tab Opener")]
+        [SerializeField] private GameObject upgradesPopupRoot;
+        
         [Header("Default Selection")]
         [SerializeField] private GameObject defaultCharactersSelection;
         [SerializeField] private GameObject defaultUpgradesSelection;
@@ -43,6 +46,8 @@ namespace Game.UI.GameMenu
             charactersRoot.SetActive(false);
             upgradesRoot.SetActive(false);
             settingsRoot.SetActive(false);
+            
+            upgradesPopupRoot.SetActive(false);
 
             _menuAction = InputSystem.actions.FindAction("UI/Cancel");
         }
@@ -137,6 +142,17 @@ namespace Game.UI.GameMenu
                 MenuTab.Settings => defaultOptionsSelection,
                 _ => null
             };
+        }
+        
+        // --------------------------------------------------
+        // Pop-ups
+        // --------------------------------------------------
+        
+        public void ToggleUpgradesPopup()
+        {
+            bool currentState = upgradesPopupRoot.activeSelf;
+            
+            upgradesPopupRoot.SetActive(!currentState);
         }
 
         // --------------------------------------------------

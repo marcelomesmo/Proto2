@@ -148,6 +148,7 @@ namespace Game.Services.Meta
             }
             
             playerParty.BindPartyManager(_partyManager);
+            playerParty.BindUpgradeRuntime(ServiceLocator.Get<GameController>()?.UpgradeRuntimeManager);
             
             if (partyPanel == null)
             {
@@ -264,8 +265,8 @@ namespace Game.Services.Meta
 
         private void BindInitialCharacterSelection()
         {
-            initialCharacterSelectionPanel.CharacterSelected -= HandleInitialCharacterSelected;
-            initialCharacterSelectionPanel.CharacterSelected += HandleInitialCharacterSelected;
+            initialCharacterSelectionPanel.GameStarted -= HandleInitialCharacterConfirmed;
+            initialCharacterSelectionPanel.GameStarted += HandleInitialCharacterConfirmed;
         }
 
         private void UnbindInitialCharacterSelection()
@@ -273,13 +274,12 @@ namespace Game.Services.Meta
             if (initialCharacterSelectionPanel == null)
                 return;
 
-            initialCharacterSelectionPanel.CharacterSelected -= HandleInitialCharacterSelected;
+            initialCharacterSelectionPanel.GameStarted -= HandleInitialCharacterConfirmed;
         }
         
         // Initial selection has one explicit rule:
         // The selected character is unlocked for free and assigned to party slot 0.
-        private void HandleInitialCharacterSelected(
-            CharacterDefinition definition)
+        private void HandleInitialCharacterConfirmed(CharacterDefinition definition)
         {
             if (_partyManager == null)
             {

@@ -1,4 +1,6 @@
 using System;
+using Core.EventChannels;
+using Core.EventChannels.Payloads;
 using Game.Entity.Player;
 using Game.Entity.Player.Progression.Util;
 using Game.Entity.Player.Subsystem;
@@ -19,6 +21,10 @@ namespace Game.UI.Party
         [Header("Purchase")]
         [SerializeField] private CharacterPurchasePopup purchasePopup;
 
+        [Header("Character Progression Events")]
+        [SerializeField] private CharacterLevelChangedEventChannelSO levelChangedEvent;
+        [SerializeField] private CharacterStageChangedEventChannelSO stageChangedEvent;
+        
         private PartyManager _partyManager;
         private GameSaveManager _saveManager;
 
@@ -51,6 +57,9 @@ namespace Game.UI.Party
             _partyManager.OnPartySlotUnlocked += HandlePartySlotUnlocked;
 
             _saveManager.OnGoldChanged += HandleGoldChanged;
+            
+            levelChangedEvent.OnEventRaised += HandleCharacterLevelChanged;
+            stageChangedEvent.OnEventRaised += HandleCharacterStageChanged;
 
             _initialized = true;
 
@@ -148,6 +157,9 @@ namespace Game.UI.Party
             _partyManager.OnPartySlotUnlocked -= HandlePartySlotUnlocked;
 
             _saveManager.OnGoldChanged -= HandleGoldChanged;
+            
+            levelChangedEvent.OnEventRaised -= HandleCharacterLevelChanged;
+            stageChangedEvent.OnEventRaised -= HandleCharacterStageChanged;
         }
 
         // --------------------------------------------------
@@ -273,6 +285,27 @@ namespace Game.UI.Party
             if (purchasePopup.IsOpen)
                 purchasePopup.ClearFeedback();
         }
+        
+        // --------------------------------------------------
+        // Character Evolution and Level Up
+        // --------------------------------------------------
+        
+        private void HandleCharacterLevelChanged(CharacterLevelChangedPayload payload)
+        {
+            if (!_initialized)
+                return;
+
+            RefreshPartySlots();
+        }
+        
+        private void HandleCharacterStageChanged(CharacterStageChangedPayload payload)
+        {
+            if (!_initialized)
+                return;
+
+            RefreshPartySlots();
+            RefreshRosterPresentation();
+        }
 
         // --------------------------------------------------
         // Domain Events
@@ -346,7 +379,7 @@ namespace Game.UI.Party
                 string actionLabel = null;
                 if (selected)
                 {
-                    actionLabel = occupied ? "Switch?" : "Send to Battle";
+                    actionLabel = occupied ? "Switch?" : "Send?";
                 }
                 
                 view.SetState(unlocked, occupied, portrait, characterName, level, xpProgress, _selectedSlotIndex == slotIndex, actionLabel);

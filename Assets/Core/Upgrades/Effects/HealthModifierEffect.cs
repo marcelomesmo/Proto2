@@ -19,6 +19,8 @@ namespace Core.Upgrades.Effects
 
             context.Modifiers.AddHealthModifier(
                 GetModifierForLevel(level));
+            
+            RefreshHealth(context);
         }
 
         public override void Remove(UpgradeContext context, int level)
@@ -28,8 +30,19 @@ namespace Core.Upgrades.Effects
 
             context.Modifiers.RemoveHealthModifier(
                 GetModifierForLevel(level));
+            
+            RefreshHealth(context);
         }
 
+        private void RefreshHealth(
+            UpgradeContext context)
+        {
+            if (!context.Entity.TryGetComponent(out EntityHealth health))
+                return;
+
+            health.RefreshMaxHealthAfterModifierChange();
+        }
+        
         private HealthModifier GetModifierForLevel(int level)
         {
             if (modifierPerLevel == null || modifierPerLevel.Length == 0)

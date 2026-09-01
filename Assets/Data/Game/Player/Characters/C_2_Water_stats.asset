@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: C_2_Water_stats
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.Stats.CharacterStats
   characterId: C_2_Water
-  displayName: 
+  displayName: Nept
   faction: 1
   attackPower: 3
   healingPower: 10

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Gameplay.Entity;
 using Core.Gameplay.Entity.Spawn;
+using Core.Gameplay.Entity.Subsystem;
 using Core.Services;
 using Core.Services.Manager;
 using Core.Services.Meta;
@@ -26,6 +27,7 @@ namespace Game.Entity.Player
         
         private EntityController[] _slotEntities;   // High-confidence reference to party slots
         private PartyManager _partyManager;
+        private UpgradeRuntimeManager _upgradeRuntimeManager;
         
         private readonly List<EntityController> _activeEntities = new();    // Low-confidence reference (compact list for operations that apply to every active character)
         public IReadOnlyList<EntityController> ActiveEntities => _activeEntities;
@@ -152,6 +154,7 @@ namespace Game.Entity.Player
         
         private void OnDestroy()
         {
+            UnbindUpgradeRuntime();
             UnbindPartyManager();
         }
         
@@ -243,15 +246,10 @@ namespace Game.Entity.Player
         // Apply Upgrades to Characters joining the Party
         private void ApplyCurrentUpgradesToEntity(EntityController entity)
         {
-            if (entity == null)
+            if (entity == null || _upgradeRuntimeManager == null)
                 return;
 
-            UpgradeRuntimeManager upgradeManager = ServiceLocator.Get<GameController>()?.UpgradeRuntimeManager;
-
-            if (upgradeManager == null)
-                return;
-
-            ApplyUpgradesToEntity(entity, upgradeManager);
+            ApplyUpgradesToEntity(entity, _upgradeRuntimeManager);
         }
         
         #endregion
@@ -359,6 +357,89 @@ namespace Game.Entity.Player
             _activeEntities.Add(replacement);
 
             ApplyCurrentUpgradesToEntity(replacement);
+        }
+        
+        public void BindUpgradeRuntime(UpgradeRuntimeManager runtimeManager)
+        {
+            if (_upgradeRuntimeManager == runtimeManager)
+                return;
+
+            UnbindUpgradeRuntime();
+
+            _upgradeRuntimeManager = runtimeManager;
+
+            if (_upgradeRuntimeManager != null)
+                _upgradeRuntimeManager.OnUpgradeLevelChanged += HandleRuntimeUpgradeChanged;
+        }
+        
+        public void UnbindUpgradeRuntime()
+        {
+            if (_upgradeRuntimeManager == null)
+                return;
+
+            _upgradeRuntimeManager.OnUpgradeLevelChanged -= HandleRuntimeUpgradeChanged;
+            _upgradeRuntimeManager = null;
+        }
+        
+        private void HandleRuntimeUpgradeChanged(UpgradeDefinition definition, int oldLevel, int newLevel)
+        {
+            if (!_initialized)
+                return;
+
+            ApplyUpgradeLevelChange(definition, oldLevel, newLevel);
+        }
+        
+        private void ApplyUpgradeLevelChange(UpgradeDefinition definition, int oldLevel, int newLevel)
+        {
+            if (definition == null)
+                return;
+
+            foreach (EntityController entity in _activeEntities)
+            {
+                if (entity == null)
+                    continue;
+
+                ApplyUpgradeChangeToEntity(entity, definition, oldLevel, newLevel);
+            }
+
+            if (_castle != null)
+                ApplyUpgradeChangeToEntity(_castle, definition, oldLevel, newLevel);
+        }
+        
+        private void ApplyUpgradeChangeToEntity(EntityController entity, UpgradeDefinition definition, int oldLevel, int newLevel)
+        {
+            if (entity == null || definition == null)
+                return;
+
+            var context = new UpgradeContext(entity);
+
+            if (oldLevel > 0)
+            {
+                foreach (var effect in definition.Effects)
+                {
+                    if (!effect)
+                        continue;
+
+                    if (!effect.CanApply(context))
+                        continue;
+
+                    effect.Remove(context, oldLevel);
+                }
+            }
+
+            if (newLevel > 0)
+            {
+                foreach (var effect in definition.Effects)
+                {
+                    if (!effect)
+                        continue;
+
+                    if (!effect.CanApply(context))
+                        continue;
+
+                    effect.Apply(context, newLevel);
+                }
+            }
         }
         
 #if UNITY_EDITOR

@@ -16,24 +16,24 @@ MonoBehaviour:
   - stage: 0
     requiredLevel: 0
     displayName: Luna
-    displayDescription: 
-    portraitOverride: {fileID: 0}
+    displayDescription: 'Sparkling hero, orbit friends and foes alike. '
+    portraitOverride: {fileID: 2142198656, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: d0fe4dfaeb256b44599392984bb676b5, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 3fcd0fde1e404e9489341ad8ea7b3fb7, type: 2}
   - stage: 1
     requiredLevel: 5
-    displayName: 
+    displayName: Lunariana
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -2034530073, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 5742980f1369c1942986de356647fdea, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 2ece28779a665824fbaad630046b7caa, type: 2}
   - stage: 2
     requiredLevel: 15
-    displayName: 
+    displayName: Moon
     displayDescription: 
-    portraitOverride: {fileID: 0}
+    portraitOverride: {fileID: -519471041, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
     spriteOverride: {fileID: 0}
     animatorOverride: {fileID: 22100000, guid: 0fdbb3aac2acc794993c3fd500403bfc, type: 2}
     attackLoadoutOverride: {fileID: 11400000, guid: 7009ad91747fefb4498c94b16cc19a7a, type: 2}

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0689cd75e11c7e94fb764a280a36bf02, type: 3}
   m_Name: C_1_Electric
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Player.CharacterDefinition
-  rosterScreenPortrait: {fileID: -36922474833775500, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
+  unlockCost: 0
+  rosterScreenPortrait: {fileID: -663135002, guid: a2742a3d342be0f4c8ab38804aceb1bd, type: 3}
   previewPrefab: {fileID: 4607982519050748198, guid: 498b3d80bfb7922488a68762ef9cf61f, type: 3}
   prefab: {fileID: 1331891463641475742, guid: 2eb501f6480bceb4794f194875ac1a16, type: 3}
   initialAttackLoadout: {fileID: 11400000, guid: 4ff62da2157107445ad3ab9e192a912e, type: 2}

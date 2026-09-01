@@ -90,11 +90,11 @@ namespace Game.UI.Upgrades
             tooltip?.Refresh(def, currentLevel, nodePosition);
         }
 
-        public void ResetUpgrades()
+        /*public void ResetUpgrades()
         {
             _upgradeManager.ResetUpgrades();
             Refresh();
-        }
+        }*/
         
         private void RefreshNodes()
         {

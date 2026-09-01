@@ -26,9 +26,9 @@ namespace Core.Gameplay.Entity.Subsystem
         
         protected override void OnInitialize()
         {
-            ResetHealth();
-            
             _modifiers = GetComponent<EntityModifierSubsystem>();
+            
+            ResetHealth();
         }
         
         protected override void OnDeinitialize()
@@ -73,6 +73,21 @@ namespace Core.Gameplay.Entity.Subsystem
             }
 
             return Mathf.Max(1, result);
+        }
+        
+        public void RefreshMaxHealthAfterModifierChange()
+        {
+            int previousMaxHealth = _maxHealth;
+
+            int newMaxHealth = ResolveMaxHealth();
+
+            int difference = newMaxHealth - previousMaxHealth;
+
+            _maxHealth = newMaxHealth;
+
+            _currentHealth = Mathf.Clamp(_currentHealth + difference, 0, _maxHealth);
+
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
         
         // ---------------------------

@@ -44,7 +44,7 @@ namespace Core.Upgrades
 
         public string GetEffectDescriptionForLevel(int level)
         {
-            if (level < 0 || level > levelDescriptions.Length)
+            if (level <= 0 || level > levelDescriptions.Length)
                 return string.Empty;
             
             return levelDescriptions[level - 1];

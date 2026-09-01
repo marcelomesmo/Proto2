@@ -43,7 +43,8 @@ namespace Core.Services
             UpgradeManager = new UpgradeManager();
             UpgradeManager.Initialize(
                 ServiceLocator.Get<ISaveManager>(),
-                ServiceLocator.Get<IUpgradeDatabase>());
+                ServiceLocator.Get<IUpgradeDatabase>(),
+                UpgradeRuntimeManager);
         }
         
         // --------------------------------------------------
